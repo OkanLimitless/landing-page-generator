@@ -1,4 +1,4 @@
-import { generateVSLPage, generateProductPage } from '@/lib/generators';
+import { generateVSLPage, generateProductPage } from '../../lib/generators';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
