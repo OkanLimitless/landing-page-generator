@@ -1,15 +1,20 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['*'],
   },
-  webpack(config) {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, './src'),
+      '@': path.join(__dirname, 'src'),
     };
     return config;
+  },
+  experimental: {
+    appDir: false,
   },
 }
 
