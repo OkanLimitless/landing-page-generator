@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { Button } from '../components/ui/button';
 import { Save, Download, Upload } from 'lucide-react';
 import VSLForm from './forms/VSLForm';
 import ProductForm from './forms/ProductForm';
@@ -39,7 +39,6 @@ const Generator = () => {
       if (!response.ok) throw new Error('Generation failed');
       
       const result = await response.json();
-      // Handle successful generation
     } catch (error) {
       console.error('Error generating landing page:', error);
     }
@@ -60,7 +59,6 @@ const Generator = () => {
 
             <TabsContent value="vsl">
               <VSLForm
-                onSubmit={handleGenerate}
                 formData={vslFormData}
                 setFormData={setVslFormData}
               />
@@ -68,7 +66,6 @@ const Generator = () => {
 
             <TabsContent value="product">
               <ProductForm
-                onSubmit={handleGenerate}
                 formData={productFormData}
                 setFormData={setProductFormData}
               />
@@ -76,11 +73,11 @@ const Generator = () => {
           </Tabs>
 
           <div className="mt-6 flex justify-end space-x-4">
-            <Button variant="outline" onClick={() => {}}>
+            <Button variant="outline">
               <Save className="mr-2 h-4 w-4" />
               Save Template
             </Button>
-            <Button variant="outline" onClick={() => {}}>
+            <Button variant="outline">
               <Download className="mr-2 h-4 w-4" />
               Download
             </Button>
