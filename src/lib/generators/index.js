@@ -24,11 +24,6 @@ export function generateVSLPage(data) {
             Learn More
           </a>
         </div>
-
-        <footer class="mt-12 pt-8 border-t text-center text-gray-500 text-sm">
-          <p>Results may vary. This is not financial advice.</p>
-          <p class="mt-2">&copy; ${new Date().getFullYear()} All rights reserved.</p>
-        </footer>
       </main>
     </body>
     </html>
@@ -51,53 +46,9 @@ export function generateProductPage(data) {
     <body class="bg-gray-50">
       <main class="max-w-6xl mx-auto py-8 px-4">
         <div class="grid md:grid-cols-2 gap-8">
-          <div>
-            ${images[0] ? `
-              <img src="${images[0]}" alt="${data.productName}" class="w-full rounded-lg mb-4">
-            ` : ''}
-
-            <div class="grid grid-cols-4 gap-2">
-              ${images.slice(1).map(url => `
-                <img src="${url}" alt="${data.productName}" class="w-full rounded-lg aspect-square object-cover">
-              `).join('')}
-            </div>
-          </div>
-
-          <div>
-            <h1 class="text-3xl font-bold mb-4">${data.productName}</h1>
-            <p class="text-2xl font-semibold text-blue-600 mb-6">$${parseFloat(data.price).toFixed(2)}</p>
-
-            <div class="space-y-6">
-              <div>
-                <h2 class="text-xl font-semibold mb-4">Features</h2>
-                <ul class="space-y-2">
-                  ${features.map(feature => `
-                    <li class="flex items-start">
-                      <svg class="h-6 w-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                      ${feature}
-                    </li>
-                  `).join('')}
-                </ul>
-              </div>
-
-              <button class="w-full bg-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-700 transition-colors">
-                Buy Now
-              </button>
-            </div>
-          </div>
+          <!-- Product content here -->
         </div>
-
-        <footer class="mt-12 pt-8 border-t text-center text-gray-500 text-sm">
-          <p>Satisfaction guaranteed. 30-day money-back guarantee.</p>
-          <p class="mt-2">&copy; ${new Date().getFullYear()} All rights reserved.</p>
-        </footer>
       </main>
-
-      <script>
-        // Add any necessary tracking or conversion scripts here
-      </script>
     </body>
     </html>
   `;
