@@ -1,5 +1,4 @@
-import React from 'react';
-import Generator from '../components/Generator';
+import Generator from '@/components/Generator';
 
 export default function Home() {
   return (
