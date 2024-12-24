@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, Download, Upload } from 'lucide-react';
+import { Download } from 'lucide-react';
 
 const VSLForm = ({ formData, setFormData }) => {
   const handleChange = (e) => {
@@ -49,6 +49,17 @@ const VSLForm = ({ formData, setFormData }) => {
           onChange={handleChange}
           className="w-full p-2 border rounded"
           placeholder="Enter offer URL"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Google Ads Conversion ID</label>
+        <input
+          type="text"
+          name="gtagId"
+          value={formData.gtagId}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXXXXXXXX"
         />
       </div>
     </div>
@@ -105,6 +116,17 @@ const ProductForm = ({ formData, setFormData }) => {
           placeholder="Enter features (one per line)"
         />
       </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Google Ads Conversion ID</label>
+        <input
+          type="text"
+          name="gtagId"
+          value={formData.gtagId}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXXXXXXXX"
+        />
+      </div>
     </div>
   );
 };
@@ -115,15 +137,29 @@ const Generator = () => {
     headline: '',
     description: '',
     thumbnailUrl: '',
-    offerUrl: ''
+    offerUrl: '',
+    gtagId: ''
   });
   
   const [productFormData, setProductFormData] = useState({
     productName: '',
     price: '',
     productImages: '',
-    features: ''
+    features: '',
+    gtagId: ''
   });
+
+  const downloadHtml = (html, type) => {
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${type}-landing-page.html`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
 
   const handleGenerate = async () => {
     const formData = activeTab === 'vsl' ? vslFormData : productFormData;
@@ -142,7 +178,9 @@ const Generator = () => {
       if (!response.ok) throw new Error('Generation failed');
       
       const result = await response.json();
-      console.log(result);
+      if (result.html) {
+        downloadHtml(result.html, activeTab);
+      }
     } catch (error) {
       console.error('Error:', error);
     }
@@ -184,20 +222,12 @@ const Generator = () => {
           )}
 
           <div className="mt-6 flex justify-end space-x-4">
-            <button className="px-4 py-2 border rounded hover:bg-gray-50">
-              <Save className="inline-block w-4 h-4 mr-2" />
-              Save
-            </button>
-            <button className="px-4 py-2 border rounded hover:bg-gray-50">
-              <Download className="inline-block w-4 h-4 mr-2" />
-              Download
-            </button>
             <button 
               onClick={handleGenerate}
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
-              <Upload className="inline-block w-4 h-4 mr-2" />
-              Generate
+              <Download className="inline-block w-4 h-4 mr-2" />
+              Generate & Download
             </button>
           </div>
         </div>
