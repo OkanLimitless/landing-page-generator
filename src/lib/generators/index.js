@@ -116,6 +116,7 @@ export function generateVSLPage(data) {
                 max-width: 700px;
                 color: #fff;
                 padding: 0 20px;
+                text-align: left;
             }
 
             .description p {
@@ -166,12 +167,21 @@ export function generateVSLPage(data) {
 
                 .video-container {
                     margin: 1.5rem auto;
+                    border-radius: 8px;
                 }
 
                 .cta-button {
                     width: 95%;
                     padding: 0.875rem;
                     margin: 1.5rem auto;
+                }
+
+                .footer {
+                    text-align: center;
+                }
+
+                .footer-links {
+                    justify-content: center;
                 }
             }
         </style>
@@ -228,5 +238,3 @@ export function generateVSLPage(data) {
     </html>
   `;
 }
-
-[Previous Product Page Generator Code...]
