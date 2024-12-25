@@ -157,6 +157,11 @@ export function generateVSLPage(data) {
                 color: rgba(255, 255, 255, 0.7);
                 text-decoration: none;
                 padding: 0.5rem;
+                transition: color 0.3s ease;
+            }
+
+            .footer-links a:hover {
+                color: ${styles.colors.primary};
             }
 
             .footer-disclaimer {
@@ -230,8 +235,8 @@ export function generateVSLPage(data) {
         <footer id="${ids.footer}">
             <div class="container">
                 <div class="footer-links">
-                    <a href="#" onclick="return false;">Privacy</a>
-                    <a href="#" onclick="return false;">Terms</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
                 </div>
                 <div class="footer-disclaimer">
                     This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google. 
