@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Download } from 'lucide-react';
-import { designSystem } from '../lib/utils/design-system';
+import JSZip from 'jszip';
 
 const VSLForm = ({ formData, setFormData }) => {
   const handleChange = (e) => {
@@ -110,8 +110,14 @@ const Generator = () => {
     ctaText: 'Watch FREE Video Guide Now'
   });
 
+  const generateRandomId = () => {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    return Array.from({ length: 8 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  };
+
   const handleGenerate = async () => {
     try {
+      console.log('Generating pages...');
       const response = await fetch('/api/generate', {
         method: 'POST',
         headers: {
@@ -119,35 +125,44 @@ const Generator = () => {
         },
         body: JSON.stringify({
           type: 'vsl',
-          data: {
-            ...vslFormData,
-            theme: designSystem.getRandomTheme(),
-            font: designSystem.getRandomFont(),
-            uniqueIds: {
-              container: designSystem.generateRandomId('container'),
-              video: designSystem.generateRandomId('video'),
-              cta: designSystem.generateRandomId('cta')
-            }
-          }
+          data: vslFormData
         }),
       });
       
       if (!response.ok) throw new Error('Generation failed');
       
       const result = await response.json();
-      if (result.html) {
-        const blob = new Blob([result.html], { type: 'text/html' });
-        const url = window.URL.createObjectURL(blob);
+      console.log('Generation result:', result);
+
+      if (result.html && result.privacy && result.terms) {
+        const zip = new JSZip();
+        const folderId = generateRandomId();
+        console.log('Generated folder ID:', folderId);
+
+        // Create folder and add files
+        const folder = zip.folder(folderId);
+        folder.file('index.html', result.html);
+        folder.file('privacy.html', result.privacy);
+        folder.file('terms.html', result.terms);
+
+        console.log('Creating ZIP file...');
+        const content = await zip.generateAsync({ type: 'blob' });
+        
+        // Download ZIP file
+        const url = window.URL.createObjectURL(content);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `vsl-landing-page-${Date.now()}.html`;
+        a.download = `${folderId}.zip`;
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
+        console.log('ZIP file downloaded');
+      } else {
+        throw new Error('Missing required files in response');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error generating files:', error);
     }
   };
 
