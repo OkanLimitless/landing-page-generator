@@ -1,5 +1,13 @@
 export function generateVSLPage(data) {
   const [gtagAccount, gtagConversion] = (data.gtagId || '').split('/');
+  
+  // Generate random IDs for elements
+  const ids = {
+    container: `container_${Math.random().toString(36).substr(2, 9)}`,
+    video: `video_${Math.random().toString(36).substr(2, 9)}`,
+    cta: `cta_${Math.random().toString(36).substr(2, 9)}`,
+    main: `main_${Math.random().toString(36).substr(2, 9)}`
+  };
 
   return `
     <!DOCTYPE html>
@@ -9,6 +17,9 @@ export function generateVSLPage(data) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${data.headline}</title>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+        ${data.trackingScript || ''}
+        
         ${gtagAccount ? `
         <!-- Global site tag (gtag.js) - Google Ads -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>
@@ -47,7 +58,7 @@ export function generateVSLPage(data) {
                 flex-direction: column;
             }
 
-            .container {
+            #${ids.container} {
                 width: 90%;
                 max-width: 800px;
                 margin: 0 auto;
@@ -70,7 +81,7 @@ export function generateVSLPage(data) {
                 margin: 0.5rem 0;
             }
 
-            .video-container {
+            #${ids.video} {
                 width: 100%;
                 max-width: 700px;
                 margin: 2rem auto;
@@ -78,16 +89,22 @@ export function generateVSLPage(data) {
                 border-radius: 12px;
                 overflow: hidden;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                cursor: pointer;
+                transition: transform 0.3s ease;
             }
 
-            .video-container img {
+            #${ids.video}:hover {
+                transform: translateY(-2px);
+            }
+
+            #${ids.video} img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 display: block;
             }
 
-            .cta-button {
+            #${ids.cta} {
                 display: block;
                 background: #ffd700;
                 color: #000;
@@ -104,7 +121,7 @@ export function generateVSLPage(data) {
                 box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
             }
 
-            .cta-button:hover {
+            #${ids.cta}:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
             }
@@ -156,7 +173,7 @@ export function generateVSLPage(data) {
             }
 
             @media (max-width: 768px) {
-                .container {
+                #${ids.container} {
                     width: 95%;
                     padding: 15px;
                 }
@@ -165,12 +182,12 @@ export function generateVSLPage(data) {
                     padding: 0 15px;
                 }
 
-                .video-container {
+                #${ids.video} {
                     margin: 1.5rem auto;
                     border-radius: 8px;
                 }
 
-                .cta-button {
+                #${ids.cta} {
                     width: 95%;
                     padding: 0.875rem;
                     margin: 1.5rem auto;
@@ -187,22 +204,25 @@ export function generateVSLPage(data) {
         </style>
     </head>
     <body>
-        <main class="container">
+        <main id="${ids.main}" class="container">
             <h1 class="headline">
                 ${data.headline.split(':')[0]}:
                 <span class="highlight">${data.headline.split(':')[1] || ''}</span>
             </h1>
 
-            <div class="video-container">
+            <div 
+                id="${ids.video}" 
+                onclick="${gtagConversion ? `gtag_report_conversion('${data.offerUrl}')` : `window.location.href='${data.offerUrl}'`}"
+            >
                 <img src="${data.thumbnailUrl}" alt="Preview">
             </div>
 
             <a 
                 href="${data.offerUrl}" 
-                class="cta-button"
+                id="${ids.cta}"
                 ${gtagConversion ? `onclick="return gtag_report_conversion('${data.offerUrl}');"` : ''}
             >
-                Watch FREE Video Guide Now
+                ${data.ctaText || 'Watch FREE Video Guide Now'}
             </a>
 
             <div class="description">
@@ -211,10 +231,11 @@ export function generateVSLPage(data) {
 
             <a 
                 href="${data.offerUrl}" 
+                id="${ids.cta}-2"
                 class="cta-button"
                 ${gtagConversion ? `onclick="return gtag_report_conversion('${data.offerUrl}');"` : ''}
             >
-                Watch FREE Video Guide Now
+                ${data.ctaText || 'Watch FREE Video Guide Now'}
             </a>
         </main>
 
