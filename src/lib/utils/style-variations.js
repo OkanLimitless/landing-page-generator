@@ -1,163 +1,123 @@
-// Different ways to implement the same styles
-const styleImplementations = {
-  // Center content variations
-  centerContent: [
-    // Flex
-    `
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    `,
-    // Grid
-    `
-      display: grid;
-      place-items: center;
-    `,
-    // Position absolute
-    `
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    `
+const colors = {
+  accents: [
+    { primary: '#ffd700', secondary: '#ff9d00', text: '#000000' },  // Gold
+    { primary: '#4a90e2', secondary: '#357abd', text: '#ffffff' },  // Ocean
+    { primary: '#50c878', secondary: '#3da75c', text: '#ffffff' },  // Emerald
+    { primary: '#e94560', secondary: '#c13850', text: '#ffffff' },  // Ruby
+    { primary: '#9b59b6', secondary: '#8e44ad', text: '#ffffff' }   // Amethyst
   ],
-
-  // Button style variations
-  buttonStyles: [
-    // Gradient with shadow
-    (colors) => `
-      background: ${colors.buttonGradient};
-      color: #000;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      }
-    `,
-    // Solid with border
-    (colors) => `
-      background: ${colors.primary};
-      color: #000;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      border: 2px solid ${colors.accent};
-      transition: all 0.3s ease;
-      &:hover {
-        background: ${colors.accent};
-        border-color: ${colors.primary};
-      }
-    `,
-    // Modern with glow
-    (colors) => `
-      background: ${colors.primary};
-      color: #000;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      box-shadow: 0 0 20px ${colors.accent}40;
-      transition: all 0.3s ease;
-      &:hover {
-        box-shadow: 0 0 30px ${colors.accent}60;
-        transform: translateY(-2px);
-      }
-    `
-  ],
-
-  // Container variations
-  containerStyles: [
-    // Max-width centered
-    `
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    `,
-    // Fluid container
-    `
-      width: min(90%, 1200px);
-      margin-inline: auto;
-      padding-inline: clamp(1rem, 5vw, 2rem);
-    `,
-    // Responsive container
-    `
-      width: 100%;
-      padding: 0 max(5vw, 1rem);
-      margin: 0 auto;
-      max-width: min(1200px, 95vw);
-    `
-  ],
-
-  // Image container variations
-  imageContainerStyles: [
-    // Aspect ratio with overflow
-    `
-      aspect-ratio: 16/9;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    `,
-    // Padding-bottom technique
-    `
-      position: relative;
-      padding-bottom: 56.25%;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      > img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    `,
-    // Grid technique
-    `
-      display: grid;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      > img {
-        width: 100%;
-        aspect-ratio: 16/9;
-        object-fit: cover;
-      }
-    `
-  ],
-
-  // Text styles variations
-  textStyles: [
-    // Classic
-    `
-      font-size: clamp(1rem, 3vw, 1.1rem);
-      line-height: 1.8;
-      letter-spacing: 0.01em;
-    `,
-    // Modern
-    `
-      font-size: min(3vw, 1.1rem);
-      line-height: calc(1em + 0.5rem);
-      letter-spacing: 0.02em;
-    `,
-    // Responsive
-    `
-      font-size: clamp(1rem, 2vw + 0.5rem, 1.1rem);
-      line-height: 1.8;
-      letter-spacing: max(0.01em, 0.1vw);
-    `
+  backgrounds: [
+    { main: '#17203f', overlay: 'linear-gradient(45deg, #17203f, #1c2951)' },
+    { main: '#1a1a2e', overlay: 'linear-gradient(135deg, #1a1a2e, #16213e)' },
+    { main: '#1b2f1b', overlay: 'linear-gradient(90deg, #1b2f1b, #243524)' },
+    { main: '#2d142c', overlay: 'linear-gradient(180deg, #2d142c, #391a39)' }
   ]
 };
 
-// Get random variation
-function getRandomVariation(variations) {
-  return variations[Math.floor(Math.random() * variations.length)];
-}
+const fonts = [
+  {
+    heading: "'Plus Jakarta Sans', sans-serif",
+    body: "'Inter', sans-serif",
+    weights: { heading: 700, body: 400 },
+    urls: [
+      'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap',
+      'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap'
+    ]
+  },
+  {
+    heading: "'Outfit', sans-serif",
+    body: "'Source Sans Pro', sans-serif",
+    weights: { heading: 600, body: 400 },
+    urls: [
+      'https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap',
+      'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap'
+    ]
+  },
+  {
+    heading: "'Manrope', sans-serif",
+    body: "'Work Sans', sans-serif",
+    weights: { heading: 700, body: 400 },
+    urls: [
+      'https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap',
+      'https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500&display=swap'
+    ]
+  }
+];
 
-export {
-  styleImplementations,
-  getRandomVariation
+const buttonStyles = [
+  (colors) => `
+    background: ${colors.primary};
+    color: ${colors.text};
+    box-shadow: 0 4px 15px ${colors.primary}40;
+    transform-origin: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px ${colors.primary}60;
+    }
+  `,
+  (colors) => `
+    background: linear-gradient(45deg, ${colors.primary}, ${colors.secondary});
+    color: ${colors.text};
+    box-shadow: 0 4px 15px ${colors.primary}30;
+    transition: all 0.3s ease;
+    &:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 25px ${colors.primary}50;
+    }
+  `,
+  (colors) => `
+    background: linear-gradient(135deg, ${colors.secondary}, ${colors.primary}, ${colors.secondary});
+    background-size: 200% auto;
+    color: ${colors.text};
+    box-shadow: 0 4px 15px ${colors.primary}30;
+    transition: all 0.3s ease;
+    &:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px ${colors.primary}50;
+    }
+  `
+];
+
+const imageStyles = [
+  `
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+  `,
+  `
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  `,
+  `
+    border-radius: 20px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  `
+];
+
+const containerStyles = [
+  { maxWidth: '800px', padding: '40px 20px' },
+  { maxWidth: '850px', padding: '35px 25px' },
+  { maxWidth: '900px', padding: '30px 30px' }
+];
+
+const getRandomStyle = () => {
+  return {
+    colors: colors.accents[Math.floor(Math.random() * colors.accents.length)],
+    background: colors.backgrounds[Math.floor(Math.random() * colors.backgrounds.length)],
+    fonts: fonts[Math.floor(Math.random() * fonts.length)],
+    button: buttonStyles[Math.floor(Math.random() * buttonStyles.length)],
+    image: imageStyles[Math.floor(Math.random() * imageStyles.length)],
+    container: containerStyles[Math.floor(Math.random() * containerStyles.length)],
+    borderRadius: Math.floor(Math.random() * 3) * 4 + 8 + 'px',  // 8px, 12px, or 16px
+    spacing: {
+      vertical: Math.floor(Math.random() * 3) * 0.5 + 1.5 + 'rem',  // 1.5rem to 2.5rem
+      horizontal: Math.floor(Math.random() * 3) * 0.25 + 1 + 'rem'  // 1rem to 1.5rem
+    }
+  };
 };
+
+export { getRandomStyle };
