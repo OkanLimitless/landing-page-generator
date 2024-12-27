@@ -75,26 +75,18 @@ export function generateEcomPage(data) {
             border-radius: 1rem;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+          }
+
+          .${ids.video}:hover {
+            transform: translateY(-2px);
           }
 
           .${ids.video} img {
             width: 100%;
             height: auto;
             display: block;
-          }
-
-          .${ids.video} .play {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: #e74c3c;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
           }
 
           .${ids.video} .badge {
@@ -186,13 +178,8 @@ export function generateEcomPage(data) {
             </div>
           </div>
 
-          <div class="${ids.video}">
+          <div class="${ids.video}" onclick="window.location.href='${data.offerUrl}'; ${gtagAccount ? 'gtag_report_conversion();' : ''}">
             <img src="${data.productImages.split(',')[0]}" alt="${data.productName}" />
-            <div class="play">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
             <div class="badge">SAVE 70%</div>
           </div>
 
