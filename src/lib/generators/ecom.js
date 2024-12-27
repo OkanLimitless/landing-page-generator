@@ -2,10 +2,28 @@ import { getRandomStyle } from '../utils/style-variations';
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
+const colors = [
+  { primary: '#9257A6', secondary: '#4287F5', text: '#ffffff', bg: '#18192A' },
+  { primary: '#FF6B6B', secondary: '#4ECDC4', text: '#ffffff', bg: '#2D3436' },
+  { primary: '#6C5CE7', secondary: '#00B894', text: '#ffffff', bg: '#1E272E' },
+  { primary: '#F368E0', secondary: '#48DBFB', text: '#ffffff', bg: '#222F3E' },
+];
+
+const fonts = [
+  { body: 'system-ui, -apple-system, sans-serif' },
+  { body: 'Inter, sans-serif' },
+  { body: 'Outfit, sans-serif' },
+];
+
+const getRandomItem = arr => arr[Math.floor(Math.random() * arr.length)];
+
 export function generateEcomPage(data) {
   try {
     const [gtagAccount] = (data.gtagId || '').split('/');
-    const styles = data.styles || getRandomStyle();
+    const style = {
+      colors: getRandomItem(colors),
+      fonts: getRandomItem(fonts)
+    };
     
     const ids = {
       container: `c_${generateId()}`,
@@ -13,8 +31,11 @@ export function generateEcomPage(data) {
       content: `m_${generateId()}`,
       video: `v_${generateId()}`,
       button: `b_${generateId()}`,
+      features: `ft_${generateId()}`,
       footer: `f_${generateId()}`
     };
+
+    const features = (data.features || '').split('\n').filter(Boolean);
 
     return `<!DOCTYPE html>
       <html lang="en">
@@ -26,9 +47,9 @@ export function generateEcomPage(data) {
           * { margin: 0; padding: 0; box-sizing: border-box; }
 
           body {
-            background: rgb(24, 26, 42);
-            color: #fff;
-            font-family: system-ui, -apple-system, sans-serif;
+            background: ${style.colors.bg};
+            color: ${style.colors.text};
+            font-family: ${style.fonts.body};
             line-height: 1.5;
             min-height: 100vh;
             display: flex;
@@ -36,8 +57,8 @@ export function generateEcomPage(data) {
           }
 
           .urgency-bar {
-            background: rgb(146, 87, 166);
-            color: white;
+            background: ${style.colors.primary};
+            color: ${style.colors.text};
             text-align: center;
             padding: 0.75rem;
             font-weight: 500;
@@ -50,12 +71,8 @@ export function generateEcomPage(data) {
             text-align: center;
           }
 
-          .${ids.header} {
-            margin: 2rem 0;
-          }
-
           .${ids.header} h1 {
-            color: rgb(146, 87, 166);
+            color: ${style.colors.primary};
             font-size: 2.5rem;
             margin-bottom: 1rem;
             font-weight: 600;
@@ -66,6 +83,7 @@ export function generateEcomPage(data) {
             flex-direction: column;
             gap: 0.5rem;
             opacity: 0.9;
+            margin: 1.5rem 0;
           }
 
           .${ids.video} {
@@ -93,17 +111,39 @@ export function generateEcomPage(data) {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background: rgb(66, 135, 245);
-            color: white;
+            background: ${style.colors.secondary};
+            color: ${style.colors.text};
             padding: 0.5rem 1rem;
             border-radius: 2rem;
             font-weight: bold;
           }
 
+          .${ids.features} {
+            margin: 2rem auto;
+            display: grid;
+            gap: 1rem;
+            max-width: 600px;
+          }
+
+          .${ids.features} .feature {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-align: left;
+          }
+
+          .${ids.features} .icon {
+            color: ${style.colors.primary};
+            flex-shrink: 0;
+          }
+
           .${ids.button} {
             display: block;
-            background: rgb(146, 87, 166);
-            color: white;
+            background: ${style.colors.primary};
+            color: ${style.colors.text};
             text-decoration: none;
             padding: 1rem 2rem;
             border-radius: 0.5rem;
@@ -116,7 +156,7 @@ export function generateEcomPage(data) {
 
           .${ids.button}:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(146, 87, 166, 0.4);
+            box-shadow: 0 4px 15px ${style.colors.primary}40;
           }
 
           .trust-icons {
@@ -131,6 +171,7 @@ export function generateEcomPage(data) {
             margin-top: auto;
             text-align: center;
             padding: 2rem;
+            background: rgba(0,0,0,0.2);
           }
 
           .${ids.footer} .links {
@@ -151,16 +192,9 @@ export function generateEcomPage(data) {
           }
 
           @media (max-width: 640px) {
-            .${ids.container} {
-              padding: 1rem;
-            }
-            .${ids.header} h1 {
-              font-size: 2rem;
-            }
-            .trust-icons {
-              flex-direction: column;
-              gap: 1rem;
-            }
+            .${ids.container} { padding: 1rem; }
+            .${ids.header} h1 { font-size: 2rem; }
+            .trust-icons { flex-direction: column; gap: 1rem; }
           }
         </style>
       </head>
@@ -181,6 +215,15 @@ export function generateEcomPage(data) {
           <div class="${ids.video}" onclick="window.location.href='${data.offerUrl}'; ${gtagAccount ? 'gtag_report_conversion();' : ''}">
             <img src="${data.productImages.split(',')[0]}" alt="${data.productName}" />
             <div class="badge">SAVE 70%</div>
+          </div>
+
+          <div class="${ids.features}">
+            ${features.map(feature => `
+              <div class="feature">
+                <span class="icon">✓</span>
+                <span>${feature}</span>
+              </div>
+            `).join('')}
           </div>
 
           <a href="${data.offerUrl}" class="${ids.button}" onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}">
