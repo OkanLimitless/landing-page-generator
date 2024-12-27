@@ -1,7 +1,6 @@
-import { generateVSLPage } from '../../lib/generators/vsl';
-import { generateEcomPage } from '../../lib/generators/ecom';
-import { generatePrivacyPage, generateTermsPage } from '../../lib/utils/legal-pages';
-import { getRandomStyle } from '../../lib/utils/style-variations';
+import { generateVSLPage, generateEcomPage } from '@/lib/generators';
+import { generatePrivacyPage, generateTermsPage } from '@/lib/utils/legal-pages';
+import { getRandomStyle } from '@/lib/utils/style-variations';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -10,10 +9,10 @@ export default async function handler(req, res) {
 
   try {
     const { type, data } = req.body;
-    console.log('Generating pages for type:', type);
+    console.log('Generating pages for type:', type, 'with data:', data);
     
     const styles = getRandomStyle();
-    console.log('Generated styles');
+    console.log('Generated styles:', styles);
     
     let html;
     if (type === 'vsl') {
@@ -43,6 +42,10 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Generation error:', error);
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ 
+      message: error.message,
+      stack: error.stack,
+      type: error.type
+    });
   }
 }
