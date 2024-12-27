@@ -1,5 +1,4 @@
-import { default as generateVSLPage } from '@/lib/generators/vsl';
-import { default as generateEcomPage } from '@/lib/generators/ecom';
+import { generateVSLPage, generateEcomPage } from '@/lib/generators';
 import { generatePrivacyPage, generateTermsPage } from '@/lib/utils/legal-pages';
 import { getRandomStyle } from '@/lib/utils/style-variations';
 
@@ -66,7 +65,7 @@ export default async function handler(req, res) {
       message: error.message,
       stack: error.stack,
       name: error.name,
-      details: JSON.stringify(error)
+      details: JSON.stringify(error, Object.getOwnPropertyNames(error))
     });
   }
 }
