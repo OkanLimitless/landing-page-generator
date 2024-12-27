@@ -32,53 +32,48 @@ const fonts = [
       'https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap',
       'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap'
     ]
-  },
-  {
-    heading: "'Manrope', sans-serif",
-    body: "'Work Sans', sans-serif",
-    weights: { heading: 700, body: 400 },
-    urls: [
-      'https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap',
-      'https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500&display=swap'
-    ]
   }
 ];
 
-const buttonStyles = [
-  (colors) => `
-    background: ${colors.primary};
-    color: ${colors.text};
-    box-shadow: 0 4px 15px ${colors.primary}40;
-    transform-origin: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    &:hover {
+const buttonStyles = {
+  base: [
+    (colors) => `
+      background: ${colors.primary};
+      color: ${colors.text};
+      box-shadow: 0 4px 15px ${colors.primary}40;
+      transform-origin: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    `,
+    (colors) => `
+      background: linear-gradient(45deg, ${colors.primary}, ${colors.secondary});
+      color: ${colors.text};
+      box-shadow: 0 4px 15px ${colors.primary}30;
+      transition: all 0.3s ease;
+    `,
+    (colors) => `
+      background: linear-gradient(135deg, ${colors.secondary}, ${colors.primary}, ${colors.secondary});
+      background-size: 200% auto;
+      color: ${colors.text};
+      box-shadow: 0 4px 15px ${colors.primary}30;
+      transition: all 0.3s ease;
+    `
+  ],
+  hover: [
+    (colors) => `
       transform: translateY(-2px);
       box-shadow: 0 6px 20px ${colors.primary}60;
-    }
-  `,
-  (colors) => `
-    background: linear-gradient(45deg, ${colors.primary}, ${colors.secondary});
-    color: ${colors.text};
-    box-shadow: 0 4px 15px ${colors.primary}30;
-    transition: all 0.3s ease;
-    &:hover {
+    `,
+    (colors) => `
       transform: translateY(-2px) scale(1.02);
       box-shadow: 0 6px 25px ${colors.primary}50;
-    }
-  `,
-  (colors) => `
-    background: linear-gradient(135deg, ${colors.secondary}, ${colors.primary}, ${colors.secondary});
-    background-size: 200% auto;
-    color: ${colors.text};
-    box-shadow: 0 4px 15px ${colors.primary}30;
-    transition: all 0.3s ease;
-    &:hover {
+    `,
+    (colors) => `
       background-position: right center;
       transform: translateY(-2px);
       box-shadow: 0 6px 20px ${colors.primary}50;
-    }
-  `
-];
+    `
+  ]
+};
 
 const imageStyles = [
   `
@@ -104,37 +99,49 @@ const containerStyles = [
   { maxWidth: '900px', padding: '30px 30px' }
 ];
 
-const getRandomVariation = (variations) => {
-  console.log('getRandomVariation input:', variations);
-  if (!Array.isArray(variations) || variations.length === 0) {
-    console.error('Invalid or empty variations array:', variations);
-    return null;
+const getRandomVariation = (variations, defaultValue = null) => {
+  try {
+    if (!variations || !Array.isArray(variations) || variations.length === 0) {
+      console.warn('Invalid variations array, using default:', defaultValue);
+      return defaultValue;
+    }
+    return variations[Math.floor(Math.random() * variations.length)];
+  } catch (error) {
+    console.error('Error in getRandomVariation:', error);
+    return defaultValue;
   }
-  return variations[Math.floor(Math.random() * variations.length)];
 };
 
 const getRandomStyle = () => {
-  console.log('getRandomStyle called');
-  const accent = getRandomVariation(colors.accents);
-  const background = getRandomVariation(colors.backgrounds);
-  const font = getRandomVariation(fonts);
-  const button = getRandomVariation(buttonStyles);
-  const image = getRandomVariation(imageStyles);
-  const container = getRandomVariation(containerStyles);
+  try {
+    const styleIndex = Math.floor(Math.random() * buttonStyles.base.length);
+    const accent = getRandomVariation(colors.accents, colors.accents[0]);
+    const background = getRandomVariation(colors.backgrounds, colors.backgrounds[0]);
+    const font = getRandomVariation(fonts, fonts[0]);
+    const image = getRandomVariation(imageStyles, imageStyles[0]);
+    const container = getRandomVariation(containerStyles, containerStyles[0]);
 
-  return {
-    colors: accent,
-    background,
-    fonts: font,
-    button: (colors) => button(colors || accent),
-    image,
-    container,
-    borderRadius: Math.floor(Math.random() * 3) * 4 + 8 + 'px',  // 8px, 12px, or 16px
-    spacing: {
-      vertical: Math.floor(Math.random() * 3) * 0.5 + 1.5 + 'rem',  // 1.5rem to 2.5rem
-      horizontal: Math.floor(Math.random() * 3) * 0.25 + 1 + 'rem'  // 1rem to 1.5rem
-    }
-  };
+    const buttonBase = buttonStyles.base[styleIndex];
+    const buttonHover = buttonStyles.hover[styleIndex];
+
+    return {
+      colors: accent,
+      background,
+      fonts: font,
+      button: (colors) => buttonBase(colors || accent),
+      buttonHover: (colors) => `.cta-button:hover { ${buttonHover(colors || accent)} }`,
+      image,
+      container,
+      borderRadius: '12px',
+      spacing: {
+        vertical: '1.5rem',
+        horizontal: '1rem'
+      }
+    };
+  } catch (error) {
+    console.error('Error in getRandomStyle:', error);
+    return null;
+  }
 };
 
 export { getRandomStyle, getRandomVariation, colors, fonts, buttonStyles, imageStyles, containerStyles };
