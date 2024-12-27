@@ -22,8 +22,17 @@ export default async function handler(req, res) {
     console.log('Type:', type);
     console.log('Data:', JSON.stringify(data, null, 2));
     
-    const styles = getRandomStyle();
-    console.log('Generated styles:', JSON.stringify(styles, null, 2));
+    let styles;
+    try {
+      styles = getRandomStyle();
+      console.log('Generated styles:', JSON.stringify(styles, null, 2));
+    } catch (error) {
+      console.error('Error generating styles:', {
+        error: error.message,
+        stack: error.stack
+      });
+      return res.status(500).json({ message: 'Error generating styles', error: error.message, stack: error.stack });
+    }
     
     let html;
     try {
