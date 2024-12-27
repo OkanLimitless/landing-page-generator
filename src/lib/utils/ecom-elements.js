@@ -91,15 +91,24 @@ const ctaButtons = [
 ];
 
 const getRandomVariation = (variations) => {
-  if (!Array.isArray(variations)) {
-    console.error('Invalid variations array:', variations);
+  try {
+    if (!Array.isArray(variations)) {
+      console.error('Invalid variations array:', variations);
+      return null;
+    }
+    if (!variations.length) {
+        console.error('Empty variations array');
+        return null;
+    }
+    return variations[Math.floor(Math.random() * variations.length)];
+  } catch (error) {
+    console.error('Error in getRandomVariation:', {
+      error: error.message,
+      stack: error.stack,
+      variations: variations
+    });
     return null;
   }
-  if (!variations.length) {
-      console.error('Empty variations array');
-      return null;
-  }
-  return variations[Math.floor(Math.random() * variations.length)];
 };
 
 export { trustSignals, benefitStyles, priceDisplays, ctaButtons, getRandomVariation, getElementByType };
