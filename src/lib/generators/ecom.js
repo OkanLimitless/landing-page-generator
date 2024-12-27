@@ -8,18 +8,25 @@ export function generateEcomPage(data) {
   console.log('Ecom styles:', styles);
   
   // Get random variations
+  console.log('Ecom trustSignals.badges.content:', trustSignals.badges.content);
   const trustBadges = getRandomVariation(trustSignals.badges.content);
   console.log('Ecom trustBadges:', trustBadges);
+  console.log('Ecom trustSignals.rating.content:', trustSignals.rating.content);
   const rating = getRandomVariation(trustSignals.rating.content);
   console.log('Ecom rating:', rating);
+  console.log('Ecom trustSignals.social.content:', trustSignals.social.content);
   const social = getRandomVariation(trustSignals.social.content);
   console.log('Ecom social:', social);
+  console.log('Ecom trustSignals.urgency.content:', trustSignals.urgency.content);
   const urgency = getRandomVariation(trustSignals.urgency.content);
   console.log('Ecom urgency:', urgency);
+  console.log('Ecom benefitStyles:', benefitStyles);
   const benefitStyle = getRandomVariation(benefitStyles);
   console.log('Ecom benefitStyle:', benefitStyle);
+  console.log('Ecom priceDisplays:', priceDisplays);
   const priceDisplay = getRandomVariation(priceDisplays);
   console.log('Ecom priceDisplay:', priceDisplay);
+  console.log('Ecom ctaButtons:', ctaButtons);
   const ctaButton = getRandomVariation(ctaButtons);
   console.log('Ecom ctaButton:', ctaButton);
 
