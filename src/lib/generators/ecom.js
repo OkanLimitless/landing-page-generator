@@ -7,10 +7,10 @@ export function generateEcomPage(data) {
     const styles = data.styles || getRandomStyle();
     
     // Get random variations with error handling
-    const trustBadges = getRandomVariation(getElementByType('badges')) || [];
-    const rating = getRandomVariation(getElementByType('rating')) || '';
-    const social = getRandomVariation(getElementByType('social')) || '';
-    const urgency = getRandomVariation(getElementByType('urgency')) || '';
+    const trustBadges = getRandomVariation(getElementByType('badges').content) || [];
+    const rating = getRandomVariation(getElementByType('rating').content) || '';
+    const social = getRandomVariation(getElementByType('social').content) || '';
+    const urgency = getRandomVariation(getElementByType('urgency').content) || '';
     const benefitStyle = getRandomVariation(benefitStyles) || benefitStyles[0];
     const priceDisplay = getRandomVariation(priceDisplays) || priceDisplays[0];
     const ctaButton = getRandomVariation(ctaButtons) || ctaButtons[0];
