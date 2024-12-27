@@ -1,2 +1,2 @@
-export { generateVSLPage } from './vsl';
-export { generateEcomPage } from './ecom';
+export { default as generateVSLPage } from './vsl';
+export { default as generateEcomPage } from './ecom';
