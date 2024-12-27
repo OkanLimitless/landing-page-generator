@@ -23,6 +23,8 @@ const validateEcomData = (data) => {
 
 export default async function handler(req, res) {
   try {
+    console.log('Request method:', req.method);
+    console.log('Request headers:', req.headers);
     if (req.method !== 'POST') {
       console.error('Method not allowed:', req.method);
       return res.status(405).json({ message: 'Method not allowed' });
