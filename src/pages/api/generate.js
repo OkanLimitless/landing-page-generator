@@ -8,24 +8,30 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { type, data } = req.body;
-    console.log('Request body:', { type, data });
+    // Log the entire request for debugging
+    console.log('Full request body:', JSON.stringify(req.body, null, 2));
 
+    const { type, data } = req.body;
     if (!type || !data) {
-      console.error('Missing type or data');
+      console.error('Missing type or data', { type, data });
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    console.log('Generating pages for type:', type);
+    // Log type and data separately
+    console.log('Type:', type);
+    console.log('Data:', JSON.stringify(data, null, 2));
     
     const styles = getRandomStyle();
-    console.log('Generated styles:', styles);
+    console.log('Generated styles:', JSON.stringify(styles, null, 2));
     
     let html;
     try {
       if (type === 'vsl') {
-        console.log('Generating VSL page...');
-        html = generateVSLPage({ ...data, styles });
+        console.log('Attempting to generate VSL page...');
+        const generatorInput = { ...data, styles };
+        console.log('Generator input:', JSON.stringify(generatorInput, null, 2));
+        html = generateVSLPage(generatorInput);
+        console.log('VSL page generated successfully');
       } else if (type === 'ecom') {
         console.log('Generating E-commerce page...');
         html = generateEcomPage({ ...data, styles });
@@ -34,7 +40,12 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: 'Invalid page type' });
       }
     } catch (error) {
-      console.error('Error generating main page:', error);
+      console.error('Error in page generation:', {
+        error: error.message,
+        stack: error.stack,
+        data: data,
+        styles: styles
+      });
       throw error;
     }
 
@@ -42,15 +53,23 @@ export default async function handler(req, res) {
     try {
       console.log('Generating Privacy page...');
       privacy = generatePrivacyPage(styles);
+      console.log('Privacy page generated');
 
       console.log('Generating Terms page...');
       terms = generateTermsPage(styles);
+      console.log('Terms page generated');
     } catch (error) {
-      console.error('Error generating legal pages:', error);
+      console.error('Error generating legal pages:', {
+        error: error.message,
+        stack: error.stack
+      });
       throw error;
     }
 
     console.log('All pages generated successfully');
+    console.log('HTML Length:', html?.length);
+    console.log('Privacy Length:', privacy?.length);
+    console.log('Terms Length:', terms?.length);
 
     return res.status(200).json({
       html,
@@ -60,12 +79,21 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Generation error:', error);
+    console.error('Generation error:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+      details: Object.getOwnPropertyNames(error).reduce((acc, key) => {
+        acc[key] = error[key];
+        return acc;
+      }, {})
+    });
+
     return res.status(500).json({ 
       message: error.message,
       stack: error.stack,
       name: error.name,
-      details: JSON.stringify(error, Object.getOwnPropertyNames(error))
+      fullError: JSON.stringify(error, Object.getOwnPropertyNames(error))
     });
   }
 }
