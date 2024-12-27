@@ -2,17 +2,26 @@ import { getRandomStyle } from '../utils/style-variations';
 import { trustSignals, benefitStyles, priceDisplays, ctaButtons, getRandomVariation } from '../utils/ecom-elements';
 
 export function generateEcomPage(data) {
+  console.log('Ecom ', data);
   const [gtagAccount, gtagConversion] = (data.gtagId || '').split('/');
   const styles = getRandomStyle();
+  console.log('Ecom styles:', styles);
   
   // Get random variations
   const trustBadges = getRandomVariation(trustSignals.badges.content);
+  console.log('Ecom trustBadges:', trustBadges);
   const rating = getRandomVariation(trustSignals.rating.content);
+  console.log('Ecom rating:', rating);
   const social = getRandomVariation(trustSignals.social.content);
+  console.log('Ecom social:', social);
   const urgency = getRandomVariation(trustSignals.urgency.content);
+  console.log('Ecom urgency:', urgency);
   const benefitStyle = getRandomVariation(benefitStyles);
+  console.log('Ecom benefitStyle:', benefitStyle);
   const priceDisplay = getRandomVariation(priceDisplays);
+  console.log('Ecom priceDisplay:', priceDisplay);
   const ctaButton = getRandomVariation(ctaButtons);
+  console.log('Ecom ctaButton:', ctaButton);
 
   // Generate random IDs
   const ids = {

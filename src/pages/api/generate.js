@@ -34,7 +34,9 @@ export default async function handler(req, res) {
         console.log('VSL page generated successfully');
       } else if (type === 'ecom') {
         console.log('Generating E-commerce page...');
-        html = generateEcomPage({ ...data, styles });
+        const ecomInput = { ...data, styles };
+        console.log('Ecom input:', JSON.stringify(ecomInput, null, 2));
+        html = generateEcomPage(ecomInput);
       } else {
         console.error('Invalid page type:', type);
         return res.status(400).json({ message: 'Invalid page type' });
