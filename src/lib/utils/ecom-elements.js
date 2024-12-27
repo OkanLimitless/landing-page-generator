@@ -105,7 +105,8 @@ const getRandomVariation = (variations) => {
     console.error('Error in getRandomVariation:', {
       error: error.message,
       stack: error.stack,
-      variations: variations
+      variations: variations,
+      fullError: error
     });
     return null;
   }
