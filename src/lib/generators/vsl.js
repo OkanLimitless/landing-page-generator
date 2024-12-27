@@ -4,7 +4,6 @@ const generateVSLPage = (data) => {
   const [gtagAccount, gtagConversion] = (data.gtagId || '').split('/');
   const styles = data.styles || getRandomStyle();
   
-  // Generate random IDs
   const ids = {
     container: `container_${Math.random().toString(36).substr(2, 9)}`,
     video: `video_${Math.random().toString(36).substr(2, 9)}`,
@@ -13,7 +12,6 @@ const generateVSLPage = (data) => {
     footer: `footer_${Math.random().toString(36).substr(2, 9)}`
   };
 
-  // Google Ads tracking script
   const gtagScript = gtagAccount ? `
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -28,8 +26,7 @@ const generateVSLPage = (data) => {
     }
   ` : '';
 
-  return `
-    <!DOCTYPE html>
+  return `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -123,6 +120,8 @@ const generateVSLPage = (data) => {
                 width: 90%;
                 max-width: 500px;
             }
+
+            ${styles.buttonHover(styles.colors)}
 
             .description {
                 font-size: clamp(1rem, 3vw, 1.1rem);
@@ -251,8 +250,7 @@ const generateVSLPage = (data) => {
             </div>
         </footer>
     </body>
-    </html>
-  `;
+    </html>`;
 };
 
 export default generateVSLPage;
