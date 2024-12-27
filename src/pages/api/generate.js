@@ -40,8 +40,18 @@ export default async function handler(req, res) {
         console.log('Attempting to generate VSL page...');
         const generatorInput = { ...data, styles };
         console.log('Generator input:', JSON.stringify(generatorInput, null, 2));
-        html = generateVSLPage(generatorInput);
-        console.log('VSL page generated successfully');
+        try {
+          html = generateVSLPage(generatorInput);
+          console.log('VSL page generated successfully');
+        } catch (error) {
+          console.error('Error generating VSL page:', {
+            error: error.message,
+            stack: error.stack,
+             data,
+            styles: styles
+          });
+          throw error;
+        }
       } else if (type === 'ecom') {
         console.log('Generating E-commerce page...');
         const ecomInput = { ...data, styles };
