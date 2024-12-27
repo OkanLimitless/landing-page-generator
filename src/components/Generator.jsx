@@ -2,7 +2,196 @@ import React, { useState } from 'react';
 import { Download } from 'lucide-react';
 import JSZip from 'jszip';
 
-[Previous code remains the same...]
+const VSLForm = ({ formData, setFormData }) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Headline</label>
+          <input
+            type="text"
+            name="headline"
+            value={formData.headline}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            placeholder="Enter your headline"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Description</label>
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white h-32"
+          placeholder="Enter your description (use new lines for bullet points)"
+        />
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Thumbnail URL</label>
+          <input
+            type="url"
+            name="thumbnailUrl"
+            value={formData.thumbnailUrl}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            placeholder="Enter thumbnail URL"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2">CTA Button Text</label>
+          <input
+            type="text"
+            name="ctaText"
+            value={formData.ctaText}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            placeholder="Watch FREE Video Guide Now"
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Offer URL</label>
+          <input
+            type="url"
+            name="offerUrl"
+            value={formData.offerUrl}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            placeholder="Enter offer URL"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Google Ads ID</label>
+          <input
+            type="text"
+            name="gtagId"
+            value={formData.gtagId}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Tracking Script (Optional)</label>
+        <textarea
+          name="trackingScript"
+          value={formData.trackingScript}
+          onChange={handleChange}
+          className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white h-32 font-mono text-sm"
+          placeholder="Enter tracking script to be placed in <head>"
+        />
+      </div>
+    </div>
+  );
+};
+
+const EcomForm = ({ formData, setFormData }) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Product Name</label>
+          <input
+            type="text"
+            name="productName"
+            value={formData.productName}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            placeholder="Enter product name"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Price</label>
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            placeholder="Enter price (e.g., 47.99)"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Features/Benefits</label>
+        <textarea
+          name="features"
+          value={formData.features}
+          onChange={handleChange}
+          className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white h-32"
+          placeholder="Enter features/benefits (one per line)"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Product Images</label>
+        <input
+          type="text"
+          name="productImages"
+          value={formData.productImages}
+          onChange={handleChange}
+          className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+          placeholder="Enter image URLs (comma separated)"
+        />
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Offer URL</label>
+          <input
+            type="url"
+            name="offerUrl"
+            value={formData.offerUrl}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            placeholder="Enter offer/checkout URL"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Google Ads ID</label>
+          <input
+            type="text"
+            name="gtagId"
+            value={formData.gtagId}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Tracking Script (Optional)</label>
+        <textarea
+          name="trackingScript"
+          value={formData.trackingScript}
+          onChange={handleChange}
+          className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white h-32 font-mono text-sm"
+          placeholder="Enter tracking script to be placed in <head>"
+        />
+      </div>
+    </div>
+  );
+};
 
 const Generator = () => {
   const [activeTab, setActiveTab] = useState('vsl');
