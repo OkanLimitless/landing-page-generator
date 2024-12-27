@@ -3,12 +3,12 @@ import { generatePrivacyPage, generateTermsPage } from '@/lib/utils/legal-pages'
 import { getRandomStyle } from '@/lib/utils/style-variations';
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    console.error('Method not allowed:', req.method);
-    return res.status(405).json({ message: 'Method not allowed' });
-  }
-
   try {
+    if (req.method !== 'POST') {
+      console.error('Method not allowed:', req.method);
+      return res.status(405).json({ message: 'Method not allowed' });
+    }
+
     // Log the entire request for debugging
     console.log('Full request body:', JSON.stringify(req.body, null, 2));
 
@@ -89,22 +89,16 @@ export default async function handler(req, res) {
       terms,
       success: true
     });
-
   } catch (error) {
-    console.error('Generation error:', {
-      name: error.name,
-      message: error.message,
+    console.error('Error in API handler:', {
+      error: error.message,
       stack: error.stack,
-      details: Object.getOwnPropertyNames(error).reduce((acc, key) => {
-        acc[key] = error[key];
-        return acc;
-      }, {})
+      fullError: error
     });
 
     return res.status(500).json({
       message: error.message,
       stack: error.stack,
-      name: error.name,
       fullError: JSON.stringify(error, Object.getOwnPropertyNames(error), null, 2),
     });
   }
