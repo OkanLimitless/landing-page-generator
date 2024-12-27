@@ -36,10 +36,10 @@ const trustSignals = [
 
 // Get element by type with error handling
 const getElementByType = (type, elements = trustSignals) => {
-  const element = elements.find(e => e.type === type);
+  const element = elements.find(e => e.type === type)?.content;
   if (!element) {
     console.error(`Element of type ${type} not found`);
-    return { content: [] };
+    return [];
   }
   return element;
 };
@@ -48,22 +48,11 @@ const getElementByType = (type, elements = trustSignals) => {
 const benefitStyles = [
   {
     layout: 'grid',
-    style: `
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    `
+    style: 'display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;'
   },
   {
     layout: 'cards',
-    style: `
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 2rem 0;
-      justify-content: center;
-    `
+    style: 'display: flex; flex-wrap: wrap; gap: 1rem; margin: 2rem 0; justify-content: center;'
   }
 ];
 
@@ -98,17 +87,11 @@ const priceDisplays = [
 const ctaButtons = [
   {
     style: 'solid',
-    text: [
-      'Buy Now - Special Offer',
-      'Claim Your Discount'
-    ]
+    text: ['Buy Now - Special Offer', 'Claim Your Discount']
   },
   {
     style: 'gradient',
-    text: [
-      'Secure Your Order Now',
-      'Get Special Price Now'
-    ]
+    text: ['Secure Your Order Now', 'Get Special Price Now']
   }
 ];
 
@@ -116,16 +99,9 @@ const ctaButtons = [
 const getRandomVariation = (variations) => {
   if (!Array.isArray(variations) || !variations.length) {
     console.error('Invalid variations array');
-    return variations || [];
+    return variations?.[0] || null;
   }
   return variations[Math.floor(Math.random() * variations.length)];
 };
 
-export {
-  trustSignals,
-  benefitStyles,
-  priceDisplays,
-  ctaButtons,
-  getRandomVariation,
-  getElementByType
-};
+export { trustSignals, benefitStyles, priceDisplays, ctaButtons, getRandomVariation, getElementByType };
