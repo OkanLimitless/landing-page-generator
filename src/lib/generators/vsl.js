@@ -3,6 +3,7 @@ import { getRandomStyle } from '../utils/style-variations';
 const generateVSLPage = (data) => {
   const [gtagAccount, gtagConversion] = (data.gtagId || '').split('/');
   const styles = data.styles || getRandomStyle();
+  console.log('VSL styles:', styles);
   
   // Generate random IDs
   const ids = {
