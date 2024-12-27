@@ -4,6 +4,7 @@ import { getRandomStyle } from '@/lib/utils/style-variations';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
+    console.error('Method not allowed:', req.method);
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
@@ -91,11 +92,11 @@ export default async function handler(req, res) {
       }, {})
     });
 
-    return res.status(500).json({ 
+    return res.status(500).json({
       message: error.message,
       stack: error.stack,
       name: error.name,
-      fullError: JSON.stringify(error, Object.getOwnPropertyNames(error))
+      fullError: JSON.stringify(error, Object.getOwnPropertyNames(error), null, 2),
     });
   }
 }
