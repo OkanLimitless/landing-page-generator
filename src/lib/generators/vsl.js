@@ -2,8 +2,17 @@ import { getRandomStyle } from '../utils/style-variations';
 
 const generateVSLPage = (data) => {
   const [gtagAccount, gtagConversion] = (data.gtagId || '').split('/');
-  const styles = data.styles || getRandomStyle();
-  console.log('VSL styles:', styles);
+  let styles;
+  try {
+    styles = data.styles || getRandomStyle();
+    console.log('VSL styles:', styles);
+  } catch (error) {
+    console.error('Error generating VSL styles:', {
+      error: error.message,
+      stack: error.stack,
+    });
+    throw error;
+  }
   
   // Generate random IDs
   const ids = {
