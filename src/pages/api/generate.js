@@ -1,5 +1,5 @@
-import { generateVSLPage } from '@/lib/generators/vsl';
-import { generateEcomPage } from '@/lib/generators/ecom';
+import { default as generateVSLPage } from '@/lib/generators/vsl';
+import { default as generateEcomPage } from '@/lib/generators/ecom';
 import { generatePrivacyPage, generateTermsPage } from '@/lib/utils/legal-pages';
 import { getRandomStyle } from '@/lib/utils/style-variations';
 
