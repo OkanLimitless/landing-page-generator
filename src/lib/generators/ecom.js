@@ -30,6 +30,14 @@ export function generateEcomPage(data) {
   const ctaButton = getRandomVariation(ctaButtons);
   console.log('Ecom ctaButton:', ctaButton);
 
+  console.log('Ecom trustBadges (after getRandomVariation):', trustBadges);
+  console.log('Ecom rating (after getRandomVariation):', rating);
+  console.log('Ecom social (after getRandomVariation):', social);
+  console.log('Ecom urgency (after getRandomVariation):', urgency);
+  console.log('Ecom benefitStyle (after getRandomVariation):', benefitStyle);
+  console.log('Ecom priceDisplay (after getRandomVariation):', priceDisplay);
+  console.log('Ecom ctaButton (after getRandomVariation):', ctaButton);
+
   // Generate random IDs
   const ids = {
     container: `container_${Math.random().toString(36).substr(2, 9)}`,
