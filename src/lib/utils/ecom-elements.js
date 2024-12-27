@@ -34,6 +34,16 @@ const trustSignals = [
   }
 ];
 
+// Get element by type with error handling
+const getElementByType = (type, elements = trustSignals) => {
+  const element = elements.find(e => e.type === type);
+  if (!element) {
+    console.error(`Element of type ${type} not found`);
+    return { content: [] };
+  }
+  return element;
+};
+
 // Benefits display variations
 const benefitStyles = [
   {
@@ -54,54 +64,33 @@ const benefitStyles = [
       margin: 2rem 0;
       justify-content: center;
     `
-  },
-  {
-    layout: 'list',
-    style: `
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin: 2rem 0;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    `
   }
 ];
 
-// Price display variations
+// Price display variations with error handling
 const priceDisplays = [
   {
     type: 'simple',
     template: (price) => `
       <div class="price-display">
-        <span class="price">$${price}</span>
+        <span class="price">$${Number(price).toFixed(2)}</span>
       </div>
     `
   },
   {
     type: 'savings',
     template: (price) => {
-      const originalPrice = Math.ceil(price * 1.4);
-      const savings = originalPrice - price;
+      const priceNum = Number(price);
+      const originalPrice = Math.ceil(priceNum * 1.4);
+      const savings = originalPrice - priceNum;
       return `
         <div class="price-display">
-          <span class="original-price">$${originalPrice}</span>
-          <span class="price">$${price}</span>
-          <span class="savings">Save $${savings} Today!</span>
+          <span class="original-price">$${originalPrice.toFixed(2)}</span>
+          <span class="price">$${priceNum.toFixed(2)}</span>
+          <span class="savings">Save $${savings.toFixed(2)} Today!</span>
         </div>
       `;
     }
-  },
-  {
-    type: 'special',
-    template: (price) => `
-      <div class="price-display">
-        <span class="special-offer">Special Offer</span>
-        <span class="price">$${price}</span>
-        <span class="limited-time">Limited Time Only</span>
-      </div>
-    `
   }
 ];
 
@@ -111,30 +100,24 @@ const ctaButtons = [
     style: 'solid',
     text: [
       'Buy Now - Special Offer',
-      'Claim Your Discount',
-      'Get Yours Now'
+      'Claim Your Discount'
     ]
   },
   {
     style: 'gradient',
     text: [
       'Secure Your Order Now',
-      'Get Special Price Now',
-      'Order Now - Save Today'
-    ]
-  },
-  {
-    style: 'outline',
-    text: [
-      'Continue to Special Offer',
-      'View Exclusive Deal',
-      'See Special Price'
+      'Get Special Price Now'
     ]
   }
 ];
 
-// Get random variations
+// Get random variation with error handling
 const getRandomVariation = (variations) => {
+  if (!Array.isArray(variations) || !variations.length) {
+    console.error('Invalid variations array');
+    return variations || [];
+  }
   return variations[Math.floor(Math.random() * variations.length)];
 };
 
@@ -143,5 +126,6 @@ export {
   benefitStyles,
   priceDisplays,
   ctaButtons,
-  getRandomVariation
+  getRandomVariation,
+  getElementByType
 };
