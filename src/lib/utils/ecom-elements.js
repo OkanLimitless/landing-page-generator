@@ -34,11 +34,13 @@ const trustSignals = [
 ];
 
 const getElementByType = (type, elements = trustSignals) => {
+  console.log(`getElementByType called with type: ${type}, elements:`, elements);
   const element = elements.find(e => e.type === type)?.content;
   if (!element) {
     console.error(`Element of type ${type} not found`);
     return [];
   }
+  console.log(`getElementByType returning element:`, element);
   return element;
 };
 
