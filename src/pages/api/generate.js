@@ -2,6 +2,25 @@ import { generateVSLPage, generateEcomPage } from '@/lib/generators';
 import { generatePrivacyPage, generateTermsPage } from '@/lib/utils/legal-pages';
 import { getRandomStyle } from '@/lib/utils/style-variations';
 
+const validateVSLData = (data) => {
+  const errors = [];
+  if (!data.headline) errors.push('Headline is required');
+  if (!data.description) errors.push('Description is required');
+  if (!data.thumbnailUrl) errors.push('Thumbnail URL is required');
+  if (!data.offerUrl) errors.push('Offer URL is required');
+  return errors;
+};
+
+const validateEcomData = (data) => {
+  const errors = [];
+  if (!data.productName) errors.push('Product Name is required');
+  if (!data.price) errors.push('Price is required');
+  if (!data.features) errors.push('Features are required');
+  if (!data.productImages) errors.push('Product Images are required');
+  if (!data.offerUrl) errors.push('Offer URL is required');
+  return errors;
+};
+
 export default async function handler(req, res) {
   try {
     if (req.method !== 'POST') {
@@ -38,6 +57,11 @@ export default async function handler(req, res) {
     try {
       if (type === 'vsl') {
         console.log('Attempting to generate VSL page...');
+        const errors = validateVSLData(data);
+        if (errors.length > 0) {
+          console.error('VSL data validation errors:', errors);
+          return res.status(400).json({ message: 'Invalid VSL data', errors });
+        }
         const generatorInput = { ...data, styles };
         console.log('Generator input:', JSON.stringify(generatorInput, null, 2));
         try {
@@ -47,13 +71,18 @@ export default async function handler(req, res) {
           console.error('Error generating VSL page:', {
             error: error.message,
             stack: error.stack,
-             data,
+            data,
             styles: styles
           });
           throw error;
         }
       } else if (type === 'ecom') {
         console.log('Generating E-commerce page...');
+        const errors = validateEcomData(data);
+        if (errors.length > 0) {
+          console.error('Ecom data validation errors:', errors);
+          return res.status(400).json({ message: 'Invalid Ecom data', errors });
+        }
         const ecomInput = { ...data, styles };
         console.log('Ecom input:', JSON.stringify(ecomInput, null, 2));
         html = generateEcomPage(ecomInput);
