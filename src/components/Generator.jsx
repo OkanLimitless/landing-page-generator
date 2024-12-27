@@ -234,7 +234,16 @@ const Generator = () => {
         }),
       });
       
-      if (!response.ok) throw new Error('Generation failed');
+      if (!response.ok) {
+        const error = new Error('Generation failed');
+        error.response = response;
+        console.error('Generation failed:', {
+          status: response.status,
+          statusText: response.statusText,
+          error
+        });
+        throw error;
+      }
       
       const result = await response.json();
       console.log('Generation result:', result);
