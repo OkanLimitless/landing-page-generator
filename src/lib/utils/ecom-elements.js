@@ -91,9 +91,13 @@ const ctaButtons = [
 ];
 
 const getRandomVariation = (variations) => {
-  if (!Array.isArray(variations) || !variations.length) {
-    console.error('Invalid variations array');
-    return variations?.[0] || null;
+  if (!Array.isArray(variations)) {
+    console.error('Invalid variations array:', variations);
+    return null;
+  }
+  if (!variations.length) {
+      console.error('Empty variations array');
+      return null;
   }
   return variations[Math.floor(Math.random() * variations.length)];
 };
