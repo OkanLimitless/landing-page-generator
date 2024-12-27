@@ -93,6 +93,7 @@ const ctaButtons = [
 ];
 
 const getRandomVariation = (variations) => {
+  console.log('getRandomVariation input:', variations);
   try {
     if (!Array.isArray(variations)) {
       console.error('Invalid variations array:', variations);

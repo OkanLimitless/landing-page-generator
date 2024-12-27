@@ -4,7 +4,9 @@ const generateVSLPage = (data) => {
   const [gtagAccount, gtagConversion] = (data.gtagId || '').split('/');
   let styles;
   try {
-    styles = data.styles || getRandomStyle();
+    const generatedStyles = getRandomStyle();
+    console.log('VSL generatedStyles:', generatedStyles);
+    styles = data.styles || generatedStyles;
     console.log('VSL styles:', styles);
   } catch (error) {
     console.error('Error generating VSL styles:', {
