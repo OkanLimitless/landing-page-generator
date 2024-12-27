@@ -1,2 +1,7 @@
-export { default as generateVSLPage } from './vsl';
-export { default as generateEcomPage } from './ecom';
+const generateVSLPage = require('./vsl');
+const generateEcomPage = require('./ecom');
+
+module.exports = {
+  generateVSLPage,
+  generateEcomPage
+};
