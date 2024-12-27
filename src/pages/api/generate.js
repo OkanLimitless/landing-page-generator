@@ -43,6 +43,11 @@ export default async function handler(req, res) {
     
     let styles;
     try {
+      console.log('Imported getRandomStyle:', getRandomStyle);
+      if (typeof getRandomStyle !== 'function') {
+        console.error('getRandomStyle is not a function!');
+        return res.status(500).json({ message: 'getRandomStyle is not a function' });
+      }
       styles = getRandomStyle();
       console.log('Generated styles:', JSON.stringify(styles, null, 2));
     } catch (error) {

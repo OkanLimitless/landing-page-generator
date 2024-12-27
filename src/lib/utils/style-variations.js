@@ -104,9 +104,17 @@ const containerStyles = [
   { maxWidth: '900px', padding: '30px 30px' }
 ];
 
-const getRandomVariation = (variations) => variations[Math.floor(Math.random() * variations.length)];
+const getRandomVariation = (variations) => {
+  console.log('getRandomVariation input:', variations);
+  if (!Array.isArray(variations) || variations.length === 0) {
+    console.error('Invalid or empty variations array:', variations);
+    return null;
+  }
+  return variations[Math.floor(Math.random() * variations.length)];
+};
 
 const getRandomStyle = () => {
+  console.log('getRandomStyle called');
   const accent = getRandomVariation(colors.accents);
   const background = getRandomVariation(colors.backgrounds);
   const font = getRandomVariation(fonts);
