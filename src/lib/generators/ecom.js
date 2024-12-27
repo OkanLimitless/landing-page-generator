@@ -4,6 +4,8 @@ import { trustSignals, benefitStyles, priceDisplays, ctaButtons, getRandomVariat
 export function generateEcomPage(data) {
   console.log('Ecom ', data);
   const [gtagAccount, gtagConversion] = (data.gtagId || '').split('/');
+  console.log('About to call getRandomStyle in generateEcomPage');
+  console.log('getRandomStyle:', getRandomStyle);
   const generatedStyles = getRandomStyle();
   console.log('Ecom generatedStyles:', generatedStyles);
   if (!generatedStyles) {
