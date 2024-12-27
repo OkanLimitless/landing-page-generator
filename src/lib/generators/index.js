@@ -1,7 +1,2 @@
-const generateVSLPage = require('./vsl');
-const generateEcomPage = require('./ecom');
-
-module.exports = {
-  generateVSLPage,
-  generateEcomPage
-};
+export { generateVSLPage } from './vsl';
+export { generateEcomPage } from './ecom';
