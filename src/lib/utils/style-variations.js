@@ -104,14 +104,23 @@ const containerStyles = [
   { maxWidth: '900px', padding: '30px 30px' }
 ];
 
+const getRandomVariation = (variations) => variations[Math.floor(Math.random() * variations.length)];
+
 const getRandomStyle = () => {
+  const accent = getRandomVariation(colors.accents);
+  const background = getRandomVariation(colors.backgrounds);
+  const font = getRandomVariation(fonts);
+  const button = getRandomVariation(buttonStyles);
+  const image = getRandomVariation(imageStyles);
+  const container = getRandomVariation(containerStyles);
+
   return {
-    colors: colors.accents[Math.floor(Math.random() * colors.accents.length)],
-    background: colors.backgrounds[Math.floor(Math.random() * colors.backgrounds.length)],
-    fonts: fonts[Math.floor(Math.random() * fonts.length)],
-    button: buttonStyles[Math.floor(Math.random() * buttonStyles.length)],
-    image: imageStyles[Math.floor(Math.random() * imageStyles.length)],
-    container: containerStyles[Math.floor(Math.random() * containerStyles.length)],
+    colors: accent,
+    background,
+    fonts: font,
+    button: (colors) => button(colors || accent),
+    image,
+    container,
     borderRadius: Math.floor(Math.random() * 3) * 4 + 8 + 'px',  // 8px, 12px, or 16px
     spacing: {
       vertical: Math.floor(Math.random() * 3) * 0.5 + 1.5 + 'rem',  // 1.5rem to 2.5rem
@@ -120,4 +129,4 @@ const getRandomStyle = () => {
   };
 };
 
-export { getRandomStyle };
+export { getRandomStyle, getRandomVariation, colors, fonts, buttonStyles, imageStyles, containerStyles };
