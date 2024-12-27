@@ -6,6 +6,9 @@ export function generateEcomPage(data) {
   const [gtagAccount, gtagConversion] = (data.gtagId || '').split('/');
   const generatedStyles = getRandomStyle();
   console.log('Ecom generatedStyles:', generatedStyles);
+  if (!generatedStyles) {
+    console.error('getRandomStyle returned null or undefined in generateEcomPage');
+  }
   const styles = generatedStyles;
   console.log('Ecom styles:', styles);
   

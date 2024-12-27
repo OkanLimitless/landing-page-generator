@@ -6,6 +6,9 @@ const generateVSLPage = (data) => {
   try {
     const generatedStyles = getRandomStyle();
     console.log('VSL generatedStyles:', generatedStyles);
+    if (!generatedStyles) {
+      console.error('getRandomStyle returned null or undefined in generateVSLPage');
+    }
     styles = data.styles || generatedStyles;
     console.log('VSL styles:', styles);
   } catch (error) {
