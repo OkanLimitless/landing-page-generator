@@ -11,6 +11,7 @@ export function generateEcomPage(data) {
   }
   const styles = generatedStyles;
   console.log('Ecom styles:', styles);
+  console.log('Ecom styles:', styles);
   
   // Get random variations
   console.log('Ecom trustSignals.badges.content:', trustSignals.badges.content);
