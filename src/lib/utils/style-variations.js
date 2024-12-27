@@ -51,20 +51,12 @@ const buttonStyles = [
     box-shadow: 0 4px 15px ${colors.primary}40;
     transform-origin: center;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px ${colors.primary}60;
-    }
   `,
   (colors) => `
     background: linear-gradient(45deg, ${colors.primary}, ${colors.secondary});
     color: ${colors.text};
     box-shadow: 0 4px 15px ${colors.primary}30;
     transition: all 0.3s ease;
-    &:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 25px ${colors.primary}50;
-    }
   `,
   (colors) => `
     background: linear-gradient(135deg, ${colors.secondary}, ${colors.primary}, ${colors.secondary});
@@ -72,7 +64,24 @@ const buttonStyles = [
     color: ${colors.text};
     box-shadow: 0 4px 15px ${colors.primary}30;
     transition: all 0.3s ease;
-    &:hover {
+  `
+];
+
+const buttonHoverStyles = [
+  (colors) => `
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px ${colors.primary}60;
+    }
+  `,
+  (colors) => `
+    .cta-button:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 25px ${colors.primary}50;
+    }
+  `,
+  (colors) => `
+    .cta-button:hover {
       background-position: right center;
       transform: translateY(-2px);
       box-shadow: 0 6px 20px ${colors.primary}50;
@@ -110,7 +119,9 @@ const getRandomStyle = () => {
   const accent = getRandomVariation(colors.accents);
   const background = getRandomVariation(colors.backgrounds);
   const font = getRandomVariation(fonts);
-  const button = getRandomVariation(buttonStyles);
+  const buttonIndex = Math.floor(Math.random() * buttonStyles.length);
+  const button = buttonStyles[buttonIndex];
+  const buttonHover = buttonHoverStyles[buttonIndex];
   const image = getRandomVariation(imageStyles);
   const container = getRandomVariation(containerStyles);
 
@@ -119,6 +130,7 @@ const getRandomStyle = () => {
     background,
     fonts: font,
     button: (colors) => button(colors || accent),
+    buttonHover: (colors) => buttonHover(colors || accent),
     image,
     container,
     borderRadius: Math.floor(Math.random() * 3) * 4 + 8 + 'px',  // 8px, 12px, or 16px
@@ -129,4 +141,4 @@ const getRandomStyle = () => {
   };
 };
 
-export { getRandomStyle, getRandomVariation, colors, fonts, buttonStyles, imageStyles, containerStyles };
+export { getRandomStyle, getRandomVariation, colors, fonts, buttonStyles, buttonHoverStyles, imageStyles, containerStyles };
