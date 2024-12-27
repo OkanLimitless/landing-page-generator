@@ -7,6 +7,16 @@ const nextConfig = {
     };
     return config;
   },
+  // Add server logging
+  serverRuntimeConfig: {
+    onError: (err) => {
+      console.error('Server Error:', {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      });
+    }
+  },
 };
 
 module.exports = nextConfig;
