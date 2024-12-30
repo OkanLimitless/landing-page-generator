@@ -230,6 +230,7 @@ export function generateEcomPage(data) {
             `).join('')}
           </div>
 
+
           <div class="trust-icons">
             <div>💳 Safe Payment</div>
             <div>✨ Premium Quality</div>
