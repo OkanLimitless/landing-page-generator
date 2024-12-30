@@ -217,6 +217,10 @@ export function generateEcomPage(data) {
             <div class="badge">SAVE 70%</div>
           </div>
 
+          <a href="${data.offerUrl}" class="${ids.button}" onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}">
+            Buy Now - Special Offer
+          </a>
+
           <div class="${ids.features}">
             ${features.map(feature => `
               <div class="feature">
@@ -225,10 +229,6 @@ export function generateEcomPage(data) {
               </div>
             `).join('')}
           </div>
-
-          <a href="${data.offerUrl}" class="${ids.button}" onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}">
-            Buy Now - Special Offer
-          </a>
 
           <div class="trust-icons">
             <div>💳 Safe Payment</div>
