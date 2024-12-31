@@ -268,10 +268,6 @@ export function generateEcomPage(data) {
             opacity: 0.8;
           }
 
-          .${ids.testimonials} {
-            margin: 2rem auto;
-            max-width: 600px;
-          }
 
           .${ids.testimonials} .testimonial {
             background: rgba(255,255,255,0.05);
@@ -353,6 +349,15 @@ export function generateEcomPage(data) {
             `).join('')}
           </div>
 
+
+          <div class="${ids.testimonials}">
+            ${testimonials.map(testimonial => `
+              <div class="testimonial">
+                <p class="text">"${testimonial.text}"</p>
+                <p class="author">- ${testimonial.name}</p>
+              </div>
+            `).join('')}
+          </div>
 
           <div class="trust-icons">
             <div>💳 Safe Payment</div>
