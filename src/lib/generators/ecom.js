@@ -1,21 +1,34 @@
-import { getRandomStyle } from '../utils/style-variations';
-
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
+// More style variations
 const colors = [
   { primary: '#9257A6', secondary: '#4287F5', text: '#ffffff', bg: '#18192A' },
   { primary: '#FF6B6B', secondary: '#4ECDC4', text: '#ffffff', bg: '#2D3436' },
   { primary: '#6C5CE7', secondary: '#00B894', text: '#ffffff', bg: '#1E272E' },
   { primary: '#F368E0', secondary: '#48DBFB', text: '#ffffff', bg: '#222F3E' },
+  { primary: '#FF9F43', secondary: '#26C6DA', text: '#ffffff', bg: '#2C3E50' },
+  { primary: '#00B0FF', secondary: '#FF5E62', text: '#ffffff', bg: '#212121' },
+  { primary: '#FF5733', secondary: '#3498DB', text: '#ffffff', bg: '#263238' },
+  { primary: '#4CAF50', secondary: '#FFC107', text: '#ffffff', bg: '#3E2723' },
 ];
 
 const fonts = [
   { body: 'system-ui, -apple-system, sans-serif' },
   { body: 'Inter, sans-serif' },
   { body: 'Outfit, sans-serif' },
+  { body: 'Roboto, sans-serif' },
+  { body: 'Open Sans, sans-serif' },
+  { body: 'Lato, sans-serif' },
 ];
 
 const getRandomItem = arr => arr[Math.floor(Math.random() * arr.length)];
+
+// Testimonials
+const testimonials = [
+  { name: 'John D.', text: 'This product changed my life! I highly recommend it.' },
+  { name: 'Sarah M.', text: 'Amazing quality and fast shipping. I\'m a customer for life!' },
+  { name: 'Mike L.', text: 'I was skeptical at first, but this product exceeded my expectations.' },
+];
 
 export function generateEcomPage(data) {
   try {
@@ -24,7 +37,7 @@ export function generateEcomPage(data) {
       colors: getRandomItem(colors),
       fonts: getRandomItem(fonts)
     };
-    
+
     const ids = {
       container: `c_${generateId()}`,
       header: `h_${generateId()}`,
@@ -32,6 +45,7 @@ export function generateEcomPage(data) {
       video: `v_${generateId()}`,
       button: `b_${generateId()}`,
       features: `ft_${generateId()}`,
+      testimonials: `tm_${generateId()}`,
       footer: `f_${generateId()}`
     };
 
@@ -46,7 +60,24 @@ export function generateEcomPage(data) {
         <style>
           * { margin: 0; padding: 0; box-sizing: border-box; }
 
-          body {
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+          }
+
+          body, html {
             background: ${style.colors.bg};
             color: ${style.colors.text};
             font-family: ${style.fonts.body};
@@ -54,6 +85,7 @@ export function generateEcomPage(data) {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
           }
 
           .urgency-bar {
@@ -62,6 +94,16 @@ export function generateEcomPage(data) {
             text-align: center;
             padding: 0.75rem;
             font-weight: 500;
+            position: relative;
+          }
+
+          .countdown {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            opacity: 0.9;
           }
 
           .${ids.container} {
