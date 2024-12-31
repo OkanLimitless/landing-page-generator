@@ -359,6 +359,12 @@ export function generateEcomPage(data) {
             `).join('')}
           </div>
 
+          <div class="sticky-cta">
+            <a href="${data.offerUrl}" class="${ids.button}" onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}">
+              Claim Your Discount
+            </a>
+          </div>
+
           <div class="trust-icons">
             <div>💳 Safe Payment</div>
             <div>✨ Premium Quality</div>
