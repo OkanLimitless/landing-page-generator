@@ -1,6 +1,7 @@
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
 // More style variations
+// More style variations
 const colors = [
   { primary: '#9257A6', secondary: '#4287F5', text: '#ffffff', bg: '#18192A' },
   { primary: '#FF6B6B', secondary: '#4ECDC4', text: '#ffffff', bg: '#2D3436' },
@@ -10,6 +11,10 @@ const colors = [
   { primary: '#00B0FF', secondary: '#FF5E62', text: '#ffffff', bg: '#212121' },
   { primary: '#FF5733', secondary: '#3498DB', text: '#ffffff', bg: '#263238' },
   { primary: '#4CAF50', secondary: '#FFC107', text: '#ffffff', bg: '#3E2723' },
+  { primary: '#FF5733', secondary: '#FFC107', text: '#ffffff', bg: '#212121' }, // New
+  { primary: '#00BCD4', secondary: '#FFEB3B', text: '#ffffff', bg: '#3E2723' }, // New
+  { primary: '#9C27B0', secondary: '#FF9800', text: '#ffffff', bg: '#263238' }, // New
+  { primary: '#673AB7', secondary: '#FFC107', text: '#ffffff', bg: '#1E272E' }, // New
 ];
 
 const fonts = [
@@ -19,6 +24,10 @@ const fonts = [
   { body: 'Roboto, sans-serif' },
   { body: 'Open Sans, sans-serif' },
   { body: 'Lato, sans-serif' },
+  { body: 'Poppins, sans-serif' }, // New
+  { body: 'Montserrat, sans-serif' }, // New
+  { body: 'Raleway, sans-serif' }, // New
+  { body: 'Source Sans Pro, sans-serif' }, // New
 ];
 
 const getRandomItem = arr => arr[Math.floor(Math.random() * arr.length)];
@@ -58,7 +67,24 @@ export function generateEcomPage(data) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${data.productName}</title>
         <style>
-          * { margin: 0; padding: 0; box-sizing: border-box; }
+          * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+          }
 
           @keyframes fadeInUp {
             from {
