@@ -103,6 +103,23 @@ export function generateEcomPage(data) {
             100% { transform: scale(1); }
           }
 
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+          }
+
           body, html {
             background: ${style.colors.bg};
             color: ${style.colors.text};
@@ -121,6 +138,7 @@ export function generateEcomPage(data) {
             padding: 0.75rem;
             font-weight: 500;
             position: relative;
+            animation: pulse 2s infinite;
           }
 
           .countdown {
@@ -201,11 +219,25 @@ export function generateEcomPage(data) {
             align-items: center;
             gap: 1rem;
             text-align: left;
+            animation: fadeInUp 0.5s ease-out;
           }
 
           .${ids.features} .icon {
             color: ${style.colors.primary};
             flex-shrink: 0;
+          }
+
+          .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: ${style.colors.bg};
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+            z-index: 100;
+            padding: 1rem;
+            text-align: center;
+            animation: fadeInUp 0.5s ease-out;
           }
 
           .${ids.button} {
@@ -220,6 +252,7 @@ export function generateEcomPage(data) {
             margin: 2rem auto;
             max-width: 400px;
             transition: all 0.3s ease;
+            animation: pulse 2s infinite;
           }
 
           .${ids.button}:hover {
@@ -233,6 +266,26 @@ export function generateEcomPage(data) {
             gap: 2rem;
             margin: 2rem 0;
             opacity: 0.8;
+          }
+
+          .${ids.testimonials} {
+            margin: 2rem auto;
+            max-width: 600px;
+          }
+
+          .${ids.testimonials} .testimonial {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            text-align: left;
+            animation: fadeInUp 0.5s ease-out;
+          }
+
+          .${ids.testimonials} .author {
+            font-weight: bold;
+            color: ${style.colors.primary};
+            margin-bottom: 0.5rem;
           }
 
           .${ids.footer} {
@@ -263,12 +316,14 @@ export function generateEcomPage(data) {
             .${ids.container} { padding: 1rem; }
             .${ids.header} h1 { font-size: 2rem; }
             .trust-icons { flex-direction: column; gap: 1rem; }
+            .sticky-cta { position: relative; }
           }
         </style>
       </head>
       <body>
         <div class="urgency-bar">
           ⚡ Limited Time Offer - Up to 70% OFF Today Only!
+          <span class="countdown" id="countdown"></span>
         </div>
 
         <div class="${ids.container}">
