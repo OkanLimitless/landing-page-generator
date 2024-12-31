@@ -375,6 +375,35 @@ export function generateEcomPage(data) {
           </div>
         </footer>
 
+        <script>
+          function startCountdown(targetDate) {
+            const countdownEl = document.getElementById('countdown');
+            if (!countdownEl) return;
+
+            const interval = setInterval(() => {
+              const now = new Date();
+              const diff = targetDate - now;
+
+              if (diff <= 0) {
+                clearInterval(interval);
+                countdownEl.textContent = 'Offer Expired!';
+                return;
+              }
+
+              const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+              const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+              const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+              countdownEl.textContent = \`\${days}d \${hours}h \${minutes}m \${seconds}s\`;
+            }, 1000);
+          }
+
+          const offerEndDate = new Date();
+          offerEndDate.setDate(offerEndDate.getDate() + 3); // Offer ends in 3 days
+          startCountdown(offerEndDate);
+        </script>
+
         ${gtagAccount ? `
           <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>
           <script>
