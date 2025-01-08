@@ -134,20 +134,41 @@ export function generateEcomPage(data) {
           .urgency-bar {
             background: ${style.colors.primary};
             color: ${style.colors.text};
-            text-align: center;
             padding: 0.75rem;
             font-weight: 500;
             position: relative;
             animation: pulse 2s infinite;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+          }
+
+          .urgency-text {
+            flex: 1;
+            text-align: center;
           }
 
           .countdown {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
             font-size: 0.9rem;
             opacity: 0.9;
+            white-space: nowrap;
+          }
+
+          @media (max-width: 480px) {
+            .urgency-bar {
+              flex-direction: column;
+              gap: 0.5rem;
+              padding: 0.5rem;
+            }
+            
+            .urgency-text {
+              font-size: 0.9rem;
+            }
+            
+            .countdown {
+              font-size: 0.8rem;
+            }
           }
 
           .${ids.container} {
@@ -318,7 +339,11 @@ export function generateEcomPage(data) {
       </head>
       <body>
         <div class="urgency-bar">
-          ⚡ Limited Time Offer - Up to 70% OFF Today Only!
+          <div class="urgency-text">
+            ${data.language === 'de' ? 
+              '⚡ Zeitbegrenztes Angebot - Bis zu 70% Rabatt!' : 
+              '⚡ Limited Time Offer - Up to 70% OFF!'}
+          </div>
           <span class="countdown" id="countdown"></span>
         </div>
 
@@ -337,7 +362,7 @@ export function generateEcomPage(data) {
           </div>
 
           <a href="${data.offerUrl}" class="${ids.button}" onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}">
-            Buy Now - Special Offer
+            ${data.buttonText || (data.language === 'de' ? 'Jetzt kaufen' : 'Buy Now')}
           </a>
 
           <div class="${ids.features}">
@@ -411,7 +436,7 @@ export function generateEcomPage(data) {
           }
 
           const offerEndDate = new Date();
-          offerEndDate.setDate(offerEndDate.getDate() + 3); // Offer ends in 3 days
+          offerEndDate.setHours(offerEndDate.getHours() + 24); // Offer ends in 24 hours
           startCountdown(offerEndDate);
         </script>
 
