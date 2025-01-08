@@ -33,11 +33,18 @@ const fonts = [
 const getRandomItem = arr => arr[Math.floor(Math.random() * arr.length)];
 
 // Testimonials
-const testimonials = [
-  { name: 'John D.', text: 'This product changed my life! I highly recommend it.' },
-  { name: 'Sarah M.', text: 'Amazing quality and fast shipping. I\'m a customer for life!' },
-  { name: 'Mike L.', text: 'I was skeptical at first, but this product exceeded my expectations.' },
-];
+const testimonials = {
+  en: [
+    { name: 'John D.', text: 'This product changed my life! I highly recommend it.' },
+    { name: 'Sarah M.', text: 'Amazing quality and fast shipping. I\'m a customer for life!' },
+    { name: 'Mike L.', text: 'I was skeptical at first, but this product exceeded my expectations.' },
+  ],
+  de: [
+    { name: 'Hans M.', text: 'Dieses Produkt hat mein Leben verändert! Ich kann es nur empfehlen.' },
+    { name: 'Sabine K.', text: 'Erstaunliche Qualität und schneller Versand. Ich bin ein Kunde fürs Leben!' },
+    { name: 'Peter S.', text: 'Ich war zunächst skeptisch, aber dieses Produkt hat meine Erwartungen übertroffen.' },
+  ]
+};
 
 export function generateEcomPage(data) {
   try {
@@ -351,8 +358,8 @@ export function generateEcomPage(data) {
           <div class="${ids.header}">
             <h1>${data.productName}</h1>
             <div class="trust-stats">
-              <div>★★★★★ 4.9 Based on 2,347+ Reviews</div>
-              <div>✨ Trusted by 2,500+ Customers</div>
+              <div>★★★★★ ${data.language === 'de' ? '4.9 basierend auf 2.347+ Bewertungen' : '4.9 Based on 2,347+ Reviews'}</div>
+              <div>✨ ${data.language === 'de' ? 'Vertrauen von 2.500+ Kunden' : 'Trusted by 2,500+ Customers'}</div>
             </div>
           </div>
 
@@ -376,7 +383,7 @@ export function generateEcomPage(data) {
 
 
           <div class="${ids.testimonials}">
-            ${testimonials.map(testimonial => `
+            ${testimonials[data.language || 'en'].map(testimonial => `
               <div class="testimonial">
                 <p class="text">"${testimonial.text}"</p>
                 <p class="author">- ${testimonial.name}</p>
@@ -386,14 +393,14 @@ export function generateEcomPage(data) {
 
           <div class="sticky-cta">
             <a href="${data.offerUrl}" class="${ids.button}" onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}">
-              Claim Your Discount
+              ${data.language === 'de' ? 'Jetzt Rabatt sichern' : 'Claim Your Discount'}
             </a>
           </div>
 
           <div class="trust-icons">
-            <div>💳 Safe Payment</div>
-            <div>✨ Premium Quality</div>
-            <div>🎁 Special Offer</div>
+            <div>💳 ${data.language === 'de' ? 'Sichere Zahlung' : 'Safe Payment'}</div>
+            <div>✨ ${data.language === 'de' ? 'Premium Qualität' : 'Premium Quality'}</div>
+            <div>🎁 ${data.language === 'de' ? 'Sonderangebot' : 'Special Offer'}</div>
           </div>
 
           <a href="${data.offerUrl}" class="${ids.button}" onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}">
