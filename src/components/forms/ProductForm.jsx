@@ -21,17 +21,6 @@ const ProductForm = ({ formData, setFormData }) => {
         />
       </div>
 
-      <div>
-        <Label htmlFor="price">Price</Label>
-        <Input
-          id="price"
-          name="price"
-          type="number"
-          value={formData.price}
-          onChange={handleChange}
-          placeholder="Enter price"
-        />
-      </div>
 
       <div>
         <Label htmlFor="productImages">Product Images</Label>
