@@ -64,8 +64,28 @@ const EcomForm = ({ formData, setFormData }) => {
           <input type="text" name="productName" value={formData.productName} onChange={handleChange} className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white" placeholder="Enter product name" />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Price</label>
-          <input type="number" name="price" value={formData.price} onChange={handleChange} className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white" placeholder="Enter price (e.g., 47.99)" />
+          <label className="block text-sm font-medium mb-2">Button Text</label>
+          <input
+            type="text"
+            name="buttonText"
+            value={formData.buttonText}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            placeholder="Enter button text (e.g. Buy Now)"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2">Language</label>
+          <select
+            name="language"
+            value={formData.language || 'en'}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+          >
+            <option value="en">English</option>
+            <option value="de">German</option>
+          </select>
         </div>
       </div>
 
@@ -115,12 +135,13 @@ const Generator = () => {
 
   const [ecomFormData, setEcomFormData] = useState({
     productName: '',
-    price: '',
     features: '',
     productImages: '',
     offerUrl: '',
     gtagId: '',
-    trackingScript: ''
+    trackingScript: '',
+    buttonText: 'Buy Now',
+    language: 'en'
   });
 
   const generateRandomId = () => {
