@@ -255,17 +255,71 @@ export function generateEcomPage(data) {
             flex-shrink: 0;
           }
 
-          .sticky-cta {
+          .floating-cta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+          }
+
+          @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+          }
+
+          .sticky-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background: ${style.colors.bg};
             box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-            z-index: 100;
+            z-index: 999;
             padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            animation: slideUp 0.5s ease-out;
+          }
+
+          .sticky-bar .cta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background: rgba(255,255,255,0.05);
             text-align: center;
-            animation: fadeInUp 0.5s ease-out;
+            transition: all 0.3s ease;
+          }
+
+          .sticky-bar .cta-item:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.1);
+          }
+
+          @keyframes slideUp {
+            from {
+              transform: translateY(100%);
+            }
+            to {
+              transform: translateY(0);
+            }
+          }
+
+          @media (max-width: 640px) {
+            .floating-cta {
+              bottom: 80px;
+              right: 10px;
+            }
+            
+            .sticky-bar {
+              grid-template-columns: repeat(3, 1fr);
+              padding: 0.5rem;
+              gap: 0.5rem;
+            }
           }
 
           .${ids.button} {
@@ -391,10 +445,30 @@ export function generateEcomPage(data) {
             `).join('')}
           </div>
 
-          <div class="sticky-cta">
-            <a href="${data.offerUrl}" class="${ids.button}" onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}">
-              ${data.language === 'de' ? 'Jetzt Rabatt sichern' : 'Claim Your Discount'}
+          <!-- Floating CTA -->
+          <div class="floating-cta" aria-label="Floating Call to Action">
+            <a href="${data.offerUrl}" 
+               class="${ids.button}" 
+               onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}"
+               aria-label="Buy Now Button">
+              ${data.language === 'de' ? 'Jetzt kaufen' : 'Buy Now'}
             </a>
+          </div>
+
+          <!-- Sticky Bottom Bar -->
+          <div class="sticky-bar" role="navigation" aria-label="Main Navigation">
+            <div class="cta-item" onclick="window.location.href='${data.offerUrl}'" role="button" tabindex="0" aria-label="Special Offer">
+              <span>🔥</span>
+              <span>${data.language === 'de' ? 'Angebot' : 'Special Offer'}</span>
+            </div>
+            <div class="cta-item" onclick="window.location.href='${data.offerUrl}'" role="button" tabindex="0" aria-label="Customer Reviews">
+              <span>⭐</span>
+              <span>${data.language === 'de' ? 'Bewertungen' : 'Reviews'}</span>
+            </div>
+            <div class="cta-item" onclick="window.location.href='${data.offerUrl}'" role="button" tabindex="0" aria-label="Secure Checkout">
+              <span>🔒</span>
+              <span>${data.language === 'de' ? 'Sicher' : 'Secure'}</span>
+            </div>
           </div>
 
           <div class="trust-icons">
