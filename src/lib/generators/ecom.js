@@ -676,20 +676,13 @@ export function generateEcomPage(data) {
           startCountdown(offerEndDate);
 
           // Real-time purchase notifications
-          const cities = ${data.language === 'de' ? 
-            `['Berlin', 'München', 'Hamburg', 'Köln', 'Frankfurt']` : 
-            `['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix']`};
-            
-          const names = ${data.language === 'de' ? 
-            `['Hans', 'Peter', 'Michael', 'Thomas', 'Andreas']` : 
-            `['John', 'Mike', 'David', 'James', 'Robert']`};
 
-          function showPurchaseNotification(pageData) {
+          function showPurchaseNotification(notificationData) {
             const notification = document.createElement('div');
             notification.className = 'purchase-notification';
-            const message = pageData.language === 'de' 
-              ? getRandomItem(names) + ' aus ' + getRandomItem(cities) + ' hat gerade gekauft!'
-              : getRandomItem(names) + ' from ' + getRandomItem(cities) + ' just purchased!';
+            const message = notificationData.language === 'de' 
+              ? getRandomItem(notificationData.names) + ' aus ' + getRandomItem(notificationData.cities) + ' hat gerade gekauft!'
+              : getRandomItem(notificationData.names) + ' from ' + getRandomItem(notificationData.cities) + ' just purchased!';
             
             notification.innerHTML = '<span>🛒</span><div>' + message + '</div>';
             
@@ -700,24 +693,26 @@ export function generateEcomPage(data) {
             }, 5000);
           }
 
-          // Store data in a variable accessible to all functions
-          const pageData = data;
+          // Initialize notification data
+          const notificationData = {
+            language: '${data.language || 'en'}',
+            names: ${data.language === 'de' ? 
+              JSON.stringify(['Hans', 'Peter', 'Michael', 'Thomas', 'Andreas']) : 
+              JSON.stringify(['John', 'Mike', 'David', 'James', 'Robert'])},
+            cities: ${data.language === 'de' ? 
+              JSON.stringify(['Berlin', 'München', 'Hamburg', 'Köln', 'Frankfurt']) : 
+              JSON.stringify(['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix'])}
+          };
 
           // Show initial notifications
-          setTimeout(() => {
-            showPurchaseNotification(pageData);
-          }, 2000);
-          setTimeout(() => {
-            showPurchaseNotification(pageData);
-          }, 8000);
-          setTimeout(() => {
-            showPurchaseNotification(pageData);
-          }, 15000);
+          setTimeout(() => showPurchaseNotification(notificationData), 2000);
+          setTimeout(() => showPurchaseNotification(notificationData), 8000);
+          setTimeout(() => showPurchaseNotification(notificationData), 15000);
           
           // Show random notifications every 20-40 seconds
           setInterval(() => {
             if (Math.random() > 0.5) {
-              showPurchaseNotification(pageData);
+              showPurchaseNotification(notificationData);
             }
           }, 20000 + Math.random() * 20000);
         </script>
