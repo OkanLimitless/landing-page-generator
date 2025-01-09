@@ -688,7 +688,7 @@ export function generateEcomPage(data) {
             const notification = document.createElement('div');
             notification.className = 'purchase-notification';
             notification.innerHTML = `
-              <span>🛒</span>
+              <span>&#128722;</span>
               <div>
                 ${data.language === 'de' ? 
                   `${getRandomItem(names)} aus ${getRandomItem(cities)} hat gerade gekauft!` : 
