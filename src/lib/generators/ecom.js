@@ -591,20 +591,11 @@ export function generateEcomPage(data) {
 
           <!-- Trust Badges -->
           <div class="trust-badges">
-            <img src="https://cdn-icons-png.flaticon.com/512/349/349228.png" alt="SSL Secure" width="80" />
-            <img src="https://cdn-icons-png.flaticon.com/512/349/349228.png" alt="Money Back Guarantee" width="80" />
-            <img src="https://cdn-icons-png.flaticon.com/512/349/349228.png" alt="Verified Payments" width="80" />
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828643.png" alt="SSL Secure" width="80" />
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828640.png" alt="Money Back Guarantee" width="80" />
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828641.png" alt="Verified Payments" width="80" />
           </div>
 
-          <!-- Floating CTA -->
-          <div class="floating-cta" aria-label="Floating Call to Action">
-            <a href="${data.offerUrl}" 
-               class="${ids.button}" 
-               onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}"
-               aria-label="Buy Now Button">
-              ${data.language === 'de' ? 'Jetzt kaufen' : 'Buy Now'}
-            </a>
-          </div>
 
           <!-- Sticky Bottom Bar -->
           <div class="sticky-bar" role="navigation" aria-label="Main Navigation">
@@ -701,8 +692,8 @@ export function generateEcomPage(data) {
           const notificationData = {
             language: '${data.language || 'en'}',
             names: ${data.language === 'de' ? 
-              JSON.stringify(['Hans', 'Peter', 'Michael', 'Thomas', 'Andreas']) : 
-              JSON.stringify(['John', 'Mike', 'David', 'James', 'Robert'])},
+              JSON.stringify(['Hans', 'Peter', 'Michael', 'Thomas', 'Andreas', 'Stefan', 'Markus', 'Christian', 'Alexander', 'Daniel', 'Simon', 'Lukas', 'Florian', 'Matthias', 'Sebastian']) : 
+              JSON.stringify(['John', 'Mike', 'David', 'James', 'Robert', 'William', 'Joseph', 'Charles', 'Thomas', 'Christopher', 'Daniel', 'Matthew', 'Anthony', 'Mark', 'Donald'])},
             cities: ${data.language === 'de' ? 
               JSON.stringify(['Berlin', 'München', 'Hamburg', 'Köln', 'Frankfurt']) : 
               JSON.stringify(['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix'])}
