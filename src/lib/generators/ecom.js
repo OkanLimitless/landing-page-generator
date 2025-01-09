@@ -589,12 +589,60 @@ export function generateEcomPage(data) {
             `).join('')}
           </div>
 
-          <!-- Trust Badges -->
-          <div class="trust-badges">
-            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828643.png" alt="SSL Secure" width="80" />
-            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828640.png" alt="Money Back Guarantee" width="80" />
-            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828641.png" alt="Verified Payments" width="80" />
+          <!-- Animated Trust Slider -->
+          <div class="trust-slider">
+            <div class="slider-track">
+              <div class="slide">🔒 ${data.language === 'de' ? 'Sichere SSL-Verschlüsselung' : 'Secure SSL Encryption'}</div>
+              <div class="slide">💳 ${data.language === 'de' ? 'Sichere Zahlungsabwicklung' : 'Safe Payment Processing'}</div>
+              <div class="slide">📦 ${data.language === 'de' ? '30 Tage Geld-zurück-Garantie' : '30-Day Money Back Guarantee'}</div>
+              <div class="slide">⭐ ${data.language === 'de' ? '4.9/5 Bewertungen' : '4.9/5 Customer Reviews'}</div>
+            </div>
           </div>
+
+          <style>
+            .trust-slider {
+              overflow: hidden;
+              position: relative;
+              margin: 2rem 0;
+              padding: 1rem 0;
+              background: rgba(255,255,255,0.05);
+              border-radius: 0.5rem;
+            }
+
+            .slider-track {
+              display: flex;
+              width: 400%;
+              animation: slide 20s linear infinite;
+            }
+
+            .slide {
+              flex: 1;
+              text-align: center;
+              padding: 0.5rem;
+              font-size: 1.1rem;
+              opacity: 0.9;
+              white-space: nowrap;
+            }
+
+            @keyframes slide {
+              0% { transform: translateX(0); }
+              25% { transform: translateX(-25%); }
+              50% { transform: translateX(-50%); }
+              75% { transform: translateX(-75%); }
+              100% { transform: translateX(0); }
+            }
+
+            @media (max-width: 640px) {
+              .slider-track {
+                width: 800%;
+              }
+
+              .slide {
+                font-size: 1rem;
+                white-space: normal;
+              }
+            }
+          </style>
 
 
           <!-- Sticky Bottom Bar -->
