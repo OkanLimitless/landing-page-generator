@@ -747,7 +747,7 @@ export function generateEcomPage(data) {
           </script>
 
           <a href="${data.offerUrl}" class="${ids.button}" onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}">
-            Claim Your Discount
+            ${data.language === 'de' ? 'Jetzt Rabatt sichern' : 'Claim Your Discount'}
           </a>
         </div>
 
