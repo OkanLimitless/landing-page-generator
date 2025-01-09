@@ -675,8 +675,12 @@ export function generateEcomPage(data) {
           offerEndDate.setHours(offerEndDate.getHours() + 24); // Offer ends in 24 hours
           startCountdown(offerEndDate);
 
-          // Real-time purchase notifications
+          // Utility function
+          function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+          }
 
+          // Real-time purchase notifications
           function showPurchaseNotification(notificationData) {
             const notification = document.createElement('div');
             notification.className = 'purchase-notification';
