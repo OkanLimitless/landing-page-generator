@@ -182,20 +182,15 @@ export function generateEcomPage(data) {
             position: relative;
             animation: pulse 2s infinite;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             gap: 1rem;
-          }
-
-          .urgency-text {
-            flex: 1;
             text-align: center;
           }
 
-          .countdown {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            white-space: nowrap;
+          .stock-countdown {
+            font-weight: bold;
+            color: ${style.colors.secondary};
           }
 
           @media (max-width: 480px) {
@@ -515,12 +510,9 @@ export function generateEcomPage(data) {
       </head>
       <body>
         <div class="urgency-bar">
-          <div class="urgency-text">
-            ${data.language === 'de' ? 
-              '⚡ Zeitbegrenztes Angebot - Bis zu 70% Rabatt!' : 
-              '⚡ Limited Time Offer - Up to 70% OFF!'}
-          </div>
-          <span class="countdown" id="countdown"></span>
+          ${data.language === 'de' ? 
+            '🔥 Nur noch <span class="stock-countdown" id="stock-countdown">12</span> verfügbar! Jetzt zugreifen!' : 
+            '🔥 Only <span class="stock-countdown" id="stock-countdown">12</span> left in stock! Grab yours now!'}
         </div>
 
         <div class="${ids.container}">
@@ -557,8 +549,8 @@ export function generateEcomPage(data) {
           <!-- Scarcity Badge -->
           <div class="scarcity-badge">
             ${data.language === 'de' ? 
-              'Nur noch 12 verfügbar!' : 
-              'Only 12 left in stock!'}
+              'Nur noch <span id="scarcity-count">12</span> verfügbar!' : 
+              'Only <span id="scarcity-count">12</span> left in stock!'}
           </div>
 
           <!-- Satisfaction Guarantee -->
@@ -771,32 +763,26 @@ export function generateEcomPage(data) {
         </footer>
 
         <script>
-          function startCountdown(targetDate) {
-            const countdownEl = document.getElementById('countdown');
-            if (!countdownEl) return;
+          // Stock countdown logic
+          function startStockCountdown() {
+            const stockEl = document.getElementById('stock-countdown');
+            const scarcityEl = document.getElementById('scarcity-count');
+            if (!stockEl || !scarcityEl) return;
+
+            let stockCount = 12;
+            const minStock = 3; // Never go below this number
+            const intervalTime = 30000 + Math.random() * 30000; // 30-60 seconds
 
             const interval = setInterval(() => {
-              const now = new Date();
-              const diff = targetDate - now;
-
-              if (diff <= 0) {
-                clearInterval(interval);
-                countdownEl.textContent = 'Offer Expired!';
-                return;
+              if (stockCount > minStock) {
+                stockCount--;
+                stockEl.textContent = stockCount;
+                scarcityEl.textContent = stockCount;
               }
-
-              const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-              const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-              const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-              const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-              countdownEl.textContent = \`\${days}d \${hours}h \${minutes}m \${seconds}s\`;
-            }, 1000);
+            }, intervalTime);
           }
 
-          const offerEndDate = new Date();
-          offerEndDate.setHours(offerEndDate.getHours() + 24); // Offer ends in 24 hours
-          startCountdown(offerEndDate);
+          startStockCountdown();
 
           // Utility function
           function getRandomItem(arr) {
