@@ -412,9 +412,13 @@ export function generateEcomPage(data) {
           <div class="links">
             <a href="privacy.html">Privacy Policy</a>
             <a href="terms.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+            <a href="affiliate.html">Affiliate Disclosure</a>
           </div>
           <div class="copyright">
-            © ${new Date().getFullYear()} All rights reserved
+            © ${new Date().getFullYear()} ${data.productName || 'Company Name'}. All rights reserved.<br>
+            This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way.<br>
+            FACEBOOK is a trademark of FACEBOOK, Inc.
           </div>
         </footer>
 
