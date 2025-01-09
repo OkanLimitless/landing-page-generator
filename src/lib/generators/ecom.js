@@ -756,7 +756,6 @@ export function generateEcomPage(data) {
             <a href="privacy.html">Privacy Policy</a>
             <a href="terms.html">Terms of Service</a>
             <a href="contact.html">Contact</a>
-            <a href="affiliate.html">Affiliate Disclosure</a>
           </div>
           <div class="copyright">
             © ${new Date().getFullYear()} ${data.productName || 'Company Name'}. All rights reserved.<br>
