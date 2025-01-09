@@ -701,14 +701,17 @@ export function generateEcomPage(data) {
           }
 
           // Show initial notifications
-          setTimeout(() => showPurchaseNotification(data), 2000);
-          setTimeout(() => showPurchaseNotification(data), 8000);
-          setTimeout(() => showPurchaseNotification(data), 15000);
+          setTimeout(() => showPurchaseNotification(pageData), 2000);
+          setTimeout(() => showPurchaseNotification(pageData), 8000);
+          setTimeout(() => showPurchaseNotification(pageData), 15000);
 
+          // Store data in a variable accessible to the interval
+          const pageData = data;
+          
           // Show random notifications every 20-40 seconds
           setInterval(() => {
             if (Math.random() > 0.5) {
-              showPurchaseNotification(data);
+              showPurchaseNotification(pageData);
             }
           }, 20000 + Math.random() * 20000);
         </script>
