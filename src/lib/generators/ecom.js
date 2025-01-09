@@ -645,27 +645,111 @@ export function generateEcomPage(data) {
           </style>
 
 
-          <!-- Sticky Bottom Bar -->
-          <div class="sticky-bar" role="navigation" aria-label="Main Navigation">
-            <div class="cta-item" onclick="window.location.href='${data.offerUrl}'" role="button" tabindex="0" aria-label="Special Offer">
-              <span>🔥</span>
-              <span>${data.language === 'de' ? 'Angebot' : 'Special Offer'}</span>
-            </div>
-            <div class="cta-item" onclick="window.location.href='${data.offerUrl}'" role="button" tabindex="0" aria-label="Customer Reviews">
-              <span>⭐</span>
-              <span>${data.language === 'de' ? 'Bewertungen' : 'Reviews'}</span>
-            </div>
-            <div class="cta-item" onclick="window.location.href='${data.offerUrl}'" role="button" tabindex="0" aria-label="Secure Checkout">
-              <span>🔒</span>
-              <span>${data.language === 'de' ? 'Sicher' : 'Secure'}</span>
+          <!-- Urgency Sticky Bar -->
+          <div class="urgency-sticky-bar" onclick="window.location.href='${data.offerUrl}'">
+            <div class="urgency-content">
+              <div class="urgency-text">
+                ${data.language === 'de' ? 
+                  '🔥 Letzte Chance! Nur noch ' : 
+                  '🔥 Last Chance! Only '}
+                <span id="sticky-countdown"></span>
+                ${data.language === 'de' ? 
+                  ' verbleibend für 70% Rabatt!' : 
+                  ' remaining for 70% OFF!'}
+              </div>
+              <div class="urgency-button">
+                ${data.language === 'de' ? 'Jetzt kaufen' : 'Buy Now'} →
+              </div>
             </div>
           </div>
 
-          <div class="trust-icons">
-            <div>💳 ${data.language === 'de' ? 'Sichere Zahlung' : 'Safe Payment'}</div>
-            <div>✨ ${data.language === 'de' ? 'Premium Qualität' : 'Premium Quality'}</div>
-            <div>🎁 ${data.language === 'de' ? 'Sonderangebot' : 'Special Offer'}</div>
-          </div>
+          <style>
+            .urgency-sticky-bar {
+              position: fixed;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              background: ${style.colors.primary};
+              color: ${style.colors.text};
+              padding: 1rem;
+              text-align: center;
+              cursor: pointer;
+              z-index: 1000;
+              box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+              animation: slideUp 0.5s ease-out;
+            }
+
+            .urgency-content {
+              max-width: 1200px;
+              margin: 0 auto;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              gap: 1rem;
+            }
+
+            .urgency-text {
+              font-weight: 600;
+              font-size: 1.1rem;
+            }
+
+            .urgency-button {
+              background: rgba(255,255,255,0.1);
+              padding: 0.75rem 2rem;
+              border-radius: 0.5rem;
+              font-weight: bold;
+              transition: all 0.3s ease;
+            }
+
+            .urgency-sticky-bar:hover .urgency-button {
+              background: rgba(255,255,255,0.2);
+              transform: translateX(5px);
+            }
+
+            @media (max-width: 768px) {
+              .urgency-content {
+                flex-direction: column;
+                gap: 0.5rem;
+              }
+              
+              .urgency-text {
+                font-size: 1rem;
+              }
+              
+              .urgency-button {
+                padding: 0.5rem 1.5rem;
+              }
+            }
+          </style>
+
+          <script>
+            function updateStickyCountdown(targetDate) {
+              const countdownEl = document.getElementById('sticky-countdown');
+              if (!countdownEl) return;
+
+              const interval = setInterval(() => {
+                const now = new Date();
+                const diff = targetDate - now;
+
+                if (diff <= 0) {
+                  clearInterval(interval);
+                  countdownEl.textContent = '00:00:00';
+                  return;
+                }
+
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                countdownEl.textContent = 
+                  String(hours).padStart(2, '0') + ':' + 
+                  String(minutes).padStart(2, '0') + ':' + 
+                  String(seconds).padStart(2, '0');
+              }, 1000);
+            }
+
+            updateStickyCountdown(offerEndDate);
+          </script>
 
           <a href="${data.offerUrl}" class="${ids.button}" onclick="${gtagAccount ? 'gtag_report_conversion();' : ''}">
             Claim Your Discount
