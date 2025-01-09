@@ -716,7 +716,7 @@ export function generateEcomPage(data) {
 
           <script>
             const offerEndDate = new Date();
-            offerEndDate.setHours(offerEndDate.getHours() + 24); // Offer ends in 24 hours
+            offerEndDate.setMinutes(offerEndDate.getMinutes() + 40); // Offer ends in 40 minutes
 
             function updateStickyCountdown(targetDate) {
               const countdownEl = document.getElementById('sticky-countdown');
