@@ -35,14 +35,50 @@ const getRandomItem = arr => arr[Math.floor(Math.random() * arr.length)];
 // Testimonials
 const testimonials = {
   en: [
-    { name: 'John D.', text: 'This product changed my life! I highly recommend it.' },
-    { name: 'Sarah M.', text: 'Amazing quality and fast shipping. I\'m a customer for life!' },
-    { name: 'Mike L.', text: 'I was skeptical at first, but this product exceeded my expectations.' },
+    { 
+      name: 'John D.', 
+      text: 'This product changed my life! I highly recommend it.',
+      photo: 'https://randomuser.me/api/portraits/men/1.jpg',
+      location: 'New York, USA',
+      verified: true
+    },
+    { 
+      name: 'Sarah M.', 
+      text: 'Amazing quality and fast shipping. I\'m a customer for life!',
+      photo: 'https://randomuser.me/api/portraits/women/2.jpg',
+      location: 'London, UK',
+      verified: true
+    },
+    { 
+      name: 'Mike L.', 
+      text: 'I was skeptical at first, but this product exceeded my expectations.',
+      photo: 'https://randomuser.me/api/portraits/men/3.jpg',
+      location: 'Sydney, Australia',
+      verified: true
+    },
   ],
   de: [
-    { name: 'Hans M.', text: 'Dieses Produkt hat mein Leben verändert! Ich kann es nur empfehlen.' },
-    { name: 'Sabine K.', text: 'Erstaunliche Qualität und schneller Versand. Ich bin ein Kunde fürs Leben!' },
-    { name: 'Peter S.', text: 'Ich war zunächst skeptisch, aber dieses Produkt hat meine Erwartungen übertroffen.' },
+    { 
+      name: 'Hans M.', 
+      text: 'Dieses Produkt hat mein Leben verändert! Ich kann es nur empfehlen.',
+      photo: 'https://randomuser.me/api/portraits/men/4.jpg',
+      location: 'Berlin, Deutschland',
+      verified: true
+    },
+    { 
+      name: 'Sabine K.', 
+      text: 'Erstaunliche Qualität und schneller Versand. Ich bin ein Kunde fürs Leben!',
+      photo: 'https://randomuser.me/api/portraits/women/5.jpg',
+      location: 'München, Deutschland',
+      verified: true
+    },
+    { 
+      name: 'Peter S.', 
+      text: 'Ich war zunächst skeptisch, aber dieses Produkt hat meine Erwartungen übertroffen.',
+      photo: 'https://randomuser.me/api/portraits/men/6.jpg',
+      location: 'Hamburg, Deutschland',
+      verified: true
+    },
   ]
 };
 
@@ -358,10 +394,89 @@ export function generateEcomPage(data) {
             margin-bottom: 1rem;
             text-align: left;
             animation: fadeInUp 0.5s ease-out;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+          }
+
+          .${ids.testimonials} .testimonial img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid ${style.colors.primary};
           }
 
           .${ids.testimonials} .author {
             font-weight: bold;
+            color: ${style.colors.primary};
+            margin-bottom: 0.25rem;
+          }
+
+          .${ids.testimonials} .location {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+          }
+
+          .${ids.testimonials} .verified-badge {
+            color: ${style.colors.primary};
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-left: 0.5rem;
+          }
+
+          .purchase-notification {
+            position: fixed;
+            bottom: 120px;
+            right: 20px;
+            background: ${style.colors.primary};
+            color: ${style.colors.text};
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            animation: slideIn 0.5s ease-out;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+
+          @keyframes slideIn {
+            from {
+              transform: translateX(100%);
+              opacity: 0;
+            }
+            to {
+              transform: translateX(0);
+              opacity: 1;
+            }
+          }
+
+          .scarcity-badge {
+            background: ${style.colors.primary};
+            color: ${style.colors.text};
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            display: inline-block;
+            animation: pulse 2s infinite;
+          }
+
+          .guarantee-badge {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px solid ${style.colors.primary};
+          }
+
+          .guarantee-badge .icon {
+            font-size: 2rem;
             color: ${style.colors.primary};
             margin-bottom: 0.5rem;
           }
@@ -436,13 +551,49 @@ export function generateEcomPage(data) {
           </div>
 
 
+          <!-- Real-time Purchase Notifications -->
+          <div id="purchase-notifications"></div>
+
+          <!-- Scarcity Badge -->
+          <div class="scarcity-badge">
+            ${data.language === 'de' ? 
+              'Nur noch 12 verfügbar!' : 
+              'Only 12 left in stock!'}
+          </div>
+
+          <!-- Satisfaction Guarantee -->
+          <div class="guarantee-badge">
+            <div class="icon">✅</div>
+            <div>
+              ${data.language === 'de' ? 
+                '100% Zufriedenheitsgarantie | 30 Tage Geld-zurück-Garantie' : 
+                '100% Satisfaction Guarantee | 30-Day Money Back Guarantee'}
+            </div>
+          </div>
+
+          <!-- Verified Testimonials -->
           <div class="${ids.testimonials}">
             ${testimonials[data.language || 'en'].map(testimonial => `
               <div class="testimonial">
-                <p class="text">"${testimonial.text}"</p>
-                <p class="author">- ${testimonial.name}</p>
+                <img src="${testimonial.photo}" alt="${testimonial.name}" />
+                <div>
+                  <div class="author">
+                    ${testimonial.name}
+                    ${testimonial.verified ? 
+                      `<span class="verified-badge">✅ ${data.language === 'de' ? 'Verifiziert' : 'Verified'}</span>` : ''}
+                  </div>
+                  <div class="location">${testimonial.location}</div>
+                  <p class="text">"${testimonial.text}"</p>
+                </div>
               </div>
             `).join('')}
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="trust-badges">
+            <img src="https://cdn-icons-png.flaticon.com/512/349/349228.png" alt="SSL Secure" width="80" />
+            <img src="https://cdn-icons-png.flaticon.com/512/349/349228.png" alt="Money Back Guarantee" width="80" />
+            <img src="https://cdn-icons-png.flaticon.com/512/349/349228.png" alt="Verified Payments" width="80" />
           </div>
 
           <!-- Floating CTA -->
@@ -523,6 +674,46 @@ export function generateEcomPage(data) {
           const offerEndDate = new Date();
           offerEndDate.setHours(offerEndDate.getHours() + 24); // Offer ends in 24 hours
           startCountdown(offerEndDate);
+
+          // Real-time purchase notifications
+          const cities = ${data.language === 'de' ? 
+            `['Berlin', 'München', 'Hamburg', 'Köln', 'Frankfurt']` : 
+            `['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix']`};
+            
+          const names = ${data.language === 'de' ? 
+            `['Hans', 'Peter', 'Michael', 'Thomas', 'Andreas']` : 
+            `['John', 'Mike', 'David', 'James', 'Robert']`};
+
+          function showPurchaseNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'purchase-notification';
+            notification.innerHTML = `
+              <span>🛒</span>
+              <div>
+                ${data.language === 'de' ? 
+                  `${getRandomItem(names)} aus ${getRandomItem(cities)} hat gerade gekauft!` : 
+                  `${getRandomItem(names)} from ${getRandomItem(cities)} just purchased!`}
+              </div>
+            `;
+            
+            document.getElementById('purchase-notifications').appendChild(notification);
+            
+            setTimeout(() => {
+              notification.remove();
+            }, 5000);
+          }
+
+          // Show initial notifications
+          setTimeout(showPurchaseNotification, 2000);
+          setTimeout(showPurchaseNotification, 8000);
+          setTimeout(showPurchaseNotification, 15000);
+
+          // Show random notifications every 20-40 seconds
+          setInterval(() => {
+            if (Math.random() > 0.5) {
+              showPurchaseNotification();
+            }
+          }, 20000 + Math.random() * 20000);
         </script>
 
         ${gtagAccount ? `
