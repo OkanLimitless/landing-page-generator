@@ -700,13 +700,13 @@ export function generateEcomPage(data) {
             }, 5000);
           }
 
+          // Store data in a variable accessible to all functions
+          const pageData = data;
+
           // Show initial notifications
           setTimeout(() => showPurchaseNotification(pageData), 2000);
           setTimeout(() => showPurchaseNotification(pageData), 8000);
           setTimeout(() => showPurchaseNotification(pageData), 15000);
-
-          // Store data in a variable accessible to the interval
-          const pageData = data;
           
           // Show random notifications every 20-40 seconds
           setInterval(() => {
