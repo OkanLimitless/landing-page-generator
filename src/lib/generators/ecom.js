@@ -684,10 +684,10 @@ export function generateEcomPage(data) {
             `['Hans', 'Peter', 'Michael', 'Thomas', 'Andreas']` : 
             `['John', 'Mike', 'David', 'James', 'Robert']`};
 
-          function showPurchaseNotification(data) {
+          function showPurchaseNotification(pageData) {
             const notification = document.createElement('div');
             notification.className = 'purchase-notification';
-            const message = data.language === 'de' 
+            const message = pageData.language === 'de' 
               ? getRandomItem(names) + ' aus ' + getRandomItem(cities) + ' hat gerade gekauft!'
               : getRandomItem(names) + ' from ' + getRandomItem(cities) + ' just purchased!';
             
@@ -704,9 +704,15 @@ export function generateEcomPage(data) {
           const pageData = data;
 
           // Show initial notifications
-          setTimeout(() => showPurchaseNotification(pageData), 2000);
-          setTimeout(() => showPurchaseNotification(pageData), 8000);
-          setTimeout(() => showPurchaseNotification(pageData), 15000);
+          setTimeout(() => {
+            showPurchaseNotification(pageData);
+          }, 2000);
+          setTimeout(() => {
+            showPurchaseNotification(pageData);
+          }, 8000);
+          setTimeout(() => {
+            showPurchaseNotification(pageData);
+          }, 15000);
           
           // Show random notifications every 20-40 seconds
           setInterval(() => {
