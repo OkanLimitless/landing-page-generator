@@ -156,6 +156,9 @@ export function generateEcomPage(data) {
       ]
     };
 
+    // Generate postback URL with account and tracking IDs
+    const postbackUrl = `https://postback.amjdjuduqj.workers.dev/${data.accountId}/${data.gtagId}`;
+
     return `<!DOCTYPE html>
       <html lang="en">
       <head>
@@ -494,7 +497,7 @@ export function generateEcomPage(data) {
         <div class="${classes.cta}">
           <a href="${data.offerUrl}" 
              class="cta-btn"
-             onclick="gtag('event', 'conversion', {'send_to': '${data.gtagId}/purchase'});">
+             onclick="trackConversion()">
             ${data.language === 'de' ? 'Jetzt kaufen & sparen' : 'Buy Now & Save'}
           </a>
         </div>
@@ -537,12 +540,38 @@ export function generateEcomPage(data) {
 
           const interval = setInterval(updateCountdown, 1000);
           updateCountdown();
+
+          // Enhanced conversion tracking
+          function trackConversion() {
+            const transactionId = '${generateId()}';
+            const clientId = gtag('get', '${data.gtagId}', 'client_id');
+            const conversionValue = ${Math.floor(Math.random() * (150 - 50 + 1)) + 50};
+
+            // Send conversion data to postback server
+            fetch('${postbackUrl}', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                transaction_id: transactionId,
+                client_id: clientId,
+                value: conversionValue,
+                items: [{
+                  item_id: '${data.productId}',
+                  item_name: '${data.productName}'
+                }]
+              })
+            });
+
+            // Track conversion in Google Ads
+            gtag('event', 'conversion', {
+              'send_to': '${data.gtagId}/purchase',
+              'value': conversionValue,
+              'currency': 'USD',
+              'transaction_id': transactionId
+            });
+          }
         </script>
       </body>
-      </html>`;
-  } catch (error) {
-    console.error('Error generating ecom page:', error);
-    throw error;
-  }
-}
-
+      </html>`
