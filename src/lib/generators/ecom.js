@@ -110,21 +110,23 @@ export function generateEcomPage(data) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${data.productName}</title>
         <style>
-          /* App-like base styles */
-          * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+          /* Modern, clean base styles */
+          * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            scroll-behavior: smooth; 
           }
 
           body, html {
             background: ${style.colors.bg};
             color: ${style.colors.text};
             font-family: ${style.fonts.body};
+            line-height: 1.6;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             overflow-x: hidden;
-            position: relative;
           }
 
           /* App Header */
@@ -184,112 +186,87 @@ export function generateEcomPage(data) {
             line-height: 1.2;
           }
 
-          .hero-section .price {
-            font-size: 1.5rem;
+          .discount-badge {
+            background: ${style.colors.secondary};
+            color: ${style.colors.text};
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            display: inline-block;
             margin: 1rem 0;
-            color: ${style.colors.secondary};
+            animation: pulse 1.5s infinite;
           }
 
-          .hero-section .price .old-price {
-            text-decoration: line-through;
-            opacity: 0.7;
-            margin-right: 0.5rem;
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
           }
 
-          /* Features Grid */
-          .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            padding: 1rem;
-            max-width: 800px;
-            margin: 0 auto;
+          .ratings {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
           }
 
-          .feature-card {
+          .ratings .star {
+            color: #FFD700;
+            font-size: 1.5rem;
+          }
+
+          .ratings .count {
+            color: ${style.colors.text}cc;
+            font-size: 0.9rem;
+            align-self: flex-end;
+          }
+
+          /* Urgency Section */
+          .urgency-section {
             background: rgba(255,255,255,0.03);
             padding: 1.5rem;
+            margin: 2rem 1rem;
             border-radius: 1rem;
             text-align: center;
             border: 1px solid ${style.colors.primary}10;
-            transition: all 0.2s ease;
           }
 
-          .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-          }
-
-          .feature-card .icon {
-            font-size: 2rem;
-            color: ${style.colors.primary};
-            margin-bottom: 1rem;
-          }
-
-          /* Floating CTA */
-          .floating-cta {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: ${style.colors.primary};
-            padding: 1rem;
-            text-align: center;
-            z-index: 1000;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-          }
-
-          .floating-cta .cta-btn {
-            display: block;
-            background: ${style.colors.text};
-            color: ${style.colors.primary};
-            padding: 1.25rem;
-            border-radius: 1rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.2s ease;
-          }
-
-          .floating-cta .cta-btn:hover {
-            transform: scale(1.05);
-          }
-
-          /* Countdown Timer */
-          .countdown-timer {
-            background: rgba(255,255,255,0.05);
-            padding: 1rem;
-            border-radius: 1rem;
-            margin: 2rem auto;
-            max-width: 400px;
-            text-align: center;
-          }
-
-          .countdown-timer .label {
+          .urgency-section .label {
             font-size: 0.9rem;
             opacity: 0.8;
             margin-bottom: 0.5rem;
           }
 
-          .countdown-timer .timer {
+          .urgency-section .timer {
             font-size: 1.5rem;
             font-weight: 700;
             color: ${style.colors.secondary};
+          }
+
+          /* Footer */
+          .footer {
+            margin-top: auto;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: ${style.colors.text}cc;
+            border-top: 1px solid ${style.colors.primary}10;
+          }
+
+          .footer a {
+            color: ${style.colors.primary};
+            text-decoration: none;
+            margin: 0 0.5rem;
+          }
+
+          .footer a:hover {
+            text-decoration: underline;
           }
 
           /* Mobile Optimization */
           @media (max-width: 768px) {
             .hero-section h1 {
               font-size: 1.8rem;
-            }
-
-            .features-grid {
-              grid-template-columns: repeat(2, 1fr);
-            }
-
-            .floating-cta .cta-btn {
-              padding: 1rem;
-              font-size: 1rem;
             }
           }
         </style>
@@ -307,24 +284,15 @@ export function generateEcomPage(data) {
         <div class="hero-section">
           <img src="${data.productImages.split(',')[0]}" alt="${data.productName}" class="product-image">
           <h1>${data.productName}</h1>
-          <div class="price">
-            <span class="old-price">$199</span>
-            <span class="new-price">$99</span>
+          <div class="discount-badge">-70% DISCOUNT</div>
+          <div class="ratings">
+            <div class="star">★★★★★</div>
+            <div class="count">(4,832 reviews)</div>
           </div>
         </div>
 
-        <!-- Features Grid -->
-        <div class="features-grid">
-          ${features.slice(0, 4).map(feature => `
-            <div class="feature-card">
-              <div class="icon">✓</div>
-              <div>${feature}</div>
-            </div>
-          `).join('')}
-        </div>
-
-        <!-- Countdown Timer -->
-        <div class="countdown-timer">
+        <!-- Urgency Section -->
+        <div class="urgency-section">
           <div class="label">${data.language === 'de' ? 'Angebot endet in:' : 'Offer ends in:'}</div>
           <div class="timer" id="countdown-timer">00:00:00</div>
         </div>
@@ -334,6 +302,15 @@ export function generateEcomPage(data) {
           <a href="${data.offerUrl}" class="cta-btn">
             ${data.language === 'de' ? 'Jetzt kaufen & sparen' : 'Buy Now & Save'}
           </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <p>This site is not associated with Google, YouTube, or any other third-party brands.</p>
+          <p>
+            <a href="/privacy">Privacy Policy</a> | 
+            <a href="/terms">Terms of Service</a>
+          </p>
         </div>
 
         <script>
@@ -371,3 +348,4 @@ export function generateEcomPage(data) {
     throw error;
   }
 }
+
