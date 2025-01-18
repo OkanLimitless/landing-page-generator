@@ -103,6 +103,17 @@ export function generateEcomPage(data) {
 
     const features = (data.features || '').split('\n').filter(Boolean);
 
+    // Generate unique class names using the existing IDs
+    const classes = {
+      header: `header-${generateId()}`,
+      hero: `hero-${generateId()}`,
+      discount: `discount-${generateId()}`,
+      ratings: `ratings-${generateId()}`,
+      urgency: `urgency-${generateId()}`,
+      cta: `cta-${generateId()}`,
+      footer: `footer-${generateId()}`
+    };
+
     return `<!DOCTYPE html>
       <html lang="en">
       <head>
@@ -130,7 +141,7 @@ export function generateEcomPage(data) {
           }
 
           /* App Header */
-          .app-header {
+          .${classes.header} {
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -163,7 +174,7 @@ export function generateEcomPage(data) {
           }
 
           /* Hero Section */
-          .hero-section {
+          .${classes.hero} {
             padding: 2rem 1rem;
             text-align: center;
             position: relative;
@@ -186,7 +197,8 @@ export function generateEcomPage(data) {
             line-height: 1.2;
           }
 
-          .discount-badge {
+          /* Discount Badge */
+          .${classes.discount} {
             background: ${style.colors.secondary};
             color: ${style.colors.text};
             padding: 0.5rem 1.5rem;
@@ -203,7 +215,8 @@ export function generateEcomPage(data) {
             100% { transform: scale(1); }
           }
 
-          .ratings {
+          /* Ratings */
+          .${classes.ratings} {
             display: flex;
             justify-content: center;
             gap: 0.5rem;
@@ -222,7 +235,7 @@ export function generateEcomPage(data) {
           }
 
           /* Urgency Section */
-          .urgency-section {
+          .${classes.urgency} {
             background: rgba(255,255,255,0.03);
             padding: 1.5rem;
             margin: 2rem 1rem;
@@ -244,7 +257,7 @@ export function generateEcomPage(data) {
           }
 
           /* Footer */
-          .footer {
+          .${classes.footer} {
             margin-top: auto;
             padding: 2rem 1rem;
             text-align: center;
@@ -271,7 +284,7 @@ export function generateEcomPage(data) {
           }
 
           /* Floating CTA */
-          .floating-cta {
+          .${classes.cta} {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -306,7 +319,7 @@ export function generateEcomPage(data) {
       </head>
       <body>
         <!-- App Header -->
-        <div class="app-header">
+        <div class="${classes.header}">
           <div class="logo">${data.productName}</div>
           <a href="${data.offerUrl}" class="cta-btn">
             ${data.language === 'de' ? 'Jetzt kaufen' : 'Buy Now'}
@@ -314,31 +327,31 @@ export function generateEcomPage(data) {
         </div>
 
         <!-- Hero Section -->
-        <div class="hero-section">
+        <div class="${classes.hero}">
           <img src="${data.productImages.split(',')[0]}" alt="${data.productName}" class="product-image">
           <h1>${data.productName}</h1>
-          <div class="discount-badge">-70% DISCOUNT</div>
-          <div class="ratings">
+          <div class="${classes.discount}">-70% DISCOUNT</div>
+          <div class="${classes.ratings}">
             <div class="star">★★★★★</div>
             <div class="count">(4,832 reviews)</div>
           </div>
         </div>
 
         <!-- Urgency Section -->
-        <div class="urgency-section">
+        <div class="${classes.urgency}">
           <div class="label">${data.language === 'de' ? 'Angebot endet in:' : 'Offer ends in:'}</div>
           <div class="timer" id="countdown-timer">00:00:00</div>
         </div>
 
         <!-- Floating CTA -->
-        <div class="floating-cta">
+        <div class="${classes.cta}">
           <a href="${data.offerUrl}" class="cta-btn">
             ${data.language === 'de' ? 'Jetzt kaufen & sparen' : 'Buy Now & Save'}
           </a>
         </div>
 
         <!-- Footer -->
-        <div class="footer">
+        <div class="${classes.footer}">
           <p>This site is not associated with Google, YouTube, or any other third-party brands.</p>
           <p>
             <a href="/privacy">Privacy Policy</a> | 
