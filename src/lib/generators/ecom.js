@@ -184,10 +184,12 @@ export function generateEcomPage(data) {
           .hero-section .product-image {
             width: 100%;
             max-width: 400px;
+            height: auto;
             margin: 0 auto;
             border-radius: 2rem;
             overflow: hidden;
             box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+            display: block;
           }
 
           .hero-section h1 {
@@ -314,6 +316,61 @@ export function generateEcomPage(data) {
           .floating-cta .cta-btn:hover {
             transform: scale(1.05);
             background: ${style.colors.secondary};
+          }
+
+          /* Header CTA Button */
+          .${classes.header} .cta-btn {
+            background: ${style.colors.primary};
+            color: ${style.colors.text};
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            margin-left: 1rem;
+          }
+
+          /* Floating CTA Button */
+          .${classes.cta} .cta-btn {
+            display: block;
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto;
+            background: ${style.colors.primary};
+            color: ${style.colors.text};
+            padding: 1.25rem;
+            border-radius: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+          }
+
+          /* Mobile Responsiveness */
+          @media (max-width: 768px) {
+            .${classes.header} .cta-btn {
+              padding: 0.5rem 1rem;
+              font-size: 0.9rem;
+            }
+
+            .${classes.cta} .cta-btn {
+              width: 95%;
+              padding: 1rem;
+              font-size: 1rem;
+            }
+
+            .${classes.hero} .product-image {
+              max-width: 300px;
+            }
+          }
+
+          @media (max-width: 480px) {
+            .${classes.hero} .product-image {
+              max-width: 250px;
+            }
           }
         </style>
       </head>
