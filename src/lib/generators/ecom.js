@@ -574,4 +574,9 @@ export function generateEcomPage(data) {
           }
         </script>
       </body>
-      </html>`
+      </html>`;
+  } catch (error) {
+    console.error('Error generating ecom page:', error);
+    throw error;
+  }
+}
