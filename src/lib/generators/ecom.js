@@ -269,6 +269,39 @@ export function generateEcomPage(data) {
               font-size: 1.8rem;
             }
           }
+
+          /* Floating CTA */
+          .floating-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: ${style.colors.bg};
+            border-top: 1px solid ${style.colors.primary}20;
+            z-index: 1000;
+            text-align: center;
+          }
+
+          .floating-cta .cta-btn {
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+            background: ${style.colors.primary};
+            color: ${style.colors.text};
+            padding: 1.25rem;
+            border-radius: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+          }
+
+          .floating-cta .cta-btn:hover {
+            transform: scale(1.05);
+            background: ${style.colors.secondary};
+          }
         </style>
       </head>
       <body>
