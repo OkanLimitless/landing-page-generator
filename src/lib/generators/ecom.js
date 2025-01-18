@@ -230,17 +230,30 @@ export function generateEcomPage(data) {
           .${classes.discount} {
             background: ${style.colors.secondary};
             color: ${style.colors.text};
-            padding: 0.5rem 1.5rem;
+            padding: 0.75rem 2rem;
             border-radius: 2rem;
-            font-weight: bold;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
             display: inline-block;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
             animation: pulse 1.5s infinite;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            border: 2px solid ${style.colors.primary}20;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+          }
+
+          .${classes.discount}:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.25);
           }
 
           @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
             100% { transform: scale(1); }
           }
 
@@ -399,6 +412,9 @@ export function generateEcomPage(data) {
               max-width: 250px;
             }
           }
+
+          /* Add Montserrat font */
+          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
         </style>
       </head>
       <body>
