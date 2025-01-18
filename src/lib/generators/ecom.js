@@ -82,6 +82,33 @@ const testimonials = {
   ]
 };
 
+// Add more random elements
+const randomElements = {
+  discountTexts: [
+    "LIMITED TIME OFFER",
+    "EXCLUSIVE DISCOUNT",
+    "FLASH SALE",
+    "SPECIAL DEAL",
+    "HOT DEAL",
+    "INSIDER OFFER"
+  ],
+  urgencyPhrases: [
+    "Hurry! Only a few left!",
+    "Don't miss out!",
+    "Offer ending soon!",
+    "Last chance!",
+    "Limited stock!",
+    "Almost gone!"
+  ],
+  ratingCounts: [
+    "4,832 reviews",
+    "5,129 reviews",
+    "4,567 reviews",
+    "5,432 reviews",
+    "4,921 reviews"
+  ]
+};
+
 export function generateEcomPage(data) {
   try {
     const [gtagAccount] = (data.gtagId || '').split('/');
@@ -385,18 +412,22 @@ export function generateEcomPage(data) {
 
         <!-- Hero Section -->
         <div class="${classes.hero}">
-          <img src="${data.productImages.split(',')[0]}" alt="${data.productName}" class="product-image">
+          <a href="${data.offerUrl}">
+            <img src="${data.productImages.split(',')[0]}" alt="${data.productName}" class="product-image">
+          </a>
           <h1>${data.productName}</h1>
-          <div class="${classes.discount}">-70% DISCOUNT</div>
+          <a href="${data.offerUrl}" class="${classes.discount}">
+            -70% ${getRandomItem(randomElements.discountTexts)}
+          </a>
           <div class="${classes.ratings}">
             <div class="star">★★★★★</div>
-            <div class="count">(4,832 reviews)</div>
+            <div class="count">(${getRandomItem(randomElements.ratingCounts)})</div>
           </div>
         </div>
 
         <!-- Urgency Section -->
         <div class="${classes.urgency}">
-          <div class="label">${data.language === 'de' ? 'Angebot endet in:' : 'Offer ends in:'}</div>
+          <div class="label">${getRandomItem(randomElements.urgencyPhrases)}</div>
           <div class="timer" id="countdown-timer">00:00:00</div>
         </div>
 
