@@ -327,11 +327,13 @@ export function generateEcomPage(data) {
           /* Footer */
           .${classes.footer} {
             margin-top: auto;
-            padding: 2rem 1rem;
+            padding: 2rem 1rem 6rem;
             text-align: center;
             font-size: 0.8rem;
             color: ${style.colors.text}cc;
             border-top: 1px solid ${style.colors.primary}10;
+            position: relative;
+            z-index: 999;
           }
 
           .footer a {
@@ -441,6 +443,19 @@ export function generateEcomPage(data) {
 
           /* Add Montserrat font */
           @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
+          /* Mobile adjustments */
+          @media (max-width: 768px) {
+            .${classes.footer} {
+              padding-bottom: 5rem;
+            }
+          }
+
+          @media (max-width: 480px) {
+            .${classes.footer} {
+              padding-bottom: 4.5rem;
+            }
+          }
         </style>
       </head>
       <body>
