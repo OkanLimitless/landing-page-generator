@@ -141,12 +141,38 @@ export function generateEcomPage(data) {
       footer: `footer-${generateId()}`
     };
 
+    // Generate random meta elements
+    const randomMeta = {
+      descriptions: [
+        `Discover the best deals on ${data.productName}. Limited time offer!`,
+        `Get ${data.productName} at an exclusive discount. Don't miss out!`,
+        `Special promotion: ${data.productName} at unbeatable prices.`,
+        `Shop ${data.productName} with confidence. Best prices guaranteed.`
+      ],
+      keywords: [
+        `${data.productName}, best deal, limited offer`,
+        `${data.productName}, special promotion, online shopping`,
+        `${data.productName}, exclusive discount, trusted seller`
+      ]
+    };
+
     return `<!DOCTYPE html>
       <html lang="en">
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${data.productName}</title>
+        <meta name="description" content="${getRandomItem(randomMeta.descriptions)}">
+        <meta name="keywords" content="${getRandomItem(randomMeta.keywords)}">
+        <meta name="robots" content="index, follow">
+        <!-- Google Ads Conversion Tracking -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=${data.gtagId}"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${data.gtagId}');
+        </script>
         <style>
           /* Modern, clean base styles */
           * { 
@@ -421,7 +447,9 @@ export function generateEcomPage(data) {
         <!-- App Header -->
         <div class="${classes.header}">
           <div class="logo">${data.productName}</div>
-          <a href="${data.offerUrl}" class="cta-btn">
+          <a href="${data.offerUrl}" 
+             class="cta-btn"
+             onclick="gtag('event', 'conversion', {'send_to': '${data.gtagId}/purchase'});">
             ${data.language === 'de' ? 'Jetzt kaufen' : 'Buy Now'}
           </a>
         </div>
@@ -449,15 +477,19 @@ export function generateEcomPage(data) {
 
         <!-- Floating CTA -->
         <div class="${classes.cta}">
-          <a href="${data.offerUrl}" class="cta-btn">
+          <a href="${data.offerUrl}" 
+             class="cta-btn"
+             onclick="gtag('event', 'conversion', {'send_to': '${data.gtagId}/purchase'});">
             ${data.language === 'de' ? 'Jetzt kaufen & sparen' : 'Buy Now & Save'}
           </a>
         </div>
 
         <!-- Footer -->
         <div class="${classes.footer}">
+          <p>This site contains affiliate links. We may earn a commission if you make a purchase through these links.</p>
           <p>This site is not associated with Google, YouTube, or any other third-party brands.</p>
           <p>
+            <a href="/disclosure">Disclosure</a> | 
             <a href="/privacy">Privacy Policy</a> | 
             <a href="/terms">Terms of Service</a>
           </p>
