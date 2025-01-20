@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Download } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Download, Trash2, Save } from 'lucide-react';
 import JSZip from 'jszip';
 import { contentPresets } from '../lib/utils/content-presets';
 
@@ -123,6 +123,9 @@ const Generator = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('vsl');
   const [loading, setLoading] = useState(false);
+  const [showPresetModal, setShowPresetModal] = useState(false);
+  const [newPresetName, setNewPresetName] = useState('');
+  const [localPresets, setLocalPresets] = useState({});
   
   const [vslFormData, setVslFormData] = useState({
     headline: '',
@@ -144,6 +147,15 @@ const Generator = () => {
     buttonText: 'Buy Now',
     language: 'en'
   });
+
+  // Load presets from localStorage on mount
+  useEffect(() => {
+    const savedPresets = JSON.parse(localStorage.getItem('customPresets') || '{}');
+    setLocalPresets(savedPresets);
+  }, []);
+
+  // Combine default and local presets
+  const allPresets = { ...contentPresets, ...localPresets };
 
   const generateRandomId = () => {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -226,13 +238,77 @@ const Generator = () => {
     }
   };
 
-  const presetOptions = Object.keys(contentPresets).map(key => ({
+  const handleSavePreset = () => {
+    setShowPresetModal(true);
+  };
+
+  const confirmSavePreset = () => {
+    if (!newPresetName) return;
+    
+    const presetKey = newPresetName.replace(/\s+/g, '');
+    const currentFormData = activeTab === 'vsl' ? vslFormData : ecomFormData;
+    
+    // Create new preset without the preset field itself
+    const { preset, ...presetData } = currentFormData;
+    
+    const updatedPresets = {
+      ...localPresets,
+      [presetKey]: presetData
+    };
+    
+    localStorage.setItem('customPresets', JSON.stringify(updatedPresets));
+    setLocalPresets(updatedPresets);
+    setShowPresetModal(false);
+    setNewPresetName('');
+  };
+
+  const handleDeletePreset = (presetKey) => {
+    const updatedPresets = { ...localPresets };
+    delete updatedPresets[presetKey];
+    
+    localStorage.setItem('customPresets', JSON.stringify(updatedPresets));
+    setLocalPresets(updatedPresets);
+  };
+
+  // Update presetOptions to use allPresets
+  const presetOptions = Object.keys(allPresets).map(key => ({
     value: key,
-    label: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())
+    label: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+    isCustom: !!localPresets[key]
   }));
 
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12">
+      {/* Preset Modal */}
+      {showPresetModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
+            <h3 className="text-lg font-bold mb-4">Save as Preset</h3>
+            <input
+              type="text"
+              value={newPresetName}
+              onChange={(e) => setNewPresetName(e.target.value)}
+              className="w-full p-2 rounded bg-gray-700 mb-4"
+              placeholder="Enter preset name"
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowPresetModal(false)}
+                className="px-4 py-2 text-gray-400 hover:text-white"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmSavePreset}
+                className="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="container max-w-4xl mx-auto px-4">
         <div className="bg-gray-800 rounded-xl shadow-xl overflow-hidden">
           <div className="p-6 border-b border-gray-700">
@@ -243,18 +319,39 @@ const Generator = () => {
           <div className="p-6">
             <div className="mb-6">
               <label className="block text-sm font-medium mb-2">Select Preset</label>
-              <select
-                value={activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset}
-                onChange={handlePresetChange}
-                className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+              <div className="relative">
+                <select
+                  value={activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset}
+                  onChange={handlePresetChange}
+                  className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white pr-10"
+                >
+                  <option value="">-- Select a Preset --</option>
+                  {presetOptions.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.label} {option.isCustom && '(Custom)'}
+                    </option>
+                  ))}
+                </select>
+                {activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset && (
+                  <button
+                    onClick={() => handleDeletePreset(activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-red-500 hover:text-red-400"
+                    title="Delete Preset"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <button
+                onClick={handleSavePreset}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600"
               >
-                <option value="">-- Select a Preset --</option>
-                {presetOptions.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+                <Save className="w-4 h-4" />
+                Save Current Settings as Preset
+              </button>
             </div>
 
             <div className="flex border-b border-gray-700 mb-6">
