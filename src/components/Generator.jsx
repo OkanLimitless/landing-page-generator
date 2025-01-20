@@ -154,8 +154,8 @@ const Generator = () => {
     setLocalPresets(savedPresets);
   }, []);
 
-  // Combine default and local presets
-  const allPresets = { ...contentPresets, ...localPresets };
+  // Remove the combination of presets and only use localPresets
+  const allPresets = localPresets;  // Changed from { ...contentPresets, ...localPresets }
 
   const generateRandomId = () => {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -283,11 +283,11 @@ const Generator = () => {
     setLocalPresets(updatedPresets);
   };
 
-  // Update presetOptions to use allPresets
+  // Update presetOptions to only show custom presets
   const presetOptions = Object.keys(allPresets).map(key => ({
     value: key,
     label: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
-    isCustom: !!localPresets[key]
+    isCustom: true  // All presets are now custom
   }));
 
   return (
@@ -342,7 +342,7 @@ const Generator = () => {
                     <option value="">-- Select a Preset --</option>
                     {presetOptions.map(option => (
                       <option key={option.value} value={option.value}>
-                        {option.label} {option.isCustom && '(Custom)'}
+                        {option.label}
                       </option>
                     ))}
                   </select>
