@@ -1,9 +1,14 @@
 import { getRandomStyle } from '../utils/style-variations';
+import { contentPresets } from '../utils/content-presets';
 
 export const generateVSLPage = (data) => {
   try {
-    const [gtagAccount] = (data.gtagId || '').split('/');
-    const styles = data.styles || getRandomStyle();
+    // Check if preset is provided and merge with data
+    const presetData = data.preset ? contentPresets[data.preset] : {};
+    const mergedData = { ...presetData, ...data };
+    
+    const [gtagAccount] = (mergedData.gtagId || '').split('/');
+    const styles = mergedData.styles || getRandomStyle();
     if (!styles) {
       throw new Error('Failed to generate styles');
     }
@@ -22,7 +27,7 @@ export const generateVSLPage = (data) => {
       
       function gtag_report_conversion() {
         gtag('event', 'conversion', {
-          'send_to': '${data.gtagId}'
+          'send_to': '${mergedData.gtagId}'
         });
         return false;
       }
@@ -33,9 +38,9 @@ export const generateVSLPage = (data) => {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${data.headline}</title>
+        <title>${mergedData.headline}</title>
         ${styles.fonts.urls.map(url => `<link href="${url}" rel="stylesheet">`).join('\n')}
-        ${data.trackingScript || ''}
+        ${mergedData.trackingScript || ''}
         ${gtagAccount ? `
           <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>
           <script>${gtagScript}</script>
@@ -158,20 +163,20 @@ export const generateVSLPage = (data) => {
       <body>
         <main id="${ids.container}">
           <h1 class="headline">
-            ${data.headline.split(':')[0]}:
-            <span class="highlight">${data.headline.split(':')[1] || ''}</span>
+            ${mergedData.headline.split(':')[0]}:
+            <span class="highlight">${mergedData.headline.split(':')[1] || ''}</span>
           </h1>
-          <div id="${ids.video}" onclick="window.location.href='${data.offerUrl}'; gtag_report_conversion();" role="button" tabindex="0">
-            <img src="${data.thumbnailUrl}" alt="${data.headline}">
+          <div id="${ids.video}" onclick="window.location.href='${mergedData.offerUrl}'; gtag_report_conversion();" role="button" tabindex="0">
+            <img src="${mergedData.thumbnailUrl}" alt="${mergedData.headline}">
           </div>
-          <a href="${data.offerUrl}" class="cta-button" onclick="gtag_report_conversion();">
-            ${data.ctaText || 'Watch FREE Video Guide Now'}
+          <a href="${mergedData.offerUrl}" class="cta-button" onclick="gtag_report_conversion();">
+            ${mergedData.ctaText || 'Watch FREE Video Guide Now'}
           </a>
           <div class="description">
-            ${data.description.split('\n').map(p => `<p>${p}</p>`).join('')}
+            ${mergedData.description.split('\n').map(p => `<p>${p}</p>`).join('')}
           </div>
-          <a href="${data.offerUrl}" class="cta-button" onclick="gtag_report_conversion();">
-            ${data.ctaText || 'Watch FREE Video Guide Now'}
+          <a href="${mergedData.offerUrl}" class="cta-button" onclick="gtag_report_conversion();">
+            ${mergedData.ctaText || 'Watch FREE Video Guide Now'}
           </a>
         </main>
         <footer id="${ids.footer}">
