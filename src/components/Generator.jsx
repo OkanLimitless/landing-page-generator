@@ -221,18 +221,31 @@ const Generator = () => {
 
   const handlePresetChange = (e) => {
     const presetKey = e.target.value;
-    if (presetKey && contentPresets[presetKey]) {
+    if (presetKey && allPresets[presetKey]) {
       if (activeTab === 'vsl') {
         setVslFormData(prev => ({
           ...prev,
-          ...contentPresets[presetKey],
+          ...allPresets[presetKey],
           preset: presetKey
         }));
       } else {
         setEcomFormData(prev => ({
           ...prev,
-          ...contentPresets[presetKey],
+          ...allPresets[presetKey],
           preset: presetKey
+        }));
+      }
+    } else {
+      // Clear preset selection
+      if (activeTab === 'vsl') {
+        setVslFormData(prev => ({
+          ...prev,
+          preset: ''
+        }));
+      } else {
+        setEcomFormData(prev => ({
+          ...prev,
+          preset: ''
         }));
       }
     }
