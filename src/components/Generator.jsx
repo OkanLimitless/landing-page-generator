@@ -332,28 +332,33 @@ const Generator = () => {
           <div className="p-6">
             <div className="mb-6">
               <label className="block text-sm font-medium mb-2">Select Preset</label>
-              <div className="relative">
-                <select
-                  value={activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset}
-                  onChange={handlePresetChange}
-                  className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white pr-10"
-                >
-                  <option value="">-- Select a Preset --</option>
-                  {presetOptions.map(option => (
-                    <option key={option.value} value={option.value}>
-                      {option.label} {option.isCustom && '(Custom)'}
-                    </option>
-                  ))}
-                </select>
-                {activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset && (
-                  <button
-                    onClick={() => handleDeletePreset(activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-red-500 hover:text-red-400"
-                    title="Delete Preset"
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <select
+                    value={activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset}
+                    onChange={handlePresetChange}
+                    className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white pr-10"
                   >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                )}
+                    <option value="">-- Select a Preset --</option>
+                    {presetOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label} {option.isCustom && '(Custom)'}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {(activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset) && 
+                  localPresets[activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset] && (
+                    <button
+                      onClick={() => handleDeletePreset(activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset)}
+                      className="px-4 py-2 text-red-500 hover:text-red-400 flex items-center gap-1"
+                      title="Delete Preset"
+                    >
+                      <Trash2 className="w-5 h-5" />
+                      <span className="sr-only">Delete Preset</span>
+                    </button>
+                  )
+                }
               </div>
             </div>
 
