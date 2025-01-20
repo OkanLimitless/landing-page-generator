@@ -1,12 +1,46 @@
 import React from 'react';
+import { contentPresets } from '../../lib/utils/content-presets';
 
 const VSLForm = ({ formData, setFormData }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handlePresetChange = (e) => {
+    const presetKey = e.target.value;
+    if (presetKey && contentPresets[presetKey]) {
+      setFormData(prev => ({
+        ...prev,
+        ...contentPresets[presetKey],
+        preset: presetKey
+      }));
+    }
+  };
+
+  const presetOptions = Object.keys(contentPresets).map(key => ({
+    value: key,
+    label: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())
+  }));
+
   return (
     <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium mb-1">Select Preset</label>
+        <select
+          name="preset"
+          value={formData.preset || ''}
+          onChange={handlePresetChange}
+          className="w-full p-2 border rounded"
+        >
+          <option value="">-- Select a Preset --</option>
+          {presetOptions.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div>
         <label className="block text-sm font-medium mb-1">Headline</label>
         <input
