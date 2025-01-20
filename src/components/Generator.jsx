@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Download } from 'lucide-react';
 import JSZip from 'jszip';
+import { contentPresets } from '../lib/utils/content-presets';
 
 const VSLForm = ({ formData, setFormData }) => {
   const handleChange = (e) => {
@@ -206,6 +207,30 @@ const Generator = () => {
     }
   };
 
+  const handlePresetChange = (e) => {
+    const presetKey = e.target.value;
+    if (presetKey && contentPresets[presetKey]) {
+      if (activeTab === 'vsl') {
+        setVslFormData(prev => ({
+          ...prev,
+          ...contentPresets[presetKey],
+          preset: presetKey
+        }));
+      } else {
+        setEcomFormData(prev => ({
+          ...prev,
+          ...contentPresets[presetKey],
+          preset: presetKey
+        }));
+      }
+    }
+  };
+
+  const presetOptions = Object.keys(contentPresets).map(key => ({
+    value: key,
+    label: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())
+  }));
+
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12">
       <div className="container max-w-4xl mx-auto px-4">
@@ -216,6 +241,22 @@ const Generator = () => {
           </div>
           
           <div className="p-6">
+            <div className="mb-6">
+              <label className="block text-sm font-medium mb-2">Select Preset</label>
+              <select
+                value={activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset}
+                onChange={handlePresetChange}
+                className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+              >
+                <option value="">-- Select a Preset --</option>
+                {presetOptions.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div className="flex border-b border-gray-700 mb-6">
               <button 
                 className={`px-4 py-2 ${activeTab === 'vsl' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
