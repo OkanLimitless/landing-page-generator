@@ -350,8 +350,13 @@ const Generator = () => {
                 {(activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset) && 
                   localPresets[activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset] && (
                     <button
-                      onClick={() => handleDeletePreset(activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset)}
-                      className="px-4 py-2 text-red-500 hover:text-red-400 flex items-center gap-1"
+                      onClick={() => {
+                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset;
+                        if (window.confirm(`Are you sure you want to delete the "${presetToDelete}" preset?`)) {
+                          handleDeletePreset(presetToDelete);
+                        }
+                      }}
+                      className="px-4 py-2 text-red-500 hover:text-red-400 flex items-center gap-1 border border-red-500/20 hover:border-red-400/30 rounded-lg"
                       title="Delete Preset"
                     >
                       <Trash2 className="w-5 h-5" />
