@@ -221,7 +221,7 @@ const decorativeElements = [
   // Add more decorative element types...
 ];
 
-export const getRandomStyle = () => {
+const getRandomStyle = () => {
   // Pick a random style preset
   const presetKeys = Object.keys(stylePresets);
   const selectedPreset = stylePresets[presetKeys[Math.floor(Math.random() * presetKeys.length)]];
@@ -295,4 +295,12 @@ export const getRandomStyle = () => {
   };
 };
 
-export { getRandomStyle, getRandomVariation, colors, fonts, buttonStyles, imageStyles, containerStyles };
+export { 
+  getRandomStyle,
+  getRandomVariation, 
+  colors, 
+  fonts, 
+  buttonStyles, 
+  imageStyles, 
+  containerStyles 
+};
