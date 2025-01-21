@@ -3,6 +3,10 @@ import { Download, Trash2, Save } from 'lucide-react';
 import JSZip from 'jszip';
 import { contentPresets } from '../lib/utils/content-presets';
 
+// Create common input class for both forms
+const commonInputClass = "w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white";
+const commonTextareaClass = `${commonInputClass} h-32`;
+
 const VSLForm = ({ formData, setFormData }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -13,40 +17,87 @@ const VSLForm = ({ formData, setFormData }) => {
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <label className="block text-sm font-medium mb-2">Headline</label>
-          <input type="text" name="headline" value={formData.headline} onChange={handleChange} className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white" placeholder="Enter your headline" />
+          <input 
+            type="text" 
+            name="headline" 
+            value={formData.headline} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Enter your headline" 
+          />
         </div>
       </div>
 
       <div>
         <label className="block text-sm font-medium mb-2">Description</label>
-        <textarea name="description" value={formData.description} onChange={handleChange} className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white h-32" placeholder="Enter your description (use new lines for bullet points)" />
+        <textarea 
+          name="description" 
+          value={formData.description} 
+          onChange={handleChange} 
+          className={commonTextareaClass}
+          placeholder="Enter your description (use new lines for bullet points)" 
+        />
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <label className="block text-sm font-medium mb-2">Thumbnail URL</label>
-          <input type="url" name="thumbnailUrl" value={formData.thumbnailUrl} onChange={handleChange} className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white" placeholder="Enter thumbnail URL" />
+          <input 
+            type="url" 
+            name="thumbnailUrl" 
+            value={formData.thumbnailUrl} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Enter thumbnail URL" 
+          />
         </div>
         <div>
           <label className="block text-sm font-medium mb-2">CTA Button Text</label>
-          <input type="text" name="ctaText" value={formData.ctaText} onChange={handleChange} className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white" placeholder="Watch FREE Video Guide Now" />
+          <input 
+            type="text" 
+            name="ctaText" 
+            value={formData.ctaText} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Watch FREE Video Guide Now" 
+          />
         </div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <label className="block text-sm font-medium mb-2">Offer URL</label>
-          <input type="url" name="offerUrl" value={formData.offerUrl} onChange={handleChange} className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white" placeholder="Enter offer URL" />
+          <input 
+            type="url" 
+            name="offerUrl" 
+            value={formData.offerUrl} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Enter offer URL" 
+          />
         </div>
         <div>
           <label className="block text-sm font-medium mb-2">Google Ads ID</label>
-          <input type="text" name="gtagId" value={formData.gtagId} onChange={handleChange} className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white" placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX" />
+          <input 
+            type="text" 
+            name="gtagId" 
+            value={formData.gtagId} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX" 
+          />
         </div>
       </div>
 
       <div>
         <label className="block text-sm font-medium mb-2">Tracking Script (Optional)</label>
-        <textarea name="trackingScript" value={formData.trackingScript} onChange={handleChange} className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white h-32 font-mono text-sm" placeholder="Enter tracking script to be placed in <head>" />
+        <textarea 
+          name="trackingScript" 
+          value={formData.trackingScript} 
+          onChange={handleChange} 
+          className={`${commonTextareaClass} font-mono text-sm`}
+          placeholder="Enter tracking script to be placed in <head>" 
+        />
       </div>
     </div>
   );
@@ -62,7 +113,14 @@ const EcomForm = ({ formData, setFormData }) => {
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <label className="block text-sm font-medium mb-2">Product Name</label>
-          <input type="text" name="productName" value={formData.productName} onChange={handleChange} className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white" placeholder="Enter product name" />
+          <input 
+            type="text" 
+            name="productName" 
+            value={formData.productName} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Enter product name" 
+          />
         </div>
         <div>
           <label className="block text-sm font-medium mb-2">Button Text</label>
@@ -71,7 +129,7 @@ const EcomForm = ({ formData, setFormData }) => {
             name="buttonText"
             value={formData.buttonText}
             onChange={handleChange}
-            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            className={commonInputClass}
             placeholder="Enter button text (e.g. Buy Now)"
           />
         </div>
@@ -82,7 +140,7 @@ const EcomForm = ({ formData, setFormData }) => {
             name="language"
             value={formData.language || 'en'}
             onChange={handleChange}
-            className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white"
+            className={commonInputClass}
           >
             <option value="en">English</option>
             <option value="de">German</option>

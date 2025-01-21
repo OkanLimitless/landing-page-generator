@@ -112,36 +112,187 @@ const getRandomVariation = (variations, defaultValue = null) => {
   }
 };
 
-const getRandomStyle = () => {
-  try {
-    const styleIndex = Math.floor(Math.random() * buttonStyles.base.length);
-    const accent = getRandomVariation(colors.accents, colors.accents[0]);
-    const background = getRandomVariation(colors.backgrounds, colors.backgrounds[0]);
-    const font = getRandomVariation(fonts, fonts[0]);
-    const image = getRandomVariation(imageStyles, imageStyles[0]);
-    const container = getRandomVariation(containerStyles, containerStyles[0]);
-
-    const buttonBase = buttonStyles.base[styleIndex];
-    const buttonHover = buttonStyles.hover[styleIndex];
-
-    return {
-      colors: accent,
-      background,
-      fonts: font,
-      button: (colors) => buttonBase(colors || accent),
-      buttonHover: (colors) => `.cta-button:hover { ${buttonHover(colors || accent)} }`,
-      image,
-      container,
-      borderRadius: '12px',
-      spacing: {
-        vertical: '1.5rem',
-        horizontal: '1rem'
-      }
-    };
-  } catch (error) {
-    console.error('Error in getRandomStyle:', error);
-    return null;
+// Collection of carefully curated style combinations
+const stylePresets = {
+  modern: {
+    fonts: {
+      heading: ['Montserrat', 'Inter', 'system-ui'],
+      body: ['Inter', 'Roboto', 'system-ui'],
+    },
+    colors: {
+      primary: ['#3B82F6', '#2563EB', '#1D4ED8'],
+      accent: ['#F59E0B', '#D97706', '#B45309'],
+      background: [
+        'linear-gradient(145deg, #1E293B, #0F172A)',
+        'linear-gradient(135deg, #1F2937, #111827)',
+        'linear-gradient(150deg, #18181B, #09090B)'
+      ]
+    }
+  },
+  elegant: {
+    fonts: {
+      heading: ['Playfair Display', 'Merriweather', 'serif'],
+      body: ['Source Sans Pro', 'Open Sans', 'system-ui'],
+    },
+    colors: {
+      primary: ['#8B5CF6', '#7C3AED', '#6D28D9'],
+      accent: ['#EC4899', '#DB2777', '#BE185D'],
+      background: [
+        'linear-gradient(165deg, #1E1B4B, #312E81)',
+        'linear-gradient(155deg, #312E81, #1E1B4B)',
+        'linear-gradient(170deg, #281B4B, #1B1B4B)'
+      ]
+    }
+  },
+  minimal: {
+    fonts: {
+      heading: ['DM Sans', 'Plus Jakarta Sans', 'system-ui'],
+      body: ['Plus Jakarta Sans', 'DM Sans', 'system-ui'],
+    },
+    colors: {
+      primary: ['#10B981', '#059669', '#047857'],
+      accent: ['#6366F1', '#4F46E5', '#4338CA'],
+      background: [
+        'linear-gradient(160deg, #27272A, #18181B)',
+        'linear-gradient(170deg, #262626, #171717)',
+        'linear-gradient(165deg, #1F2937, #111827)'
+      ]
+    }
   }
+};
+
+// Visual elements for added randomness
+const decorativeElements = [
+  {
+    type: 'shapes',
+    variants: [
+      `
+        <div class="decorative-shape shape1"></div>
+        <div class="decorative-shape shape2"></div>
+      `,
+      `
+        <div class="decorative-shape circle1"></div>
+        <div class="decorative-shape circle2"></div>
+        <div class="decorative-shape circle3"></div>
+      `,
+      `
+        <div class="decorative-shape wave1"></div>
+        <div class="decorative-shape wave2"></div>
+      `
+    ],
+    styles: [
+      `
+        .decorative-shape {
+          position: fixed;
+          z-index: -1;
+          opacity: 0.1;
+          pointer-events: none;
+        }
+        .shape1 {
+          width: 400px;
+          height: 400px;
+          background: var(--accent);
+          border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+          top: -100px;
+          right: -100px;
+          animation: float1 15s ease-in-out infinite;
+        }
+        .shape2 {
+          width: 300px;
+          height: 300px;
+          background: var(--primary);
+          border-radius: 50% 50% 70% 30% / 30% 30% 70% 70%;
+          bottom: -50px;
+          left: -50px;
+          animation: float2 20s ease-in-out infinite;
+        }
+        @keyframes float1 {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          50% { transform: translate(30px, 20px) rotate(8deg); }
+        }
+        @keyframes float2 {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          50% { transform: translate(-20px, 30px) rotate(-8deg); }
+        }
+      `,
+      // Add more style variants...
+    ]
+  },
+  // Add more decorative element types...
+];
+
+export const getRandomStyle = () => {
+  // Pick a random style preset
+  const presetKeys = Object.keys(stylePresets);
+  const selectedPreset = stylePresets[presetKeys[Math.floor(Math.random() * presetKeys.length)]];
+  
+  // Randomly select colors and fonts from the preset
+  const primaryColor = selectedPreset.colors.primary[Math.floor(Math.random() * selectedPreset.colors.primary.length)];
+  const accentColor = selectedPreset.colors.accent[Math.floor(Math.random() * selectedPreset.colors.accent.length)];
+  const backgroundGradient = selectedPreset.colors.background[Math.floor(Math.random() * selectedPreset.colors.background.length)];
+  
+  // Select random decorative elements
+  const decorative = decorativeElements[Math.floor(Math.random() * decorativeElements.length)];
+  const decorativeVariant = decorative.variants[Math.floor(Math.random() * decorative.variants.length)];
+  const decorativeStyle = decorative.styles[Math.floor(Math.random() * decorative.styles.length)];
+
+  return {
+    fonts: {
+      heading: selectedPreset.fonts.heading[0],
+      body: selectedPreset.fonts.body[0],
+      weights: {
+        heading: Math.random() > 0.5 ? '700' : '800',
+        body: '400'
+      },
+      urls: [
+        'https://fonts.googleapis.com/css2?family=' + 
+        selectedPreset.fonts.heading[0].replace(' ', '+') + ':wght@700;800&family=' +
+        selectedPreset.fonts.body[0].replace(' ', '+') + ':wght@400;500&display=swap'
+      ]
+    },
+    colors: {
+      primary: primaryColor,
+      accent: accentColor
+    },
+    background: {
+      main: '#000',
+      overlay: backgroundGradient
+    },
+    decorative: {
+      html: decorativeVariant,
+      css: decorativeStyle
+    },
+    spacing: {
+      vertical: '2rem',
+      horizontal: '2rem'
+    },
+    container: {
+      maxWidth: '1200px',
+      padding: '2rem'
+    },
+    borderRadius: '0.75rem',
+    image: `
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    `,
+    button: (colors) => `
+      background: ${colors.primary};
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transform-origin: center;
+      transition: all 0.3s ease;
+    `,
+    buttonHover: (colors) => `
+      .cta-button:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        background: ${colors.accent};
+      }
+    `
+  };
 };
 
 export { getRandomStyle, getRandomVariation, colors, fonts, buttonStyles, imageStyles, containerStyles };

@@ -33,6 +33,10 @@ export const generateVSLPage = (data) => {
       }
     ` : '';
 
+    // Add the decorative elements to the HTML
+    const decorativeHTML = styles.decorative?.html || '';
+    const decorativeCSS = styles.decorative?.css || '';
+
     return `<!DOCTYPE html>
       <html lang="en">
       <head>
@@ -46,6 +50,13 @@ export const generateVSLPage = (data) => {
           <script>${gtagScript}</script>
         ` : ''}
         <style>
+          :root {
+            --primary: ${styles.colors.primary};
+            --accent: ${styles.colors.accent};
+          }
+          
+          ${decorativeCSS}
+          
           * { margin: 0; padding: 0; box-sizing: border-box; }
           body {
             margin: 0;
@@ -161,6 +172,7 @@ export const generateVSLPage = (data) => {
         </style>
       </head>
       <body>
+        ${decorativeHTML}
         <main id="${ids.container}">
           <h1 class="headline">
             ${mergedData.headline.split(':')[0]}:
