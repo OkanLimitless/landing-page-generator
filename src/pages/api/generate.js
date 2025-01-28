@@ -1,5 +1,7 @@
-import { generateVSLPage, generateEcomPage } from '../../lib/generators';
-import { generatePrivacyPage, generateTermsPage } from '../../lib/utils/legal-pages';
+import { generateVSLPage } from '../../lib/generators/vsl';
+import { generateEcomPage } from '../../lib/generators/ecom';
+import { generateAdultLander } from '../../lib/generators/adult';
+import { generatePrivacyPolicy, generateTermsOfService } from '../../lib/generators/legal';
 import { getRandomStyle } from '../../lib/utils/style-variations';
 
 export default async function handler(req, res) {
@@ -28,22 +30,29 @@ export default async function handler(req, res) {
     }
 
     let html;
-    if (type === 'vsl') {
-      console.log('Generating VSL page...');
-      html = generateVSLPage({ ...data, styles });
-    } else if (type === 'ecom') {
-      console.log('Generating Ecom page...');
-      html = generateEcomPage({ ...data, styles });
-    } else {
-      return res.status(400).json({ message: 'Invalid page type' });
+    switch (type) {
+      case 'vsl':
+        console.log('Generating VSL page...');
+        html = generateVSLPage(data);
+        break;
+      case 'ecom':
+        console.log('Generating Ecom page...');
+        html = generateEcomPage(data);
+        break;
+      case 'adult':
+        console.log('Generating Adult Lander...');
+        html = generateAdultLander(data);
+        break;
+      default:
+        throw new Error('Invalid page type');
     }
 
     if (!html) {
       throw new Error('Failed to generate HTML');
     }
 
-    const privacy = generatePrivacyPage(styles);
-    const terms = generateTermsPage(styles);
+    const privacy = generatePrivacyPolicy();
+    const terms = generateTermsOfService();
 
     if (!privacy || !terms) {
       throw new Error('Failed to generate legal pages');
