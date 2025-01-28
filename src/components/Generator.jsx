@@ -177,6 +177,54 @@ const EcomForm = ({ formData, setFormData }) => {
   );
 };
 
+const AdultLanderForm = ({ formData, setFormData }) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">CTA URL</label>
+          <input 
+            type="url" 
+            name="ctaUrl" 
+            value={formData.ctaUrl} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Enter your CTA URL" 
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Google Ads ID</label>
+          <input 
+            type="text" 
+            name="gtagId" 
+            value={formData.gtagId} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX" 
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Template</label>
+        <select
+          name="template"
+          value={formData.template}
+          onChange={handleChange}
+          className={commonInputClass}
+        >
+          <option value="brazilian">Brazilian Discovery Template</option>
+          {/* Add more templates here later */}
+        </select>
+      </div>
+    </div>
+  );
+};
+
 const Generator = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('vsl');
@@ -206,6 +254,12 @@ const Generator = () => {
     language: 'en'
   });
 
+  const [adultLanderFormData, setAdultLanderFormData] = useState({
+    ctaUrl: '',
+    gtagId: '',
+    template: 'brazilian'
+  });
+
   // Load presets from localStorage on mount
   useEffect(() => {
     const savedPresets = JSON.parse(localStorage.getItem('customPresets') || '{}');
@@ -225,7 +279,7 @@ const Generator = () => {
       setError(null);
       setLoading(true);
       
-      const formData = activeTab === 'vsl' ? vslFormData : ecomFormData;
+      const formData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : adultLanderFormData;
       
       const response = await fetch('/api/generate', {
         method: 'POST',
@@ -286,8 +340,14 @@ const Generator = () => {
           ...allPresets[presetKey],
           preset: presetKey
         }));
-      } else {
+      } else if (activeTab === 'ecom') {
         setEcomFormData(prev => ({
+          ...prev,
+          ...allPresets[presetKey],
+          preset: presetKey
+        }));
+      } else {
+        setAdultLanderFormData(prev => ({
           ...prev,
           ...allPresets[presetKey],
           preset: presetKey
@@ -300,8 +360,13 @@ const Generator = () => {
           ...prev,
           preset: ''
         }));
-      } else {
+      } else if (activeTab === 'ecom') {
         setEcomFormData(prev => ({
+          ...prev,
+          preset: ''
+        }));
+      } else {
+        setAdultLanderFormData(prev => ({
           ...prev,
           preset: ''
         }));
@@ -317,7 +382,7 @@ const Generator = () => {
     if (!newPresetName) return;
     
     const presetKey = newPresetName.replace(/\s+/g, '');
-    const currentFormData = activeTab === 'vsl' ? vslFormData : ecomFormData;
+    const currentFormData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : adultLanderFormData;
     
     // Create new preset without the preset field itself
     const { preset, ...presetData } = currentFormData;
@@ -393,7 +458,7 @@ const Generator = () => {
               <div className="flex gap-2">
                 <div className="relative flex-1">
                   <select
-                    value={activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset}
+                    value={activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : adultLanderFormData.preset}
                     onChange={handlePresetChange}
                     className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white pr-10"
                   >
@@ -405,11 +470,11 @@ const Generator = () => {
                     ))}
                   </select>
                 </div>
-                {(activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset) && 
-                  localPresets[activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset] && (
+                {(activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : adultLanderFormData.preset) && 
+                  localPresets[activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : adultLanderFormData.preset] && (
                     <button
                       onClick={() => {
-                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : ecomFormData.preset;
+                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : adultLanderFormData.preset;
                         if (window.confirm(`Are you sure you want to delete the "${presetToDelete}" preset?`)) {
                           handleDeletePreset(presetToDelete);
                         }
@@ -450,6 +515,13 @@ const Generator = () => {
               >
                 E-commerce Page
               </button>
+              <button 
+                className={`px-4 py-2 ${activeTab === 'adult' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
+                onClick={() => setActiveTab('adult')}
+                disabled={loading}
+              >
+                Adult Lander
+              </button>
             </div>
 
             {error && (
@@ -463,10 +535,15 @@ const Generator = () => {
                 formData={vslFormData}
                 setFormData={setVslFormData}
               />
-            ) : (
+            ) : activeTab === 'ecom' ? (
               <EcomForm
                 formData={ecomFormData}
                 setFormData={setEcomFormData}
+              />
+            ) : (
+              <AdultLanderForm
+                formData={adultLanderFormData}
+                setFormData={setAdultLanderFormData}
               />
             )}
 
