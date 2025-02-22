@@ -30,28 +30,34 @@ export const generateAdultLander = (data) => {
         
         // Track visit
         const versionNum = version.replace('version', '');
-        const params = new URLSearchParams();
-        params.append('action', 'visit');
-        params.append('version', versionNum);
-
-        fetch('https://vsl01.vercel.app/api/track?' + params.toString(), {
-          method: 'GET',
-          mode: 'no-cors'
-        });
+        fetch('https://vsl01.vercel.app/api/track', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            action: 'visit', 
+            version: versionNum 
+          }),
+          credentials: 'include'  // Important for cross-origin requests
+        }).catch(console.error);
       }
 
       // Track clicks
       function trackClick(version) {
         // Track click
         const versionNum = version.replace('version', '');
-        const params = new URLSearchParams();
-        params.append('action', 'click');
-        params.append('version', versionNum);
-
-        fetch('https://vsl01.vercel.app/api/track?' + params.toString(), {
-          method: 'GET',
-          mode: 'no-cors'
-        });
+        fetch('https://vsl01.vercel.app/api/track', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            action: 'click', 
+            version: versionNum 
+          }),
+          credentials: 'include'  // Important for cross-origin requests
+        }).catch(console.error);
         
         setTimeout(() => {
           window.location.href = '${data.ctaUrl}';
