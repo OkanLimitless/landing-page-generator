@@ -1,10 +1,9 @@
 import { getPrelanderStyle } from '../utils/style-variations';
-import { getRandomTemplate } from '../templates/adult-prelander';
+import { prelanderTemplates } from '../templates/adult-prelander';
 
 export const generateAdultLander = (data) => {
   try {
     const styles = getPrelanderStyle();
-    const template = getRandomTemplate();
     
     // Generate unique IDs for elements
     const ids = {
@@ -16,31 +15,43 @@ export const generateAdultLander = (data) => {
       proof: `proof_${Math.random().toString(36).substr(2, 9)}`
     };
 
-    // Add tracking script
-    const trackingScript = `
-      window.addEventListener('load', function() {
-        fetch('https://vsl01.vercel.app/api/track', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            action: 'visit',
-            version: '${template.version || 'version1}'
-          })
-        });
-      });
+    // Version selection and tracking script
+    const versionScript = `
+      // Select random version on page load
+      function selectRandomVersion() {
+        const versions = ['version1', 'version2', 'version3'];
+        return versions[Math.floor(Math.random() * versions.length)];
+      }
 
-      function trackClick() {
+      // Show selected version content
+      function showVersion(version) {
+        document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
+        document.querySelector(\`#\${version}\`).style.display = 'block';
+        
+        // Track visit
         fetch('https://vsl01.vercel.app/api/track', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            action: 'click',
-            version: '${template.version || 'version1}'
-          })
+          body: JSON.stringify({ action: 'visit', version })
+        });
+      }
+
+      // Track clicks
+      function trackClick(version) {
+        fetch('https://vsl01.vercel.app/api/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'click', version })
         });
         window.location.href = '${data.ctaUrl}';
         return false;
       }
+
+      // Initialize on load
+      window.addEventListener('load', function() {
+        const selectedVersion = selectRandomVersion();
+        showVersion(selectedVersion);
+      });
     `;
 
     return `<!DOCTYPE html>
@@ -48,10 +59,10 @@ export const generateAdultLander = (data) => {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${template.headline}</title>
+        <title>Breakthrough Discovery</title>
         ${styles.fonts.urls.map(url => `<link href="${url}" rel="stylesheet">`).join('\n')}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <script>${trackingScript}</script>
+        <script>${versionScript}</script>
         <style>
           ${styles.decorative?.css || ''}
           
@@ -229,6 +240,10 @@ export const generateAdultLander = (data) => {
               font-size: 16px;
             }
           }
+
+          .version-content {
+            display: none; /* Initially hidden */
+          }
         </style>
       </head>
       <body>
@@ -246,38 +261,42 @@ export const generateAdultLander = (data) => {
         </div>
 
         <main id="${ids.content}">
-          <div class="headline">
-            <h1>${template.headline}</h1>
-            <div class="subtitle">${template.subtitle}</div>
-          </div>
-
-          <p class="lead-text">${template.leadText}</p>
-          
-          <div class="key-points">
-            ${template.keyPoints.map(point => `
-              <div class="point">
-                <i class="fas fa-check-circle"></i>
-                <span>${point}</span>
+          ${Object.entries(prelanderTemplates).map(([version, template]) => `
+            <div id="${version}" class="version-content">
+              <div class="headline">
+                <h1>${template.headline}</h1>
+                <div class="subtitle">${template.subtitle}</div>
               </div>
-            `).join('')}
-          </div>
 
-          <button id="${ids.cta}" onclick="trackClick();">
-            ${template.ctaText} →
-          </button>
+              <p class="lead-text">${template.leadText}</p>
+              
+              <div class="key-points">
+                ${template.keyPoints.map(point => `
+                  <div class="point">
+                    <i class="fas fa-check-circle"></i>
+                    <span>${point}</span>
+                  </div>
+                `).join('')}
+              </div>
 
-          <div class="guarantee">
-            <i class="fas fa-shield-alt"></i>
-            ${template.guaranteeText}
-          </div>
+              <button id="${ids.cta}" onclick="trackClick('${version}');">
+                ${template.ctaText} →
+              </button>
 
-          <div id="${ids.proof}">
-            <div class="proof-content">
-              <strong>Recent Purchase</strong>
-              <p>John D. from California just purchased</p>
-              <small>2 minutes ago</small>
+              <div class="guarantee">
+                <i class="fas fa-shield-alt"></i>
+                ${template.guaranteeText}
+              </div>
+
+              <div id="${ids.proof}">
+                <div class="proof-content">
+                  <strong>Recent Purchase</strong>
+                  <p>John D. from California just purchased</p>
+                  <small>2 minutes ago</small>
+                </div>
+              </div>
             </div>
-          </div>
+          `).join('')}
         </main>
 
         <footer>
