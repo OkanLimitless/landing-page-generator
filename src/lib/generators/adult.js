@@ -28,18 +28,29 @@ export const generateAdultLander = (data) => {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit using absolute path
-        const img = new Image();
-        img.src = \`\${window.location.origin}/api/proxy-track?action=visit&version=\${version}&t=\${Date.now()}\`;
+        // Track visit using no-cors mode
+        fetch('https://vsl01.vercel.app/api/track', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain'
+          },
+          body: JSON.stringify({ action: 'visit', version })
+        });
       }
 
       // Track clicks
       function trackClick(version) {
-        // Track click using absolute path
-        const img = new Image();
-        img.src = \`\${window.location.origin}/api/proxy-track?action=click&version=\${version}&t=\${Date.now()}\`;
-        
-        // Small delay to ensure tracking pixel loads
+        // Track click using no-cors mode
+        fetch('https://vsl01.vercel.app/api/track', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain'
+          },
+          body: JSON.stringify({ action: 'click', version })
+        });
+
         setTimeout(() => {
           window.location.href = '${data.ctaUrl}';
         }, 100);
