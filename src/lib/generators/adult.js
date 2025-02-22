@@ -28,37 +28,17 @@ export const generateAdultLander = (data) => {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit
-        fetch('https://vsl01.vercel.app/api/track', {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            type: 'adult',
-            action: 'visit',
-            version: version.replace('version', '')  // Send just the number
-          })
-        }).catch(console.error);
+        // Track visit using image pixel
+        const versionNum = version.replace('version', '');
+        new Image().src = \`https://vsl01.vercel.app/api/track?type=adult&action=visit&version=\${versionNum}&t=\${Date.now()}\`;
       }
 
       // Track clicks
       function trackClick(version) {
-        // Track click
-        fetch('https://vsl01.vercel.app/api/track', {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            type: 'adult',
-            action: 'click',
-            version: version.replace('version', '')  // Send just the number
-          })
-        }).catch(console.error);
-
+        // Track click using image pixel
+        const versionNum = version.replace('version', '');
+        new Image().src = \`https://vsl01.vercel.app/api/track?type=adult&action=click&version=\${versionNum}&t=\${Date.now()}\`;
+        
         setTimeout(() => {
           window.location.href = '${data.ctaUrl}';
         }, 100);
