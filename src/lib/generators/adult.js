@@ -28,16 +28,16 @@ export const generateAdultLander = (data) => {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit using image pixel
+        // Track visit using our proxy endpoint
         const img = new Image();
-        img.src = \`https://vsl01.vercel.app/api/track?action=visit&version=\${version}&t=\${Date.now()}\`;
+        img.src = \`/api/proxy-track?action=visit&version=\${version}&t=\${Date.now()}\`;
       }
 
       // Track clicks
       function trackClick(version) {
-        // Track click using image pixel
+        // Track click using our proxy endpoint
         const img = new Image();
-        img.src = \`https://vsl01.vercel.app/api/track?action=click&version=\${version}&t=\${Date.now()}\`;
+        img.src = \`/api/proxy-track?action=click&version=\${version}&t=\${Date.now()}\`;
         
         // Small delay to ensure tracking pixel loads
         setTimeout(() => {
