@@ -28,28 +28,36 @@ export const generateAdultLander = (data) => {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit using no-cors mode
+        // Track visit
         fetch('https://vsl01.vercel.app/api/track', {
           method: 'POST',
           mode: 'no-cors',
           headers: {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ action: 'visit', version })
-        });
+          body: JSON.stringify({
+            type: 'adult',
+            action: 'visit',
+            version: version.replace('version', '')  // Send just the number
+          })
+        }).catch(console.error);
       }
 
       // Track clicks
       function trackClick(version) {
-        // Track click using no-cors mode
+        // Track click
         fetch('https://vsl01.vercel.app/api/track', {
           method: 'POST',
           mode: 'no-cors',
           headers: {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ action: 'click', version })
-        });
+          body: JSON.stringify({
+            type: 'adult',
+            action: 'click',
+            version: version.replace('version', '')  // Send just the number
+          })
+        }).catch(console.error);
 
         setTimeout(() => {
           window.location.href = '${data.ctaUrl}';
