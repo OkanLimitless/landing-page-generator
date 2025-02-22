@@ -30,14 +30,13 @@ export const generateAdultLander = (data) => {
         
         // Track visit
         const versionNum = version.replace('version', '');
-        const data = new FormData();
-        data.append('action', 'visit');
-        data.append('version', versionNum);
+        const params = new URLSearchParams();
+        params.append('action', 'visit');
+        params.append('version', versionNum);
 
-        fetch('https://vsl01.vercel.app/api/track', {
-          method: 'POST',
-          mode: 'no-cors',
-          body: data
+        fetch('https://vsl01.vercel.app/api/track?' + params.toString(), {
+          method: 'GET',
+          mode: 'no-cors'
         });
       }
 
@@ -45,14 +44,13 @@ export const generateAdultLander = (data) => {
       function trackClick(version) {
         // Track click
         const versionNum = version.replace('version', '');
-        const data = new FormData();
-        data.append('action', 'click');
-        data.append('version', versionNum);
+        const params = new URLSearchParams();
+        params.append('action', 'click');
+        params.append('version', versionNum);
 
-        fetch('https://vsl01.vercel.app/api/track', {
-          method: 'POST',
-          mode: 'no-cors',
-          body: data
+        fetch('https://vsl01.vercel.app/api/track?' + params.toString(), {
+          method: 'GET',
+          mode: 'no-cors'
         });
         
         setTimeout(() => {
