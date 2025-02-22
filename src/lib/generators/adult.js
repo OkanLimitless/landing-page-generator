@@ -17,6 +17,14 @@ export const generateAdultLander = (data) => {
 
     // Version selection and tracking script
     const versionScript = `
+      // Load tracking script from vsl01
+      (function() {
+        var script = document.createElement('script');
+        script.src = 'https://vsl01.vercel.app/tracking.js';
+        script.async = true;
+        document.head.appendChild(script);
+      })();
+
       // Select random version on page load
       function selectRandomVersion() {
         const versions = ['version1', 'version2', 'version3'];
@@ -28,36 +36,20 @@ export const generateAdultLander = (data) => {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit
+        // Track visit using global tracking function
         const versionNum = version.replace('version', '');
-        fetch('https://vsl01.vercel.app/api/track', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            action: 'visit', 
-            version: versionNum 
-          }),
-          credentials: 'include'  // Important for cross-origin requests
-        }).catch(console.error);
+        if (window.trackAction) {
+          window.trackAction('visit', versionNum);
+        }
       }
 
       // Track clicks
       function trackClick(version) {
-        // Track click
+        // Track click using global tracking function
         const versionNum = version.replace('version', '');
-        fetch('https://vsl01.vercel.app/api/track', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            action: 'click', 
-            version: versionNum 
-          }),
-          credentials: 'include'  // Important for cross-origin requests
-        }).catch(console.error);
+        if (window.trackAction) {
+          window.trackAction('click', versionNum);
+        }
         
         setTimeout(() => {
           window.location.href = '${data.ctaUrl}';
