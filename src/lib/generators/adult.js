@@ -28,16 +28,16 @@ export const generateAdultLander = (data) => {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit using our proxy endpoint
+        // Track visit using absolute path
         const img = new Image();
-        img.src = \`/api/proxy-track?action=visit&version=\${version}&t=\${Date.now()}\`;
+        img.src = \`\${window.location.origin}/api/proxy-track?action=visit&version=\${version}&t=\${Date.now()}\`;
       }
 
       // Track clicks
       function trackClick(version) {
-        // Track click using our proxy endpoint
+        // Track click using absolute path
         const img = new Image();
-        img.src = \`/api/proxy-track?action=click&version=\${version}&t=\${Date.now()}\`;
+        img.src = \`\${window.location.origin}/api/proxy-track?action=click&version=\${version}&t=\${Date.now()}\`;
         
         // Small delay to ensure tracking pixel loads
         setTimeout(() => {
