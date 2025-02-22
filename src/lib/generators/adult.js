@@ -28,16 +28,30 @@ export const generateAdultLander = (data) => {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit using image pixel
+        // Track visit using beacon
         const versionNum = version.replace('version', '');
-        new Image().src = \`https://vsl01.vercel.app/api/track?type=adult&action=visit&version=\${versionNum}&t=\${Date.now()}\`;
+        navigator.sendBeacon(
+          'https://vsl01.vercel.app/api/track', 
+          JSON.stringify({
+            type: 'adult',
+            action: 'visit',
+            version: versionNum
+          })
+        );
       }
 
       // Track clicks
       function trackClick(version) {
-        // Track click using image pixel
+        // Track click using beacon
         const versionNum = version.replace('version', '');
-        new Image().src = \`https://vsl01.vercel.app/api/track?type=adult&action=click&version=\${versionNum}&t=\${Date.now()}\`;
+        navigator.sendBeacon(
+          'https://vsl01.vercel.app/api/track',
+          JSON.stringify({
+            type: 'adult',
+            action: 'click',
+            version: versionNum
+          })
+        );
         
         setTimeout(() => {
           window.location.href = '${data.ctaUrl}';
@@ -45,7 +59,7 @@ export const generateAdultLander = (data) => {
         return false;
       }
 
-      // Initialize on load
+      // Initialize on load with fallback
       window.addEventListener('load', function() {
         const selectedVersion = selectRandomVersion();
         showVersion(selectedVersion);
