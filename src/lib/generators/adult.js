@@ -19,18 +19,24 @@ export const generateAdultLander = (data) => {
     // Add tracking script
     const trackingScript = `
       window.addEventListener('load', function() {
-        fetch('/api/track', {
+        fetch('https://vsl01.vercel.app/api/track', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'visit', page: '${ids.container}' })
+          body: JSON.stringify({ 
+            action: 'visit',
+            version: '${template.version || 'version1}'
+          })
         });
       });
 
       function trackClick() {
-        fetch('/api/track', {
+        fetch('https://vsl01.vercel.app/api/track', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'click', page: '${ids.container}' })
+          body: JSON.stringify({ 
+            action: 'click',
+            version: '${template.version || 'version1}'
+          })
         });
         window.location.href = '${data.ctaUrl}';
         return false;

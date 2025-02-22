@@ -1,6 +1,7 @@
 // Collection of prelander templates with different angles/approaches
 const prelanderTemplates = {
   version1: {
+    version: 'version1',
     headline: "\"My Husband's Growth Shocked Me, But What Happened Next Left Me Speechless...\"",
     subtitle: "Brazilian Discovery Challenges Everything We Thought We Knew About Male Enhancement",
     leadText: "\"When my husband first told me about this Brazilian discovery, I was skeptical. But after seeing the results firsthand, I had to share this with other women...\"",
@@ -14,6 +15,7 @@ const prelanderTemplates = {
   },
 
   version2: {
+    version: 'version2',
     headline: "\"97% of Men See Results Within 30 Days with This Brazilian Formula\"",
     subtitle: "Clinical Study Reveals Breakthrough in Natural Male Enhancement",
     leadText: "\"In a groundbreaking study of 1,000 men, this unique Brazilian compound showed remarkable results...\"",
@@ -27,6 +29,7 @@ const prelanderTemplates = {
   },
 
   version3: {
+    version: 'version3',
     headline: "\"Groundbreaking Research: Brazilian Plant Extract Shows 312% Increase in Male Performance\"",
     subtitle: "Scientific Study Published in International Journal of Urology",
     leadText: "\"The active compounds in this rare Brazilian plant have shown remarkable effects on male enhancement in double-blind clinical trials...\"",
