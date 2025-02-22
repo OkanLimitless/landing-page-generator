@@ -28,22 +28,21 @@ export const generateAdultLander = (data) => {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit
-        fetch('https://vsl01.vercel.app/api/track', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'visit', version })
-        });
+        // Track visit using image pixel
+        const img = new Image();
+        img.src = \`https://vsl01.vercel.app/api/track?action=visit&version=\${version}&t=\${Date.now()}\`;
       }
 
       // Track clicks
       function trackClick(version) {
-        fetch('https://vsl01.vercel.app/api/track', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'click', version })
-        });
-        window.location.href = '${data.ctaUrl}';
+        // Track click using image pixel
+        const img = new Image();
+        img.src = \`https://vsl01.vercel.app/api/track?action=click&version=\${version}&t=\${Date.now()}\`;
+        
+        // Small delay to ensure tracking pixel loads
+        setTimeout(() => {
+          window.location.href = '${data.ctaUrl}';
+        }, 100);
         return false;
       }
 
@@ -244,6 +243,15 @@ export const generateAdultLander = (data) => {
           .version-content {
             display: none; /* Initially hidden */
           }
+
+          footer .disclaimer {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            max-width: 600px;
+            margin: 1rem auto;
+            padding: 0 20px;
+            line-height: 1.4;
+          }
         </style>
       </head>
       <body>
@@ -304,6 +312,11 @@ export const generateAdultLander = (data) => {
           <div class="footer-links">
             <a href="/privacy">Privacy Policy</a>
             <a href="/terms">Terms of Service</a>
+          </div>
+          <div class="disclaimer">
+            This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google. 
+            Google is a trademark of Google, Inc. All other product names, logos, and brands are property 
+            of their respective owners.
           </div>
         </footer>
 
