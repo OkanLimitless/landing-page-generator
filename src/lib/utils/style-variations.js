@@ -295,6 +295,71 @@ const getRandomStyle = () => {
   };
 };
 
+// Add to existing stylePresets
+const prelanderStyles = {
+  modern: {
+    fonts: {
+      heading: ['Montserrat', 'Inter', 'system-ui'],
+      body: ['Inter', 'Roboto', 'system-ui'],
+    },
+    colors: {
+      primary: ['#ff4e03', '#ff3b3b', '#ff6b00'],
+      accent: ['#2ecc71', '#27ae60', '#00dd00'],
+      background: [
+        'linear-gradient(145deg, #1a1a1a, #111111)',
+        'linear-gradient(135deg, #1E1E1E, #0F0F0F)',
+        'linear-gradient(150deg, #111111, #0A0A0A)'
+      ]
+    },
+    decorative: {
+      patterns: [
+        `linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+         linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+         linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+         linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+         linear-gradient(60deg, #77777777 25%, transparent 25.5%, transparent 75%, #77777777 75%, #77777777)`,
+        
+        `radial-gradient(circle at 50% 50%, #000 0%, #000 10%, transparent 10.2%),
+         radial-gradient(circle at 0% 50%, #000 0%, #000 10%, transparent 10.2%),
+         radial-gradient(circle at 100% 50%, #000 0%, #000 10%, transparent 10.2%)`
+      ]
+    }
+  }
+};
+
+// Add new function for prelander-specific styling
+const getPrelanderStyle = () => {
+  const style = getRandomStyle(); // Get base style
+  const prelanderStyle = prelanderStyles.modern; // We can add more variations later
+
+  // Merge and enhance the style for prelander
+  return {
+    ...style,
+    urgencyElements: {
+      timerBackground: 'rgba(255, 78, 3, 0.95)',
+      counterBackground: 'rgba(255, 255, 255, 0.03)',
+      borderAccent: 'rgba(255, 255, 255, 0.1)',
+      pulseAnimation: `
+        @keyframes pulse {
+          0% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.05); opacity: 0.8; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+      `
+    },
+    socialProof: {
+      background: 'rgba(46, 204, 113, 0.1)',
+      border: '4px solid #2ecc71',
+      animation: `
+        @keyframes slideIn {
+          from { transform: translateX(-100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+      `
+    }
+  };
+};
+
 export { 
   getRandomStyle,
   getRandomVariation, 
@@ -302,5 +367,6 @@ export {
   fonts, 
   buttonStyles, 
   imageStyles, 
-  containerStyles 
+  containerStyles,
+  getPrelanderStyle
 };
