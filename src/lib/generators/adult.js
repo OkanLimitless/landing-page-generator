@@ -28,30 +28,32 @@ export const generateAdultLander = (data) => {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit using beacon
+        // Track visit
         const versionNum = version.replace('version', '');
-        navigator.sendBeacon(
-          'https://vsl01.vercel.app/api/track', 
-          JSON.stringify({
-            type: 'adult',
-            action: 'visit',
-            version: versionNum
-          })
-        );
+        const data = new FormData();
+        data.append('action', 'visit');
+        data.append('version', versionNum);
+
+        fetch('https://vsl01.vercel.app/api/track', {
+          method: 'POST',
+          mode: 'no-cors',
+          body: data
+        });
       }
 
       // Track clicks
       function trackClick(version) {
-        // Track click using beacon
+        // Track click
         const versionNum = version.replace('version', '');
-        navigator.sendBeacon(
-          'https://vsl01.vercel.app/api/track',
-          JSON.stringify({
-            type: 'adult',
-            action: 'click',
-            version: versionNum
-          })
-        );
+        const data = new FormData();
+        data.append('action', 'click');
+        data.append('version', versionNum);
+
+        fetch('https://vsl01.vercel.app/api/track', {
+          method: 'POST',
+          mode: 'no-cors',
+          body: data
+        });
         
         setTimeout(() => {
           window.location.href = '${data.ctaUrl}';
@@ -59,7 +61,7 @@ export const generateAdultLander = (data) => {
         return false;
       }
 
-      // Initialize on load with fallback
+      // Initialize on load
       window.addEventListener('load', function() {
         const selectedVersion = selectRandomVersion();
         showVersion(selectedVersion);
