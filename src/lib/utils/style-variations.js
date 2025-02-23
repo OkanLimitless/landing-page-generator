@@ -295,7 +295,7 @@ const getRandomStyle = () => {
   };
 };
 
-// Add to existing stylePresets
+// Update the color combinations to ensure high contrast and professionalism
 const prelanderStyles = {
   modern: {
     fonts: {
@@ -303,25 +303,27 @@ const prelanderStyles = {
       body: ['Inter', 'Roboto', 'system-ui'],
     },
     colors: {
-      primary: ['#ff4e03', '#ff3b3b', '#ff6b00'],
-      accent: ['#2ecc71', '#27ae60', '#00dd00'],
+      // Professional color combinations with good contrast
+      primary: [
+        '#4F46E5', // Deep indigo
+        '#2563EB', // Royal blue
+        '#7C3AED', // Vibrant purple
+        '#E11D48', // Rich red
+        '#059669'  // Emerald green
+      ],
+      accent: [
+        '#F59E0B', // Warm amber
+        '#10B981', // Teal
+        '#EC4899', // Pink
+        '#3B82F6', // Blue
+        '#F97316'  // Orange
+      ],
       background: [
-        'linear-gradient(145deg, #1a1a1a, #111111)',
-        'linear-gradient(135deg, #1E1E1E, #0F0F0F)',
-        'linear-gradient(150deg, #111111, #0A0A0A)'
-      ]
-    },
-    decorative: {
-      patterns: [
-        `linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
-         linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
-         linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
-         linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
-         linear-gradient(60deg, #77777777 25%, transparent 25.5%, transparent 75%, #77777777 75%, #77777777)`,
-        
-        `radial-gradient(circle at 50% 50%, #000 0%, #000 10%, transparent 10.2%),
-         radial-gradient(circle at 0% 50%, #000 0%, #000 10%, transparent 10.2%),
-         radial-gradient(circle at 100% 50%, #000 0%, #000 10%, transparent 10.2%)`
+        'linear-gradient(145deg, #1E293B, #0F172A)', // Navy
+        'linear-gradient(135deg, #1F2937, #111827)', // Cool gray
+        'linear-gradient(150deg, #312E81, #1E1B4B)', // Deep purple
+        'linear-gradient(145deg, #18181B, #09090B)', // Neutral
+        'linear-gradient(135deg, #064E3B, #042F2E)'  // Dark emerald
       ]
     }
   }

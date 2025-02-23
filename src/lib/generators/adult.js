@@ -115,7 +115,9 @@ export const generateAdultLander = (data) => {
           }
 
           .top-bar {
-            background: ${styles.urgencyElements.timerBackground};
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 12px 0;
             position: fixed;
             width: 100%;
@@ -204,20 +206,78 @@ export const generateAdultLander = (data) => {
           }
 
           #${ids.cta} {
-            ${styles.button(styles.colors)}
-            width: 100%;
-            max-width: 400px;
-            margin: 2rem auto;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            border: none;
+            color: white;
             padding: 20px 40px;
             font-size: 18px;
             font-weight: 600;
             border-radius: 30px;
-            display: block;
             cursor: pointer;
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto;
+            display: block;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             animation: pulse 2s infinite;
           }
 
-          ${styles.buttonHover ? styles.buttonHover(styles.colors) : ''}
+          #${ids.cta}:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+          }
+
+          #${ids.cta}:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba(255, 255, 255, 0.2),
+              transparent
+            );
+            transition: 0.5s;
+          }
+
+          #${ids.cta}:hover:before {
+            left: 100%;
+          }
+
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+          }
+
+          .social-proof {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            animation: pulse 2s infinite;
+          }
+
+          .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          }
+
+          .trust-badge i {
+            color: var(--accent);
+          }
 
           .guarantee {
             margin-top: 20px;
@@ -289,13 +349,13 @@ export const generateAdultLander = (data) => {
       <body>
         <div class="top-bar">
           <div class="top-bar-content">
-            <div id="${ids.viewers}">
-              <i class="fas fa-users"></i>
-              <span class="viewer-count">387</span> people are reading this
+            <div class="social-proof">
+              <i class="fas fa-chart-line"></i>
+              <span><strong>${viewerCount}</strong> men discovered this today</span>
             </div>
-            <div id="${ids.timer}">
-              <i class="fas fa-clock"></i>
-              Content available for: <span class="countdown">7:00</span>
+            <div class="trust-badge">
+              <i class="fas fa-shield-check"></i>
+              <span>Clinically Verified Results</span>
             </div>
           </div>
         </div>
@@ -328,13 +388,7 @@ export const generateAdultLander = (data) => {
                 ${template.guaranteeText}
               </div>
 
-              <div id="${ids.proof}">
-                <div class="proof-content">
-                  <strong>Recent Purchase</strong>
-                  <p>John D. from California just purchased</p>
-                  <small>2 minutes ago</small>
-                </div>
-              </div>
+              <div id="${ids.proof}" style="display: none;"></div>
             </div>
           `).join('')}
         </main>
