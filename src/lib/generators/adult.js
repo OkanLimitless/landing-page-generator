@@ -17,13 +17,8 @@ export const generateAdultLander = (data) => {
 
     // Version selection and tracking script
     const versionScript = `
-      // Load tracking script from vsl01
-      (function() {
-        var script = document.createElement('script');
-        script.src = 'https://vsl01.vercel.app/tracking.js';
-        script.async = true;
-        document.head.appendChild(script);
-      })();
+      // Define API URL constant
+      const API_URL = 'https://vsl01.vercel.app';
 
       // Select random version on page load
       function selectRandomVersion() {
@@ -31,25 +26,51 @@ export const generateAdultLander = (data) => {
         return versions[Math.floor(Math.random() * versions.length)];
       }
 
+      // Get page ID from URL path
+      function getPageId() {
+        const path = window.location.pathname;
+        const segments = path.split('/').filter(Boolean);
+        return segments[segments.length - 1] || '';
+      }
+
       // Show selected version content
       function showVersion(version) {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit using global tracking function
+        // Track visit
         const versionNum = version.replace('version', '');
-        if (window.trackAction) {
-          window.trackAction('visit', versionNum);
-        }
+        const pageId = getPageId();
+
+        fetch(\`\${API_URL}/api/track\`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            action: 'visit', 
+            version: versionNum,
+            pageId
+          })
+        }).catch(console.error);
       }
 
       // Track clicks
       function trackClick(version) {
-        // Track click using global tracking function
         const versionNum = version.replace('version', '');
-        if (window.trackAction) {
-          window.trackAction('click', versionNum);
-        }
+        const pageId = getPageId();
+
+        fetch(\`\${API_URL}/api/track\`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            action: 'click', 
+            version: versionNum,
+            pageId
+          })
+        }).catch(console.error);
         
         setTimeout(() => {
           window.location.href = '${data.ctaUrl}';
