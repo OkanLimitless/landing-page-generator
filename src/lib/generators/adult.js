@@ -351,7 +351,7 @@ export const generateAdultLander = (data) => {
           <div class="top-bar-content">
             <div class="social-proof">
               <i class="fas fa-chart-line"></i>
-              <span><strong class="viewer-count">387</strong> men discovered this today</span>
+              <span><strong class="viewer-count">2,387</strong> people viewing this page</span>
             </div>
             <div class="trust-badge">
               <i class="fas fa-shield-check"></i>
@@ -407,14 +407,16 @@ export const generateAdultLander = (data) => {
         </footer>
 
         <script>
-          // Initialize viewer count
-          let viewerCount = 387;
+          // Initialize viewer count with higher number
+          let viewerCount = 2387;
           const viewerEl = document.querySelector('.viewer-count');
           
           setInterval(() => {
-            const change = Math.floor(Math.random() * 5) - 2;
-            viewerCount = Math.max(350, Math.min(450, viewerCount + change));
-            viewerEl.textContent = viewerCount;
+            // Only increase by 1-3 people each time
+            const increase = Math.floor(Math.random() * 3) + 1;
+            viewerCount += increase;
+            // Format with commas
+            viewerEl.textContent = viewerCount.toLocaleString();
           }, 5000);
         </script>
       </body>
