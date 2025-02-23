@@ -351,7 +351,7 @@ export const generateAdultLander = (data) => {
           <div class="top-bar-content">
             <div class="social-proof">
               <i class="fas fa-chart-line"></i>
-              <span><strong>${viewerCount}</strong> men discovered this today</span>
+              <span><strong class="viewer-count">387</strong> men discovered this today</span>
             </div>
             <div class="trust-badge">
               <i class="fas fa-shield-check"></i>
@@ -416,19 +416,6 @@ export const generateAdultLander = (data) => {
             viewerCount = Math.max(350, Math.min(450, viewerCount + change));
             viewerEl.textContent = viewerCount;
           }, 5000);
-
-          // Initialize countdown
-          let timeLeft = 420; // 7 minutes
-          const countdownEl = document.querySelector('.countdown');
-          
-          setInterval(() => {
-            if (timeLeft > 0) {
-              timeLeft--;
-              const minutes = Math.floor(timeLeft / 60);
-              const seconds = timeLeft % 60;
-              countdownEl.textContent = \`\${minutes}:\${seconds.toString().padStart(2, '0')}\`;
-            }
-          }, 1000);
         </script>
       </body>
       </html>`;
