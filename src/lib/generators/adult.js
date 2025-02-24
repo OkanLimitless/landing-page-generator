@@ -21,12 +21,15 @@ export const generateAdultLander = (data) => {
       gtag('config', '${gtagAccount}');
       
       function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location.href = url;
+          }
+        };
         gtag('event', 'conversion', {
-          'send_to': '${data.gtagId}'
+          'send_to': '${data.gtagId}',
+          'event_callback': callback
         });
-        setTimeout(() => {
-          window.location.href = url;
-        }, 100);
         return false;
       }
     ` : '';
@@ -100,9 +103,10 @@ export const generateAdultLander = (data) => {
 
         // Google Ads conversion tracking
         ${gtagAccount ? 
-          `return gtag_report_conversion('${data.ctaUrl}');` : 
-          `window.location.href = '${data.ctaUrl}'; return false;`
+          `gtag_report_conversion('${data.ctaUrl}');` : 
+          `window.location.href = '${data.ctaUrl}';`
         }
+        return false;
       }
 
       // Initialize on load
@@ -600,9 +604,10 @@ export const generateAdultLander = (data) => {
 
             // Google Ads conversion tracking
             ${gtagAccount ? 
-              `return gtag_report_conversion('${data.ctaUrl}');` : 
-              `window.location.href = '${data.ctaUrl}'; return false;`
+              `gtag_report_conversion('${data.ctaUrl}');` : 
+              `window.location.href = '${data.ctaUrl}';`
             }
+            return false;
           }
 
           // Initialize on load
