@@ -4,12 +4,17 @@ import { generateDoctorDetails } from '../utils/doctor-variations';
 
 export const generateAdultLander = (data) => {
   try {
+    // Validate and extract required data
+    if (!data.ctaUrl) {
+      throw new Error('CTA URL is required');
+    }
+
     const styles = getPrelanderStyle();
     const doctorDetails = generateDoctorDetails();
     
-    // Handle Google Ads ID format (AW-XXXXXXXXXX/YYYY-YYYY)
+    // Handle Google Ads ID format (AW-XXXXXXXXXX/YYYY-YYYY) if provided
     const googleAdsId = data.googleAdsId || '';
-    const googleAdsBase = googleAdsId.split('/')[0] || ''; // Gets the AW-XXXXXXXXXX part
+    const googleAdsBase = googleAdsId ? googleAdsId.split('/')[0] : ''; // Gets the AW-XXXXXXXXXX part
     const hasGoogleAds = !!googleAdsId;
 
     // Generate unique IDs for elements
@@ -80,25 +85,30 @@ export const generateAdultLander = (data) => {
         }).catch(console.error);
 
         // Google Ads conversion tracking
-        gtag_report_conversion('${data.ctaUrl}');
+        ${hasGoogleAds ? 
+          `gtag_report_conversion('${data.ctaUrl}');` : 
+          `window.location.href = '${data.ctaUrl}';`
+        }
         return false;
       }
 
-      // Google Ads conversion function
-      function gtag_report_conversion(url) {
-        var callback = function () {
-          if (typeof(url) != 'undefined') {
-            window.location = url;
-          }
-        };
-        gtag('event', 'conversion', {
-          'send_to': '${googleAdsId}',  // Use full ID here
-          'value': 1.0,
-          'currency': 'EUR',
-          'event_callback': callback
-        });
-        return false;
-      }
+      ${hasGoogleAds ? `
+        // Google Ads conversion function
+        function gtag_report_conversion(url) {
+          var callback = function () {
+            if (typeof(url) != 'undefined') {
+              window.location = url;
+            }
+          };
+          gtag('event', 'conversion', {
+            'send_to': '${googleAdsId}',
+            'value': 1.0,
+            'currency': 'EUR',
+            'event_callback': callback
+          });
+          return false;
+        }
+      ` : ''}
 
       // Initialize on load
       window.addEventListener('load', function() {
@@ -107,7 +117,7 @@ export const generateAdultLander = (data) => {
       });
     `;
 
-    // Update the Google Ads base code to be conditional
+    // Google Ads base tracking code - only include if ID is provided
     const googleAdsScript = hasGoogleAds ? `
       <!-- Google Ads Conversion Tracking -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=${googleAdsBase}"></script>
