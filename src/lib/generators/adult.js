@@ -26,7 +26,7 @@ export const generateAdultLander = (data) => {
       }
     ` : '';
 
-    // Update the version script to properly track with GTM
+    // Update the version script with proper version tracking
     const versionScript = `
       // Select random version on page load
       function selectRandomVersion() {
@@ -38,25 +38,47 @@ export const generateAdultLander = (data) => {
       function showVersion(version) {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
-        
-        // Track version view immediately after showing it
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          'event': 'version_view',
-          'version': version
-        });
       }
 
-      // Track clicks and handle conversion separately
+      // Track version view when DOM is ready
+      document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(() => {
+          const versionElement = document.querySelector(".version-content[style*='display: block']");
+          const version = versionElement ? versionElement.id : "unknown";
+
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: "version_view",
+            event_name: "version_view",
+            event_category: "AB Testing",
+            event_label: version,
+            version_name: version,
+            page_path: window.location.pathname
+          });
+
+          console.log("GA4 version_view Event Fired:", version);
+        }, 500);
+      });
+
+      // Track clicks and handle conversion
       function trackClick(version) {
-        // First push to GTM for version tracking
+        const versionElement = document.querySelector(".version-content[style*='display: block']");
+        const currentVersion = versionElement ? versionElement.id : "unknown";
+
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-          'event': 'version_click',
-          'version': version
+          event: "version_click",
+          event_name: "version_click",
+          event_category: "AB Testing",
+          event_label: currentVersion,
+          version_name: currentVersion,
+          page_path: window.location.pathname,
+          outbound_url: '${data.ctaUrl}'
         });
 
-        // Then handle Google Ads conversion if ID exists
+        console.log("GA4 version_click Event Fired:", currentVersion);
+
+        // Handle Google Ads conversion if ID exists
         if ('${data.gtagId}') {
           return gtag_report_conversion('${data.ctaUrl}');
         } else {
@@ -142,7 +164,11 @@ export const generateAdultLander = (data) => {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
               event: "version_view",
-              version: version
+              event_name: "version_view",
+              event_category: "AB Testing",
+              event_label: version,
+              version_name: version,
+              page_path: window.location.pathname
             });
           });
 
