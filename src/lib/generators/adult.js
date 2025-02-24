@@ -86,10 +86,9 @@ export const generateAdultLander = (data) => {
 
         // Google Ads conversion tracking
         ${hasGoogleAds ? 
-          `gtag_report_conversion('${data.ctaUrl}');` : 
-          `window.location.href = '${data.ctaUrl}';`
+          `return gtag_report_conversion('${data.ctaUrl}');` : 
+          `window.location.href = '${data.ctaUrl}'; return false;`
         }
-        return false;
       }
 
       ${hasGoogleAds ? `
@@ -135,6 +134,18 @@ export const generateAdultLander = (data) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Breakthrough Discovery</title>
+        
+        <!-- Google Ads Base Code - Place in head -->
+        ${hasGoogleAds ? `
+          <script async src="https://www.googletagmanager.com/gtag/js?id=${googleAdsBase}"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${googleAdsBase}');
+          </script>
+        ` : ''}
+
         ${styles.fonts.urls.map(url => `<link href="${url}" rel="stylesheet">`).join('\n')}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <script>${versionScript}</script>
@@ -545,8 +556,100 @@ export const generateAdultLander = (data) => {
           </div>
         </footer>
 
+        <!-- Place tracking script before version script -->
+        ${hasGoogleAds ? `
+          <script>
+            // Google Ads conversion function
+            function gtag_report_conversion(url) {
+              var callback = function () {
+                if (typeof(url) != 'undefined') {
+                  window.location = url;
+                }
+              };
+              gtag('event', 'conversion', {
+                'send_to': '${googleAdsId}',
+                'value': 1.0,
+                'currency': 'EUR',
+                'event_callback': callback
+              });
+              return false;
+            }
+          </script>
+        ` : ''}
+
+        <!-- Version script -->
         <script>
-          // Initialize viewer count with higher number
+          // Define API URL constant
+          const API_URL = 'https://vsl01.vercel.app';
+
+          // Select random version on page load
+          function selectRandomVersion() {
+            const versions = ['version1', 'version2', 'version3'];
+            return versions[Math.floor(Math.random() * versions.length)];
+          }
+
+          // Get page ID from URL path
+          function getPageId() {
+            const path = window.location.pathname;
+            const segments = path.split('/').filter(Boolean);
+            return segments[segments.length - 1] || '';
+          }
+
+          // Show selected version content
+          function showVersion(version) {
+            document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
+            document.querySelector(\`#\${version}\`).style.display = 'block';
+            
+            // Track visit
+            const versionNum = version.replace('version', '');
+            const pageId = getPageId();
+
+            fetch(\`\${API_URL}/api/track\`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ 
+                action: 'visit', 
+                version: versionNum,
+                pageId
+              })
+            }).catch(console.error);
+          }
+
+          // Track clicks with conversion
+          function trackClick(version) {
+            const versionNum = version.replace('version', '');
+            const pageId = getPageId();
+
+            fetch(\`\${API_URL}/api/track\`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ 
+                action: 'click', 
+                version: versionNum,
+                pageId
+              })
+            }).catch(console.error);
+
+            // Google Ads conversion tracking
+            ${hasGoogleAds ? 
+              `return gtag_report_conversion('${data.ctaUrl}');` : 
+              `window.location.href = '${data.ctaUrl}'; return false;`
+            }
+          }
+
+          // Initialize on load
+          window.addEventListener('load', function() {
+            const selectedVersion = selectRandomVersion();
+            showVersion(selectedVersion);
+          });
+        </script>
+
+        <!-- Viewer count script -->
+        <script>
           let viewerCount = 2387;
           const viewerEl = document.querySelector('.viewer-count');
           
