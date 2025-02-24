@@ -24,6 +24,9 @@ export const generateAdultLander = (data) => {
         gtag('event', 'conversion', {
           'send_to': '${data.gtagId}'
         });
+        setTimeout(() => {
+          window.location.href = url;
+        }, 100);
         return false;
       }
     ` : '';
