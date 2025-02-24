@@ -7,6 +7,10 @@ export const generateAdultLander = (data) => {
     const styles = getPrelanderStyle();
     const doctorDetails = generateDoctorDetails();
     
+    // Handle case where googleAdsId is not provided
+    const googleAdsBase = data.googleAdsId ? data.googleAdsId.split('/')[0] : '';
+    const hasGoogleAds = !!data.googleAdsId;
+
     // Generate unique IDs for elements
     const ids = {
       container: `container_${Math.random().toString(36).substr(2, 9)}`,
@@ -81,20 +85,27 @@ export const generateAdultLander = (data) => {
       }
 
       // Google Ads conversion function
-      function gtag_report_conversion(url) {
-        var callback = function () {
-          if (typeof(url) != 'undefined') {
-            window.location = url;
-          }
-        };
-        gtag('event', 'conversion', {
-          'send_to': '${data.googleAdsId}',
-          'value': 1.0,
-          'currency': 'EUR',
-          'event_callback': callback
-        });
-        return false;
-      }
+      ${hasGoogleAds ? `
+        function gtag_report_conversion(url) {
+          var callback = function () {
+            if (typeof(url) != 'undefined') {
+              window.location = url;
+            }
+          };
+          gtag('event', 'conversion', {
+            'send_to': '${data.googleAdsId}',
+            'value': 1.0,
+            'currency': 'EUR',
+            'event_callback': callback
+          });
+          return false;
+        }
+      ` : `
+        function gtag_report_conversion(url) {
+          window.location = url;
+          return false;
+        }
+      `}
 
       // Initialize on load
       window.addEventListener('load', function() {
@@ -102,6 +113,18 @@ export const generateAdultLander = (data) => {
         showVersion(selectedVersion);
       });
     `;
+
+    // Update the Google Ads base code to be conditional
+    const googleAdsScript = hasGoogleAds ? `
+      <!-- Google Ads Conversion Tracking -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=${googleAdsBase}"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${googleAdsBase}');
+      </script>
+    ` : '';
 
     return `<!DOCTYPE html>
       <html lang="en">
@@ -531,15 +554,7 @@ export const generateAdultLander = (data) => {
           }, 5000);
         </script>
 
-        <!-- Google Ads Conversion Tracking -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=${data.googleAdsId.split('/')[0]}"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${data.googleAdsId.split('/')[0]}');
-        </script>
-
+        ${googleAdsScript}
       </body>
     </html>`;
   } catch (error) {
