@@ -26,7 +26,7 @@ export const generateAdultLander = (data) => {
       }
     ` : '';
 
-    // Update the version script to handle both GTM and Ads conversion
+    // Update the version script to use the optimized tracking
     const versionScript = `
       // Select random version on page load
       function selectRandomVersion() {
@@ -38,23 +38,32 @@ export const generateAdultLander = (data) => {
       function showVersion(version) {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
-        
-        // Push version view to dataLayer
+      }
+
+      // Track version view when DOM is ready
+      document.addEventListener("DOMContentLoaded", function() {
+        const versionElement = document.querySelector(".version-content[style*='display: block']");
+        const version = versionElement ? versionElement.id : "unknown";
+
+        // Push version_view event to GTM
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-          'event': 'version_view',
-          'version': version
+          event: "version_view",
+          version: version
         });
-      }
+      });
 
       // Track clicks with dataLayer and handle conversion
       function trackClick(version) {
+        const versionElement = document.querySelector(".version-content[style*='display: block']");
+        const currentVersion = versionElement ? versionElement.id : "unknown";
+
         // Push click event to dataLayer
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-          'event': 'version_click',
-          'version': version,
-          'destinationUrl': '${data.ctaUrl}'
+          event: "version_click",
+          version: currentVersion,
+          destinationUrl: '${data.ctaUrl}'
         });
 
         // Handle Google Ads conversion if ID exists
@@ -65,8 +74,8 @@ export const generateAdultLander = (data) => {
           setTimeout(() => {
             window.location.href = '${data.ctaUrl}';
           }, 250);
-          return false;
         }
+        return false;
       }
 
       // Initialize on load
@@ -135,14 +144,20 @@ export const generateAdultLander = (data) => {
           function showVersion(version) {
             document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
             document.querySelector(\`#\${version}\`).style.display = 'block';
-            
-            // Push version view to dataLayer
+          }
+
+          // Track version view when DOM is ready
+          document.addEventListener("DOMContentLoaded", function() {
+            const versionElement = document.querySelector(".version-content[style*='display: block']");
+            const version = versionElement ? versionElement.id : "unknown";
+
+            // Push version_view event to GTM
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
-              'event': 'version_view',
-              'version': version
+              event: "version_view",
+              version: version
             });
-          }
+          });
 
           // Track clicks with dataLayer
           function trackClick(version) {
