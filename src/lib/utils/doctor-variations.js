@@ -37,8 +37,8 @@ export const generateDoctorDetails = () => {
   // Generate random recent hours (between 2 and 24)
   const hours = Math.floor(Math.random() * 22) + 2;
 
-  // Use direct image URL
-  const imageUrl = 'https://drive.google.com/uc?export=view&id=1vwBpUpeSv38I3UHxI5LfYUsmSipfuOgI';
+  // Use direct image URL from Google Drive
+  const imageUrl = 'https://drive.usercontent.google.com/download?id=1vwBpUpeSv38I3UHxI5LfYUsmSipfuOgI&export=view&authuser=0';
 
   return {
     name: `Dr. ${firstName} ${lastName}`,
