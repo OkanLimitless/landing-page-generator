@@ -344,6 +344,86 @@ export const generateAdultLander = (data) => {
             padding: 0 20px;
             line-height: 1.4;
           }
+
+          .doctor-credentials {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+
+          .doctor-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+          }
+
+          .doctor-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+          }
+
+          .credentials {
+            flex: 1;
+          }
+
+          .credentials .name {
+            font-family: ${styles.fonts.heading};
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+          }
+
+          .credentials .title {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+          }
+
+          .credentials .stats {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+
+          .credentials .separator {
+            color: rgba(255, 255, 255, 0.3);
+          }
+
+          .credentials .views i {
+            font-size: 0.9em;
+            margin-right: 4px;
+          }
+
+          @media (max-width: 768px) {
+            .doctor-info {
+              gap: 15px;
+            }
+
+            .doctor-image {
+              width: 60px;
+              height: 60px;
+            }
+
+            .credentials .name {
+              font-size: 1.1rem;
+            }
+
+            .credentials .title {
+              font-size: 0.9rem;
+            }
+
+            .credentials .stats {
+              font-size: 0.8rem;
+            }
+          }
         </style>
       </head>
       <body>
@@ -366,6 +446,21 @@ export const generateAdultLander = (data) => {
               <div class="headline">
                 <h1>${template.headline}</h1>
                 <div class="subtitle">${template.subtitle}</div>
+              </div>
+
+              <div class="doctor-credentials">
+                <div class="doctor-info">
+                  <img src="/images/doctor.png" alt="Medical Expert" class="doctor-image" />
+                  <div class="credentials">
+                    <div class="name">Dr. Harrison Oakridge</div>
+                    <div class="title">Stanford Neuroscientist</div>
+                    <div class="stats">
+                      <span class="published">Published: 17 hours ago</span>
+                      <span class="separator">•</span>
+                      <span class="views"><i class="fas fa-eye"></i> 345,713 Views</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <p class="lead-text">${template.leadText}</p>
