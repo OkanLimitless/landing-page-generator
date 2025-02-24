@@ -1,9 +1,11 @@
 import { getPrelanderStyle } from '../utils/style-variations';
 import { prelanderTemplates } from '../templates/adult-prelander';
+import { generateDoctorDetails } from '../utils/doctor-variations';
 
 export const generateAdultLander = (data) => {
   try {
     const styles = getPrelanderStyle();
+    const doctorDetails = generateDoctorDetails();
     
     // Generate unique IDs for elements
     const ids = {
@@ -450,14 +452,14 @@ export const generateAdultLander = (data) => {
 
               <div class="doctor-credentials">
                 <div class="doctor-info">
-                  <img src="/images/doctor.png" alt="Medical Expert" class="doctor-image" />
+                  <img src="${doctorDetails.imageData}" alt="Medical Expert" class="doctor-image" />
                   <div class="credentials">
-                    <div class="name">Dr. Harrison Oakridge</div>
-                    <div class="title">Stanford Neuroscientist</div>
+                    <div class="name">${doctorDetails.name}</div>
+                    <div class="title">${doctorDetails.title}</div>
                     <div class="stats">
-                      <span class="published">Published: 17 hours ago</span>
+                      <span class="published">Published: ${doctorDetails.published}</span>
                       <span class="separator">•</span>
-                      <span class="views"><i class="fas fa-eye"></i> 345,713 Views</span>
+                      <span class="views"><i class="fas fa-eye"></i> ${doctorDetails.views} Views</span>
                     </div>
                   </div>
                 </div>
