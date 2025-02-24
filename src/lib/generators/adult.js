@@ -26,7 +26,7 @@ export const generateAdultLander = (data) => {
       }
     ` : '';
 
-    // Update the version script to use the optimized tracking
+    // Update the version script to properly track with GTM
     const versionScript = `
       // Select random version on page load
       function selectRandomVersion() {
@@ -34,46 +34,33 @@ export const generateAdultLander = (data) => {
         return versions[Math.floor(Math.random() * versions.length)];
       }
 
-      // Show selected version content
+      // Show selected version and track view
       function showVersion(version) {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
+        
+        // Track version view immediately after showing it
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          'event': 'version_view',
+          'version': version
+        });
       }
 
-      // Track version view when DOM is ready
-      document.addEventListener("DOMContentLoaded", function() {
-        const versionElement = document.querySelector(".version-content[style*='display: block']");
-        const version = versionElement ? versionElement.id : "unknown";
-
-        // Push version_view event to GTM
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: "version_view",
-          version: version
-        });
-      });
-
-      // Track clicks with dataLayer and handle conversion
+      // Track clicks and handle conversion separately
       function trackClick(version) {
-        const versionElement = document.querySelector(".version-content[style*='display: block']");
-        const currentVersion = versionElement ? versionElement.id : "unknown";
-
-        // Push click event to dataLayer
+        // First push to GTM for version tracking
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-          event: "version_click",
-          version: currentVersion,
-          destinationUrl: '${data.ctaUrl}'
+          'event': 'version_click',
+          'version': version
         });
 
-        // Handle Google Ads conversion if ID exists
+        // Then handle Google Ads conversion if ID exists
         if ('${data.gtagId}') {
           return gtag_report_conversion('${data.ctaUrl}');
         } else {
-          // If no conversion ID, just redirect
-          setTimeout(() => {
-            window.location.href = '${data.ctaUrl}';
-          }, 250);
+          window.location.href = '${data.ctaUrl}';
         }
         return false;
       }
@@ -117,7 +104,7 @@ export const generateAdultLander = (data) => {
         })(window,document,'script','dataLayer','GTM-KSK2S26J');</script>
         <!-- End Google Tag Manager -->
 
-        <!-- Add Google Ads conversion script if ID exists -->
+        <!-- Add Google Ads conversion tracking if ID exists -->
         ${gtagAccount ? `
           <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>
           <script>
