@@ -57,11 +57,12 @@ export const generateAdultLander = (data) => {
         }).catch(console.error);
       }
 
-      // Track clicks
+      // Track clicks with conversion
       function trackClick(version) {
         const versionNum = version.replace('version', '');
         const pageId = getPageId();
 
+        // Track click in our system
         fetch(\`\${API_URL}/api/track\`, {
           method: 'POST',
           headers: {
@@ -73,10 +74,25 @@ export const generateAdultLander = (data) => {
             pageId
           })
         }).catch(console.error);
-        
-        setTimeout(() => {
-          window.location.href = '${data.ctaUrl}';
-        }, 100);
+
+        // Google Ads conversion tracking
+        gtag_report_conversion('${data.ctaUrl}');
+        return false;
+      }
+
+      // Google Ads conversion function
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+          'send_to': '${data.googleAdsId}',
+          'value': 1.0,
+          'currency': 'EUR',
+          'event_callback': callback
+        });
         return false;
       }
 
@@ -509,15 +525,23 @@ export const generateAdultLander = (data) => {
           const viewerEl = document.querySelector('.viewer-count');
           
           setInterval(() => {
-            // Only increase by 1-3 people each time
             const increase = Math.floor(Math.random() * 3) + 1;
             viewerCount += increase;
-            // Format with commas
             viewerEl.textContent = viewerCount.toLocaleString();
           }, 5000);
         </script>
+
+        <!-- Google Ads Conversion Tracking -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=${data.googleAdsId.split('/')[0]}"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${data.googleAdsId.split('/')[0]}');
+        </script>
+
       </body>
-      </html>`;
+    </html>`;
   } catch (error) {
     console.error('Error generating Adult Lander:', error);
     throw error;
