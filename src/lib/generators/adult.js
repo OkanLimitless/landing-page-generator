@@ -7,9 +7,10 @@ export const generateAdultLander = (data) => {
     const styles = getPrelanderStyle();
     const doctorDetails = generateDoctorDetails();
     
-    // Handle case where googleAdsId is not provided
-    const googleAdsBase = data.googleAdsId ? data.googleAdsId.split('/')[0] : '';
-    const hasGoogleAds = !!data.googleAdsId;
+    // Handle Google Ads ID format (AW-XXXXXXXXXX/YYYY-YYYY)
+    const googleAdsId = data.googleAdsId || '';
+    const googleAdsBase = googleAdsId.split('/')[0] || ''; // Gets the AW-XXXXXXXXXX part
+    const hasGoogleAds = !!googleAdsId;
 
     // Generate unique IDs for elements
     const ids = {
@@ -66,7 +67,6 @@ export const generateAdultLander = (data) => {
         const versionNum = version.replace('version', '');
         const pageId = getPageId();
 
-        // Track click in our system
         fetch(\`\${API_URL}/api/track\`, {
           method: 'POST',
           headers: {
@@ -85,27 +85,20 @@ export const generateAdultLander = (data) => {
       }
 
       // Google Ads conversion function
-      ${hasGoogleAds ? `
-        function gtag_report_conversion(url) {
-          var callback = function () {
-            if (typeof(url) != 'undefined') {
-              window.location = url;
-            }
-          };
-          gtag('event', 'conversion', {
-            'send_to': '${data.googleAdsId}',
-            'value': 1.0,
-            'currency': 'EUR',
-            'event_callback': callback
-          });
-          return false;
-        }
-      ` : `
-        function gtag_report_conversion(url) {
-          window.location = url;
-          return false;
-        }
-      `}
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+          'send_to': '${googleAdsId}',  // Use full ID here
+          'value': 1.0,
+          'currency': 'EUR',
+          'event_callback': callback
+        });
+        return false;
+      }
 
       // Initialize on load
       window.addEventListener('load', function() {
