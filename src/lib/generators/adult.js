@@ -26,8 +26,11 @@ export const generateAdultLander = (data) => {
       }
     ` : '';
 
-    // Update the version script with proper version tracking
+    // Update the version script with more reliable tracking
     const versionScript = `
+      // Global variable to store current version
+      let currentVersion = '';
+
       // Select random version on page load
       function selectRandomVersion() {
         const versions = ['version1', 'version2', 'version3'];
@@ -36,61 +39,74 @@ export const generateAdultLander = (data) => {
 
       // Show selected version and track view
       function showVersion(version) {
+        currentVersion = version; // Store version globally
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
+
+        // Track version view with retry
+        let attempts = 0;
+        const trackView = () => {
+          if (window.dataLayer) {
+            window.dataLayer.push({
+              event: "version_view",
+              version: version,
+              event_category: "AB Testing",
+              event_label: version,
+              page_path: window.location.pathname
+            });
+            console.log("GA4 version_view Event Fired:", version);
+          } else if (attempts < 5) {
+            attempts++;
+            setTimeout(trackView, 1000);
+          }
+        };
+        trackView();
       }
 
-      // Track version view when DOM is ready
-      document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(() => {
-          const versionElement = document.querySelector(".version-content[style*='display: block']");
-          const version = versionElement ? versionElement.id : "unknown";
-
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({
-            event: "version_view",
-            event_name: "version_view",
-            event_category: "AB Testing",
-            event_label: version,
-            version_name: version,
-            page_path: window.location.pathname
-          });
-
-          console.log("GA4 version_view Event Fired:", version);
-        }, 500);
-      });
-
-      // Track clicks and handle conversion
+      // Track clicks with retry mechanism
       function trackClick(version) {
-        const versionElement = document.querySelector(".version-content[style*='display: block']");
-        const currentVersion = versionElement ? versionElement.id : "unknown";
+        // Use stored version as fallback
+        const clickVersion = version || currentVersion;
+        
+        let tracked = false;
+        const pushClickEvent = () => {
+          if (window.dataLayer && !tracked) {
+            tracked = true;
+            window.dataLayer.push({
+              event: "version_click",
+              version: clickVersion,
+              event_category: "AB Testing",
+              event_label: clickVersion,
+              page_path: window.location.pathname,
+              outbound_url: '${data.ctaUrl}'
+            });
+            console.log("GA4 version_click Event Fired:", clickVersion);
 
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: "version_click",
-          event_name: "version_click",
-          event_category: "AB Testing",
-          event_label: currentVersion,
-          version_name: currentVersion,
-          page_path: window.location.pathname,
-          outbound_url: '${data.ctaUrl}'
-        });
-
-        console.log("GA4 version_click Event Fired:", currentVersion);
-
-        // Handle Google Ads conversion if ID exists
-        if ('${data.gtagId}') {
-          return gtag_report_conversion('${data.ctaUrl}');
-        } else {
-          window.location.href = '${data.ctaUrl}';
-        }
+            // Handle Google Ads conversion after GTM event
+            if ('${data.gtagId}') {
+              return gtag_report_conversion('${data.ctaUrl}');
+            } else {
+              window.location.href = '${data.ctaUrl}';
+            }
+          } else if (!tracked) {
+            setTimeout(pushClickEvent, 500);
+          }
+        };
+        pushClickEvent();
         return false;
       }
 
-      // Initialize on load
+      // Initialize on load with retry
       window.addEventListener('load', function() {
-        const selectedVersion = selectRandomVersion();
-        showVersion(selectedVersion);
+        const initTracking = () => {
+          if (window.dataLayer) {
+            const selectedVersion = selectRandomVersion();
+            showVersion(selectedVersion);
+          } else {
+            setTimeout(initTracking, 500);
+          }
+        };
+        initTracking();
       });
     `;
 
