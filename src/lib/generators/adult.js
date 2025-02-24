@@ -12,14 +12,9 @@ export const generateAdultLander = (data) => {
     const styles = getPrelanderStyle();
     const doctorDetails = generateDoctorDetails();
     
-    // Google Ads tracking setup - using the working implementation
+    // Google Ads conversion setup
     const [gtagAccount] = (data.gtagId || '').split('/');
     const gtagScript = gtagAccount ? `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${gtagAccount}');
-      
       function gtag_report_conversion(url) {
         gtag('event', 'conversion', {
           'send_to': '${data.gtagId}',
@@ -31,32 +26,12 @@ export const generateAdultLander = (data) => {
       }
     ` : '';
 
-    // Generate unique IDs for elements
-    const ids = {
-      container: `container_${Math.random().toString(36).substr(2, 9)}`,
-      content: `content_${Math.random().toString(36).substr(2, 9)}`,
-      timer: `timer_${Math.random().toString(36).substr(2, 9)}`,
-      viewers: `viewers_${Math.random().toString(36).substr(2, 9)}`,
-      cta: `cta_${Math.random().toString(36).substr(2, 9)}`,
-      proof: `proof_${Math.random().toString(36).substr(2, 9)}`
-    };
-
-    // Version selection and tracking script
+    // Update the version script to handle both GTM and Ads conversion
     const versionScript = `
-      // Define API URL constant
-      const API_URL = 'https://vsl01.vercel.app';
-
       // Select random version on page load
       function selectRandomVersion() {
         const versions = ['version1', 'version2', 'version3'];
         return versions[Math.floor(Math.random() * versions.length)];
-      }
-
-      // Get page ID from URL path
-      function getPageId() {
-        const path = window.location.pathname;
-        const segments = path.split('/').filter(Boolean);
-        return segments[segments.length - 1] || '';
       }
 
       // Show selected version content
@@ -64,46 +39,32 @@ export const generateAdultLander = (data) => {
         document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
         document.querySelector(\`#\${version}\`).style.display = 'block';
         
-        // Track visit
-        const versionNum = version.replace('version', '');
-        const pageId = getPageId();
-
-        fetch(\`\${API_URL}/api/track\`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            action: 'visit', 
-            version: versionNum,
-            pageId
-          })
-        }).catch(console.error);
+        // Push version view to dataLayer
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          'event': 'version_view',
+          'version': version
+        });
       }
 
-      // Track clicks with conversion
+      // Track clicks with dataLayer and handle conversion
       function trackClick(version) {
-        const versionNum = version.replace('version', '');
-        const pageId = getPageId();
+        // Push click event to dataLayer
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          'event': 'version_click',
+          'version': version,
+          'destinationUrl': '${data.ctaUrl}'
+        });
 
-        // First track our API
-        fetch(\`\${API_URL}/api/track\`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            action: 'click', 
-            version: versionNum,
-            pageId
-          })
-        }).catch(console.error);
-
-        // Then handle Google Ads conversion
-        if (${!!gtagAccount}) {
+        // Handle Google Ads conversion if ID exists
+        if ('${data.gtagId}') {
           return gtag_report_conversion('${data.ctaUrl}');
         } else {
-          window.location.href = '${data.ctaUrl}';
+          // If no conversion ID, just redirect
+          setTimeout(() => {
+            window.location.href = '${data.ctaUrl}';
+          }, 250);
           return false;
         }
       }
@@ -114,6 +75,16 @@ export const generateAdultLander = (data) => {
         showVersion(selectedVersion);
       });
     `;
+
+    // Generate unique IDs for elements
+    const ids = {
+      container: `container_${Math.random().toString(36).substr(2, 9)}`,
+      content: `content_${Math.random().toString(36).substr(2, 9)}`,
+      timer: `timer_${Math.random().toString(36).substr(2, 9)}`,
+      viewers: `viewers_${Math.random().toString(36).substr(2, 9)}`,
+      cta: `cta_${Math.random().toString(36).substr(2, 9)}`,
+      proof: `proof_${Math.random().toString(36).substr(2, 9)}`
+    };
 
     // Google Ads base tracking code - only include if ID is provided
     const googleAdsScript = gtagAccount ? `
@@ -129,14 +100,73 @@ export const generateAdultLander = (data) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Breakthrough Discovery</title>
         
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-KSK2S26J');</script>
+        <!-- End Google Tag Manager -->
+
+        <!-- Add Google Ads conversion script if ID exists -->
         ${gtagAccount ? `
           <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>
-          <script>${gtagScript}</script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${gtagAccount}');
+            ${gtagScript}
+          </script>
         ` : ''}
 
         ${styles.fonts.urls.map(url => `<link href="${url}" rel="stylesheet">`).join('\n')}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <script>${versionScript}</script>
+
+        <!-- Update version script to use dataLayer -->
+        <script>
+          // Select random version on page load
+          function selectRandomVersion() {
+            const versions = ['version1', 'version2', 'version3'];
+            return versions[Math.floor(Math.random() * versions.length)];
+          }
+
+          // Show selected version content
+          function showVersion(version) {
+            document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
+            document.querySelector(\`#\${version}\`).style.display = 'block';
+            
+            // Push version view to dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              'event': 'version_view',
+              'version': version
+            });
+          }
+
+          // Track clicks with dataLayer
+          function trackClick(version) {
+            // Push click event to dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              'event': 'version_click',
+              'version': version,
+              'destinationUrl': '${data.ctaUrl}'
+            });
+
+            // Delay redirect slightly to ensure tracking fires
+            setTimeout(() => {
+              window.location.href = '${data.ctaUrl}';
+            }, 250);
+            return false;
+          }
+
+          // Initialize on load
+          window.addEventListener('load', function() {
+            const selectedVersion = selectRandomVersion();
+            showVersion(selectedVersion);
+          });
+        </script>
         <style>
           ${styles.decorative?.css || ''}
           
@@ -470,12 +500,13 @@ export const generateAdultLander = (data) => {
         </style>
       </head>
       <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSK2S26J"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
         <div class="top-bar">
           <div class="top-bar-content">
-            <div class="social-proof">
-              <i class="fas fa-chart-line"></i>
-              <span><strong class="viewer-count">2,387</strong> people viewing this page</span>
-            </div>
             <div class="trust-badge">
               <i class="fas fa-shield-check"></i>
               <span>Clinically Verified Results</span>
@@ -543,92 +574,6 @@ export const generateAdultLander = (data) => {
             of their respective owners.
           </div>
         </footer>
-
-        <!-- Version script -->
-        <script>
-          // Define API URL constant
-          const API_URL = 'https://vsl01.vercel.app';
-
-          // Select random version on page load
-          function selectRandomVersion() {
-            const versions = ['version1', 'version2', 'version3'];
-            return versions[Math.floor(Math.random() * versions.length)];
-          }
-
-          // Get page ID from URL path
-          function getPageId() {
-            const path = window.location.pathname;
-            const segments = path.split('/').filter(Boolean);
-            return segments[segments.length - 1] || '';
-          }
-
-          // Show selected version content
-          function showVersion(version) {
-            document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
-            document.querySelector(\`#\${version}\`).style.display = 'block';
-            
-            // Track visit
-            const versionNum = version.replace('version', '');
-            const pageId = getPageId();
-
-            fetch(\`\${API_URL}/api/track\`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ 
-                action: 'visit', 
-                version: versionNum,
-                pageId
-              })
-            }).catch(console.error);
-          }
-
-          // Track clicks with conversion
-          function trackClick(version) {
-            const versionNum = version.replace('version', '');
-            const pageId = getPageId();
-
-            // First track our API
-            fetch(\`\${API_URL}/api/track\`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ 
-                action: 'click', 
-                version: versionNum,
-                pageId
-              })
-            }).catch(console.error);
-
-            // Then handle Google Ads conversion
-            if (${!!gtagAccount}) {
-              return gtag_report_conversion('${data.ctaUrl}');
-            } else {
-              window.location.href = '${data.ctaUrl}';
-              return false;
-            }
-          }
-
-          // Initialize on load
-          window.addEventListener('load', function() {
-            const selectedVersion = selectRandomVersion();
-            showVersion(selectedVersion);
-          });
-        </script>
-
-        <!-- Viewer count script -->
-        <script>
-          let viewerCount = 2387;
-          const viewerEl = document.querySelector('.viewer-count');
-          
-          setInterval(() => {
-            const increase = Math.floor(Math.random() * 3) + 1;
-            viewerCount += increase;
-            viewerEl.textContent = viewerCount.toLocaleString();
-          }, 5000);
-        </script>
 
         ${googleAdsScript}
       </body>
