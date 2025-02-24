@@ -21,14 +21,11 @@ export const generateAdultLander = (data) => {
       gtag('config', '${gtagAccount}');
       
       function gtag_report_conversion(url) {
-        var callback = function () {
-          if (typeof(url) != 'undefined') {
-            window.location.href = url;
-          }
-        };
         gtag('event', 'conversion', {
           'send_to': '${data.gtagId}',
-          'event_callback': callback
+          'event_callback': function() {
+            window.location.href = url;
+          }
         });
         return false;
       }
@@ -89,6 +86,7 @@ export const generateAdultLander = (data) => {
         const versionNum = version.replace('version', '');
         const pageId = getPageId();
 
+        // First track our API
         fetch(\`\${API_URL}/api/track\`, {
           method: 'POST',
           headers: {
@@ -101,12 +99,13 @@ export const generateAdultLander = (data) => {
           })
         }).catch(console.error);
 
-        // Google Ads conversion tracking
-        ${gtagAccount ? 
-          `gtag_report_conversion('${data.ctaUrl}');` : 
-          `window.location.href = '${data.ctaUrl}';`
+        // Then handle Google Ads conversion
+        if (${!!gtagAccount}) {
+          return gtag_report_conversion('${data.ctaUrl}');
+        } else {
+          window.location.href = '${data.ctaUrl}';
+          return false;
         }
-        return false;
       }
 
       // Initialize on load
@@ -590,6 +589,7 @@ export const generateAdultLander = (data) => {
             const versionNum = version.replace('version', '');
             const pageId = getPageId();
 
+            // First track our API
             fetch(\`\${API_URL}/api/track\`, {
               method: 'POST',
               headers: {
@@ -602,12 +602,13 @@ export const generateAdultLander = (data) => {
               })
             }).catch(console.error);
 
-            // Google Ads conversion tracking
-            ${gtagAccount ? 
-              `gtag_report_conversion('${data.ctaUrl}');` : 
-              `window.location.href = '${data.ctaUrl}';`
+            // Then handle Google Ads conversion
+            if (${!!gtagAccount}) {
+              return gtag_report_conversion('${data.ctaUrl}');
+            } else {
+              window.location.href = '${data.ctaUrl}';
+              return false;
             }
-            return false;
           }
 
           // Initialize on load
