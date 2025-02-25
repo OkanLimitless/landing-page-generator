@@ -28,6 +28,21 @@ export const generateAdultLander = (data) => {
         }));
       }
 
+      // Function to update stats display
+      function updateStatsDisplay() {
+        const stats = JSON.parse(localStorage.getItem('pageStats') || '{"views":0,"clicks":0}');
+        if (document.getElementById('viewCount')) {
+          document.getElementById('viewCount').textContent = stats.views;
+        }
+        if (document.getElementById('clickCount')) {
+          document.getElementById('clickCount').textContent = stats.clicks;
+        }
+        if (document.getElementById('ctrValue')) {
+          const ctr = stats.views ? ((stats.clicks / stats.views) * 100).toFixed(2) : '0.00';
+          document.getElementById('ctrValue').textContent = ctr + '%';
+        }
+      }
+
       // Track page view on load
       window.addEventListener('load', function() {
         const stats = JSON.parse(localStorage.getItem('pageStats'));
@@ -114,60 +129,6 @@ export const generateAdultLander = (data) => {
         ${styles.fonts.urls.map(url => `<link href="${url}" rel="stylesheet">`).join('\n')}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        <!-- Update version script to use dataLayer -->
-        <script>
-          // Select random version on page load
-          function selectRandomVersion() {
-            const versions = ['version1', 'version2', 'version3'];
-            return versions[Math.floor(Math.random() * versions.length)];
-          }
-
-          // Show selected version content
-          function showVersion(version) {
-            document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
-            document.querySelector(\`#\${version}\`).style.display = 'block';
-          }
-
-          // Track version view when DOM is ready
-          document.addEventListener("DOMContentLoaded", function() {
-            const versionElement = document.querySelector(".version-content[style*='display: block']");
-            const version = versionElement ? versionElement.id : "unknown";
-
-            // Push version_view event to GTM
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-              event: "version_view",
-              event_name: "version_view",
-              event_category: "AB Testing",
-              event_label: version,
-              version_name: version,
-              page_path: window.location.pathname
-            });
-          });
-
-          // Track clicks with dataLayer
-          function trackClick(version) {
-            // Push click event to dataLayer
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-              'event': 'version_click',
-              'version': version,
-              'destinationUrl': '${data.ctaUrl}'
-            });
-
-            // Delay redirect slightly to ensure tracking fires
-            setTimeout(() => {
-              window.location.href = '${data.ctaUrl}';
-            }, 250);
-            return false;
-          }
-
-          // Initialize on load
-          window.addEventListener('load', function() {
-            const selectedVersion = selectRandomVersion();
-            showVersion(selectedVersion);
-          });
-        </script>
         <style>
           ${styles.decorative?.css || ''}
           
@@ -517,7 +478,7 @@ export const generateAdultLander = (data) => {
         </div>
 
         <main id="${ids.content}">
-          <div class="version-content">
+          <div class="version-content" style="display: block;">  <!-- Show content by default -->
             <div class="headline">
               <h1>${template.headline}</h1>
               <div class="subtitle">${template.subtitle}</div>
