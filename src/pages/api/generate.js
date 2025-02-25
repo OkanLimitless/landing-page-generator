@@ -2,7 +2,6 @@ import { generateVSLPage } from '../../lib/generators/vsl';
 import { generateEcomPage } from '../../lib/generators/ecom';
 import { generateAdultLander } from '../../lib/generators/adult';
 import { generatePrivacyPolicy, generateTermsOfService } from '../../lib/generators/legal';
-import { generateStatsViewer } from '../../lib/generators/stats';
 import { getRandomStyle } from '../../lib/utils/style-variations';
 import JSZip from 'jszip';
 
@@ -60,41 +59,24 @@ export default async function handler(req, res) {
       throw new Error('Failed to generate legal pages');
     }
 
-    const statsHtml = generateStatsViewer(data.template);
-
-    // Log what we're adding to the zip
-    console.log('Adding files to zip:', {
-      'index.html': !!html,
-      'stats.html': !!statsHtml,
-      'privacy.html': !!privacy,
-      'terms.html': !!terms
-    });
-
     // Create zip with all files
     const zip = new JSZip();
     zip.file('index.html', html);
-    zip.file('stats.html', statsHtml);
     zip.file('privacy.html', privacy);
     zip.file('terms.html', terms);
 
     // Generate zip file as base64
     const zipContent = await zip.generateAsync({ type: 'base64' });
 
-    // Log zip content length to verify it's not empty
-    console.log('Zip content length:', zipContent.length);
-
     return res.status(200).json({
       html,
       privacy,
       terms,
       success: true,
-      stats: statsHtml,
       zipContent,
-      // Add a manifest to help debug
       manifest: {
         files: [
           'index.html',
-          'stats.html',
           'privacy.html',
           'terms.html'
         ]
