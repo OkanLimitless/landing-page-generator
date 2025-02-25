@@ -126,11 +126,12 @@ export default async function handler(req, res) {
     zip.file('privacy.html', privacy);
     zip.file('terms.html', terms);
 
-    // Generate zip file
-    const zipContent = await zip.generateAsync({ type: 'blob' });
+    // Generate zip file as base64
+    const zipContent = await zip.generateAsync({ type: 'base64' });
 
     return res.status(200).json({
       success: true,
+      zipContent,
       files: {
         'index.html': html,
         'stats.html': statsHtml,
@@ -140,18 +141,11 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Error in API handler:', {
-      message: error.message,
-      name: error.name,
-      stack: error.stack
-    });
-
+    console.error('Error in API handler:', error);
     return res.status(500).json({
       success: false,
       message: error.message || 'Generation failed',
-      error: error.message,
-      name: error.name,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      error: error.message
     });
   }
 }
