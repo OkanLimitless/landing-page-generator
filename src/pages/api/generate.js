@@ -129,15 +129,14 @@ export default async function handler(req, res) {
     // Generate zip file as base64
     const zipContent = await zip.generateAsync({ type: 'base64' });
 
+    // Return in the format expected by the frontend
     return res.status(200).json({
+      html,      // Original format expected these direct file contents
+      privacy,
+      terms,
       success: true,
-      zipContent,
-      files: {
-        'index.html': html,
-        'stats.html': statsHtml,
-        'privacy.html': privacy,
-        'terms.html': terms
-      }
+      zipContent, // Add the zip content as well
+      stats: statsHtml // Add stats HTML
     });
 
   } catch (error) {
