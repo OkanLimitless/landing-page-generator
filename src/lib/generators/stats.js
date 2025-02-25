@@ -93,7 +93,7 @@ export const generateStatsViewer = (templateId) => `<!DOCTYPE html>
     <script>
         async function updateStatsDisplay() {
             try {
-                const response = await fetch('/api/track?id=${templateId}');
+                const response = await fetch('/api/stats/${templateId}');
                 if (!response.ok) {
                     throw new Error('Failed to fetch stats');
                 }
