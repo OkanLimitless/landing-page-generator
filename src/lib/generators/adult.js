@@ -16,21 +16,23 @@ export const generateAdultLander = (data) => {
     const versions = Object.entries(prelanderTemplates);
     const [version, template] = versions[Math.floor(Math.random() * versions.length)];
     
-    // Simple click tracking script
+    // Update the tracking script to use the correct URL
     const trackingScript = `
-      // Track page view
-      fetch('/api/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          action: 'view',
-          version: '${version}'
-        })
-      }).catch(console.error);
+      // Track page view on load
+      window.addEventListener('load', function() {
+        fetch('https://yourdomain.com/api/track', {  // Replace with your actual domain
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            action: 'view',
+            version: '${version}'
+          })
+        }).catch(console.error);
+      });
 
       // Track clicks
       function trackClick() {
-        fetch('/api/track', {
+        fetch('https://yourdomain.com/api/track', {  // Replace with your actual domain
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
@@ -495,6 +497,7 @@ export const generateAdultLander = (data) => {
             }
           }
         </style>
+        <script>${trackingScript}</script>
       </head>
       <body>
         <!-- Google Tag Manager (noscript) -->
@@ -544,7 +547,7 @@ export const generateAdultLander = (data) => {
               `).join('')}
             </div>
 
-            <button id="${ids.cta}" onclick="trackClick('${version}');">
+            <button id="${ids.cta}" onclick="return trackClick();">
               ${template.ctaText} →
             </button>
 
