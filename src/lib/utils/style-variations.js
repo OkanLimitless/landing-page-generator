@@ -36,43 +36,35 @@ const fonts = [
 ];
 
 const buttonStyles = {
-  base: [
-    (colors) => `
-      background: ${colors.primary};
-      color: ${colors.text};
-      box-shadow: 0 4px 15px ${colors.primary}40;
-      transform-origin: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    `,
-    (colors) => `
-      background: linear-gradient(45deg, ${colors.primary}, ${colors.secondary});
-      color: ${colors.text};
-      box-shadow: 0 4px 15px ${colors.primary}30;
-      transition: all 0.3s ease;
-    `,
-    (colors) => `
-      background: linear-gradient(135deg, ${colors.secondary}, ${colors.primary}, ${colors.secondary});
-      background-size: 200% auto;
-      color: ${colors.text};
-      box-shadow: 0 4px 15px ${colors.primary}30;
-      transition: all 0.3s ease;
-    `
-  ],
-  hover: [
-    (colors) => `
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px ${colors.primary}60;
-    `,
-    (colors) => `
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 25px ${colors.primary}50;
-    `,
-    (colors) => `
-      background-position: right center;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px ${colors.primary}50;
-    `
-  ]
+  modern: `
+    background: linear-gradient(45deg, var(--accent), var(--accent-dark));
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: 16px 32px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  `,
+  classic: `
+    background: var(--accent);
+    color: #FFFFFF;
+    font-weight: 700;
+    padding: 18px 36px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  `,
+  minimal: `
+    background: var(--accent);
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: 16px 28px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  `
 };
 
 const imageStyles = [
@@ -93,11 +85,26 @@ const imageStyles = [
   `
 ];
 
-const containerStyles = [
-  { maxWidth: '800px', padding: '40px 20px' },
-  { maxWidth: '850px', padding: '35px 25px' },
-  { maxWidth: '900px', padding: '30px 30px' }
-];
+const containerStyles = {
+  card: `
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  `,
+  clean: `
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  `,
+  modern: `
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 20px;
+    padding: 48px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  `
+};
 
 const getRandomVariation = (variations, defaultValue = null) => {
   try {
@@ -305,24 +312,20 @@ const prelanderStyles = {
     colors: {
       // Professional color combinations with good contrast
       primary: [
-        '#4F46E5', // Deep indigo
-        '#2563EB', // Royal blue
-        '#7C3AED', // Vibrant purple
-        '#E11D48', // Rich red
-        '#059669'  // Emerald green
+        '#FFFFFF', // White text
+        '#E5E7EB', // Light gray text
+        '#F3F4F6', // Lighter gray text
       ],
       accent: [
-        '#F59E0B', // Warm amber
-        '#10B981', // Teal
-        '#EC4899', // Pink
-        '#3B82F6', // Blue
-        '#F97316'  // Orange
+        '#2563EB', // Royal blue
+        '#10B981', // Emerald
+        '#F59E0B', // Amber
       ],
       background: [
         'linear-gradient(145deg, #1E293B, #0F172A)', // Navy
         'linear-gradient(135deg, #1F2937, #111827)', // Cool gray
-        'linear-gradient(150deg, #312E81, #1E1B4B)', // Deep purple
-        'linear-gradient(145deg, #18181B, #09090B)', // Neutral
+        'linear-gradient(150deg, #18181B, #09090B)', // Neutral dark
+        'linear-gradient(145deg, #312E81, #1E1B4B)', // Deep indigo
         'linear-gradient(135deg, #064E3B, #042F2E)'  // Dark emerald
       ]
     }
