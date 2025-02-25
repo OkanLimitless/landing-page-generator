@@ -312,13 +312,6 @@ export const generateAdultLander = (data) => {
               <i class="fas fa-shield-check"></i>
               <span>Clinically Verified Results</span>
             </div>
-            <div class="stats-display">
-              <span>Views: <span id="viewCount">0</span></span>
-              <span>•</span>
-              <span>Clicks: <span id="clickCount">0</span></span>
-              <span>•</span>
-              <span>CTR: <span id="ctrValue">0%</span></span>
-            </div>
           </div>
         </div>
 
@@ -390,50 +383,95 @@ export const generateAdultLander = (data) => {
   }
 };
 
-// Generate a simple HTML stats viewer
-const generateStatsViewer = () => `
-<!DOCTYPE html>
+// Generate a separate stats.html file with proper styling
+const statsHtml = `<!DOCTYPE html>
 <html>
 <head>
     <title>Landing Page Stats</title>
     <style>
-        body { font-family: Arial; padding: 20px; }
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background: #f5f5f5; }
+        body { 
+            font-family: Arial; 
+            padding: 20px; 
+            background: #f5f5f5; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .stats-card { 
+            background: white; 
+            border-radius: 16px; 
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .stats-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 8px;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .ctr { color: #059669; }
+        h1 { 
+            color: #333; 
+            margin: 0;
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
-    <h1>Landing Page Stats</h1>
-    <table>
-        <tr>
-            <th>Metric</th>
-            <th>Count</th>
-        </tr>
-        <tr>
-            <td>Views</td>
-            <td id="viewCount">0</td>
-        </tr>
-        <tr>
-            <td>Clicks</td>
-            <td id="clickCount">0</td>
-        </tr>
-        <tr>
-            <td>CTR</td>
-            <td id="ctrValue">0%</td>
-        </tr>
-    </table>
+    <div class="stats-card">
+        <div class="stats-header">
+            <h1>Landing Page Statistics</h1>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Views</div>
+                <div class="stat-value" id="viewCount">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Clicks</div>
+                <div class="stat-value" id="clickCount">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">CTR</div>
+                <div class="stat-value ctr" id="ctrValue">0%</div>
+            </div>
+        </div>
+    </div>
 
     <script>
         function updateStatsDisplay() {
-            const stats = JSON.parse(localStorage.getItem('pageStats') || '{"views":0,"clicks":0}');
-            document.getElementById('viewCount').textContent = stats.views;
-            document.getElementById('clickCount').textContent = stats.clicks;
-            const ctr = stats.views ? ((stats.clicks / stats.views) * 100).toFixed(2) : '0.00';
+            const stats = JSON.parse(localStorage.getItem('pageStats') || '{"totalViews":0,"totalClicks":0}');
+            document.getElementById('viewCount').textContent = stats.totalViews;
+            document.getElementById('clickCount').textContent = stats.totalClicks;
+            const ctr = stats.totalViews ? ((stats.totalClicks / stats.totalViews) * 100).toFixed(2) : '0.00';
             document.getElementById('ctrValue').textContent = ctr + '%';
         }
         updateStatsDisplay();
+        setInterval(updateStatsDisplay, 5000);
     </script>
 </body>
-</html>
-`; 
+</html>`; 
