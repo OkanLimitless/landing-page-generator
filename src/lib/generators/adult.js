@@ -19,7 +19,7 @@ export const generateAdultLander = (data) => {
 
     // Update the tracking script
     const trackingScript = `
-      // Initialize stats in localStorage for total counts
+      // Initialize stats in localStorage if not exists
       if (!localStorage.getItem('pageStats')) {
         localStorage.setItem('pageStats', JSON.stringify({
           template: '${data.template}',
@@ -28,29 +28,21 @@ export const generateAdultLander = (data) => {
         }));
       }
 
-      // Function to update stats display
-      function updateStatsDisplay() {
-        const stats = JSON.parse(localStorage.getItem('pageStats'));
-        if (document.getElementById('viewCount')) {
-          document.getElementById('viewCount').textContent = stats.totalViews;
-        }
-        if (document.getElementById('clickCount')) {
-          document.getElementById('clickCount').textContent = stats.totalClicks;
-        }
-        if (document.getElementById('ctrValue')) {
-          const ctr = stats.totalViews ? ((stats.totalClicks / stats.totalViews) * 100).toFixed(2) : '0.00';
-          document.getElementById('ctrValue').textContent = ctr + '%';
-        }
+      // Track page view immediately when script runs
+      const stats = JSON.parse(localStorage.getItem('pageStats'));
+      if (!sessionStorage.getItem('pageVisited')) {
+        stats.totalViews = (stats.totalViews || 0) + 1;
+        localStorage.setItem('pageStats', JSON.stringify(stats));
+        sessionStorage.setItem('pageVisited', 'true');
       }
 
       // Track clicks
       function trackClick() {
         const stats = JSON.parse(localStorage.getItem('pageStats'));
         if (!sessionStorage.getItem('pageClicked')) {
-          stats.totalClicks++;
+          stats.totalClicks = (stats.totalClicks || 0) + 1;
           localStorage.setItem('pageStats', JSON.stringify(stats));
           sessionStorage.setItem('pageClicked', 'true');
-          updateStatsDisplay();
         }
 
         // Handle Google Ads conversion if ID exists
@@ -61,20 +53,6 @@ export const generateAdultLander = (data) => {
         }
         return false;
       }
-
-      // Track page view when DOM is loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        if (!sessionStorage.getItem('pageVisited')) {
-          const stats = JSON.parse(localStorage.getItem('pageStats'));
-          stats.totalViews++;
-          localStorage.setItem('pageStats', JSON.stringify(stats));
-          sessionStorage.setItem('pageVisited', 'true');
-        }
-        updateStatsDisplay();
-      });
-
-      // Update display periodically
-      setInterval(updateStatsDisplay, 5000);
     `;
 
     // Google Ads conversion setup
