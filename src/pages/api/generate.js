@@ -119,6 +119,14 @@ export default async function handler(req, res) {
     </body>
     </html>`;
 
+    // Log what we're adding to the zip
+    console.log('Adding files to zip:', {
+      'index.html': !!html,
+      'stats.html': !!statsHtml,
+      'privacy.html': !!privacy,
+      'terms.html': !!terms
+    });
+
     // Create zip with all files
     const zip = new JSZip();
     zip.file('index.html', html);
@@ -129,14 +137,25 @@ export default async function handler(req, res) {
     // Generate zip file as base64
     const zipContent = await zip.generateAsync({ type: 'base64' });
 
-    // Return in the format expected by the frontend
+    // Log zip content length to verify it's not empty
+    console.log('Zip content length:', zipContent.length);
+
     return res.status(200).json({
-      html,      // Original format expected these direct file contents
+      html,
       privacy,
       terms,
       success: true,
-      zipContent, // Add the zip content as well
-      stats: statsHtml // Add stats HTML
+      zipContent,
+      stats: statsHtml,
+      // Add a manifest to help debug
+      manifest: {
+        files: [
+          'index.html',
+          'stats.html',
+          'privacy.html',
+          'terms.html'
+        ]
+      }
     });
 
   } catch (error) {

@@ -287,57 +287,48 @@ const Generator = () => {
 
   const handleGenerate = async () => {
     try {
-      setError(null);
       setLoading(true);
-      
-      const formData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : adultLanderFormData;
-      
+      setError(null);
+
+      const formData = activeTab === 'vsl' ? vslFormData : 
+                      activeTab === 'ecom' ? ecomFormData : 
+                      adultLanderFormData;
+
       const response = await fetch('/api/generate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           type: activeTab,
           data: formData
-        }),
+        })
       });
-      
-      const contentType = response.headers.get('content-type');
-      const result = contentType?.includes('application/json') 
-        ? await response.json()
-        : await response.text();
-      
-      if (!response.ok) {
-        throw new Error(result?.message || result || 'Generation failed');
-      }
-      
-      if (!result?.html || !result?.privacy || !result?.terms) {
-        throw new Error('Missing required files in response');
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message || 'Generation failed');
       }
 
-      const zip = new JSZip();
-      const folderId = generateRandomId();
-      
-      const folder = zip.folder(folderId);
-      folder.file('index.html', result.html);
-      folder.file('privacy.html', result.privacy);
-      folder.file('terms.html', result.terms);
+      // Convert base64 zip to blob and download
+      const binaryString = window.atob(data.zipContent);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      const zipBlob = new Blob([bytes], { type: 'application/zip' });
+      const downloadUrl = URL.createObjectURL(zipBlob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `landing-page-${Date.now()}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(downloadUrl);
 
-      const content = await zip.generateAsync({ type: 'blob' });
-      
-      const url = window.URL.createObjectURL(content);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${folderId}.zip`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+      setLoading(false);
     } catch (error) {
       console.error('Error generating files:', error);
       setError(error.message);
-    } finally {
       setLoading(false);
     }
   };
