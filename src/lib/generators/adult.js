@@ -28,15 +28,6 @@ export const generateAdultLander = (data) => {
         }));
       }
 
-      // Use sessionStorage for unique tracking
-      if (!sessionStorage.getItem('pageVisited')) {
-        // Only count unique views per session
-        const stats = JSON.parse(localStorage.getItem('pageStats'));
-        stats.totalViews++;
-        localStorage.setItem('pageStats', JSON.stringify(stats));
-        sessionStorage.setItem('pageVisited', 'true');
-      }
-
       // Function to update stats display
       function updateStatsDisplay() {
         const stats = JSON.parse(localStorage.getItem('pageStats'));
@@ -52,10 +43,10 @@ export const generateAdultLander = (data) => {
         }
       }
 
-      // Track clicks (only once per session)
+      // Track clicks
       function trackClick() {
+        const stats = JSON.parse(localStorage.getItem('pageStats'));
         if (!sessionStorage.getItem('pageClicked')) {
-          const stats = JSON.parse(localStorage.getItem('pageStats'));
           stats.totalClicks++;
           localStorage.setItem('pageStats', JSON.stringify(stats));
           sessionStorage.setItem('pageClicked', 'true');
@@ -71,8 +62,19 @@ export const generateAdultLander = (data) => {
         return false;
       }
 
-      // Initial display update
-      updateStatsDisplay();
+      // Track page view when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        if (!sessionStorage.getItem('pageVisited')) {
+          const stats = JSON.parse(localStorage.getItem('pageStats'));
+          stats.totalViews++;
+          localStorage.setItem('pageStats', JSON.stringify(stats));
+          sessionStorage.setItem('pageVisited', 'true');
+        }
+        updateStatsDisplay();
+      });
+
+      // Update display periodically
+      setInterval(updateStatsDisplay, 5000);
     `;
 
     // Google Ads conversion setup
@@ -309,6 +311,13 @@ export const generateAdultLander = (data) => {
             <div class="trust-badge">
               <i class="fas fa-shield-check"></i>
               <span>Clinically Verified Results</span>
+            </div>
+            <div class="stats-display">
+              <span>Views: <span id="viewCount">0</span></span>
+              <span>•</span>
+              <span>Clicks: <span id="clickCount">0</span></span>
+              <span>•</span>
+              <span>CTR: <span id="ctrValue">0%</span></span>
             </div>
           </div>
         </div>
