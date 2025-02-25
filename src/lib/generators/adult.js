@@ -137,11 +137,10 @@ export const generateAdultLander = (data) => {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
         <style>
-          ${styles.decorative?.css || ''}
-          
           :root {
             --primary: ${styles.colors.primary};
             --accent: ${styles.colors.accent};
+            --accent-dark: ${styles.colors.accent}dd;
           }
           
           * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -151,21 +150,21 @@ export const generateAdultLander = (data) => {
             min-height: 100vh;
             background: ${styles.background.main};
             background-image: ${styles.background.overlay};
-            color: white;
-            display: flex;
-            flex-direction: column;
+            color: var(--primary);
+            line-height: 1.6;
           }
 
+          ${styles.decorative?.css || ''}
+
           .top-bar {
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 0;
             position: fixed;
-            width: 100%;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
           }
 
           .top-bar-content {
@@ -177,30 +176,6 @@ export const generateAdultLander = (data) => {
             padding: 0 20px;
           }
 
-          #${ids.viewers} {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-          }
-
-          #${ids.timer} {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-          }
-
-          #${ids.content} {
-            flex: 1;
-            max-width: 800px;
-            margin: 80px auto 40px;
-            padding: 20px;
-            background: ${styles.urgencyElements.counterBackground};
-            border: 1px solid ${styles.urgencyElements.borderAccent};
-            border-radius: ${styles.borderRadius};
-          }
-
           .headline {
             text-align: center;
             margin-bottom: 40px;
@@ -208,197 +183,28 @@ export const generateAdultLander = (data) => {
 
           h1 {
             font-family: ${styles.fonts.heading};
-            font-size: clamp(24px, 4vw, 36px);
-            line-height: 1.3;
-            margin-bottom: 20px;
-            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
           }
 
           .subtitle {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 500;
-          }
-
-          .lead-text {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: rgba(255, 255, 255, 0.9);
-            font-style: italic;
-          }
-
-          .key-points {
-            margin: 30px 0;
-            display: grid;
-            gap: 20px;
-          }
-
-          .point {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.9);
-          }
-
-          .point i {
+            font-size: 1.25rem;
             color: var(--primary);
-            font-size: 20px;
-          }
-
-          #${ids.cta} {
-            background: linear-gradient(45deg, var(--accent), var(--primary));
-            border: none;
-            color: white;
-            padding: 20px 40px;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 30px;
-            cursor: pointer;
-            width: 100%;
-            max-width: 400px;
-            margin: 2rem auto;
-            display: block;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            animation: pulse 2s infinite;
-          }
-
-          #${ids.cta}:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
-          }
-
-          #${ids.cta}:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-              90deg,
-              transparent,
-              rgba(255, 255, 255, 0.2),
-              transparent
-            );
-            transition: 0.5s;
-          }
-
-          #${ids.cta}:hover:before {
-            left: 100%;
-          }
-
-          @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-          }
-
-          .social-proof {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            animation: pulse 2s infinite;
-          }
-
-          .trust-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-          }
-
-          .trust-badge i {
-            color: var(--accent);
-          }
-
-          .guarantee {
-            margin-top: 20px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-          }
-
-          #${ids.proof} {
-            ${styles.socialProof.animation}
-            background: ${styles.socialProof.background};
-            border-left: ${styles.socialProof.border};
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-          }
-
-          footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-          }
-
-          footer a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            margin: 0 10px;
-          }
-
-          ${styles.urgencyElements.pulseAnimation}
-
-          @media (max-width: 768px) {
-            #${ids.content} {
-              padding: 15px;
-              margin: 60px auto 20px;
-            }
-
-            .top-bar {
-              font-size: 12px;
-              padding: 8px 0;
-            }
-
-            h1 { font-size: 24px; }
-            .lead-text { font-size: 16px; }
-            .point { font-size: 14px; }
-            #${ids.cta} { 
-              padding: 15px 30px;
-              font-size: 16px;
-            }
-          }
-
-          .version-content {
-            display: none; /* Initially hidden */
-          }
-
-          footer .disclaimer {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.8rem;
-            max-width: 600px;
-            margin: 1rem auto;
-            padding: 0 20px;
-            line-height: 1.4;
+            opacity: 0.9;
           }
 
           .doctor-credentials {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 12px;
             padding: 20px;
-            margin: 30px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
           }
 
           .doctor-info {
             display: flex;
-            align-items: center;
             gap: 20px;
+            align-items: center;
           }
 
           .doctor-image {
@@ -406,65 +212,88 @@ export const generateAdultLander = (data) => {
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--accent);
           }
 
           .credentials {
             flex: 1;
           }
 
-          .credentials .name {
-            font-family: ${styles.fonts.heading};
-            font-size: 1.2rem;
+          .name {
             font-weight: 600;
+            font-size: 1.1rem;
+          }
+
+          .title {
             color: var(--primary);
-            margin-bottom: 4px;
+            opacity: 0.8;
+            font-size: 0.9rem;
           }
 
-          .credentials .title {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.95rem;
-            margin-bottom: 6px;
+          .stats {
+            font-size: 0.8rem;
+            color: var(--primary);
+            opacity: 0.7;
+            margin-top: 5px;
           }
 
-          .credentials .stats {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.7);
+          .lead-text {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            font-style: italic;
+          }
+
+          .key-points {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+          }
+
+          .point {
             display: flex;
             align-items: center;
+            gap: 12px;
+          }
+
+          .point i {
+            color: var(--accent);
+          }
+
+          #${ids.cta} {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 20px;
+            ${styles.button}
+            cursor: pointer;
+            border: none;
+            font-size: 1.1rem;
+          }
+
+          .guarantee {
+            text-align: center;
+            color: var(--primary);
+            opacity: 0.8;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 8px;
           }
 
-          .credentials .separator {
-            color: rgba(255, 255, 255, 0.3);
-          }
-
-          .credentials .views i {
-            font-size: 0.9em;
-            margin-right: 4px;
+          footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--primary);
+            opacity: 0.7;
+            font-size: 0.8rem;
           }
 
           @media (max-width: 768px) {
-            .doctor-info {
-              gap: 15px;
-            }
-
-            .doctor-image {
-              width: 60px;
-              height: 60px;
-            }
-
-            .credentials .name {
-              font-size: 1.1rem;
-            }
-
-            .credentials .title {
-              font-size: 0.9rem;
-            }
-
-            .credentials .stats {
-              font-size: 0.8rem;
-            }
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 1.1rem; }
+            .lead-text { font-size: 1rem; }
+            #${ids.cta} { padding: 15px 25px; font-size: 1rem; }
           }
         </style>
         <script>${trackingScript}</script>
