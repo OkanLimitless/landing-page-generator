@@ -17,46 +17,50 @@ export const generateAdultLander = (data) => {
       throw new Error('Invalid template selected');
     }
 
-    // Simple click tracking script
+    // Update the tracking script
     const trackingScript = `
-      // Initialize stats in localStorage if needed
+      // Initialize stats in localStorage for total counts
       if (!localStorage.getItem('pageStats')) {
         localStorage.setItem('pageStats', JSON.stringify({
           template: '${data.template}',
-          views: 0,
-          clicks: 0
+          totalViews: 0,
+          totalClicks: 0
         }));
+      }
+
+      // Use sessionStorage for unique tracking
+      if (!sessionStorage.getItem('pageVisited')) {
+        // Only count unique views per session
+        const stats = JSON.parse(localStorage.getItem('pageStats'));
+        stats.totalViews++;
+        localStorage.setItem('pageStats', JSON.stringify(stats));
+        sessionStorage.setItem('pageVisited', 'true');
       }
 
       // Function to update stats display
       function updateStatsDisplay() {
-        const stats = JSON.parse(localStorage.getItem('pageStats') || '{"views":0,"clicks":0}');
+        const stats = JSON.parse(localStorage.getItem('pageStats'));
         if (document.getElementById('viewCount')) {
-          document.getElementById('viewCount').textContent = stats.views;
+          document.getElementById('viewCount').textContent = stats.totalViews;
         }
         if (document.getElementById('clickCount')) {
-          document.getElementById('clickCount').textContent = stats.clicks;
+          document.getElementById('clickCount').textContent = stats.totalClicks;
         }
         if (document.getElementById('ctrValue')) {
-          const ctr = stats.views ? ((stats.clicks / stats.views) * 100).toFixed(2) : '0.00';
+          const ctr = stats.totalViews ? ((stats.totalClicks / stats.totalViews) * 100).toFixed(2) : '0.00';
           document.getElementById('ctrValue').textContent = ctr + '%';
         }
       }
 
-      // Track page view on load
-      window.addEventListener('load', function() {
-        const stats = JSON.parse(localStorage.getItem('pageStats'));
-        stats.views++;
-        localStorage.setItem('pageStats', JSON.stringify(stats));
-        updateStatsDisplay();
-      });
-
-      // Track clicks
+      // Track clicks (only once per session)
       function trackClick() {
-        const stats = JSON.parse(localStorage.getItem('pageStats'));
-        stats.clicks++;
-        localStorage.setItem('pageStats', JSON.stringify(stats));
-        updateStatsDisplay();
+        if (!sessionStorage.getItem('pageClicked')) {
+          const stats = JSON.parse(localStorage.getItem('pageStats'));
+          stats.totalClicks++;
+          localStorage.setItem('pageStats', JSON.stringify(stats));
+          sessionStorage.setItem('pageClicked', 'true');
+          updateStatsDisplay();
+        }
 
         // Handle Google Ads conversion if ID exists
         if ('${data.gtagId}') {
@@ -66,6 +70,9 @@ export const generateAdultLander = (data) => {
         }
         return false;
       }
+
+      // Initial display update
+      updateStatsDisplay();
     `;
 
     // Google Ads conversion setup
