@@ -81,18 +81,30 @@ export const generateStatsViewer = () => `<!DOCTYPE html>
                     <td>CTR</td>
                     <td id="ctrValue">0.00%</td>
                 </tr>
+                <tr>
+                    <td>Last Updated</td>
+                    <td id="lastUpdated">Never</td>
+                </tr>
             </tbody>
         </table>
         <p class="refresh-text">Stats auto-refresh every 5 seconds</p>
     </div>
 
     <script>
+        const STATS_KEY = 'landingPageStats';
+
         function updateStatsDisplay() {
-            const stats = JSON.parse(localStorage.getItem('pageStats') || '{"totalViews":0,"totalClicks":0}');
-            document.getElementById('viewCount').textContent = stats.totalViews || 0;
-            document.getElementById('clickCount').textContent = stats.totalClicks || 0;
-            const ctr = stats.totalViews ? ((stats.totalClicks / stats.totalViews) * 100).toFixed(2) : '0.00';
-            document.getElementById('ctrValue').textContent = ctr + '%';
+            try {
+                const stats = JSON.parse(localStorage.getItem(STATS_KEY) || '{"totalViews":0,"totalClicks":0}');
+                document.getElementById('viewCount').textContent = stats.totalViews || 0;
+                document.getElementById('clickCount').textContent = stats.totalClicks || 0;
+                const ctr = stats.totalViews ? ((stats.totalClicks / stats.totalViews) * 100).toFixed(2) : '0.00';
+                document.getElementById('ctrValue').textContent = ctr + '%';
+                document.getElementById('lastUpdated').textContent = stats.lastUpdated ? new Date(stats.lastUpdated).toLocaleString() : 'Never';
+                console.log('Current stats:', stats);
+            } catch (error) {
+                console.error('Error updating stats display:', error);
+            }
         }
         
         // Initial update
