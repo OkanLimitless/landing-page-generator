@@ -58,6 +58,13 @@ export default async function handler(req, res) {
       throw new Error('Failed to generate legal pages');
     }
 
+    const files = {
+      'index.html': html,
+      'stats.html': generateStatsViewer(),
+      'privacy.html': privacy,
+      'terms.html': terms
+    };
+
     return res.status(200).json({
       html,
       privacy,
