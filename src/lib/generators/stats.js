@@ -93,17 +93,18 @@ export const generateStatsViewer = () => `<!DOCTYPE html>
     <script>
         const STATS_KEY = 'landingPageStats';
 
-        function updateStatsDisplay() {
+        async function updateStatsDisplay() {
             try {
-                const stats = JSON.parse(localStorage.getItem(STATS_KEY) || '{"totalViews":0,"totalClicks":0}');
+                const response = await fetch('/api/track', { method: 'GET' });
+                const stats = await response.json();
+                
                 document.getElementById('viewCount').textContent = stats.totalViews || 0;
                 document.getElementById('clickCount').textContent = stats.totalClicks || 0;
                 const ctr = stats.totalViews ? ((stats.totalClicks / stats.totalViews) * 100).toFixed(2) : '0.00';
                 document.getElementById('ctrValue').textContent = ctr + '%';
                 document.getElementById('lastUpdated').textContent = stats.lastUpdated ? new Date(stats.lastUpdated).toLocaleString() : 'Never';
-                console.log('Current stats:', stats);
             } catch (error) {
-                console.error('Error updating stats display:', error);
+                console.error('Error updating stats:', error);
             }
         }
         

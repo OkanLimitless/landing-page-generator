@@ -19,29 +19,19 @@ export const generateAdultLander = (data) => {
 
     // Update the tracking script
     const trackingScript = `
-      // Initialize or get shared stats
-      const STATS_KEY = 'landingPageStats'; // Use consistent key
-
-      // Initialize stats if not exists
-      if (!localStorage.getItem(STATS_KEY)) {
-        localStorage.setItem(STATS_KEY, JSON.stringify({
-          template: '${data.template}',
-          totalViews: 0,
-          totalClicks: 0,
-          lastUpdated: new Date().toISOString()
-        }));
-      }
-
       // Track page view immediately
-      function trackPageView() {
+      async function trackPageView() {
         try {
-          const stats = JSON.parse(localStorage.getItem(STATS_KEY));
           if (!sessionStorage.getItem('pageVisited')) {
-            stats.totalViews++;
-            stats.lastUpdated = new Date().toISOString();
-            localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+            const response = await fetch('/api/track', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'view',
+                template: '${data.template}'
+              })
+            });
             sessionStorage.setItem('pageVisited', 'true');
-            console.log('Page view tracked:', stats);
           }
         } catch (error) {
           console.error('Error tracking page view:', error);
@@ -49,15 +39,18 @@ export const generateAdultLander = (data) => {
       }
 
       // Track click
-      function trackClick() {
+      async function trackClick() {
         try {
-          const stats = JSON.parse(localStorage.getItem(STATS_KEY));
           if (!sessionStorage.getItem('pageClicked')) {
-            stats.totalClicks++;
-            stats.lastUpdated = new Date().toISOString();
-            localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+            await fetch('/api/track', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'click',
+                template: '${data.template}'
+              })
+            });
             sessionStorage.setItem('pageClicked', 'true');
-            console.log('Click tracked:', stats);
           }
 
           // Handle redirect

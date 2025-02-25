@@ -1,39 +1,43 @@
 import fs from 'fs';
 import path from 'path';
 
+const STATS_FILE = path.join(process.cwd(), 'stats.json');
+
+// Initialize stats file if it doesn't exist
+if (!fs.existsSync(STATS_FILE)) {
+  fs.writeFileSync(STATS_FILE, JSON.stringify({
+    totalViews: 0,
+    totalClicks: 0,
+    lastUpdated: new Date().toISOString()
+  }));
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
-    const { action, version } = req.body;
-    const statsFile = path.join(process.cwd(), 'stats.json');
+    const { action, template } = req.body;
     
-    // Read existing stats
-    let stats = {};
-    if (fs.existsSync(statsFile)) {
-      stats = JSON.parse(fs.readFileSync(statsFile, 'utf8'));
-    }
-
-    // Initialize version stats if needed
-    if (!stats[version]) {
-      stats[version] = { views: 0, clicks: 0 };
-    }
-
-    // Update stats
+    // Read current stats
+    const stats = JSON.parse(fs.readFileSync(STATS_FILE, 'utf8'));
+    
+    // Update stats based on action
     if (action === 'view') {
-      stats[version].views++;
+      stats.totalViews++;
     } else if (action === 'click') {
-      stats[version].clicks++;
+      stats.totalClicks++;
     }
-
-    // Save stats
-    fs.writeFileSync(statsFile, JSON.stringify(stats, null, 2));
-
-    res.status(200).json({ success: true });
+    
+    stats.lastUpdated = new Date().toISOString();
+    
+    // Save updated stats
+    fs.writeFileSync(STATS_FILE, JSON.stringify(stats));
+    
+    return res.status(200).json(stats);
   } catch (error) {
-    console.error('Tracking error:', error);
-    res.status(500).json({ message: 'Tracking failed' });
+    console.error('Error tracking stats:', error);
+    return res.status(500).json({ error: 'Failed to track stats' });
   }
 } 
