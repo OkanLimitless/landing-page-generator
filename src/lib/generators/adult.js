@@ -4,23 +4,25 @@ import { generateDoctorDetails } from '../utils/doctor-variations';
 
 export const generateAdultLander = (data) => {
   try {
-    // Validate and extract required data
-    if (!data.ctaUrl) {
-      throw new Error('CTA URL is required');
+    if (!data.ctaUrl || !data.template) {  // Add template requirement
+      throw new Error('CTA URL and template selection are required');
     }
 
     const styles = getPrelanderStyle();
     const doctorDetails = generateDoctorDetails();
     
-    // Randomly select one template
-    const versions = Object.entries(prelanderTemplates);
-    const [version, template] = versions[Math.floor(Math.random() * versions.length)];
-    
-    // Update the tracking script to use localStorage instead of PHP
+    // Get the selected template
+    const template = prelanderTemplates[data.template];
+    if (!template) {
+      throw new Error('Invalid template selected');
+    }
+
+    // Simple click tracking script
     const trackingScript = `
       // Initialize stats in localStorage if needed
       if (!localStorage.getItem('pageStats')) {
         localStorage.setItem('pageStats', JSON.stringify({
+          template: '${data.template}',
           views: 0,
           clicks: 0
         }));
@@ -515,7 +517,7 @@ export const generateAdultLander = (data) => {
         </div>
 
         <main id="${ids.content}">
-          <div id="${version}" class="version-content">
+          <div class="version-content">
             <div class="headline">
               <h1>${template.headline}</h1>
               <div class="subtitle">${template.subtitle}</div>

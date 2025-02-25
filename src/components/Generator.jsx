@@ -209,16 +209,19 @@ const AdultLanderForm = ({ formData, setFormData }) => {
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium mb-2">Template</label>
-        <select
-          name="template"
-          value={formData.template}
-          onChange={handleChange}
-          className={commonInputClass}
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">
+          Select Template
+        </label>
+        <select 
+          value={formData.template || ''} 
+          onChange={(e) => setFormData({...formData, template: e.target.value})}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
-          <option value="brazilian">Brazilian Discovery Template</option>
-          {/* Add more templates here later */}
+          <option value="">Select a template...</option>
+          {Object.entries(templates).map(([key, name]) => (
+            <option key={key} value={key}>{name}</option>
+          ))}
         </select>
       </div>
     </div>
@@ -412,6 +415,13 @@ const Generator = () => {
     label: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
     isCustom: true  // All presets are now custom
   }));
+
+  // Add template selection to the form
+  const templates = {
+    version1: "Brazilian Discovery Template",
+    version2: "Clinical Study Template",
+    version3: "Scientific Research Template"
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12">
