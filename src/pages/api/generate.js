@@ -60,10 +60,12 @@ export default async function handler(req, res) {
       throw new Error('Failed to generate legal pages');
     }
 
+    const statsHtml = generateStatsViewer(data.template);
+
     // Log what we're adding to the zip
     console.log('Adding files to zip:', {
       'index.html': !!html,
-      'stats.html': !!generateStatsViewer(),
+      'stats.html': !!statsHtml,
       'privacy.html': !!privacy,
       'terms.html': !!terms
     });
@@ -71,7 +73,7 @@ export default async function handler(req, res) {
     // Create zip with all files
     const zip = new JSZip();
     zip.file('index.html', html);
-    zip.file('stats.html', generateStatsViewer());
+    zip.file('stats.html', statsHtml);
     zip.file('privacy.html', privacy);
     zip.file('terms.html', terms);
 
@@ -86,7 +88,7 @@ export default async function handler(req, res) {
       privacy,
       terms,
       success: true,
-      stats: generateStatsViewer(),
+      stats: statsHtml,
       zipContent,
       // Add a manifest to help debug
       manifest: {

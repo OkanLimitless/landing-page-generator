@@ -91,39 +91,34 @@ export const generateStatsViewer = (templateId) => `<!DOCTYPE html>
     </div>
 
     <script>
-        const STATS_KEY = 'landingPageStats';
-
-        const script = `
-            async function updateStatsDisplay() {
-                try {
-                    const response = await fetch('/api/track?id=${templateId}');
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch stats');
-                    }
-                    const stats = await response.json();
-                    
-                    document.getElementById('viewCount').textContent = stats.totalViews || 0;
-                    document.getElementById('clickCount').textContent = stats.totalClicks || 0;
-                    const ctr = stats.totalViews ? ((stats.totalClicks / stats.totalViews) * 100).toFixed(2) : '0.00';
-                    document.getElementById('ctrValue').textContent = ctr + '%';
-                    document.getElementById('lastUpdated').textContent = 
-                        stats.lastUpdated ? new Date(stats.lastUpdated).toLocaleString() : 'Never';
-                } catch (error) {
-                    console.error('Error updating stats:', error);
-                    // Optionally show error to user
-                    document.getElementById('viewCount').textContent = '?';
-                    document.getElementById('clickCount').textContent = '?';
-                    document.getElementById('ctrValue').textContent = '?';
-                    document.getElementById('lastUpdated').textContent = 'Error loading stats';
+        async function updateStatsDisplay() {
+            try {
+                const response = await fetch('/api/track?id=${templateId}');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch stats');
                 }
+                const stats = await response.json();
+                
+                document.getElementById('viewCount').textContent = stats.totalViews || 0;
+                document.getElementById('clickCount').textContent = stats.totalClicks || 0;
+                const ctr = stats.totalViews ? ((stats.totalClicks / stats.totalViews) * 100).toFixed(2) : '0.00';
+                document.getElementById('ctrValue').textContent = ctr + '%';
+                document.getElementById('lastUpdated').textContent = 
+                    stats.lastUpdated ? new Date(stats.lastUpdated).toLocaleString() : 'Never';
+            } catch (error) {
+                console.error('Error updating stats:', error);
+                document.getElementById('viewCount').textContent = '?';
+                document.getElementById('clickCount').textContent = '?';
+                document.getElementById('ctrValue').textContent = '?';
+                document.getElementById('lastUpdated').textContent = 'Error loading stats';
             }
-            
-            // Initial update
-            updateStatsDisplay();
-            
-            // Update every 5 seconds
-            setInterval(updateStatsDisplay, 5000);
-        `;
+        }
+        
+        // Initial update
+        updateStatsDisplay();
+        
+        // Update every 5 seconds
+        setInterval(updateStatsDisplay, 5000);
     </script>
 </body>
 </html>`; 
