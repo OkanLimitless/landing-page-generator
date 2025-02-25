@@ -334,33 +334,54 @@ const prelanderStyles = {
 
 // Add new function for prelander-specific styling
 const getPrelanderStyle = () => {
-  const style = getRandomStyle(); // Get base style
-  const prelanderStyle = prelanderStyles.modern; // We can add more variations later
+  // Get random style elements
+  const buttonStyle = getRandomVariation(Object.values(buttonStyles));
+  const containerStyle = getRandomVariation(Object.values(containerStyles));
+  const prelanderStyle = prelanderStyles.modern;
+  
+  // Get random colors ensuring good contrast
+  const primaryColor = getRandomVariation(prelanderStyle.colors.primary);
+  const accentColor = getRandomVariation(prelanderStyle.colors.accent);
+  const background = getRandomVariation(prelanderStyle.colors.background);
 
-  // Merge and enhance the style for prelander
   return {
-    ...style,
-    urgencyElements: {
-      timerBackground: 'rgba(255, 78, 3, 0.95)',
-      counterBackground: 'rgba(255, 255, 255, 0.03)',
-      borderAccent: 'rgba(255, 255, 255, 0.1)',
-      pulseAnimation: `
-        @keyframes pulse {
-          0% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.05); opacity: 0.8; }
-          100% { transform: scale(1); opacity: 1; }
+    fonts: {
+      heading: prelanderStyle.fonts.heading.join(', '),
+      body: prelanderStyle.fonts.body.join(', '),
+      urls: [
+        'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
+        'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap'
+      ]
+    },
+    colors: {
+      primary: primaryColor,
+      accent: accentColor
+    },
+    background: {
+      main: background.split(',')[0].split('(')[1],
+      overlay: background
+    },
+    button: buttonStyle,
+    container: containerStyle,
+    decorative: {
+      css: `
+        .cta-button {
+          ${buttonStyle}
+        }
+        .cta-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        main {
+          ${containerStyle}
         }
       `
     },
-    socialProof: {
-      background: 'rgba(46, 204, 113, 0.1)',
-      border: '4px solid #2ecc71',
-      animation: `
-        @keyframes slideIn {
-          from { transform: translateX(-100%); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-      `
+    urgencyElements: {
+      timerBackground: 'rgba(255, 78, 3, 0.95)',
+      counterBackground: 'rgba(255, 255, 255, 0.03)',
+      borderAccent: 'rgba(255, 255, 255, 0.1)'
     }
   };
 };

@@ -10,9 +10,13 @@ const commonTextareaClass = `${commonInputClass} h-32`;
 
 // Define template options at the top level
 const ADULT_TEMPLATES = {
-  version1: "Brazilian Discovery Template",
-  version2: "Clinical Study Template",
-  version3: "Scientific Research Template"
+  clinical: "Clinical Study Template",
+  discovery: "Harvard Discovery Template",
+  medical: "Doctor's Secret Template",
+  research: "Research Team Template",
+  version1: "Wife's Story Template",
+  version2: "Clinical Results Template",
+  version3: "Scientific Study Template"
 };
 
 const VSLForm = ({ formData, setFormData }) => {
