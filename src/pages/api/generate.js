@@ -2,6 +2,7 @@ import { generateVSLPage } from '../../lib/generators/vsl';
 import { generateEcomPage } from '../../lib/generators/ecom';
 import { generateAdultLander } from '../../lib/generators/adult';
 import { generatePrivacyPolicy, generateTermsOfService } from '../../lib/generators/legal';
+import { generateStatsViewer } from '../../lib/generators/stats';
 import { getRandomStyle } from '../../lib/utils/style-variations';
 
 export default async function handler(req, res) {
