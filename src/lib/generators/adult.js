@@ -12,6 +12,43 @@ export const generateAdultLander = (data) => {
     const styles = getPrelanderStyle();
     const doctorDetails = generateDoctorDetails();
     
+    // Randomly select one template
+    const versions = Object.entries(prelanderTemplates);
+    const [version, template] = versions[Math.floor(Math.random() * versions.length)];
+    
+    // Simple click tracking script
+    const trackingScript = `
+      // Track page view
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          action: 'view',
+          version: '${version}'
+        })
+      }).catch(console.error);
+
+      // Track clicks
+      function trackClick() {
+        fetch('/api/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            action: 'click',
+            version: '${version}'
+          })
+        }).catch(console.error);
+
+        // Handle Google Ads conversion if ID exists
+        if ('${data.gtagId}') {
+          return gtag_report_conversion('${data.ctaUrl}');
+        } else {
+          window.location.href = '${data.ctaUrl}';
+        }
+        return false;
+      }
+    `;
+
     // Google Ads conversion setup
     const [gtagAccount] = (data.gtagId || '').split('/');
     const gtagScript = gtagAccount ? `
@@ -25,90 +62,6 @@ export const generateAdultLander = (data) => {
         return false;
       }
     ` : '';
-
-    // Update the version script with more reliable tracking
-    const versionScript = `
-      // Global variable to store current version
-      let currentVersion = '';
-
-      // Select random version on page load
-      function selectRandomVersion() {
-        const versions = ['version1', 'version2', 'version3'];
-        return versions[Math.floor(Math.random() * versions.length)];
-      }
-
-      // Show selected version and track view
-      function showVersion(version) {
-        currentVersion = version; // Store version globally
-        document.querySelectorAll('.version-content').forEach(el => el.style.display = 'none');
-        document.querySelector(\`#\${version}\`).style.display = 'block';
-
-        // Track version view with retry
-        let attempts = 0;
-        const trackView = () => {
-          if (window.dataLayer) {
-            window.dataLayer.push({
-              event: "version_view",
-              version: version,
-              event_category: "AB Testing",
-              event_label: version,
-              page_path: window.location.pathname
-            });
-            console.log("GA4 version_view Event Fired:", version);
-          } else if (attempts < 5) {
-            attempts++;
-            setTimeout(trackView, 1000);
-          }
-        };
-        trackView();
-      }
-
-      // Track clicks with retry mechanism
-      function trackClick(version) {
-        // Use stored version as fallback
-        const clickVersion = version || currentVersion;
-        
-        let tracked = false;
-        const pushClickEvent = () => {
-          if (window.dataLayer && !tracked) {
-            tracked = true;
-            window.dataLayer.push({
-              event: "version_click",
-              version: clickVersion,
-              event_category: "AB Testing",
-              event_label: clickVersion,
-              page_path: window.location.pathname,
-              outbound_url: '${data.ctaUrl}'
-            });
-            console.log("GA4 version_click Event Fired:", clickVersion);
-
-            // Handle Google Ads conversion after GTM event
-            if ('${data.gtagId}') {
-              return gtag_report_conversion('${data.ctaUrl}');
-            } else {
-              window.location.href = '${data.ctaUrl}';
-            }
-          } else if (!tracked) {
-            setTimeout(pushClickEvent, 500);
-          }
-        };
-        pushClickEvent();
-        return false;
-      }
-
-      // Initialize on load with retry
-      window.addEventListener('load', function() {
-        const initTracking = () => {
-          if (window.dataLayer) {
-            const selectedVersion = selectRandomVersion();
-            showVersion(selectedVersion);
-          } else {
-            setTimeout(initTracking, 500);
-          }
-        };
-        initTracking();
-      });
-    `;
 
     // Generate unique IDs for elements
     const ids = {
@@ -559,51 +512,49 @@ export const generateAdultLander = (data) => {
         </div>
 
         <main id="${ids.content}">
-          ${Object.entries(prelanderTemplates).map(([version, template]) => `
-            <div id="${version}" class="version-content">
-              <div class="headline">
-                <h1>${template.headline}</h1>
-                <div class="subtitle">${template.subtitle}</div>
-              </div>
+          <div id="${version}" class="version-content">
+            <div class="headline">
+              <h1>${template.headline}</h1>
+              <div class="subtitle">${template.subtitle}</div>
+            </div>
 
-              <div class="doctor-credentials">
-                <div class="doctor-info">
-                  <img src="${doctorDetails.imageData}" alt="Medical Expert" class="doctor-image" />
-                  <div class="credentials">
-                    <div class="name">${doctorDetails.name}</div>
-                    <div class="title">${doctorDetails.title}</div>
-                    <div class="stats">
-                      <span class="published">Published: ${doctorDetails.published}</span>
-                      <span class="separator">•</span>
-                      <span class="views"><i class="fas fa-eye"></i> ${doctorDetails.views} Views</span>
-                    </div>
+            <div class="doctor-credentials">
+              <div class="doctor-info">
+                <img src="${doctorDetails.imageData}" alt="Medical Expert" class="doctor-image" />
+                <div class="credentials">
+                  <div class="name">${doctorDetails.name}</div>
+                  <div class="title">${doctorDetails.title}</div>
+                  <div class="stats">
+                    <span class="published">Published: ${doctorDetails.published}</span>
+                    <span class="separator">•</span>
+                    <span class="views"><i class="fas fa-eye"></i> ${doctorDetails.views} Views</span>
                   </div>
                 </div>
               </div>
-
-              <p class="lead-text">${template.leadText}</p>
-              
-              <div class="key-points">
-                ${template.keyPoints.map(point => `
-                  <div class="point">
-                    <i class="fas fa-check-circle"></i>
-                    <span>${point}</span>
-                  </div>
-                `).join('')}
-              </div>
-
-              <button id="${ids.cta}" onclick="trackClick('${version}');">
-                ${template.ctaText} →
-              </button>
-
-              <div class="guarantee">
-                <i class="fas fa-shield-alt"></i>
-                ${template.guaranteeText}
-              </div>
-
-              <div id="${ids.proof}" style="display: none;"></div>
             </div>
-          `).join('')}
+
+            <p class="lead-text">${template.leadText}</p>
+            
+            <div class="key-points">
+              ${template.keyPoints.map(point => `
+                <div class="point">
+                  <i class="fas fa-check-circle"></i>
+                  <span>${point}</span>
+                </div>
+              `).join('')}
+            </div>
+
+            <button id="${ids.cta}" onclick="trackClick('${version}');">
+              ${template.ctaText} →
+            </button>
+
+            <div class="guarantee">
+              <i class="fas fa-shield-alt"></i>
+              ${template.guaranteeText}
+            </div>
+
+            <div id="${ids.proof}" style="display: none;"></div>
+          </div>
         </main>
 
         <footer>
