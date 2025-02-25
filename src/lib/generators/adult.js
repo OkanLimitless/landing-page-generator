@@ -23,14 +23,7 @@ export const generateAdultLander = (data) => {
       async function trackPageView() {
         try {
           if (!sessionStorage.getItem('pageVisited')) {
-            const response = await fetch('/api/track', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                action: 'view',
-                template: '${data.template}'
-              })
-            });
+            await fetch('/api/track?id=${data.template}&action=view');
             sessionStorage.setItem('pageVisited', 'true');
           }
         } catch (error) {
@@ -42,14 +35,7 @@ export const generateAdultLander = (data) => {
       async function trackClick() {
         try {
           if (!sessionStorage.getItem('pageClicked')) {
-            await fetch('/api/track', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                action: 'click',
-                template: '${data.template}'
-              })
-            });
+            await fetch('/api/track?id=${data.template}&action=click');
             sessionStorage.setItem('pageClicked', 'true');
           }
 
@@ -59,12 +45,11 @@ export const generateAdultLander = (data) => {
           } else {
             window.location.href = '${data.ctaUrl}';
           }
-          return false;
         } catch (error) {
           console.error('Error tracking click:', error);
           window.location.href = '${data.ctaUrl}';
-          return false;
         }
+        return false;
       }
 
       // Track the page view when script loads

@@ -1,4 +1,4 @@
-export const generateStatsViewer = () => `<!DOCTYPE html>
+export const generateStatsViewer = (templateId) => `<!DOCTYPE html>
 <html>
 <head>
     <title>Landing Page Statistics</title>
@@ -96,7 +96,7 @@ export const generateStatsViewer = () => `<!DOCTYPE html>
         const script = `
             async function updateStatsDisplay() {
                 try {
-                    const response = await fetch('/api/track');
+                    const response = await fetch('/api/track?id=${templateId}');
                     if (!response.ok) {
                         throw new Error('Failed to fetch stats');
                     }
