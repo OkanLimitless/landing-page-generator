@@ -2,10 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Download, Trash2, Save } from 'lucide-react';
 import JSZip from 'jszip';
 import { contentPresets } from '../lib/utils/content-presets';
+import { prelanderTemplates } from '../lib/templates/adult-prelander';  // Import templates
 
 // Create common input class for both forms
 const commonInputClass = "w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white";
 const commonTextareaClass = `${commonInputClass} h-32`;
+
+// Define template options at the top level
+const ADULT_TEMPLATES = {
+  version1: "Brazilian Discovery Template",
+  version2: "Clinical Study Template",
+  version3: "Scientific Research Template"
+};
 
 const VSLForm = ({ formData, setFormData }) => {
   const handleChange = (e) => {
@@ -219,7 +227,7 @@ const AdultLanderForm = ({ formData, setFormData }) => {
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         >
           <option value="">Select a template...</option>
-          {Object.entries(templates).map(([key, name]) => (
+          {Object.entries(ADULT_TEMPLATES).map(([key, name]) => (
             <option key={key} value={key}>{name}</option>
           ))}
         </select>
@@ -415,13 +423,6 @@ const Generator = () => {
     label: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
     isCustom: true  // All presets are now custom
   }));
-
-  // Add template selection to the form
-  const templates = {
-    version1: "Brazilian Discovery Template",
-    version2: "Clinical Study Template",
-    version3: "Scientific Research Template"
-  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12">
