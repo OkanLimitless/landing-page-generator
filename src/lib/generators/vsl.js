@@ -7,6 +7,7 @@ export const generateVSLPage = (data) => {
     const presetData = data.preset ? contentPresets[data.preset] : {};
     const mergedData = { ...presetData, ...data };
     
+    // Extract gtag ID and label from the provided gtagId
     const [gtagAccount, gtagLabel] = (mergedData.gtagId || '').split('/');
     const styles = mergedData.styles || getRandomStyle();
     if (!styles) {
@@ -18,9 +19,6 @@ export const generateVSLPage = (data) => {
       video: `video_${Math.random().toString(36).substr(2, 9)}`,
       footer: `footer_${Math.random().toString(36).substr(2, 9)}`
     };
-
-    // Extract gtag ID and label from the provided gtagId
-    const [gtagAccount, gtagLabel] = (mergedData.gtagId || '').split('/');
 
     const gtagScript = gtagAccount ? `
       window.dataLayer = window.dataLayer || [];
