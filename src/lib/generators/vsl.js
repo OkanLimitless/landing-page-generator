@@ -7,7 +7,7 @@ export const generateVSLPage = (data) => {
     const presetData = data.preset ? contentPresets[data.preset] : {};
     const mergedData = { ...presetData, ...data };
     
-    const [gtagAccount] = (mergedData.gtagId || '').split('/');
+    const [gtagAccount, gtagLabel] = (mergedData.gtagId || '').split('/');
     const styles = mergedData.styles || getRandomStyle();
     if (!styles) {
       throw new Error('Failed to generate styles');
@@ -19,18 +19,31 @@ export const generateVSLPage = (data) => {
       footer: `footer_${Math.random().toString(36).substr(2, 9)}`
     };
 
+    // Function to get URL parameters
+    const getUrlParamsScript = `
+      function getUrlParameter(name) {
+        name = name.replace(/[\\[]/, '\\\\[').replace(/[\\]]/, '\\\\]');
+        var regex = new RegExp('[\\\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\\+/g, ' '));
+      }
+    `;
+
+    // Construct the offer URL with parameters
+    const constructOfferUrl = (baseUrl) => {
+      const params = new URLSearchParams({
+        gclid: '${getUrlParameter("gclid")}',
+        gtag_id: gtagAccount,
+        gtag_label: gtagLabel
+      });
+      return `${baseUrl}?${params.toString()}`;
+    };
+
     const gtagScript = gtagAccount ? `
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', '${gtagAccount}');
-      
-      function gtag_report_conversion() {
-        gtag('event', 'conversion', {
-          'send_to': '${mergedData.gtagId}'
-        });
-        return false;
-      }
     ` : '';
 
     // Add the decorative elements to the HTML
@@ -178,18 +191,15 @@ export const generateVSLPage = (data) => {
             ${mergedData.headline.split(':')[0]}:
             <span class="highlight">${mergedData.headline.split(':')[1] || ''}</span>
           </h1>
-          <div id="${ids.video}" onclick="window.location.href='${mergedData.offerUrl}'; gtag_report_conversion();" role="button" tabindex="0">
+          <div id="${ids.video}" onclick="window.location.href='${constructOfferUrl(mergedData.offerUrl)}';" role="button" tabindex="0">
             <img src="${mergedData.thumbnailUrl}" alt="${mergedData.headline}">
           </div>
-          <a href="${mergedData.offerUrl}" class="cta-button" onclick="gtag_report_conversion();">
+          <a href="${constructOfferUrl(mergedData.offerUrl)}" class="cta-button">
             ${mergedData.ctaText || 'Watch FREE Video Guide Now'}
           </a>
           <div class="description">
             ${mergedData.description.split('\n').map(p => `<p>${p}</p>`).join('')}
           </div>
-          <a href="${mergedData.offerUrl}" class="cta-button" onclick="gtag_report_conversion();">
-            ${mergedData.ctaText || 'Watch FREE Video Guide Now'}
-          </a>
         </main>
         <footer id="${ids.footer}">
           <div class="container">
@@ -204,6 +214,7 @@ export const generateVSLPage = (data) => {
             <div>&copy; ${new Date().getFullYear()} All rights reserved</div>
           </div>
         </footer>
+        <script>${getUrlParamsScript}</script>
       </body>
       </html>`;
   } catch (error) {
