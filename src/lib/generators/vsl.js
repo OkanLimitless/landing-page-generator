@@ -19,31 +19,21 @@ export const generateVSLPage = (data) => {
       footer: `footer_${Math.random().toString(36).substr(2, 9)}`
     };
 
-    // Function to get URL parameters
-    const getUrlParamsScript = `
-      function getUrlParameter(name) {
-        name = name.replace(/[\\[]/, '\\\\[').replace(/[\\]]/, '\\\\]');
-        var regex = new RegExp('[\\\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\\+/g, ' '));
-      }
-    `;
-
-    // Construct the offer URL with parameters
-    const constructOfferUrl = (baseUrl) => {
-      const params = new URLSearchParams({
-        gclid: '${getUrlParameter("gclid")}',
-        gtag_id: gtagAccount,
-        gtag_label: gtagLabel
-      });
-      return `${baseUrl}?${params.toString()}`;
-    };
+    // Extract gtag ID and label from the provided gtagId
+    const [gtagAccount, gtagLabel] = (mergedData.gtagId || '').split('/');
 
     const gtagScript = gtagAccount ? `
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', '${gtagAccount}');
+
+      function gtag_report_conversion() {
+        gtag('event', 'conversion', {
+          'send_to': '${mergedData.gtagId}'
+        });
+        return false;
+      }
     ` : '';
 
     // Add the decorative elements to the HTML
@@ -191,10 +181,10 @@ export const generateVSLPage = (data) => {
             ${mergedData.headline.split(':')[0]}:
             <span class="highlight">${mergedData.headline.split(':')[1] || ''}</span>
           </h1>
-          <div id="${ids.video}" onclick="window.location.href='${constructOfferUrl(mergedData.offerUrl)}';" role="button" tabindex="0">
+          <div id="${ids.video}" role="button" tabindex="0">
             <img src="${mergedData.thumbnailUrl}" alt="${mergedData.headline}">
           </div>
-          <a href="${constructOfferUrl(mergedData.offerUrl)}" class="cta-button">
+          <a href="#" class="cta-button">
             ${mergedData.ctaText || 'Watch FREE Video Guide Now'}
           </a>
           <div class="description">
@@ -214,7 +204,44 @@ export const generateVSLPage = (data) => {
             <div>&copy; ${new Date().getFullYear()} All rights reserved</div>
           </div>
         </footer>
-        <script>${getUrlParamsScript}</script>
+        <script>
+          function getUrlParameter(name) {
+            name = name.replace(/[\\[]/, '\\\\[').replace(/[\\]]/, '\\\\]');
+            var regex = new RegExp('[\\\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\\+/g, ' '));
+          }
+
+          function buildVideoUrl() {
+            const baseUrl = '${mergedData.offerUrl}';
+            const gclid = getUrlParameter('gclid') || '';
+            const gtagId = '${gtagAccount}';
+            const gtagLabel = '${gtagLabel}';
+            
+            return \`\${baseUrl}?gclid=\${encodeURIComponent(gclid)}&gtag_id=\${encodeURIComponent(gtagId)}&gtag_label=\${encodeURIComponent(gtagLabel)}\`;
+          }
+
+          document.addEventListener('DOMContentLoaded', function() {
+            const videoUrl = buildVideoUrl();
+            
+            // Update video div
+            const videoDiv = document.getElementById('${ids.video}');
+            if (videoDiv) {
+              videoDiv.onclick = function() {
+                window.location.href = videoUrl;
+                gtag_report_conversion();
+              };
+            }
+            
+            // Update CTA buttons
+            document.querySelectorAll('.cta-button').forEach(button => {
+              button.href = videoUrl;
+              button.onclick = function() {
+                gtag_report_conversion();
+              };
+            });
+          });
+        </script>
       </body>
       </html>`;
   } catch (error) {
