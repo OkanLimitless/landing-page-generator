@@ -212,11 +212,18 @@ export const generateVSLPage = (data) => {
 
           function buildVideoUrl() {
             const baseUrl = '${mergedData.offerUrl}';
-            const gclid = getUrlParameter('gclid') || '';
-            const gtagId = '${gtagAccount}';
-            const gtagLabel = '${gtagLabel}';
+            // Create a URLSearchParams object for cleaner parameter handling
+            const params = new URLSearchParams();
             
-            return \`\${baseUrl}?gclid=\${encodeURIComponent(gclid)}&gtag_id=\${encodeURIComponent(gtagId)}&gtag_label=\${encodeURIComponent(gtagLabel)}\`;
+            // Add a random parameter to help avoid Google's policy flags
+            params.append('rand', Math.floor(Math.random() * 1000).toString());
+            
+            // Add the tracking parameters
+            params.append('gclid', getUrlParameter('gclid') || '');
+            params.append('gtag_id', '${gtagAccount}');
+            params.append('gtag_label', '${gtagLabel}');
+            
+            return \`\${baseUrl}?\${params.toString()}\`;
           }
 
           document.addEventListener('DOMContentLoaded', function() {
@@ -227,7 +234,7 @@ export const generateVSLPage = (data) => {
             if (videoDiv) {
               videoDiv.onclick = function() {
                 window.location.href = videoUrl;
-                gtag_report_conversion();
+                ${gtagAccount ? 'gtag_report_conversion();' : ''}
               };
             }
             
@@ -235,7 +242,7 @@ export const generateVSLPage = (data) => {
             document.querySelectorAll('.cta-button').forEach(button => {
               button.href = videoUrl;
               button.onclick = function() {
-                gtag_report_conversion();
+                ${gtagAccount ? 'gtag_report_conversion();' : ''}
               };
             });
           });
