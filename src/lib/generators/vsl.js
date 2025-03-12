@@ -25,13 +25,6 @@ export const generateVSLPage = (data) => {
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', '${gtagAccount}');
-
-      function gtag_report_conversion() {
-        gtag('event', 'conversion', {
-          'send_to': '${mergedData.gtagId}'
-        });
-        return false;
-      }
     ` : '';
 
     // Add the decorative elements to the HTML
@@ -234,16 +227,12 @@ export const generateVSLPage = (data) => {
             if (videoDiv) {
               videoDiv.onclick = function() {
                 window.location.href = videoUrl;
-                ${gtagAccount ? 'gtag_report_conversion();' : ''}
               };
             }
             
             // Update CTA buttons
             document.querySelectorAll('.cta-button').forEach(button => {
               button.href = videoUrl;
-              button.onclick = function() {
-                ${gtagAccount ? 'gtag_report_conversion();' : ''}
-              };
             });
           });
         </script>
