@@ -240,6 +240,67 @@ const AdultLanderForm = ({ formData, setFormData }) => {
   );
 };
 
+// Add QuizForm component
+const QuizForm = ({ formData, setFormData }) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Product Name</label>
+          <input 
+            type="text" 
+            name="productName" 
+            value={formData.productName} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Alpha Bites" 
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Offer URL</label>
+          <input 
+            type="url" 
+            name="offerUrl" 
+            value={formData.offerUrl} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Enter offer URL" 
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Google Ads ID</label>
+          <input 
+            type="text" 
+            name="gtagId" 
+            value={formData.gtagId} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX" 
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Custom Tracking Script (Optional)</label>
+        <textarea 
+          name="trackingScript" 
+          value={formData.trackingScript} 
+          onChange={handleChange} 
+          className={commonTextareaClass}
+          placeholder="Paste your custom tracking script here" 
+        />
+      </div>
+    </div>
+  );
+};
+
 const Generator = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('vsl');
@@ -275,6 +336,14 @@ const Generator = () => {
     template: 'brazilian'
   });
 
+  // Add quiz form data state
+  const [quizFormData, setQuizFormData] = useState({
+    productName: 'Alpha Bites',
+    offerUrl: '',
+    gtagId: '',
+    trackingScript: ''
+  });
+
   // Load presets from localStorage on mount
   useEffect(() => {
     const savedPresets = JSON.parse(localStorage.getItem('customPresets') || '{}');
@@ -296,6 +365,7 @@ const Generator = () => {
 
       const formData = activeTab === 'vsl' ? vslFormData : 
                       activeTab === 'ecom' ? ecomFormData : 
+                      activeTab === 'quiz' ? quizFormData :
                       adultLanderFormData;
 
       const response = await fetch('/api/generate', {
@@ -352,6 +422,12 @@ const Generator = () => {
           ...allPresets[presetKey],
           preset: presetKey
         }));
+      } else if (activeTab === 'quiz') {
+        setQuizFormData(prev => ({
+          ...prev,
+          ...allPresets[presetKey],
+          preset: presetKey
+        }));
       } else {
         setAdultLanderFormData(prev => ({
           ...prev,
@@ -368,6 +444,11 @@ const Generator = () => {
         }));
       } else if (activeTab === 'ecom') {
         setEcomFormData(prev => ({
+          ...prev,
+          preset: ''
+        }));
+      } else if (activeTab === 'quiz') {
+        setQuizFormData(prev => ({
           ...prev,
           preset: ''
         }));
@@ -388,7 +469,7 @@ const Generator = () => {
     if (!newPresetName) return;
     
     const presetKey = newPresetName.replace(/\s+/g, '');
-    const currentFormData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : adultLanderFormData;
+    const currentFormData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : activeTab === 'quiz' ? quizFormData : adultLanderFormData;
     
     // Create new preset without the preset field itself
     const { preset, ...presetData } = currentFormData;
@@ -464,7 +545,7 @@ const Generator = () => {
               <div className="flex gap-2">
                 <div className="relative flex-1">
                   <select
-                    value={activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : adultLanderFormData.preset}
+                    value={activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : adultLanderFormData.preset}
                     onChange={handlePresetChange}
                     className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white pr-10"
                   >
@@ -476,11 +557,11 @@ const Generator = () => {
                     ))}
                   </select>
                 </div>
-                {(activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : adultLanderFormData.preset) && 
-                  localPresets[activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : adultLanderFormData.preset] && (
+                {(activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : adultLanderFormData.preset) && 
+                  localPresets[activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : adultLanderFormData.preset] && (
                     <button
                       onClick={() => {
-                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : adultLanderFormData.preset;
+                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : adultLanderFormData.preset;
                         if (window.confirm(`Are you sure you want to delete the "${presetToDelete}" preset?`)) {
                           handleDeletePreset(presetToDelete);
                         }
@@ -522,6 +603,13 @@ const Generator = () => {
                 E-commerce Page
               </button>
               <button 
+                className={`px-4 py-2 ${activeTab === 'quiz' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
+                onClick={() => setActiveTab('quiz')}
+                disabled={loading}
+              >
+                Quiz Form
+              </button>
+              <button 
                 className={`px-4 py-2 ${activeTab === 'adult' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
                 onClick={() => setActiveTab('adult')}
                 disabled={loading}
@@ -545,6 +633,11 @@ const Generator = () => {
               <EcomForm
                 formData={ecomFormData}
                 setFormData={setEcomFormData}
+              />
+            ) : activeTab === 'quiz' ? (
+              <QuizForm
+                formData={quizFormData}
+                setFormData={setQuizFormData}
               />
             ) : (
               <AdultLanderForm

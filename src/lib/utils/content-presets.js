@@ -23,5 +23,11 @@ export const contentPresets = {
     thumbnailUrl: "https://example.com/finance-thumb.jpg",
     offerUrl: "https://example.com/finance-offer",
     ctaText: "Discover the Strategy"
+  },
+  edQuiz: {
+    productName: "Alpha Bites",
+    offerUrl: "https://example.com/ed-offer",
+    gtagId: "AW-XXXXXXXXXX/XXXXXXXXXXXXX",
+    trackingScript: ""
   }
 }; 

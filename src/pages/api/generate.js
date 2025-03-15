@@ -1,6 +1,7 @@
 import { generateVSLPage } from '../../lib/generators/vsl';
 import { generateEcomPage } from '../../lib/generators/ecom';
 import { generateAdultLander } from '../../lib/generators/adult';
+import { generateQuizPage } from '../../lib/generators/quiz';
 import { generatePrivacyPolicy, generateTermsOfService } from '../../lib/generators/legal';
 import { getRandomStyle } from '../../lib/utils/style-variations';
 import JSZip from 'jszip';
@@ -43,6 +44,10 @@ export default async function handler(req, res) {
       case 'adult':
         console.log('Generating Adult Lander...');
         html = generateAdultLander(data);
+        break;
+      case 'quiz':
+        console.log('Generating Quiz page...');
+        html = generateQuizPage(data);
         break;
       default:
         throw new Error('Invalid page type');
