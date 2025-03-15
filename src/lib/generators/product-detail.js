@@ -121,51 +121,37 @@ export const generateProductDetailPage = (data) => {
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease-out;
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
           }
-          .loading-spinner {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid ${styles.colors.primary};
-            animation: spin 1s linear infinite;
-          }
-          .loading-text {
-            margin-top: 20px;
-            font-size: 18px;
-            color: white;
-            font-family: ${styles.fonts.heading};
-            font-weight: ${styles.fonts.weights.heading};
-          }
-          .loading-progress {
-            width: 200px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            margin-top: 15px;
-            border-radius: 2px;
-            overflow: hidden;
-          }
-          .loading-progress-bar {
-            height: 100%;
-            width: 0%;
-            background: ${styles.colors.primary};
-            transition: width 0.5s ease-out;
+          .loading-overlay.slide-up {
+            transform: translateY(-100%);
           }
           .loading-product-name {
-            font-size: 24px;
+            font-size: 36px;
             color: white;
             margin-bottom: 20px;
             font-family: ${styles.fonts.heading};
             font-weight: ${styles.fonts.weights.heading};
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards 0.2s;
           }
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+          .loading-text {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards 0.4s;
+          }
+          @keyframes fadeInUp {
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
           }
           .content-container {
-            opacity: 0;
-            transition: opacity 0.5s ease-in;
+            opacity: 1;
           }
           
           #${ids.container} {
@@ -582,11 +568,7 @@ export const generateProductDetailPage = (data) => {
         <!-- Loading overlay -->
         <div class="loading-overlay" id="loading-overlay">
           <div class="loading-product-name">${productName}</div>
-          <div class="loading-spinner"></div>
           <div class="loading-text">Loading your personalized solution...</div>
-          <div class="loading-progress">
-            <div class="loading-progress-bar" id="loading-progress-bar"></div>
-          </div>
         </div>
         
         <!-- Main content container -->
@@ -852,29 +834,11 @@ export const generateProductDetailPage = (data) => {
             // Loading animation
             const loadingOverlay = document.getElementById('loading-overlay');
             const contentContainer = document.getElementById('content-container');
-            const progressBar = document.getElementById('loading-progress-bar');
             
-            // Simulate loading progress
-            let progress = 0;
-            const loadingInterval = setInterval(() => {
-              progress += Math.random() * 10;
-              if (progress >= 100) {
-                progress = 100;
-                clearInterval(loadingInterval);
-                
-                // Hide loading overlay and show content
-                setTimeout(() => {
-                  loadingOverlay.style.opacity = '0';
-                  contentContainer.style.opacity = '1';
-                  
-                  // Remove loading overlay after fade out
-                  setTimeout(() => {
-                    loadingOverlay.style.display = 'none';
-                  }, 500);
-                }, 500);
-              }
-              progressBar.style.width = progress + '%';
-            }, 200);
+            // Quick reveal animation after a short delay
+            setTimeout(() => {
+              loadingOverlay.classList.add('slide-up');
+            }, 1500);
             
             // FAQ toggle functionality
             const faqQuestions = document.querySelectorAll('.faq-question');

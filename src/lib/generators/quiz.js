@@ -102,51 +102,111 @@ export const generateQuizPage = (data) => {
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease-out;
+            transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+            transform-origin: top;
           }
-          .loading-spinner {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid ${styles.colors.primary};
-            animation: spin 1s linear infinite;
-          }
-          .loading-text {
-            margin-top: 20px;
-            font-size: 18px;
-            color: white;
-            font-family: ${styles.fonts.heading};
-            font-weight: ${styles.fonts.weights.heading};
-          }
-          .loading-progress {
-            width: 200px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            margin-top: 15px;
-            border-radius: 2px;
-            overflow: hidden;
-          }
-          .loading-progress-bar {
-            height: 100%;
-            width: 0%;
-            background: ${styles.colors.primary};
-            transition: width 0.5s ease-out;
+          .loading-overlay.reveal {
+            transform: scaleY(0);
           }
           .loading-title {
-            font-size: 24px;
+            font-size: 36px;
             color: white;
             margin-bottom: 20px;
             font-family: ${styles.fonts.heading};
             font-weight: ${styles.fonts.weights.heading};
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards 0.2s;
           }
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+          .loading-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards 0.4s;
+          }
+          @keyframes fadeInUp {
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
           }
           .content-container {
+            opacity: 1;
+          }
+          
+          /* Analysis animation styles */
+          .analysis-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: ${styles.background.main};
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+          }
+          .analysis-overlay.fade-out {
             opacity: 0;
-            transition: opacity 0.5s ease-in;
+          }
+          .analysis-content {
+            max-width: 500px;
+            width: 90%;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          }
+          .analysis-title {
+            font-family: ${styles.fonts.heading};
+            font-weight: ${styles.fonts.weights.heading};
+            font-size: 24px;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-align: center;
+          }
+          .analysis-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+          }
+          .analysis-step {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+          }
+          .analysis-step.complete {
+            opacity: 1;
+            color: white;
+          }
+          .analysis-checkmark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: ${styles.colors.primary};
+            border-radius: 50%;
+            margin-right: 12px;
+            color: white;
+            font-size: 14px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+          }
+          .analysis-step.complete .analysis-checkmark {
+            opacity: 1;
+            transform: scale(1);
           }
           
           #${ids.container} {
@@ -581,11 +641,7 @@ export const generateQuizPage = (data) => {
         <!-- Loading overlay -->
         <div class="loading-overlay" id="loading-overlay">
           <div class="loading-title">ED Quiz</div>
-          <div class="loading-spinner"></div>
-          <div class="loading-text">Preparing your personalized quiz...</div>
-          <div class="loading-progress">
-            <div class="loading-progress-bar" id="loading-progress-bar"></div>
-          </div>
+          <div class="loading-subtitle">Preparing your personalized quiz...</div>
         </div>
         
         <!-- Main content container -->
@@ -724,32 +780,14 @@ export const generateQuizPage = (data) => {
         
         <script>
           document.addEventListener('DOMContentLoaded', function() {
-            // Loading animation
+            // Initial reveal animation
             const loadingOverlay = document.getElementById('loading-overlay');
             const contentContainer = document.getElementById('content-container');
-            const progressBar = document.getElementById('loading-progress-bar');
             
-            // Simulate loading progress
-            let progress = 0;
-            const loadingInterval = setInterval(() => {
-              progress += Math.random() * 10;
-              if (progress >= 100) {
-                progress = 100;
-                clearInterval(loadingInterval);
-                
-                // Hide loading overlay and show content
-                setTimeout(() => {
-                  loadingOverlay.style.opacity = '0';
-                  contentContainer.style.opacity = '1';
-                  
-                  // Remove loading overlay after fade out
-                  setTimeout(() => {
-                    loadingOverlay.style.display = 'none';
-                  }, 500);
-                }, 500);
-              }
-              progressBar.style.width = progress + '%';
-            }, 200);
+            // Quick reveal animation after a short delay
+            setTimeout(() => {
+              loadingOverlay.classList.add('reveal');
+            }, 1500);
             
             // Quiz functionality
             const quizForm = document.getElementById('${ids.quizForm}');
@@ -786,13 +824,69 @@ export const generateQuizPage = (data) => {
                   document.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`).classList.add('active');
                   updateProgress();
                 } else {
+                  // Show analysis animation before showing results
+                  showAnalysisAnimation();
+                }
+              }
+            }
+            
+            // Show analysis animation
+            function showAnalysisAnimation() {
+              // Create analysis overlay
+              const analysisOverlay = document.createElement('div');
+              analysisOverlay.className = 'analysis-overlay';
+              
+              const analysisContent = document.createElement('div');
+              analysisContent.className = 'analysis-content';
+              
+              const analysisTitle = document.createElement('div');
+              analysisTitle.className = 'analysis-title';
+              analysisTitle.textContent = 'Analyzing Your Responses';
+              
+              const analysisSteps = document.createElement('div');
+              analysisSteps.className = 'analysis-steps';
+              
+              const steps = [
+                'Processing your answers...',
+                'Identifying optimal treatment options...',
+                'Matching with clinical data...',
+                'Finalizing personalized recommendations...'
+              ];
+              
+              steps.forEach(step => {
+                const stepEl = document.createElement('div');
+                stepEl.className = 'analysis-step';
+                stepEl.innerHTML = \`<span class="analysis-checkmark">✓</span> \${step}\`;
+                analysisSteps.appendChild(stepEl);
+              });
+              
+              analysisContent.appendChild(analysisTitle);
+              analysisContent.appendChild(analysisSteps);
+              analysisOverlay.appendChild(analysisContent);
+              document.body.appendChild(analysisOverlay);
+              
+              // Animate each step
+              const stepEls = analysisOverlay.querySelectorAll('.analysis-step');
+              stepEls.forEach((step, index) => {
+                setTimeout(() => {
+                  step.classList.add('complete');
+                }, 600 * index + 400);
+              });
+              
+              // After all steps complete, show results
+              setTimeout(() => {
+                analysisOverlay.classList.add('fade-out');
+                
+                setTimeout(() => {
+                  analysisOverlay.remove();
+                  
                   // Show results
                   document.querySelector('.quiz-step[data-step="results"]').classList.add('active');
                   backButton.classList.remove('visible');
                   stepCounter.style.display = 'none';
                   progressBarEl.style.setProperty('--progress-width', '100%');
-                }
-              }
+                }, 500);
+              }, 3000);
             }
             
             // Go to previous step
