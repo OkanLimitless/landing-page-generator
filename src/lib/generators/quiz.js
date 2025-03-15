@@ -343,6 +343,17 @@ export const generateQuizPage = (data) => {
           ${styles.buttonHover ? styles.buttonHover(styles.colors) : ''}
           .results {
             text-align: center;
+            animation: fadeIn 0.8s ease-out;
+          }
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
           }
           .results-heading {
             font-family: ${styles.fonts.heading};
@@ -687,6 +698,9 @@ export const generateQuizPage = (data) => {
             let currentStep = 1;
             let answers = {};
             
+            // Initialize progress bar
+            progressBar.style.setProperty('--progress-width', '25%');
+            
             // Update step counter
             function updateStepCounter(step) {
               const counterText = \`\${step}/\${totalSteps}\`;
@@ -716,6 +730,20 @@ export const generateQuizPage = (data) => {
               });
             }
             
+            // Animate product cards in results page
+            function animateProductCards() {
+              const cards = document.querySelectorAll('.product-card');
+              cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px) rotateX(-10deg)';
+                setTimeout(() => {
+                  card.style.transition = 'opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1), transform 0.6s cubic-bezier(0.65, 0, 0.35, 1)';
+                  card.style.opacity = '1';
+                  card.style.transform = 'translateY(0) rotateX(0)';
+                }, 300 + (index * 150));
+              });
+            }
+            
             // Animate initial options
             animateOptions(steps[0]);
             
@@ -742,6 +770,8 @@ export const generateQuizPage = (data) => {
                   // Update back button visibility
                   if (currentStep === 1) {
                     backButton.classList.remove('visible');
+                  } else {
+                    backButton.classList.add('visible');
                   }
                 }, 400);
               }
@@ -764,7 +794,7 @@ export const generateQuizPage = (data) => {
                 // Wait for ripple animation
                 setTimeout(() => {
                   // Proceed to next step
-                  if (currentStep < totalSteps) {
+                  if (currentStep <= totalSteps) {
                     const currentStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
                     currentStepEl.classList.add('exit');
                     
@@ -773,24 +803,34 @@ export const generateQuizPage = (data) => {
                       currentStep++;
                       
                       // Update progress bar with animation
-                      progressBar.style.setProperty('--progress-width', \`\${(currentStep / totalSteps) * 100}%\`);
+                      if (currentStep <= totalSteps) {
+                        progressBar.style.setProperty('--progress-width', \`\${(currentStep / totalSteps) * 100}%\`);
+                      } else {
+                        // Set to 100% when on results page
+                        progressBar.style.setProperty('--progress-width', '100%');
+                      }
                       
                       // Show next step
                       const nextStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
                       nextStepEl.classList.add('active');
                       
-                      // Animate options in the new step
-                      if (currentStep < totalSteps) {
+                      // Animate options in the new step or product cards in results
+                      if (currentStep <= totalSteps) {
                         animateOptions(nextStepEl);
+                      } else if (currentStep === totalSteps + 1) {
+                        // This is the results page
+                        animateProductCards();
                       }
                       
-                      // Show back button after first step
-                      if (currentStep > 1) {
+                      // Show back button after first step and hide on results page
+                      if (currentStep > 1 && currentStep <= totalSteps) {
                         backButton.classList.add('visible');
+                      } else if (currentStep > totalSteps) {
+                        backButton.classList.remove('visible');
                       }
                       
                       // Fire conversion event on last step
-                      if (currentStep === totalSteps) {
+                      if (currentStep === totalSteps + 1) {
                         if (window.gtag) {
                           gtag('event', 'conversion', {
                             'send_to': '${gtagAccount}/${gtagLabel}'
