@@ -664,7 +664,7 @@ export const generateProductDetailPage = (data) => {
           
           <section id="${ids.container}" class="trust-badges">
             <div class="trust-badge">
-              <img src="https://cdn-icons-png.flaticon.com/512/9594/9594325.png" alt="FDA Approved">
+              <img src="https://cdn-icons-png.flaticon.com/512/2990/2990155.png" alt="FDA Approved">
               <p>FDA Approved</p>
             </div>
             <div class="trust-badge">
@@ -672,7 +672,7 @@ export const generateProductDetailPage = (data) => {
               <p>Secure Ordering</p>
             </div>
             <div class="trust-badge">
-              <img src="https://cdn-icons-png.flaticon.com/512/3588/3588614.png" alt="Discreet Packaging">
+              <img src="https://cdn-icons-png.flaticon.com/512/1950/1950715.png" alt="Discreet Packaging">
               <p>Discreet Packaging</p>
             </div>
             <div class="trust-badge">
