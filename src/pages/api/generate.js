@@ -54,10 +54,26 @@ export default async function handler(req, res) {
         
         // Generate product detail pages for the quiz
         const productNames = [
-          data.productName || 'Alpha Bites',
-          'Daily Rise Gummies',
-          'Generic Viagra'
+          'AlphaBites',
+          'Brazilian Wood',
+          'EndoPeak'
         ];
+        
+        // Product data mapping
+        const productData = {
+          'AlphaBites': {
+            url: 'https://afflat3e1.com/trk/lnk/7EF4AD2B-B866-46E8-AE93-217072D69F31/?o=28584&c=918277&a=271469&k=C710AE04C0E95E8AF6C4BC458930795E&l=31571',
+            image: 'https://i.imgur.com/VTN5W8c.png'
+          },
+          'Brazilian Wood': {
+            url: 'https://afflat3e1.com/trk/lnk/7EF4AD2B-B866-46E8-AE93-217072D69F31/?o=26286&c=918277&a=271469&k=FD40240F18D488603D3C98D218ED5998&l=32307',
+            image: 'https://i.imgur.com/g5LZLPR.png'
+          },
+          'EndoPeak': {
+            url: 'https://endopeak24.com/b/order-now.php?aff_id=130095',
+            image: 'https://i.imgur.com/C6UJxbC.png'
+          }
+        };
         
         // Generate a product detail page for each product
         for (const productName of productNames) {
@@ -65,15 +81,16 @@ export default async function handler(req, res) {
           const productFileName = `product-${productSlug}.html`;
           
           // Create product-specific data
-          const productData = {
+          const productPageData = {
             ...data,
             productName,
-            productImage: `https://via.placeholder.com/600x400/FF5733/FFFFFF?text=${encodeURIComponent(productName)}`,
+            productImage: productData[productName].image,
+            offerUrl: productData[productName].url,
             styles: data.styles // Use the same styles as the quiz
           };
           
           // Generate the product detail page
-          productDetailPages[productFileName] = generateProductDetailPage(productData);
+          productDetailPages[productFileName] = generateProductDetailPage(productPageData);
         }
         break;
       default:

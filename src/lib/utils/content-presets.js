@@ -25,9 +25,7 @@ export const contentPresets = {
     ctaText: "Discover the Strategy"
   },
   edQuiz: {
-    productName: "Alpha Bites",
     productDescription: "Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.",
-    offerUrl: "https://example.com/ed-offer",
     gtagId: "AW-XXXXXXXXXX/XXXXXXXXXXXXX",
     trackingScript: ""
   }

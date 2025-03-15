@@ -36,6 +36,25 @@ export const generateQuizPage = (data) => {
     // Product name with fallback
     const productName = mergedData.productName || 'Alpha Bites';
 
+    // Generate product links
+    const productLinks = [
+      { 
+        name: 'AlphaBites', 
+        link: 'product-alphabites.html',
+        description: 'Fast-acting formula with dual-action benefits'
+      },
+      { 
+        name: 'Brazilian Wood', 
+        link: 'product-brazilian-wood.html',
+        description: 'Natural herbal formula for sustained performance'
+      },
+      { 
+        name: 'EndoPeak', 
+        link: 'product-endopeak.html',
+        description: 'Advanced formula for maximum potency'
+      }
+    ];
+
     return `<!DOCTYPE html>
       <html lang="en">
       <head>
@@ -368,72 +387,59 @@ export const generateQuizPage = (data) => {
             margin-bottom: 2rem;
             color: rgba(255, 255, 255, 0.9);
           }
-          .product-cards {
-            display: flex;
-            flex-wrap: wrap;
+          .quiz-results-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            justify-content: center;
             margin: 2rem 0;
-            perspective: 1000px;
           }
           .product-card {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: ${styles.borderRadius};
-            padding: 1.5rem;
-            width: 100%;
-            max-width: 300px;
-            text-align: left;
-            transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), box-shadow 0.5s cubic-bezier(0.65, 0, 0.35, 1);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            transform: translateZ(0);
-            animation: cardEntrance 0.6s cubic-bezier(0.65, 0, 0.35, 1) both;
-            animation-delay: calc(var(--card-index) * 0.1s);
-          }
-          @keyframes cardEntrance {
-            from {
-              opacity: 0;
-              transform: translateY(20px) rotateX(-10deg);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0) rotateX(0);
-            }
+            border-radius: 12px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
           }
           .product-card:hover {
-            transform: translateY(-5px) translateZ(10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
           }
           .product-image {
             width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: ${styles.borderRadius};
-            margin-bottom: 1rem;
+            height: 200px;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
           }
-          .product-name {
+          .product-content {
+            padding: 1.5rem;
+          }
+          .product-title {
             font-family: ${styles.fonts.heading};
             font-weight: ${styles.fonts.weights.heading};
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #fff;
           }
           .product-description {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
             color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
           }
           .product-cta {
             ${styles.button(styles.colors)}
             display: inline-block;
-            padding: 0.75rem 1rem;
-            font-size: 0.9rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
             font-weight: ${styles.fonts.weights.heading};
             text-decoration: none;
             border-radius: ${styles.borderRadius};
             text-align: center;
-            width: 100%;
             transition: all 0.3s ease;
+            width: 100%;
           }
           .benefits {
             display: flex;
@@ -622,27 +628,20 @@ export const generateQuizPage = (data) => {
                   </div>
                 </div>
                 
-                <div class="product-cards">
-                  <div class="product-card" style="--card-index: 0">
-                    <img src="https://via.placeholder.com/300x150/FF5733/FFFFFF?text=${productName}" alt="${productName}" class="product-image">
-                    <h3 class="product-name">${productName}</h3>
-                    <p class="product-description">Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.</p>
-                    <a href="product-${encodeURIComponent(productName.toLowerCase().replace(/\s+/g, '-'))}.html" class="product-cta" id="main-product-cta">Learn More</a>
+                <div class="quiz-results-products">
+                  ${productLinks.map((product, index) => `
+                  <div class="product-card" style="--card-index: ${index}">
+                    <img src="${index === 0 ? 'https://i.imgur.com/VTN5W8c.png' : 
+                               index === 1 ? 'https://i.imgur.com/g5LZLPR.png' : 
+                               'https://i.imgur.com/C6UJxbC.png'}" 
+                         alt="${product.name}" class="product-image">
+                    <div class="product-content">
+                      <h3 class="product-title">${product.name}</h3>
+                      <p class="product-description">${product.description}</p>
+                      <a href="${product.link}" class="product-cta" id="product-${index}-cta">Learn More</a>
+                    </div>
                   </div>
-                  
-                  <div class="product-card" style="--card-index: 1">
-                    <img src="https://via.placeholder.com/300x150/33A8FF/FFFFFF?text=Daily+Rise" alt="Daily Rise" class="product-image">
-                    <h3 class="product-name">Daily Rise Gummies</h3>
-                    <p class="product-description">Works continuously, no planning required. Take once daily for 24/7 readiness.</p>
-                    <a href="product-daily-rise-gummies.html" class="product-cta" id="alt-product-1-cta">Learn More</a>
-                  </div>
-                  
-                  <div class="product-card" style="--card-index: 2">
-                    <img src="https://via.placeholder.com/300x150/33FF57/FFFFFF?text=Generic+Viagra" alt="Generic Viagra" class="product-image">
-                    <h3 class="product-name">Generic Viagra®</h3>
-                    <p class="product-description">Up to 95% cheaper than branded. Ready in 60 minutes, lasts for 6 hours.</p>
-                    <a href="product-generic-viagra.html" class="product-cta" id="alt-product-2-cta">Learn More</a>
-                  </div>
+                  `).join('')}
                 </div>
               </div>
             </div>

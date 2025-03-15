@@ -249,18 +249,6 @@ const QuizForm = ({ formData, setFormData }) => {
   return (
     <div className="space-y-6">
       <div>
-        <label className="block text-sm font-medium mb-2">Main Product Name</label>
-        <input 
-          type="text" 
-          name="productName" 
-          value={formData.productName} 
-          onChange={handleChange} 
-          className={commonInputClass}
-          placeholder="Alpha Bites" 
-        />
-      </div>
-
-      <div>
         <label className="block text-sm font-medium mb-2">Product Description</label>
         <textarea 
           name="productDescription" 
@@ -272,17 +260,6 @@ const QuizForm = ({ formData, setFormData }) => {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className="block text-sm font-medium mb-2">Offer URL</label>
-          <input 
-            type="url" 
-            name="offerUrl" 
-            value={formData.offerUrl} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Enter affiliate offer URL" 
-          />
-        </div>
         <div>
           <label className="block text-sm font-medium mb-2">Google Ads ID</label>
           <input 
