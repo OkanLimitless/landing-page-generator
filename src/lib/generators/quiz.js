@@ -83,6 +83,99 @@ export const generateQuizPage = (data) => {
             text-align: left;
             color: #fff;
           }
+          .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+          }
+          .back-button.visible {
+            opacity: 1;
+            pointer-events: auto;
+          }
+          .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+          }
+          .back-button:active {
+            transform: translateY(0);
+          }
+          .back-button svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+          }
+          .step-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+          }
+          .step-counter-progress {
+            display: none;
+          }
+          .step-counter-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+          }
+          .step-counter-progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid ${styles.colors.primary};
+            clip: rect(0px, 36px, 36px, 18px);
+            transform: rotate(var(--progress-rotation));
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+          }
+          .step-counter-progress-circle.right {
+            clip: rect(0px, 18px, 36px, 0px);
+          }
+          .step-counter-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.8rem;
+            font-weight: bold;
+          }
           .progress-container {
             width: 100%;
             height: 8px;
@@ -412,6 +505,11 @@ export const generateQuizPage = (data) => {
         ${decorativeHTML}
         <main id="${ids.container}">
           <div class="logo">ro</div>
+          <div class="back-button">
+            <svg viewBox="0 0 24 24">
+              <path d="M19 12H5M12 19l-7-7 7-7"></path>
+            </svg>
+          </div>
           <div class="progress-container">
             <div class="progress-bar"></div>
           </div>
@@ -419,6 +517,15 @@ export const generateQuizPage = (data) => {
           <form id="${ids.quizForm}">
             <!-- Step 1 -->
             <div class="quiz-step active" data-step="1">
+              <div class="step-counter">
+                1/4
+                <div class="step-counter-progress">
+                  <div class="step-counter-circle"></div>
+                  <div class="step-counter-progress-circle" style="--progress-rotation: 90deg;"></div>
+                  <div class="step-counter-progress-circle right" style="--progress-rotation: 0deg;"></div>
+                  <div class="step-counter-text">1/4</div>
+                </div>
+              </div>
               <h2 class="question">How do you want to improve your sex life?</h2>
               <div class="options">
                 <div class="option" data-value="stronger">Stronger erections</div>
@@ -430,6 +537,15 @@ export const generateQuizPage = (data) => {
             
             <!-- Step 2 -->
             <div class="quiz-step" data-step="2">
+              <div class="step-counter">
+                2/4
+                <div class="step-counter-progress">
+                  <div class="step-counter-circle"></div>
+                  <div class="step-counter-progress-circle" style="--progress-rotation: 180deg;"></div>
+                  <div class="step-counter-progress-circle right" style="--progress-rotation: 0deg;"></div>
+                  <div class="step-counter-text">2/4</div>
+                </div>
+              </div>
               <h2 class="question">How quickly do you want to get hard when the mood is right?</h2>
               <div class="options">
                 <div class="option" data-value="asap">As soon as possible</div>
@@ -439,6 +555,15 @@ export const generateQuizPage = (data) => {
             
             <!-- Step 3 -->
             <div class="quiz-step" data-step="3">
+              <div class="step-counter">
+                3/4
+                <div class="step-counter-progress">
+                  <div class="step-counter-circle"></div>
+                  <div class="step-counter-progress-circle" style="--progress-rotation: 270deg;"></div>
+                  <div class="step-counter-progress-circle right" style="--progress-rotation: 0deg;"></div>
+                  <div class="step-counter-text">3/4</div>
+                </div>
+              </div>
               <h2 class="question">Do you want benefits from the active ingredients in Viagra and Cialis in one treatment?</h2>
               <div class="options">
                 <div class="option" data-value="yes">Of course!</div>
@@ -448,6 +573,15 @@ export const generateQuizPage = (data) => {
             
             <!-- Step 4 -->
             <div class="quiz-step" data-step="4">
+              <div class="step-counter">
+                4/4
+                <div class="step-counter-progress">
+                  <div class="step-counter-circle"></div>
+                  <div class="step-counter-progress-circle" style="--progress-rotation: 360deg;"></div>
+                  <div class="step-counter-progress-circle right" style="--progress-rotation: 180deg;"></div>
+                  <div class="step-counter-text">4/4</div>
+                </div>
+              </div>
               <h2 class="question">Do you want your treatment shipped to your home in discreet packaging?</h2>
               <div class="options">
                 <div class="option" data-value="yes">Yes, keep it private</div>
@@ -548,9 +682,25 @@ export const generateQuizPage = (data) => {
             const quizForm = document.getElementById('${ids.quizForm}');
             const steps = quizForm.querySelectorAll('.quiz-step');
             const progressBar = document.querySelector('.progress-bar');
-            const totalSteps = steps.length;
+            const backButton = document.querySelector('.back-button');
+            const totalSteps = steps.length - 1; // Exclude results step
             let currentStep = 1;
             let answers = {};
+            
+            // Update step counter
+            function updateStepCounter(step) {
+              const counterText = \`\${step}/\${totalSteps}\`;
+              const currentStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${step}"]\`);
+              if (currentStepEl) {
+                const counterEl = currentStepEl.querySelector('.step-counter');
+                if (counterEl) counterEl.textContent = counterText;
+              }
+            }
+            
+            // Initialize step counters
+            for (let i = 1; i <= totalSteps; i++) {
+              updateStepCounter(i);
+            }
             
             // Add staggered animation to options
             function animateOptions(stepEl) {
@@ -568,6 +718,34 @@ export const generateQuizPage = (data) => {
             
             // Animate initial options
             animateOptions(steps[0]);
+            
+            // Back button functionality
+            backButton.addEventListener('click', function() {
+              if (currentStep > 1) {
+                const currentStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
+                currentStepEl.classList.add('exit');
+                
+                setTimeout(() => {
+                  currentStepEl.classList.remove('active', 'exit');
+                  currentStep--;
+                  
+                  // Update progress bar with animation
+                  progressBar.style.setProperty('--progress-width', \`\${(currentStep / totalSteps) * 100}%\`);
+                  
+                  // Show previous step
+                  const prevStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
+                  prevStepEl.classList.add('active');
+                  
+                  // Animate options in the previous step
+                  animateOptions(prevStepEl);
+                  
+                  // Update back button visibility
+                  if (currentStep === 1) {
+                    backButton.classList.remove('visible');
+                  }
+                }, 400);
+              }
+            });
             
             // Option selection and auto-proceed
             quizForm.querySelectorAll('.option').forEach(option => {
@@ -604,6 +782,11 @@ export const generateQuizPage = (data) => {
                       // Animate options in the new step
                       if (currentStep < totalSteps) {
                         animateOptions(nextStepEl);
+                      }
+                      
+                      // Show back button after first step
+                      if (currentStep > 1) {
+                        backButton.classList.add('visible');
                       }
                       
                       // Fire conversion event on last step
