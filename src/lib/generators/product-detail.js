@@ -107,6 +107,67 @@ export const generateProductDetailPage = (data) => {
             display: flex;
             flex-direction: column;
           }
+          
+          /* Loading animation styles */
+          .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: ${styles.background.main};
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+          }
+          .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid ${styles.colors.primary};
+            animation: spin 1s linear infinite;
+          }
+          .loading-text {
+            margin-top: 20px;
+            font-size: 18px;
+            color: white;
+            font-family: ${styles.fonts.heading};
+            font-weight: ${styles.fonts.weights.heading};
+          }
+          .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 15px;
+            border-radius: 2px;
+            overflow: hidden;
+          }
+          .loading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: ${styles.colors.primary};
+            transition: width 0.5s ease-out;
+          }
+          .loading-product-name {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 20px;
+            font-family: ${styles.fonts.heading};
+            font-weight: ${styles.fonts.weights.heading};
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .content-container {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+          }
+          
           #${ids.container} {
             width: 90%;
             max-width: ${styles.container.maxWidth};
@@ -518,263 +579,303 @@ export const generateProductDetailPage = (data) => {
         </style>
       </head>
       <body>
-        <header class="header">
-          <div class="promo-banner">
-            Get $15 off your first ED order, if prescribed. <a href="#order-now">Start now</a>
+        <!-- Loading overlay -->
+        <div class="loading-overlay" id="loading-overlay">
+          <div class="loading-product-name">${productName}</div>
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Loading your personalized solution...</div>
+          <div class="loading-progress">
+            <div class="loading-progress-bar" id="loading-progress-bar"></div>
           </div>
-          <div id="${ids.container}" class="header-content">
-            <div class="logo">ro</div>
-          </div>
-        </header>
+        </div>
         
-        ${decorativeHTML}
-        
-        <main>
-          <section id="${ids.container}" class="hero">
-            <div class="hero-content">
-              <h1 class="product-title">${productName}</h1>
-              <p class="product-subtitle">${productDescription}</p>
-              <p>Our newest formula combines the best of both worlds, giving you stronger, longer-lasting erections when you need them most.</p>
-              <a href="#order-now" class="cta-button">Get Started</a>
+        <!-- Main content container -->
+        <div class="content-container" id="content-container">
+          <header class="header">
+            <div class="promo-banner">
+              Get $15 off your first ED order, if prescribed. <a href="#order-now">Start now</a>
             </div>
-            <div class="hero-image">
-              <img src="${productImage}" alt="${productName}">
+            <div id="${ids.container}" class="header-content">
+              <div class="logo">ro</div>
             </div>
-          </section>
+          </header>
           
-          <section class="benefits">
-            <div id="${ids.container}">
-              <h2 class="section-title">Why Choose ${productName}?</h2>
-              <div class="benefits-list">
-                <div class="benefit-item">
-                  <div class="benefit-icon">1</div>
-                  <div class="benefit-content">
-                    <h3>Works in 15 minutes</h3>
-                    <p>Our clinically tested formula ensures reliable results every time.</p>
-                  </div>
-                </div>
-                <div class="benefit-item">
-                  <div class="benefit-icon">2</div>
-                  <div class="benefit-content">
-                    <h3>Lasts for 36 hours</h3>
-                    <p>Our formula is designed to provide long-lasting results.</p>
-                  </div>
-                </div>
-                <div class="benefit-item">
-                  <div class="benefit-icon">3</div>
-                  <div class="benefit-content">
-                    <h3>Clinically proven results</h3>
-                    <p>Our formula has been clinically tested and proven to be effective.</p>
-                  </div>
-                </div>
-                <div class="benefit-item">
-                  <div class="benefit-icon">4</div>
-                  <div class="benefit-content">
-                    <h3>FDA approved</h3>
-                    <p>Our formula is FDA approved and safe for use.</p>
-                  </div>
-                </div>
+          ${decorativeHTML}
+          
+          <main>
+            <section id="${ids.container}" class="hero">
+              <div class="hero-content">
+                <h1 class="product-title">${productName}</h1>
+                <p class="product-subtitle">${productDescription}</p>
+                <p>Our newest formula combines the best of both worlds, giving you stronger, longer-lasting erections when you need them most.</p>
+                <a href="#order-now" class="cta-button">Get Started</a>
               </div>
-            </div>
-          </section>
-          
-          <section class="doctor-section">
-            <div id="${ids.container}">
-              <h2 class="section-title">Expert Recommendation</h2>
-              <div class="doctor-container">
-                <div class="doctor-image">
-                  <img src="${doctorImage}" alt="${doctorName}">
-                </div>
-                <div class="doctor-content">
-                  <p class="doctor-quote">${doctorQuote}</p>
-                  <p class="doctor-name">${doctorName}</p>
-                  <p class="doctor-title">${doctorTitle}</p>
-                  <p>With over 15 years of experience treating men's health issues, Dr. Stevens has helped thousands of men regain their confidence and improve their relationships.</p>
-                </div>
+              <div class="hero-image">
+                <img src="${productImage}" alt="${productName}">
               </div>
-            </div>
-          </section>
-          
-          <section id="${ids.container}" class="comparison-section">
-            <h2 class="section-title">How ${productName} Compares</h2>
-            <table class="comparison-table">
-              <thead>
-                <tr>
-                  <th>Feature</th>
-                  <th>${productName}</th>
-                  <th>Other ED Medications</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Speed of action</td>
-                  <td>As fast as 15 minutes</td>
-                  <td>30-60 minutes</td>
-                </tr>
-                <tr>
-                  <td>Duration</td>
-                  <td>Up to 36 hours</td>
-                  <td>4-6 hours</td>
-                </tr>
-                <tr>
-                  <td>Take with food</td>
-                  <td>Yes</td>
-                  <td>No</td>
-                </tr>
-                <tr>
-                  <td>Daily use</td>
-                  <td>Yes</td>
-                  <td>No</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-          
-          <section id="${ids.container}" class="testimonials">
-            <h2 class="section-title">What Our Customers Say</h2>
-            <div class="testimonial-grid">
-              <div class="testimonial-card">
-                <p class="testimonial-text">I've tried other ED medications before, but nothing works as quickly or lasts as long as ${productName}. It's been a game-changer for my relationship.</p>
-                <div class="testimonial-author">
-                  <div class="testimonial-avatar">JD</div>
-                  <div class="testimonial-info">
-                    <h4>John D.</h4>
-                    <p>Age 45, Customer for 6 months</p>
+            </section>
+            
+            <section class="benefits">
+              <div id="${ids.container}">
+                <h2 class="section-title">Why Choose ${productName}?</h2>
+                <div class="benefits-list">
+                  <div class="benefit-item">
+                    <div class="benefit-icon">1</div>
+                    <div class="benefit-content">
+                      <h3>Works in 15 minutes</h3>
+                      <p>Our clinically tested formula ensures reliable results every time.</p>
+                    </div>
+                  </div>
+                  <div class="benefit-item">
+                    <div class="benefit-icon">2</div>
+                    <div class="benefit-content">
+                      <h3>Lasts for 36 hours</h3>
+                      <p>Our formula is designed to provide long-lasting results.</p>
+                    </div>
+                  </div>
+                  <div class="benefit-item">
+                    <div class="benefit-icon">3</div>
+                    <div class="benefit-content">
+                      <h3>Clinically proven results</h3>
+                      <p>Our formula has been clinically tested and proven to be effective.</p>
+                    </div>
+                  </div>
+                  <div class="benefit-item">
+                    <div class="benefit-icon">4</div>
+                    <div class="benefit-content">
+                      <h3>FDA approved</h3>
+                      <p>Our formula is FDA approved and safe for use.</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="testimonial-card">
-                <p class="testimonial-text">The convenience of ${productName} is what sold me. I take it in the morning and I'm ready whenever the moment is right. No planning required.</p>
-                <div class="testimonial-author">
-                  <div class="testimonial-avatar">MS</div>
-                  <div class="testimonial-info">
-                    <h4>Michael S.</h4>
-                    <p>Age 52, Customer for 3 months</p>
+            </section>
+            
+            <section class="doctor-section">
+              <div id="${ids.container}">
+                <h2 class="section-title">Expert Recommendation</h2>
+                <div class="doctor-container">
+                  <div class="doctor-image">
+                    <img src="${doctorImage}" alt="${doctorName}">
+                  </div>
+                  <div class="doctor-content">
+                    <p class="doctor-quote">${doctorQuote}</p>
+                    <p class="doctor-name">${doctorName}</p>
+                    <p class="doctor-title">${doctorTitle}</p>
+                    <p>With over 15 years of experience treating men's health issues, Dr. Stevens has helped thousands of men regain their confidence and improve their relationships.</p>
                   </div>
                 </div>
               </div>
-              <div class="testimonial-card">
-                <p class="testimonial-text">After trying ${productName}, I finally feel like myself again. My confidence is back and my wife has noticed the difference too.</p>
-                <div class="testimonial-author">
-                  <div class="testimonial-avatar">RJ</div>
-                  <div class="testimonial-info">
-                    <h4>Robert J.</h4>
-                    <p>Age 58, Customer for 1 year</p>
+            </section>
+            
+            <section id="${ids.container}" class="comparison-section">
+              <h2 class="section-title">How ${productName} Compares</h2>
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th>${productName}</th>
+                    <th>Other ED Medications</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Speed of action</td>
+                    <td>As fast as 15 minutes</td>
+                    <td>30-60 minutes</td>
+                  </tr>
+                  <tr>
+                    <td>Duration</td>
+                    <td>Up to 36 hours</td>
+                    <td>4-6 hours</td>
+                  </tr>
+                  <tr>
+                    <td>Take with food</td>
+                    <td>Yes</td>
+                    <td>No</td>
+                  </tr>
+                  <tr>
+                    <td>Daily use</td>
+                    <td>Yes</td>
+                    <td>No</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            
+            <section id="${ids.container}" class="testimonials">
+              <h2 class="section-title">What Our Customers Say</h2>
+              <div class="testimonial-grid">
+                <div class="testimonial-card">
+                  <p class="testimonial-text">I've tried other ED medications before, but nothing works as quickly or lasts as long as ${productName}. It's been a game-changer for my relationship.</p>
+                  <div class="testimonial-author">
+                    <div class="testimonial-avatar">JD</div>
+                    <div class="testimonial-info">
+                      <h4>John D.</h4>
+                      <p>Age 45, Customer for 6 months</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="testimonial-card">
+                  <p class="testimonial-text">The convenience of ${productName} is what sold me. I take it in the morning and I'm ready whenever the moment is right. No planning required.</p>
+                  <div class="testimonial-author">
+                    <div class="testimonial-avatar">MS</div>
+                    <div class="testimonial-info">
+                      <h4>Michael S.</h4>
+                      <p>Age 52, Customer for 3 months</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="testimonial-card">
+                  <p class="testimonial-text">After trying ${productName}, I finally feel like myself again. My confidence is back and my wife has noticed the difference too.</p>
+                  <div class="testimonial-author">
+                    <div class="testimonial-avatar">RJ</div>
+                    <div class="testimonial-info">
+                      <h4>Robert J.</h4>
+                      <p>Age 58, Customer for 1 year</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+            
+            <section id="${ids.container}" class="faq-section">
+              <h2 class="section-title">Frequently Asked Questions</h2>
+              <div class="faq-item">
+                <div class="faq-question">
+                  <span>How does ${productName} work?</span>
+                  <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                  <p>${productName} works by increasing blood flow to the penis, helping you achieve and maintain an erection when sexually aroused. The unique formula combines the best aspects of existing ED medications for faster onset and longer duration.</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-question">
+                  <span>How quickly does it take effect?</span>
+                  <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                  <p>Most men experience results within 15-30 minutes, significantly faster than traditional ED medications which can take up to an hour.</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-question">
+                  <span>Are there any side effects?</span>
+                  <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                  <p>As with any medication, some men may experience mild side effects such as headache, flushing, or indigestion. These typically resolve quickly. Our formula is designed to minimize side effects compared to traditional ED medications.</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-question">
+                  <span>Is a prescription required?</span>
+                  <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                  <p>Yes, ${productName} requires a prescription. Our online consultation process makes it easy to connect with a licensed healthcare provider who will determine if ${productName} is right for you.</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-question">
+                  <span>How is ${productName} shipped?</span>
+                  <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                  <p>All orders are shipped in discreet, unmarked packaging to protect your privacy. No one will know what's inside.</p>
+                </div>
+              </div>
+            </section>
+            
+            <section id="${ids.container}" class="trust-badges">
+              <div class="trust-badge">
+                <img src="https://i.imgur.com/iy0JXRq.png" alt="FDA Approved">
+                <p>FDA Approved</p>
+              </div>
+              <div class="trust-badge">
+                <img src="https://i.imgur.com/Kp6pcWY.png" alt="Secure Ordering">
+                <p>Secure Ordering</p>
+              </div>
+              <div class="trust-badge">
+                <img src="https://i.imgur.com/YKAuphN.png" alt="Discreet Packaging">
+                <p>Discreet Packaging</p>
+              </div>
+              <div class="trust-badge">
+                <img src="https://i.imgur.com/Po9MDwu.png" alt="24/7 Support">
+                <p>24/7 Support</p>
+              </div>
+              <div class="trust-badge">
+                <img src="https://i.imgur.com/sMWQCaM.png" alt="90-Day Money Back Guarantee">
+                <p>90-Day Money Back Guarantee</p>
+              </div>
+            </section>
+            
+            <section id="${ids.container}" class="money-back-guarantee">
+              <div class="guarantee-container">
+                <div class="guarantee-image">
+                  <img src="https://i.imgur.com/sMWQCaM.png" alt="90-Day Money Back Guarantee" width="150">
+                </div>
+                <div class="guarantee-content">
+                  <h2>90-Day Money Back Guarantee</h2>
+                  <p>We're so confident in the effectiveness of ${productName} that we offer a full 90-day money back guarantee. If you're not completely satisfied with your results, simply return the unused portion for a full refund, no questions asked.</p>
+                </div>
+              </div>
+            </section>
+            
+            <section id="order-now" class="final-cta">
+              <div id="${ids.container}">
+                <h2>Ready to Experience the Difference?</h2>
+                <p>Join thousands of satisfied customers who have rediscovered their confidence with ${productName}.</p>
+                <a href="${mergedData.offerUrl || '#'}" class="cta-button">Get Started Now</a>
+              </div>
+            </section>
+          </main>
           
-          <section id="${ids.container}" class="faq-section">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            <div class="faq-item">
-              <div class="faq-question">
-                <span>How does ${productName} work?</span>
-                <span class="toggle">+</span>
+          <footer id="${ids.footer}">
+            <div class="container">
+              <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
               </div>
-              <div class="faq-answer">
-                <p>${productName} works by increasing blood flow to the penis, helping you achieve and maintain an erection when sexually aroused. The unique formula combines the best aspects of existing ED medications for faster onset and longer duration.</p>
+              <div class="footer-disclaimer">
+                This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google. 
+                YouTube is a trademark of Google Inc.
               </div>
+              <div>&copy; ${new Date().getFullYear()} All rights reserved</div>
             </div>
-            <div class="faq-item">
-              <div class="faq-question">
-                <span>How quickly does it take effect?</span>
-                <span class="toggle">+</span>
-              </div>
-              <div class="faq-answer">
-                <p>Most men experience results within 15-30 minutes, significantly faster than traditional ED medications which can take up to an hour.</p>
-              </div>
-            </div>
-            <div class="faq-item">
-              <div class="faq-question">
-                <span>Are there any side effects?</span>
-                <span class="toggle">+</span>
-              </div>
-              <div class="faq-answer">
-                <p>As with any medication, some men may experience mild side effects such as headache, flushing, or indigestion. These typically resolve quickly. Our formula is designed to minimize side effects compared to traditional ED medications.</p>
-              </div>
-            </div>
-            <div class="faq-item">
-              <div class="faq-question">
-                <span>Is a prescription required?</span>
-                <span class="toggle">+</span>
-              </div>
-              <div class="faq-answer">
-                <p>Yes, ${productName} requires a prescription. Our online consultation process makes it easy to connect with a licensed healthcare provider who will determine if ${productName} is right for you.</p>
-              </div>
-            </div>
-            <div class="faq-item">
-              <div class="faq-question">
-                <span>How is ${productName} shipped?</span>
-                <span class="toggle">+</span>
-              </div>
-              <div class="faq-answer">
-                <p>All orders are shipped in discreet, unmarked packaging to protect your privacy. No one will know what's inside.</p>
-              </div>
-            </div>
-          </section>
-          
-          <section id="${ids.container}" class="trust-badges">
-            <div class="trust-badge">
-              <img src="https://i.imgur.com/iy0JXRq.png" alt="FDA Approved">
-              <p>FDA Approved</p>
-            </div>
-            <div class="trust-badge">
-              <img src="https://i.imgur.com/Kp6pcWY.png" alt="Secure Ordering">
-              <p>Secure Ordering</p>
-            </div>
-            <div class="trust-badge">
-              <img src="https://i.imgur.com/YKAuphN.png" alt="Discreet Packaging">
-              <p>Discreet Packaging</p>
-            </div>
-            <div class="trust-badge">
-              <img src="https://i.imgur.com/Po9MDwu.png" alt="24/7 Support">
-              <p>24/7 Support</p>
-            </div>
-            <div class="trust-badge">
-              <img src="https://i.imgur.com/sMWQCaM.png" alt="90-Day Money Back Guarantee">
-              <p>90-Day Money Back Guarantee</p>
-            </div>
-          </section>
-          
-          <section id="${ids.container}" class="money-back-guarantee">
-            <div class="guarantee-container">
-              <div class="guarantee-image">
-                <img src="https://i.imgur.com/sMWQCaM.png" alt="90-Day Money Back Guarantee" width="150">
-              </div>
-              <div class="guarantee-content">
-                <h2>90-Day Money Back Guarantee</h2>
-                <p>We're so confident in the effectiveness of ${productName} that we offer a full 90-day money back guarantee. If you're not completely satisfied with your results, simply return the unused portion for a full refund, no questions asked.</p>
-              </div>
-            </div>
-          </section>
-          
-          <section id="order-now" class="final-cta">
-            <div id="${ids.container}">
-              <h2>Ready to Experience the Difference?</h2>
-              <p>Join thousands of satisfied customers who have rediscovered their confidence with ${productName}.</p>
-              <a href="${mergedData.offerUrl || '#'}" class="cta-button">Get Started Now</a>
-            </div>
-          </section>
-        </main>
-        
-        <footer id="${ids.footer}">
-          <div class="container">
-            <div class="footer-links">
-              <a href="privacy.html">Privacy Policy</a>
-              <a href="terms.html">Terms of Service</a>
-            </div>
-            <div class="footer-disclaimer">
-              This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google. 
-              YouTube is a trademark of Google Inc.
-            </div>
-            <div>&copy; ${new Date().getFullYear()} All rights reserved</div>
-          </div>
-        </footer>
+          </footer>
+        </div>
         
         <script>
           document.addEventListener('DOMContentLoaded', function() {
+            // Loading animation
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const contentContainer = document.getElementById('content-container');
+            const progressBar = document.getElementById('loading-progress-bar');
+            
+            // Simulate loading progress
+            let progress = 0;
+            const loadingInterval = setInterval(() => {
+              progress += Math.random() * 10;
+              if (progress >= 100) {
+                progress = 100;
+                clearInterval(loadingInterval);
+                
+                // Hide loading overlay and show content
+                setTimeout(() => {
+                  loadingOverlay.style.opacity = '0';
+                  contentContainer.style.opacity = '1';
+                  
+                  // Remove loading overlay after fade out
+                  setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                  }, 500);
+                }, 500);
+              }
+              progressBar.style.width = progress + '%';
+            }, 200);
+            
             // FAQ toggle functionality
             const faqQuestions = document.querySelectorAll('.faq-question');
             faqQuestions.forEach(question => {
