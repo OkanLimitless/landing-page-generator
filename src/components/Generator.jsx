@@ -248,29 +248,16 @@ const QuizForm = ({ formData, setFormData }) => {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className="block text-sm font-medium mb-2">Main Product Name</label>
-          <input 
-            type="text" 
-            name="productName" 
-            value={formData.productName} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Alpha Bites" 
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Product Price</label>
-          <input 
-            type="text" 
-            name="productPrice" 
-            value={formData.productPrice} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="$2.50" 
-          />
-        </div>
+      <div>
+        <label className="block text-sm font-medium mb-2">Main Product Name</label>
+        <input 
+          type="text" 
+          name="productName" 
+          value={formData.productName} 
+          onChange={handleChange} 
+          className={commonInputClass}
+          placeholder="Alpha Bites" 
+        />
       </div>
 
       <div>
@@ -281,42 +268,6 @@ const QuizForm = ({ formData, setFormData }) => {
           onChange={handleChange} 
           className={commonTextareaClass}
           placeholder="Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours." 
-        />
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className="block text-sm font-medium mb-2">Doctor Name</label>
-          <input 
-            type="text" 
-            name="doctorName" 
-            value={formData.doctorName} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Dr. Michael Stevens" 
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Doctor Title</label>
-          <input 
-            type="text" 
-            name="doctorTitle" 
-            value={formData.doctorTitle} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="MD, Board Certified Urologist" 
-          />
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-2">Doctor Quote</label>
-        <textarea 
-          name="doctorQuote" 
-          value={formData.doctorQuote} 
-          onChange={handleChange} 
-          className={commonTextareaClass}
-          placeholder="This innovative formula combines the best aspects of existing ED medications with fewer side effects." 
         />
       </div>
 
@@ -397,11 +348,7 @@ const Generator = () => {
   // Add quiz form data state
   const [quizFormData, setQuizFormData] = useState({
     productName: 'Alpha Bites',
-    productPrice: '$2.50',
     productDescription: 'Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.',
-    doctorName: 'Dr. Michael Stevens',
-    doctorTitle: 'MD, Board Certified Urologist',
-    doctorQuote: 'This innovative formula combines the best aspects of existing ED medications with fewer side effects.',
     offerUrl: '',
     gtagId: '',
     trackingScript: ''

@@ -26,11 +26,7 @@ export const contentPresets = {
   },
   edQuiz: {
     productName: "Alpha Bites",
-    productPrice: "$2.50",
     productDescription: "Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.",
-    doctorName: "Dr. Michael Stevens",
-    doctorTitle: "MD, Board Certified Urologist",
-    doctorQuote: "This innovative formula combines the best aspects of existing ED medications with fewer side effects.",
     offerUrl: "https://example.com/ed-offer",
     gtagId: "AW-XXXXXXXXXX/XXXXXXXXXXXXX",
     trackingScript: ""

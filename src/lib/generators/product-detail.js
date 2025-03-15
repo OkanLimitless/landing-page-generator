@@ -36,24 +36,35 @@ export const generateProductDetailPage = (data) => {
     const productName = mergedData.productName || 'Alpha Bites';
     const productDescription = mergedData.productDescription || 'Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.';
     const productImage = mergedData.productImage || 'https://via.placeholder.com/600x400/FF5733/FFFFFF?text=' + encodeURIComponent(productName);
-    const productPrice = mergedData.productPrice || '$2.50';
-    const productPriceUnit = mergedData.productPriceUnit || 'per pill';
-    const productBenefits = mergedData.productBenefits || [
-      'Works in 15 minutes',
-      'Lasts for 36 hours',
-      'Clinically proven results',
-      'FDA approved'
+    
+    // Hardcoded doctor information - randomly select one from the list
+    const doctors = [
+      {
+        name: 'Dr. Michael Stevens',
+        title: 'MD, Board Certified Urologist',
+        quote: '"This innovative formula combines the best aspects of existing ED medications with fewer side effects."',
+        image: 'https://via.placeholder.com/300x300/FFFFFF/333333?text=Doctor'
+      },
+      {
+        name: 'Dr. Robert Johnson',
+        title: 'MD, Sexual Health Specialist',
+        quote: '"After reviewing the clinical data, I\'m impressed with the efficacy and safety profile of this formula."',
+        image: 'https://via.placeholder.com/300x300/FFFFFF/333333?text=Doctor'
+      },
+      {
+        name: 'Dr. David Williams',
+        title: 'MD, Men\'s Health Expert',
+        quote: '"The dual-action mechanism provides both rapid onset and extended duration, addressing the main limitations of traditional ED medications."',
+        image: 'https://via.placeholder.com/300x300/FFFFFF/333333?text=Doctor'
+      }
     ];
-    const productComparison = mergedData.productComparison || [
-      { feature: 'Speed of action', product: 'As fast as 15 minutes', competitor: '30-60 minutes' },
-      { feature: 'Duration', product: 'Up to 36 hours', competitor: '4-6 hours' },
-      { feature: 'Take with food', product: 'Yes', competitor: 'No' },
-      { feature: 'Daily use', product: 'Yes', competitor: 'No' }
-    ];
-    const doctorName = mergedData.doctorName || 'Dr. Michael Stevens';
-    const doctorTitle = mergedData.doctorTitle || 'MD, Board Certified Urologist';
-    const doctorImage = mergedData.doctorImage || 'https://via.placeholder.com/300x300/FFFFFF/333333?text=Doctor';
-    const doctorQuote = mergedData.doctorQuote || '"This innovative formula combines the best aspects of existing ED medications with fewer side effects."';
+    
+    // Select a random doctor
+    const doctorIndex = Math.floor(Math.random() * doctors.length);
+    const doctorName = doctors[doctorIndex].name;
+    const doctorTitle = doctors[doctorIndex].title;
+    const doctorQuote = doctors[doctorIndex].quote;
+    const doctorImage = doctors[doctorIndex].image;
 
     return `<!DOCTYPE html>
       <html lang="en">
@@ -470,7 +481,6 @@ export const generateProductDetailPage = (data) => {
             <div class="hero-content">
               <h1 class="product-title">${productName}</h1>
               <p class="product-subtitle">${productDescription}</p>
-              <div class="price-tag">Starting at ${productPrice} ${productPriceUnit}</div>
               <p>Our newest formula combines the best of both worlds, giving you stronger, longer-lasting erections when you need them most.</p>
               <a href="#order-now" class="cta-button">Get Started</a>
             </div>
@@ -483,15 +493,34 @@ export const generateProductDetailPage = (data) => {
             <div id="${ids.container}">
               <h2 class="section-title">Why Choose ${productName}?</h2>
               <div class="benefits-list">
-                ${productBenefits.map((benefit, index) => `
-                  <div class="benefit-item">
-                    <div class="benefit-icon">${index + 1}</div>
-                    <div class="benefit-content">
-                      <h3>${benefit}</h3>
-                      <p>Our clinically tested formula ensures reliable results every time.</p>
-                    </div>
+                <div class="benefit-item">
+                  <div class="benefit-icon">1</div>
+                  <div class="benefit-content">
+                    <h3>Works in 15 minutes</h3>
+                    <p>Our clinically tested formula ensures reliable results every time.</p>
                   </div>
-                `).join('')}
+                </div>
+                <div class="benefit-item">
+                  <div class="benefit-icon">2</div>
+                  <div class="benefit-content">
+                    <h3>Lasts for 36 hours</h3>
+                    <p>Our formula is designed to provide long-lasting results.</p>
+                  </div>
+                </div>
+                <div class="benefit-item">
+                  <div class="benefit-icon">3</div>
+                  <div class="benefit-content">
+                    <h3>Clinically proven results</h3>
+                    <p>Our formula has been clinically tested and proven to be effective.</p>
+                  </div>
+                </div>
+                <div class="benefit-item">
+                  <div class="benefit-icon">4</div>
+                  <div class="benefit-content">
+                    <h3>FDA approved</h3>
+                    <p>Our formula is FDA approved and safe for use.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -524,13 +553,26 @@ export const generateProductDetailPage = (data) => {
                 </tr>
               </thead>
               <tbody>
-                ${productComparison.map(item => `
-                  <tr>
-                    <td>${item.feature}</td>
-                    <td>${item.product}</td>
-                    <td>${item.competitor}</td>
-                  </tr>
-                `).join('')}
+                <tr>
+                  <td>Speed of action</td>
+                  <td>As fast as 15 minutes</td>
+                  <td>30-60 minutes</td>
+                </tr>
+                <tr>
+                  <td>Duration</td>
+                  <td>Up to 36 hours</td>
+                  <td>4-6 hours</td>
+                </tr>
+                <tr>
+                  <td>Take with food</td>
+                  <td>Yes</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Daily use</td>
+                  <td>Yes</td>
+                  <td>No</td>
+                </tr>
               </tbody>
             </table>
           </section>

@@ -33,6 +33,8 @@ export default async function handler(req, res) {
     }
 
     let html;
+    let productDetailPages = {};
+    
     switch (type) {
       case 'vsl':
         console.log('Generating VSL page...');
@@ -51,7 +53,6 @@ export default async function handler(req, res) {
         html = generateQuizPage(data);
         
         // Generate product detail pages for the quiz
-        const productDetailPages = {};
         const productNames = [
           data.productName || 'Alpha Bites',
           'Daily Rise Gummies',
