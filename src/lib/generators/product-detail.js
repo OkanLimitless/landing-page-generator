@@ -43,19 +43,19 @@ export const generateProductDetailPage = (data) => {
         name: 'Dr. Michael Stevens',
         title: 'MD, Board Certified Urologist',
         quote: '"This innovative formula combines the best aspects of existing ED medications with fewer side effects."',
-        image: 'https://via.placeholder.com/300x300/FFFFFF/333333?text=Doctor'
+        image: 'https://www.wellstar.org/-/media/project/wellstar/org/physician/jeffery-williams-md.jpg'
       },
       {
         name: 'Dr. Robert Johnson',
         title: 'MD, Sexual Health Specialist',
         quote: '"After reviewing the clinical data, I\'m impressed with the efficacy and safety profile of this formula."',
-        image: 'https://via.placeholder.com/300x300/FFFFFF/333333?text=Doctor'
+        image: 'https://www.wellstar.org/-/media/project/wellstar/org/physician/jeffery-williams-md.jpg'
       },
       {
         name: 'Dr. David Williams',
         title: 'MD, Men\'s Health Expert',
         quote: '"The dual-action mechanism provides both rapid onset and extended duration, addressing the main limitations of traditional ED medications."',
-        image: 'https://via.placeholder.com/300x300/FFFFFF/333333?text=Doctor'
+        image: 'https://www.wellstar.org/-/media/project/wellstar/org/physician/jeffery-williams-md.jpg'
       }
     ];
     
@@ -664,19 +664,19 @@ export const generateProductDetailPage = (data) => {
           
           <section id="${ids.container}" class="trust-badges">
             <div class="trust-badge">
-              <img src="https://via.placeholder.com/80x80/FFFFFF/333333?text=FDA" alt="FDA Approved">
+              <img src="https://cdn-icons-png.flaticon.com/512/9594/9594325.png" alt="FDA Approved">
               <p>FDA Approved</p>
             </div>
             <div class="trust-badge">
-              <img src="https://via.placeholder.com/80x80/FFFFFF/333333?text=Secure" alt="Secure Ordering">
+              <img src="https://cdn-icons-png.flaticon.com/512/2519/2519367.png" alt="Secure Ordering">
               <p>Secure Ordering</p>
             </div>
             <div class="trust-badge">
-              <img src="https://via.placeholder.com/80x80/FFFFFF/333333?text=Discreet" alt="Discreet Packaging">
+              <img src="https://cdn-icons-png.flaticon.com/512/3588/3588614.png" alt="Discreet Packaging">
               <p>Discreet Packaging</p>
             </div>
             <div class="trust-badge">
-              <img src="https://via.placeholder.com/80x80/FFFFFF/333333?text=Support" alt="24/7 Support">
+              <img src="https://cdn-icons-png.flaticon.com/512/4233/4233839.png" alt="24/7 Support">
               <p>24/7 Support</p>
             </div>
           </section>
