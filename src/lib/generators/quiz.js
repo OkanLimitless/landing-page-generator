@@ -506,6 +506,7 @@ export const generateQuizPage = (data) => {
             .product-cards { flex-direction: column; align-items: center; }
             .product-card { max-width: 100%; }
             .nav-button { padding: 0.6rem 1.2rem; }
+            .step-counter { display: none; }
           }
         </style>
       </head>
@@ -626,21 +627,21 @@ export const generateQuizPage = (data) => {
                     <img src="https://via.placeholder.com/300x150/FF5733/FFFFFF?text=${productName}" alt="${productName}" class="product-image">
                     <h3 class="product-name">${productName}</h3>
                     <p class="product-description">Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.</p>
-                    <a href="#" class="product-cta" id="main-product-cta">Get started</a>
+                    <a href="product-${encodeURIComponent(productName.toLowerCase().replace(/\s+/g, '-'))}.html" class="product-cta" id="main-product-cta">Learn More</a>
                   </div>
                   
                   <div class="product-card" style="--card-index: 1">
                     <img src="https://via.placeholder.com/300x150/33A8FF/FFFFFF?text=Daily+Rise" alt="Daily Rise" class="product-image">
                     <h3 class="product-name">Daily Rise Gummies</h3>
                     <p class="product-description">Works continuously, no planning required. Take once daily for 24/7 readiness.</p>
-                    <a href="#" class="product-cta" id="alt-product-1-cta">Get started</a>
+                    <a href="product-daily-rise-gummies.html" class="product-cta" id="alt-product-1-cta">Learn More</a>
                   </div>
                   
                   <div class="product-card" style="--card-index: 2">
                     <img src="https://via.placeholder.com/300x150/33FF57/FFFFFF?text=Generic+Viagra" alt="Generic Viagra" class="product-image">
                     <h3 class="product-name">Generic Viagra®</h3>
                     <p class="product-description">Up to 95% cheaper than branded. Ready in 60 minutes, lasts for 6 hours.</p>
-                    <a href="#" class="product-cta" id="alt-product-2-cta">Get started</a>
+                    <a href="product-generic-viagra.html" class="product-cta" id="alt-product-2-cta">Learn More</a>
                   </div>
                 </div>
               </div>
@@ -845,9 +846,7 @@ export const generateQuizPage = (data) => {
             
             // Set up CTA links
             const offerUrl = buildOfferUrl();
-            document.querySelectorAll('.product-cta, #promo-link').forEach(cta => {
-              cta.href = offerUrl;
-            });
+            document.querySelector('#promo-link').href = offerUrl;
           });
         </script>
       </body>

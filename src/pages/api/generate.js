@@ -2,6 +2,7 @@ import { generateVSLPage } from '../../lib/generators/vsl';
 import { generateEcomPage } from '../../lib/generators/ecom';
 import { generateAdultLander } from '../../lib/generators/adult';
 import { generateQuizPage } from '../../lib/generators/quiz';
+import { generateProductDetailPage } from '../../lib/generators/product-detail';
 import { generatePrivacyPolicy, generateTermsOfService } from '../../lib/generators/legal';
 import { getRandomStyle } from '../../lib/utils/style-variations';
 import JSZip from 'jszip';
@@ -48,6 +49,31 @@ export default async function handler(req, res) {
       case 'quiz':
         console.log('Generating Quiz page...');
         html = generateQuizPage(data);
+        
+        // Generate product detail pages for the quiz
+        const productDetailPages = {};
+        const productNames = [
+          data.productName || 'Alpha Bites',
+          'Daily Rise Gummies',
+          'Generic Viagra'
+        ];
+        
+        // Generate a product detail page for each product
+        for (const productName of productNames) {
+          const productSlug = productName.toLowerCase().replace(/\s+/g, '-');
+          const productFileName = `product-${productSlug}.html`;
+          
+          // Create product-specific data
+          const productData = {
+            ...data,
+            productName,
+            productImage: `https://via.placeholder.com/600x400/FF5733/FFFFFF?text=${encodeURIComponent(productName)}`,
+            styles: data.styles // Use the same styles as the quiz
+          };
+          
+          // Generate the product detail page
+          productDetailPages[productFileName] = generateProductDetailPage(productData);
+        }
         break;
       default:
         throw new Error('Invalid page type');
@@ -69,9 +95,33 @@ export default async function handler(req, res) {
     zip.file('index.html', html);
     zip.file('privacy.html', privacy);
     zip.file('terms.html', terms);
+    
+    // Add product detail pages if they exist
+    if (type === 'quiz' && productDetailPages) {
+      for (const [fileName, content] of Object.entries(productDetailPages)) {
+        zip.file(fileName, content);
+      }
+    }
 
     // Generate zip file as base64
     const zipContent = await zip.generateAsync({ type: 'base64' });
+    
+    // Create manifest of files
+    const manifest = {
+      files: [
+        'index.html',
+        'privacy.html',
+        'terms.html'
+      ]
+    };
+    
+    // Add product detail pages to manifest if they exist
+    if (type === 'quiz' && productDetailPages) {
+      manifest.files = [
+        ...manifest.files,
+        ...Object.keys(productDetailPages)
+      ];
+    }
 
     return res.status(200).json({
       html,
@@ -79,13 +129,7 @@ export default async function handler(req, res) {
       terms,
       success: true,
       zipContent,
-      manifest: {
-        files: [
-          'index.html',
-          'privacy.html',
-          'terms.html'
-        ]
-      }
+      manifest
     });
 
   } catch (error) {
