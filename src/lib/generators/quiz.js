@@ -617,116 +617,74 @@ export const generateQuizPage = (data) => {
             <form id="${ids.quizForm}" class="quiz-form">
               <!-- Step 1: Age -->
               <div class="quiz-step active" data-step="1">
-                <h2 class="quiz-title">What is your age?</h2>
+                <h2 class="question">What is your age?</h2>
                 <p class="quiz-description">We'll use this to provide the most relevant recommendations for you.</p>
                 
-                <div class="options-grid">
-                  <div class="option-card" data-value="18-29">
-                    <div class="option-content">18-29</div>
-                  </div>
-                  <div class="option-card" data-value="30-39">
-                    <div class="option-content">30-39</div>
-                  </div>
-                  <div class="option-card" data-value="40-49">
-                    <div class="option-content">40-49</div>
-                  </div>
-                  <div class="option-card" data-value="50-59">
-                    <div class="option-content">50-59</div>
-                  </div>
-                  <div class="option-card" data-value="60+">
-                    <div class="option-content">60+</div>
-                  </div>
+                <div class="options">
+                  <div class="option" data-value="18-29">18-29</div>
+                  <div class="option" data-value="30-39">30-39</div>
+                  <div class="option" data-value="40-49">40-49</div>
+                  <div class="option" data-value="50-59">50-59</div>
+                  <div class="option" data-value="60+">60+</div>
                 </div>
               </div>
               
               <!-- Step 2: Frequency -->
               <div class="quiz-step" data-step="2">
-                <h2 class="quiz-title">How often do you experience ED symptoms?</h2>
+                <h2 class="question">How often do you experience ED symptoms?</h2>
                 <p class="quiz-description">This helps us understand the severity of your symptoms.</p>
                 
-                <div class="options-grid">
-                  <div class="option-card" data-value="rarely">
-                    <div class="option-content">Rarely</div>
-                  </div>
-                  <div class="option-card" data-value="occasionally">
-                    <div class="option-content">Occasionally</div>
-                  </div>
-                  <div class="option-card" data-value="frequently">
-                    <div class="option-content">Frequently</div>
-                  </div>
-                  <div class="option-card" data-value="always">
-                    <div class="option-content">Almost Always</div>
-                  </div>
+                <div class="options">
+                  <div class="option" data-value="rarely">Rarely</div>
+                  <div class="option" data-value="occasionally">Occasionally</div>
+                  <div class="option" data-value="frequently">Frequently</div>
+                  <div class="option" data-value="always">Almost Always</div>
                 </div>
               </div>
               
               <!-- Step 3: Duration -->
               <div class="quiz-step" data-step="3">
-                <h2 class="quiz-title">How long have you been experiencing ED symptoms?</h2>
+                <h2 class="question">How long have you been experiencing ED symptoms?</h2>
                 <p class="quiz-description">Duration can help determine the best treatment approach.</p>
                 
-                <div class="options-grid">
-                  <div class="option-card" data-value="recent">
-                    <div class="option-content">Less than 3 months</div>
-                  </div>
-                  <div class="option-card" data-value="moderate">
-                    <div class="option-content">3-12 months</div>
-                  </div>
-                  <div class="option-card" data-value="long">
-                    <div class="option-content">1-3 years</div>
-                  </div>
-                  <div class="option-card" data-value="chronic">
-                    <div class="option-content">More than 3 years</div>
-                  </div>
+                <div class="options">
+                  <div class="option" data-value="recent">Less than 3 months</div>
+                  <div class="option" data-value="moderate">3-12 months</div>
+                  <div class="option" data-value="long">1-3 years</div>
+                  <div class="option" data-value="chronic">More than 3 years</div>
                 </div>
               </div>
               
               <!-- Step 4: Previous Treatments -->
               <div class="quiz-step" data-step="4">
-                <h2 class="quiz-title">Have you tried ED medications before?</h2>
+                <h2 class="question">Have you tried ED medications before?</h2>
                 <p class="quiz-description">This helps us understand what has or hasn't worked for you.</p>
                 
-                <div class="options-grid">
-                  <div class="option-card" data-value="none">
-                    <div class="option-content">No, never tried any</div>
-                  </div>
-                  <div class="option-card" data-value="otc">
-                    <div class="option-content">Only over-the-counter</div>
-                  </div>
-                  <div class="option-card" data-value="prescription">
-                    <div class="option-content">Prescription (Viagra, etc.)</div>
-                  </div>
-                  <div class="option-card" data-value="multiple">
-                    <div class="option-content">Multiple types</div>
-                  </div>
+                <div class="options">
+                  <div class="option" data-value="none">No, never tried any</div>
+                  <div class="option" data-value="otc">Only over-the-counter</div>
+                  <div class="option" data-value="prescription">Prescription (Viagra, etc.)</div>
+                  <div class="option" data-value="multiple">Multiple types</div>
                 </div>
               </div>
               
               <!-- Step 5: Goals -->
               <div class="quiz-step" data-step="5">
-                <h2 class="quiz-title">What's most important to you in an ED treatment?</h2>
+                <h2 class="question">What's most important to you in an ED treatment?</h2>
                 <p class="quiz-description">This helps us match you with the right solution.</p>
                 
-                <div class="options-grid">
-                  <div class="option-card" data-value="speed">
-                    <div class="option-content">Fast-acting</div>
-                  </div>
-                  <div class="option-card" data-value="duration">
-                    <div class="option-content">Long-lasting</div>
-                  </div>
-                  <div class="option-card" data-value="natural">
-                    <div class="option-content">Natural ingredients</div>
-                  </div>
-                  <div class="option-card" data-value="price">
-                    <div class="option-content">Affordability</div>
-                  </div>
+                <div class="options">
+                  <div class="option" data-value="speed">Fast-acting</div>
+                  <div class="option" data-value="duration">Long-lasting</div>
+                  <div class="option" data-value="natural">Natural ingredients</div>
+                  <div class="option" data-value="price">Affordability</div>
                 </div>
               </div>
               
               <!-- Results -->
               <div class="quiz-step quiz-results" data-step="results">
                 <div class="results-header">
-                  <h2 class="quiz-title">Your Personalized ED Solution</h2>
+                  <h2 class="question">Your Personalized ED Solution</h2>
                   <p class="quiz-description">Based on your answers, we've identified the best options for you.</p>
                 </div>
                 
@@ -848,10 +806,13 @@ export const generateQuizPage = (data) => {
             }
             
             // Handle option selection
-            document.querySelectorAll('.option-card').forEach(option => {
+            document.querySelectorAll('.option').forEach(option => {
               option.addEventListener('click', function() {
                 const currentStepEl = document.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
-                const options = currentStepEl.querySelectorAll('.option-card');
+                const options = currentStepEl.querySelectorAll('.option');
+                
+                // Add ripple effect
+                this.classList.add('ripple');
                 
                 options.forEach(opt => opt.classList.remove('selected'));
                 this.classList.add('selected');
