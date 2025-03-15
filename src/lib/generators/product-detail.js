@@ -34,9 +34,19 @@ export const generateProductDetailPage = (data) => {
 
     // Product details with fallbacks
     const productName = mergedData.productName || 'Alpha Bites';
-    const productDescription = mergedData.productDescription || 'Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.';
     const productImage = mergedData.productImage || 'https://via.placeholder.com/600x400/FF5733/FFFFFF?text=' + encodeURIComponent(productName);
     
+    // Hardcoded product descriptions based on product name
+    let productDescription = 'Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.';
+    
+    if (productName === 'AlphaBites') {
+      productDescription = 'Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.';
+    } else if (productName === 'Brazilian Wood') {
+      productDescription = 'Natural herbal formula for sustained performance. Made with premium ingredients from the Amazon rainforest.';
+    } else if (productName === 'EndoPeak') {
+      productDescription = 'Advanced formula designed to maximize blood flow and enhance sensitivity. Clinically tested for optimal results.';
+    }
+
     // Hardcoded doctor information - randomly select one from the list
     const doctors = [
       {
@@ -462,6 +472,49 @@ export const generateProductDetailPage = (data) => {
             .doctor-container { flex-direction: column; }
             .doctor-image, .doctor-content { min-width: 100%; }
           }
+          .money-back-guarantee {
+            background: #f8f9fa;
+            padding: 3rem 0;
+            margin: 3rem 0;
+          }
+          .guarantee-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+          }
+          .guarantee-image {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+          }
+          .guarantee-content {
+            flex: 3;
+            min-width: 300px;
+          }
+          .guarantee-content h2 {
+            font-family: ${styles.fonts.heading};
+            font-weight: ${styles.fonts.weights.heading};
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+          }
+          .guarantee-content p {
+            color: #666;
+            line-height: 1.6;
+          }
+          @media (max-width: 768px) {
+            .guarantee-container {
+              flex-direction: column;
+              text-align: center;
+            }
+          }
         </style>
       </head>
       <body>
@@ -664,20 +717,36 @@ export const generateProductDetailPage = (data) => {
           
           <section id="${ids.container}" class="trust-badges">
             <div class="trust-badge">
-              <img src="https://cdn-icons-png.flaticon.com/512/2990/2990155.png" alt="FDA Approved">
+              <img src="https://i.imgur.com/iy0JXRq.png" alt="FDA Approved">
               <p>FDA Approved</p>
             </div>
             <div class="trust-badge">
-              <img src="https://cdn-icons-png.flaticon.com/512/2519/2519367.png" alt="Secure Ordering">
+              <img src="https://i.imgur.com/Kp6pcWY.png" alt="Secure Ordering">
               <p>Secure Ordering</p>
             </div>
             <div class="trust-badge">
-              <img src="https://cdn-icons-png.flaticon.com/512/1950/1950715.png" alt="Discreet Packaging">
+              <img src="https://i.imgur.com/YKAuphN.png" alt="Discreet Packaging">
               <p>Discreet Packaging</p>
             </div>
             <div class="trust-badge">
-              <img src="https://cdn-icons-png.flaticon.com/512/4233/4233839.png" alt="24/7 Support">
+              <img src="https://i.imgur.com/Po9MDwu.png" alt="24/7 Support">
               <p>24/7 Support</p>
+            </div>
+            <div class="trust-badge">
+              <img src="https://i.imgur.com/sMWQCaM.png" alt="90-Day Money Back Guarantee">
+              <p>90-Day Money Back Guarantee</p>
+            </div>
+          </section>
+          
+          <section id="${ids.container}" class="money-back-guarantee">
+            <div class="guarantee-container">
+              <div class="guarantee-image">
+                <img src="https://i.imgur.com/sMWQCaM.png" alt="90-Day Money Back Guarantee" width="150">
+              </div>
+              <div class="guarantee-content">
+                <h2>90-Day Money Back Guarantee</h2>
+                <p>We're so confident in the effectiveness of ${productName} that we offer a full 90-day money back guarantee. If you're not completely satisfied with your results, simply return the unused portion for a full refund, no questions asked.</p>
+              </div>
             </div>
           </section>
           

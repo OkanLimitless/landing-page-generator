@@ -41,17 +41,17 @@ export const generateQuizPage = (data) => {
       { 
         name: 'AlphaBites', 
         link: 'product-alphabites.html',
-        description: 'Fast-acting formula with dual-action benefits'
+        description: 'Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.'
       },
       { 
         name: 'Brazilian Wood', 
         link: 'product-brazilian-wood.html',
-        description: 'Natural herbal formula for sustained performance'
+        description: 'Natural herbal formula for sustained performance. Made with premium ingredients from the Amazon rainforest.'
       },
       { 
         name: 'EndoPeak', 
         link: 'product-endopeak.html',
-        description: 'Advanced formula for maximum potency'
+        description: 'Advanced formula designed to maximize blood flow and enhance sensitivity. Clinically tested for optimal results.'
       }
     ];
 

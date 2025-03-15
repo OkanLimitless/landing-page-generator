@@ -63,15 +63,18 @@ export default async function handler(req, res) {
         const productData = {
           'AlphaBites': {
             url: 'https://afflat3e1.com/trk/lnk/7EF4AD2B-B866-46E8-AE93-217072D69F31/?o=28584&c=918277&a=271469&k=C710AE04C0E95E8AF6C4BC458930795E&l=31571',
-            image: 'https://i.imgur.com/VTN5W8c.png'
+            image: 'https://i.imgur.com/VTN5W8c.png',
+            description: 'Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.'
           },
           'Brazilian Wood': {
             url: 'https://afflat3e1.com/trk/lnk/7EF4AD2B-B866-46E8-AE93-217072D69F31/?o=26286&c=918277&a=271469&k=FD40240F18D488603D3C98D218ED5998&l=32307',
-            image: 'https://i.imgur.com/g5LZLPR.png'
+            image: 'https://i.imgur.com/g5LZLPR.png',
+            description: 'Natural herbal formula for sustained performance. Made with premium ingredients from the Amazon rainforest.'
           },
           'EndoPeak': {
             url: 'https://endopeak24.com/b/order-now.php?aff_id=130095',
-            image: 'https://i.imgur.com/C6UJxbC.png'
+            image: 'https://i.imgur.com/C6UJxbC.png',
+            description: 'Advanced formula designed to maximize blood flow and enhance sensitivity. Clinically tested for optimal results.'
           }
         };
         
@@ -84,6 +87,7 @@ export default async function handler(req, res) {
           const productPageData = {
             ...data,
             productName,
+            productDescription: productData[productName].description,
             productImage: productData[productName].image,
             offerUrl: productData[productName].url,
             styles: data.styles // Use the same styles as the quiz

@@ -25,7 +25,6 @@ export const contentPresets = {
     ctaText: "Discover the Strategy"
   },
   edQuiz: {
-    productDescription: "Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.",
     gtagId: "AW-XXXXXXXXXX/XXXXXXXXXXXXX",
     trackingScript: ""
   }

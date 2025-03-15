@@ -248,17 +248,6 @@ const QuizForm = ({ formData, setFormData }) => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <label className="block text-sm font-medium mb-2">Product Description</label>
-        <textarea 
-          name="productDescription" 
-          value={formData.productDescription} 
-          onChange={handleChange} 
-          className={commonTextareaClass}
-          placeholder="Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours." 
-        />
-      </div>
-
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <label className="block text-sm font-medium mb-2">Google Ads ID</label>
@@ -324,9 +313,6 @@ const Generator = () => {
 
   // Add quiz form data state
   const [quizFormData, setQuizFormData] = useState({
-    productName: 'Alpha Bites',
-    productDescription: 'Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.',
-    offerUrl: '',
     gtagId: '',
     trackingScript: ''
   });
