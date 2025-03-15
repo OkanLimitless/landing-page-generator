@@ -90,23 +90,62 @@ export const generateQuizPage = (data) => {
             border-radius: 4px;
             margin: 1rem 0 2rem;
             overflow: hidden;
+            position: relative;
           }
           .progress-bar {
             height: 100%;
             background: ${styles.colors.primary};
             width: var(--progress-width);
-            transition: width 0.3s ease;
+            transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+            position: relative;
+            overflow: hidden;
+          }
+          .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba(255, 255, 255, 0.4),
+              transparent
+            );
+            animation: shimmer 2s infinite;
+          }
+          @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
           }
           .quiz-step {
             display: none;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1), transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+            position: relative;
           }
           .quiz-step.active {
             display: block;
             opacity: 1;
             transform: translateY(0);
+            animation: fadeScale 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+          }
+          @keyframes fadeScale {
+            0% {
+              opacity: 0;
+              transform: translateY(20px) scale(0.98);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+            }
+          }
+          .quiz-step.exit {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.4s cubic-bezier(0.65, 0, 0.35, 1), transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
           }
           .question {
             font-family: ${styles.fonts.heading};
@@ -123,26 +162,71 @@ export const generateQuizPage = (data) => {
             margin-bottom: 2rem;
           }
           .option {
-            padding: 1rem;
+            padding: 1.2rem;
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: ${styles.borderRadius};
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
             font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
           }
           .option:hover {
             background: rgba(255, 255, 255, 0.15);
             border-color: ${styles.colors.primary};
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+          }
+          .option:active {
+            transform: translateY(0);
           }
           .option.selected {
             background: rgba(255, 255, 255, 0.2);
             border-color: ${styles.colors.primary};
+            box-shadow: 0 0 15px rgba(${parseInt(styles.colors.primary.slice(1, 3), 16)}, ${parseInt(styles.colors.primary.slice(3, 5), 16)}, ${parseInt(styles.colors.primary.slice(5, 7), 16)}, 0.3);
+          }
+          .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(120deg, rgba(255,255,255,0.1), rgba(255,255,255,0), rgba(255,255,255,0.1));
+            z-index: 1;
+            pointer-events: none;
+          }
+          .option::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 100%;
+            transform: scale(0);
+            opacity: 0;
+            transition: all 0.5s ease;
+          }
+          .option.ripple::after {
+            animation: ripple 0.6s ease-out;
+          }
+          @keyframes ripple {
+            0% {
+              transform: translate(-50%, -50%) scale(0);
+              opacity: 0.8;
+            }
+            100% {
+              transform: translate(-50%, -50%) scale(40);
+              opacity: 0;
+            }
           }
           .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
+            display: none;
           }
           .nav-button {
             ${styles.button(styles.colors)}
@@ -186,6 +270,7 @@ export const generateQuizPage = (data) => {
             gap: 1.5rem;
             justify-content: center;
             margin: 2rem 0;
+            perspective: 1000px;
           }
           .product-card {
             background: rgba(255, 255, 255, 0.1);
@@ -194,11 +279,26 @@ export const generateQuizPage = (data) => {
             width: 100%;
             max-width: 300px;
             text-align: left;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), box-shadow 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transform: translateZ(0);
+            animation: cardEntrance 0.6s cubic-bezier(0.65, 0, 0.35, 1) both;
+            animation-delay: calc(var(--card-index) * 0.1s);
+          }
+          @keyframes cardEntrance {
+            from {
+              opacity: 0;
+              transform: translateY(20px) rotateX(-10deg);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0) rotateX(0);
+            }
           }
           .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px) translateZ(10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
           }
           .product-image {
             width: 100%;
@@ -326,10 +426,6 @@ export const generateQuizPage = (data) => {
                 <div class="option" data-value="faster">Get hard, faster</div>
                 <div class="option" data-value="all">All of the above</div>
               </div>
-              <div class="navigation">
-                <button type="button" class="nav-button back" disabled>Back</button>
-                <button type="button" class="nav-button next" disabled>Next</button>
-              </div>
             </div>
             
             <!-- Step 2 -->
@@ -338,10 +434,6 @@ export const generateQuizPage = (data) => {
               <div class="options">
                 <div class="option" data-value="asap">As soon as possible</div>
                 <div class="option" data-value="hour">An hour</div>
-              </div>
-              <div class="navigation">
-                <button type="button" class="nav-button back">Back</button>
-                <button type="button" class="nav-button next" disabled>Next</button>
               </div>
             </div>
             
@@ -352,10 +444,6 @@ export const generateQuizPage = (data) => {
                 <div class="option" data-value="yes">Of course!</div>
                 <div class="option" data-value="maybe">Maybe</div>
               </div>
-              <div class="navigation">
-                <button type="button" class="nav-button back">Back</button>
-                <button type="button" class="nav-button next" disabled>Next</button>
-              </div>
             </div>
             
             <!-- Step 4 -->
@@ -364,10 +452,6 @@ export const generateQuizPage = (data) => {
               <div class="options">
                 <div class="option" data-value="yes">Yes, keep it private</div>
                 <div class="option" data-value="no">Doesn't matter</div>
-              </div>
-              <div class="navigation">
-                <button type="button" class="nav-button back">Back</button>
-                <button type="button" class="nav-button next" disabled>Next</button>
               </div>
             </div>
             
@@ -393,21 +477,21 @@ export const generateQuizPage = (data) => {
                 </div>
                 
                 <div class="product-cards">
-                  <div class="product-card">
+                  <div class="product-card" style="--card-index: 0">
                     <img src="https://via.placeholder.com/300x150/FF5733/FFFFFF?text=${productName}" alt="${productName}" class="product-image">
                     <h3 class="product-name">${productName}</h3>
                     <p class="product-description">Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.</p>
                     <a href="#" class="product-cta" id="main-product-cta">Get started</a>
                   </div>
                   
-                  <div class="product-card">
+                  <div class="product-card" style="--card-index: 1">
                     <img src="https://via.placeholder.com/300x150/33A8FF/FFFFFF?text=Daily+Rise" alt="Daily Rise" class="product-image">
                     <h3 class="product-name">Daily Rise Gummies</h3>
                     <p class="product-description">Works continuously, no planning required. Take once daily for 24/7 readiness.</p>
                     <a href="#" class="product-cta" id="alt-product-1-cta">Get started</a>
                   </div>
                   
-                  <div class="product-card">
+                  <div class="product-card" style="--card-index: 2">
                     <img src="https://via.placeholder.com/300x150/33FF57/FFFFFF?text=Generic+Viagra" alt="Generic Viagra" class="product-image">
                     <h3 class="product-name">Generic Viagra®</h3>
                     <p class="product-description">Up to 95% cheaper than branded. Ready in 60 minutes, lasts for 6 hours.</p>
@@ -466,65 +550,73 @@ export const generateQuizPage = (data) => {
             const progressBar = document.querySelector('.progress-bar');
             const totalSteps = steps.length;
             let currentStep = 1;
+            let answers = {};
             
-            // Option selection
+            // Add staggered animation to options
+            function animateOptions(stepEl) {
+              const options = stepEl.querySelectorAll('.option');
+              options.forEach((option, index) => {
+                option.style.opacity = '0';
+                option.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                  option.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                  option.style.opacity = '1';
+                  option.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+              });
+            }
+            
+            // Animate initial options
+            animateOptions(steps[0]);
+            
+            // Option selection and auto-proceed
             quizForm.querySelectorAll('.option').forEach(option => {
               option.addEventListener('click', function() {
-                // Deselect all options in the same step
-                const parentStep = this.closest('.quiz-step');
-                parentStep.querySelectorAll('.option').forEach(opt => {
-                  opt.classList.remove('selected');
-                });
+                // Add ripple effect
+                this.classList.add('ripple');
+                
+                // Store the answer
+                const step = this.closest('.quiz-step').getAttribute('data-step');
+                const value = this.getAttribute('data-value');
+                answers[step] = value;
                 
                 // Select this option
                 this.classList.add('selected');
                 
-                // Enable next button
-                parentStep.querySelector('.next').removeAttribute('disabled');
-              });
-            });
-            
-            // Navigation buttons
-            quizForm.querySelectorAll('.nav-button.next').forEach(button => {
-              button.addEventListener('click', function() {
-                const currentStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
-                currentStepEl.classList.remove('active');
-                
-                currentStep++;
-                
-                // Update progress bar
-                progressBar.style.setProperty('--progress-width', \`\${(currentStep / totalSteps) * 100}%\`);
-                
-                // Show next step
-                const nextStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
-                nextStepEl.classList.add('active');
-                
-                // Fire conversion event on last step
-                if (currentStep === totalSteps) {
-                  if (window.gtag) {
-                    gtag('event', 'conversion', {
-                      'send_to': '${gtagAccount}/${gtagLabel}'
-                    });
+                // Wait for ripple animation
+                setTimeout(() => {
+                  // Proceed to next step
+                  if (currentStep < totalSteps) {
+                    const currentStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
+                    currentStepEl.classList.add('exit');
+                    
+                    setTimeout(() => {
+                      currentStepEl.classList.remove('active', 'exit');
+                      currentStep++;
+                      
+                      // Update progress bar with animation
+                      progressBar.style.setProperty('--progress-width', \`\${(currentStep / totalSteps) * 100}%\`);
+                      
+                      // Show next step
+                      const nextStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
+                      nextStepEl.classList.add('active');
+                      
+                      // Animate options in the new step
+                      if (currentStep < totalSteps) {
+                        animateOptions(nextStepEl);
+                      }
+                      
+                      // Fire conversion event on last step
+                      if (currentStep === totalSteps) {
+                        if (window.gtag) {
+                          gtag('event', 'conversion', {
+                            'send_to': '${gtagAccount}/${gtagLabel}'
+                          });
+                        }
+                      }
+                    }, 400); // Match the exit animation duration
                   }
-                }
-              });
-            });
-            
-            quizForm.querySelectorAll('.nav-button.back').forEach(button => {
-              button.addEventListener('click', function() {
-                if (currentStep > 1) {
-                  const currentStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
-                  currentStepEl.classList.remove('active');
-                  
-                  currentStep--;
-                  
-                  // Update progress bar
-                  progressBar.style.setProperty('--progress-width', \`\${(currentStep / totalSteps) * 100}%\`);
-                  
-                  // Show previous step
-                  const prevStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
-                  prevStepEl.classList.add('active');
-                }
+                }, 300); // Wait for ripple effect
               });
             });
             
