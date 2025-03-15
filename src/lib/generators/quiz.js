@@ -88,6 +88,67 @@ export const generateQuizPage = (data) => {
             display: flex;
             flex-direction: column;
           }
+          
+          /* Loading animation styles */
+          .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: ${styles.background.main};
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+          }
+          .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid ${styles.colors.primary};
+            animation: spin 1s linear infinite;
+          }
+          .loading-text {
+            margin-top: 20px;
+            font-size: 18px;
+            color: white;
+            font-family: ${styles.fonts.heading};
+            font-weight: ${styles.fonts.weights.heading};
+          }
+          .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 15px;
+            border-radius: 2px;
+            overflow: hidden;
+          }
+          .loading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: ${styles.colors.primary};
+            transition: width 0.5s ease-out;
+          }
+          .loading-title {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 20px;
+            font-family: ${styles.fonts.heading};
+            font-weight: ${styles.fonts.weights.heading};
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .content-container {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+          }
+          
           #${ids.container} {
             width: 90%;
             max-width: ${styles.container.maxWidth};
@@ -517,115 +578,156 @@ export const generateQuizPage = (data) => {
         </style>
       </head>
       <body>
-        <div class="promo-banner">
-          Get $15 off your first ED order, if prescribed. <a href="#" id="promo-link">Start now</a>
+        <!-- Loading overlay -->
+        <div class="loading-overlay" id="loading-overlay">
+          <div class="loading-title">ED Quiz</div>
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Preparing your personalized quiz...</div>
+          <div class="loading-progress">
+            <div class="loading-progress-bar" id="loading-progress-bar"></div>
+          </div>
         </div>
-        ${decorativeHTML}
-        <main id="${ids.container}">
-          <div class="logo">ro</div>
-          <div class="back-button">
+        
+        <!-- Main content container -->
+        <div class="content-container" id="content-container">
+          <div class="back-button" id="back-button">
             <svg viewBox="0 0 24 24">
               <path d="M19 12H5M12 19l-7-7 7-7"></path>
             </svg>
           </div>
-          <div class="progress-container">
-            <div class="progress-bar"></div>
+          
+          <div class="step-counter" id="step-counter">
+            <div class="step-counter-text">1/5</div>
+            <div class="step-counter-progress">
+              <div class="step-counter-circle"></div>
+              <div class="step-counter-progress-circle right" style="--progress-rotation: 0deg"></div>
+              <div class="step-counter-progress-circle" style="--progress-rotation: 0deg"></div>
+            </div>
           </div>
           
-          <form id="${ids.quizForm}">
-            <!-- Step 1 -->
-            <div class="quiz-step active" data-step="1">
-              <div class="step-counter">
-                1/4
-                <div class="step-counter-progress">
-                  <div class="step-counter-circle"></div>
-                  <div class="step-counter-progress-circle" style="--progress-rotation: 90deg;"></div>
-                  <div class="step-counter-progress-circle right" style="--progress-rotation: 0deg;"></div>
-                  <div class="step-counter-text">1/4</div>
-                </div>
-              </div>
-              <h2 class="question">How do you want to improve your sex life?</h2>
-              <div class="options">
-                <div class="option" data-value="stronger">Stronger erections</div>
-                <div class="option" data-value="longer">Longer lasting erections</div>
-                <div class="option" data-value="faster">Get hard, faster</div>
-                <div class="option" data-value="all">All of the above</div>
-              </div>
+          ${decorativeHTML}
+          
+          <main id="${ids.container}">
+            <div class="logo">ro</div>
+            
+            <div class="progress-container">
+              <div class="progress-bar" id="progress-bar"></div>
             </div>
             
-            <!-- Step 2 -->
-            <div class="quiz-step" data-step="2">
-              <div class="step-counter">
-                2/4
-                <div class="step-counter-progress">
-                  <div class="step-counter-circle"></div>
-                  <div class="step-counter-progress-circle" style="--progress-rotation: 180deg;"></div>
-                  <div class="step-counter-progress-circle right" style="--progress-rotation: 0deg;"></div>
-                  <div class="step-counter-text">2/4</div>
-                </div>
-              </div>
-              <h2 class="question">How quickly do you want to get hard when the mood is right?</h2>
-              <div class="options">
-                <div class="option" data-value="asap">As soon as possible</div>
-                <div class="option" data-value="hour">An hour</div>
-              </div>
-            </div>
-            
-            <!-- Step 3 -->
-            <div class="quiz-step" data-step="3">
-              <div class="step-counter">
-                3/4
-                <div class="step-counter-progress">
-                  <div class="step-counter-circle"></div>
-                  <div class="step-counter-progress-circle" style="--progress-rotation: 270deg;"></div>
-                  <div class="step-counter-progress-circle right" style="--progress-rotation: 0deg;"></div>
-                  <div class="step-counter-text">3/4</div>
-                </div>
-              </div>
-              <h2 class="question">Do you want benefits from the active ingredients in Viagra and Cialis in one treatment?</h2>
-              <div class="options">
-                <div class="option" data-value="yes">Of course!</div>
-                <div class="option" data-value="maybe">Maybe</div>
-              </div>
-            </div>
-            
-            <!-- Step 4 -->
-            <div class="quiz-step" data-step="4">
-              <div class="step-counter">
-                4/4
-                <div class="step-counter-progress">
-                  <div class="step-counter-circle"></div>
-                  <div class="step-counter-progress-circle" style="--progress-rotation: 360deg;"></div>
-                  <div class="step-counter-progress-circle right" style="--progress-rotation: 180deg;"></div>
-                  <div class="step-counter-text">4/4</div>
-                </div>
-              </div>
-              <h2 class="question">Do you want your treatment shipped to your home in discreet packaging?</h2>
-              <div class="options">
-                <div class="option" data-value="yes">Yes, keep it private</div>
-                <div class="option" data-value="no">Doesn't matter</div>
-              </div>
-            </div>
-            
-            <!-- Results -->
-            <div class="quiz-step" data-step="5">
-              <div class="results">
-                <h2 class="results-heading">Great news! We've got treatment options.</h2>
-                <p class="results-subheading">Based on your answers, we recommend the following products:</p>
+            <form id="${ids.quizForm}" class="quiz-form">
+              <!-- Step 1: Age -->
+              <div class="quiz-step active" data-step="1">
+                <h2 class="quiz-title">What is your age?</h2>
+                <p class="quiz-description">We'll use this to provide the most relevant recommendations for you.</p>
                 
-                <div class="benefits">
-                  <div class="benefit">
-                    <div class="benefit-icon">✓</div>
-                    <span>Prescribed by licensed providers</span>
+                <div class="options-grid">
+                  <div class="option-card" data-value="18-29">
+                    <div class="option-content">18-29</div>
                   </div>
-                  <div class="benefit">
-                    <div class="benefit-icon">✓</div>
-                    <span>100% online with discreet shipping</span>
+                  <div class="option-card" data-value="30-39">
+                    <div class="option-content">30-39</div>
                   </div>
-                  <div class="benefit">
-                    <div class="benefit-icon">✓</div>
-                    <span>Personalized treatment plans</span>
+                  <div class="option-card" data-value="40-49">
+                    <div class="option-content">40-49</div>
                   </div>
+                  <div class="option-card" data-value="50-59">
+                    <div class="option-content">50-59</div>
+                  </div>
+                  <div class="option-card" data-value="60+">
+                    <div class="option-content">60+</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Step 2: Frequency -->
+              <div class="quiz-step" data-step="2">
+                <h2 class="quiz-title">How often do you experience ED symptoms?</h2>
+                <p class="quiz-description">This helps us understand the severity of your symptoms.</p>
+                
+                <div class="options-grid">
+                  <div class="option-card" data-value="rarely">
+                    <div class="option-content">Rarely</div>
+                  </div>
+                  <div class="option-card" data-value="occasionally">
+                    <div class="option-content">Occasionally</div>
+                  </div>
+                  <div class="option-card" data-value="frequently">
+                    <div class="option-content">Frequently</div>
+                  </div>
+                  <div class="option-card" data-value="always">
+                    <div class="option-content">Almost Always</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Step 3: Duration -->
+              <div class="quiz-step" data-step="3">
+                <h2 class="quiz-title">How long have you been experiencing ED symptoms?</h2>
+                <p class="quiz-description">Duration can help determine the best treatment approach.</p>
+                
+                <div class="options-grid">
+                  <div class="option-card" data-value="recent">
+                    <div class="option-content">Less than 3 months</div>
+                  </div>
+                  <div class="option-card" data-value="moderate">
+                    <div class="option-content">3-12 months</div>
+                  </div>
+                  <div class="option-card" data-value="long">
+                    <div class="option-content">1-3 years</div>
+                  </div>
+                  <div class="option-card" data-value="chronic">
+                    <div class="option-content">More than 3 years</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Step 4: Previous Treatments -->
+              <div class="quiz-step" data-step="4">
+                <h2 class="quiz-title">Have you tried ED medications before?</h2>
+                <p class="quiz-description">This helps us understand what has or hasn't worked for you.</p>
+                
+                <div class="options-grid">
+                  <div class="option-card" data-value="none">
+                    <div class="option-content">No, never tried any</div>
+                  </div>
+                  <div class="option-card" data-value="otc">
+                    <div class="option-content">Only over-the-counter</div>
+                  </div>
+                  <div class="option-card" data-value="prescription">
+                    <div class="option-content">Prescription (Viagra, etc.)</div>
+                  </div>
+                  <div class="option-card" data-value="multiple">
+                    <div class="option-content">Multiple types</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Step 5: Goals -->
+              <div class="quiz-step" data-step="5">
+                <h2 class="quiz-title">What's most important to you in an ED treatment?</h2>
+                <p class="quiz-description">This helps us match you with the right solution.</p>
+                
+                <div class="options-grid">
+                  <div class="option-card" data-value="speed">
+                    <div class="option-content">Fast-acting</div>
+                  </div>
+                  <div class="option-card" data-value="duration">
+                    <div class="option-content">Long-lasting</div>
+                  </div>
+                  <div class="option-card" data-value="natural">
+                    <div class="option-content">Natural ingredients</div>
+                  </div>
+                  <div class="option-card" data-value="price">
+                    <div class="option-content">Affordability</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Results -->
+              <div class="quiz-step quiz-results" data-step="results">
+                <div class="results-header">
+                  <h2 class="quiz-title">Your Personalized ED Solution</h2>
+                  <p class="quiz-description">Based on your answers, we've identified the best options for you.</p>
                 </div>
                 
                 <div class="quiz-results-products">
@@ -644,208 +746,135 @@ export const generateQuizPage = (data) => {
                   `).join('')}
                 </div>
               </div>
+            </form>
+          </main>
+          
+          <footer id="${ids.footer}">
+            <div class="container">
+              <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+              </div>
+              <div class="footer-disclaimer">
+                This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google. 
+                YouTube is a trademark of Google Inc.
+              </div>
+              <div>&copy; ${new Date().getFullYear()} All rights reserved</div>
             </div>
-          </form>
-        </main>
-        
-        <footer id="${ids.footer}">
-          <div class="container">
-            <div class="footer-links">
-              <a href="privacy.html">Privacy Policy</a>
-              <a href="terms.html">Terms of Service</a>
-            </div>
-            <div class="footer-disclaimer">
-              This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google. 
-              YouTube is a trademark of Google Inc.
-            </div>
-            <div>&copy; ${new Date().getFullYear()} All rights reserved</div>
-          </div>
-        </footer>
+          </footer>
+        </div>
         
         <script>
           document.addEventListener('DOMContentLoaded', function() {
-            // Get URL parameters
-            function getUrlParameter(name) {
-              name = name.replace(/[\\[]/, '\\\\[').replace(/[\\]]/, '\\\\]');
-              var regex = new RegExp('[\\\\?&]' + name + '=([^&#]*)');
-              var results = regex.exec(location.search);
-              return results === null ? '' : decodeURIComponent(results[1].replace(/\\+/g, ' '));
-            }
+            // Loading animation
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const contentContainer = document.getElementById('content-container');
+            const progressBar = document.getElementById('loading-progress-bar');
             
-            // Build offer URL with tracking parameters
-            function buildOfferUrl() {
-              const baseUrl = '${mergedData.offerUrl || '#'}';
-              // Create a URLSearchParams object for cleaner parameter handling
-              const params = new URLSearchParams();
-              
-              // Add a random parameter to help avoid Google's policy flags
-              params.append('rand', Math.floor(Math.random() * 1000).toString());
-              
-              // Add the tracking parameters
-              params.append('gclid', getUrlParameter('gclid') || '');
-              params.append('gtag_id', '${gtagAccount}');
-              params.append('gtag_label', '${gtagLabel}');
-              
-              return \`\${baseUrl}?\${params.toString()}\`;
-            }
+            // Simulate loading progress
+            let progress = 0;
+            const loadingInterval = setInterval(() => {
+              progress += Math.random() * 10;
+              if (progress >= 100) {
+                progress = 100;
+                clearInterval(loadingInterval);
+                
+                // Hide loading overlay and show content
+                setTimeout(() => {
+                  loadingOverlay.style.opacity = '0';
+                  contentContainer.style.opacity = '1';
+                  
+                  // Remove loading overlay after fade out
+                  setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                  }, 500);
+                }, 500);
+              }
+              progressBar.style.width = progress + '%';
+            }, 200);
             
             // Quiz functionality
             const quizForm = document.getElementById('${ids.quizForm}');
-            const steps = quizForm.querySelectorAll('.quiz-step');
-            const progressBar = document.querySelector('.progress-bar');
-            const backButton = document.querySelector('.back-button');
-            const totalSteps = steps.length - 1; // Exclude results step
+            const progressBarEl = document.getElementById('progress-bar');
+            const backButton = document.getElementById('back-button');
+            const stepCounter = document.getElementById('step-counter');
+            const steps = document.querySelectorAll('.quiz-step');
+            const totalSteps = steps.length - 1; // Exclude results
             let currentStep = 1;
-            let answers = {};
             
-            // Initialize progress bar
-            progressBar.style.setProperty('--progress-width', '25%');
-            
-            // Update step counter
-            function updateStepCounter(step) {
-              const counterText = \`\${step}/\${totalSteps}\`;
-              const currentStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${step}"]\`);
-              if (currentStepEl) {
-                const counterEl = currentStepEl.querySelector('.step-counter');
-                if (counterEl) counterEl.textContent = counterText;
-              }
-            }
-            
-            // Initialize step counters
-            for (let i = 1; i <= totalSteps; i++) {
-              updateStepCounter(i);
-            }
-            
-            // Add staggered animation to options
-            function animateOptions(stepEl) {
-              const options = stepEl.querySelectorAll('.option');
-              options.forEach((option, index) => {
-                option.style.opacity = '0';
-                option.style.transform = 'translateY(10px)';
-                setTimeout(() => {
-                  option.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                  option.style.opacity = '1';
-                  option.style.transform = 'translateY(0)';
-                }, 100 + (index * 100));
-              });
-            }
-            
-            // Animate product cards in results page
-            function animateProductCards() {
-              const cards = document.querySelectorAll('.product-card');
-              cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px) rotateX(-10deg)';
-                setTimeout(() => {
-                  card.style.transition = 'opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1), transform 0.6s cubic-bezier(0.65, 0, 0.35, 1)';
-                  card.style.opacity = '1';
-                  card.style.transform = 'translateY(0) rotateX(0)';
-                }, 300 + (index * 150));
-              });
-            }
-            
-            // Animate initial options
-            animateOptions(steps[0]);
-            
-            // Back button functionality
-            backButton.addEventListener('click', function() {
+            // Update progress bar and step counter
+            function updateProgress() {
+              const progressWidth = ((currentStep - 1) / (totalSteps - 1)) * 100;
+              progressBarEl.style.setProperty('--progress-width', progressWidth + '%');
+              
               if (currentStep > 1) {
-                const currentStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
-                currentStepEl.classList.add('exit');
-                
-                setTimeout(() => {
-                  currentStepEl.classList.remove('active', 'exit');
-                  currentStep--;
-                  
-                  // Update progress bar with animation
-                  progressBar.style.setProperty('--progress-width', \`\${(currentStep / totalSteps) * 100}%\`);
-                  
-                  // Show previous step
-                  const prevStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
-                  prevStepEl.classList.add('active');
-                  
-                  // Animate options in the previous step
-                  animateOptions(prevStepEl);
-                  
-                  // Update back button visibility
-                  if (currentStep === 1) {
-                    backButton.classList.remove('visible');
-                  } else {
-                    backButton.classList.add('visible');
-                  }
-                }, 400);
+                backButton.classList.add('visible');
+              } else {
+                backButton.classList.remove('visible');
               }
-            });
+              
+              if (currentStep <= totalSteps) {
+                stepCounter.querySelector('.step-counter-text').textContent = currentStep + '/' + totalSteps;
+              }
+            }
             
-            // Option selection and auto-proceed
-            quizForm.querySelectorAll('.option').forEach(option => {
+            // Go to next step
+            function goToNextStep() {
+              if (currentStep <= totalSteps) {
+                document.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`).classList.remove('active');
+                currentStep++;
+                
+                if (currentStep <= totalSteps) {
+                  document.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`).classList.add('active');
+                  updateProgress();
+                } else {
+                  // Show results
+                  document.querySelector('.quiz-step[data-step="results"]').classList.add('active');
+                  backButton.classList.remove('visible');
+                  stepCounter.style.display = 'none';
+                  progressBarEl.style.setProperty('--progress-width', '100%');
+                }
+              }
+            }
+            
+            // Go to previous step
+            function goToPrevStep() {
+              if (currentStep > 1) {
+                document.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`).classList.remove('active');
+                currentStep--;
+                document.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`).classList.add('active');
+                updateProgress();
+              }
+            }
+            
+            // Handle option selection
+            document.querySelectorAll('.option-card').forEach(option => {
               option.addEventListener('click', function() {
-                // Add ripple effect
-                this.classList.add('ripple');
+                const currentStepEl = document.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
+                const options = currentStepEl.querySelectorAll('.option-card');
                 
-                // Store the answer
-                const step = this.closest('.quiz-step').getAttribute('data-step');
-                const value = this.getAttribute('data-value');
-                answers[step] = value;
-                
-                // Select this option
+                options.forEach(opt => opt.classList.remove('selected'));
                 this.classList.add('selected');
                 
-                // Wait for ripple animation
-                setTimeout(() => {
-                  // Proceed to next step
-                  if (currentStep <= totalSteps) {
-                    const currentStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
-                    currentStepEl.classList.add('exit');
-                    
-                    setTimeout(() => {
-                      currentStepEl.classList.remove('active', 'exit');
-                      currentStep++;
-                      
-                      // Update progress bar with animation
-                      if (currentStep <= totalSteps) {
-                        progressBar.style.setProperty('--progress-width', \`\${(currentStep / totalSteps) * 100}%\`);
-                      } else {
-                        // Set to 100% when on results page
-                        progressBar.style.setProperty('--progress-width', '100%');
-                      }
-                      
-                      // Show next step
-                      const nextStepEl = quizForm.querySelector(\`.quiz-step[data-step="\${currentStep}"]\`);
-                      nextStepEl.classList.add('active');
-                      
-                      // Animate options in the new step or product cards in results
-                      if (currentStep <= totalSteps) {
-                        animateOptions(nextStepEl);
-                      } else if (currentStep === totalSteps + 1) {
-                        // This is the results page
-                        animateProductCards();
-                      }
-                      
-                      // Show back button after first step and hide on results page
-                      if (currentStep > 1 && currentStep <= totalSteps) {
-                        backButton.classList.add('visible');
-                      } else if (currentStep > totalSteps) {
-                        backButton.classList.remove('visible');
-                      }
-                      
-                      // Fire conversion event on last step
-                      if (currentStep === totalSteps + 1) {
-                        if (window.gtag) {
-                          gtag('event', 'conversion', {
-                            'send_to': '${gtagAccount}/${gtagLabel}'
-                          });
-                        }
-                      }
-                    }, 400); // Match the exit animation duration
-                  }
-                }, 300); // Wait for ripple effect
+                // Go to next step after a short delay
+                setTimeout(goToNextStep, 300);
               });
             });
             
-            // Set up CTA links
-            const offerUrl = buildOfferUrl();
-            document.querySelector('#promo-link').href = offerUrl;
+            // Handle back button click
+            backButton.addEventListener('click', goToPrevStep);
+            
+            // Track conversion when CTA is clicked
+            const ctaButtons = document.querySelectorAll('.product-cta');
+            ctaButtons.forEach(button => {
+              button.addEventListener('click', function() {
+                if (window.gtag) {
+                  gtag('event', 'conversion', {
+                    'send_to': '${gtagAccount}/${gtagLabel}'
+                  });
+                }
+              });
+            });
           });
         </script>
       </body>
