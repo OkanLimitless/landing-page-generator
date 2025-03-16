@@ -900,7 +900,7 @@ export const generateTMatesPage = (data) => {
           #${ids.footer} {
             background-color: #1a1a2e;
             color: white;
-            padding: 2rem 0;
+            padding: 3rem 0;
             margin-top: 3rem;
             text-align: center;
           }
@@ -1101,17 +1101,15 @@ export const generateTMatesPage = (data) => {
             </form>
           </main>
           
-          <footer id="${ids.footer}">
+          <footer id="${ids.footer}" class="footer">
             <div class="container">
               <div class="footer-links">
                 <a href="privacy.html">Privacy Policy</a>
                 <a href="terms.html">Terms of Service</a>
+                <a href="#">Contact Us</a>
               </div>
-              <div class="footer-disclaimer">
-                This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google. 
-                YouTube is a trademark of Google Inc.
-              </div>
-              <div>&copy; ${new Date().getFullYear()} All rights reserved</div>
+              <p>&copy; ${new Date().getFullYear()} TMates. All rights reserved.</p>
+              <p class="disclaimer">Results may vary. Prescription medication requires online consultation with healthcare providers who will determine if a prescription is appropriate. This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google.</p>
             </div>
           </footer>
         </div>
@@ -1751,7 +1749,7 @@ export const generateProductInfoPage = (data) => {
           }
           
           .footer-links a:hover {
-            color: var(--primary);
+            color: ${primaryColor};
           }
           
           .footer p {
