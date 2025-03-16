@@ -1319,169 +1319,413 @@ export const generateProductInfoPage = (data) => {
           </script>
         ` : ''}
         <style>
-          * { margin: 0; padding: 0; box-sizing: border-box; }
+          :root {
+            --primary: ${primaryColor};
+            --secondary: ${secondaryColor};
+            --text-dark: #1a1a2e;
+            --text-light: #4a4a6a;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
+            --shadow-md: 0 5px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s ease;
+          }
+          
+          * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+          }
+          
           body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
           }
           
           .header {
-            background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 3rem 0;
+            padding: 5rem 0 6rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDQ1KSI+PHJlY3QgaWQ9InBhdHRlcm4tYmFja2dyb3VuZCIgd2lkdGg9IjQwMCUiIGhlaWdodD0iNDAwJSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSI+PC9yZWN0PjxjaXJjbGUgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgY3g9IjIwIiBjeT0iMjAiIHI9IjEiPjwvY2lyY2xlPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgaGVpZ2h0PSIxMDAlIiB3aWR0aD0iMTAwJSI+PC9yZWN0Pjwvc3ZnPg==');
+            opacity: 0.6;
           }
           
           .container {
-            max-width: 1000px;
+            max-width: 1140px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
+          }
+          
+          .logo-container {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: var(--radius-md);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(255, 255, 255, 0.2);
           }
           
           .logo {
             max-width: 180px;
-            margin-bottom: 1.5rem;
+            height: auto;
           }
           
           h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
           }
           
           .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             opacity: 0.9;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
+            font-weight: 400;
           }
           
           .content {
-            padding: 3rem 0;
+            padding: 0;
+            margin-top: -3rem;
           }
           
           .section {
             margin-bottom: 3rem;
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            padding: 3rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+          }
+          
+          .section:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
           }
           
           h2 {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             margin-bottom: 1.5rem;
-            color: ${primaryColor};
+            color: var(--primary);
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 0.5rem;
+          }
+          
+          h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
           }
           
           p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.7;
           }
           
           .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 2rem;
+            margin-top: 2.5rem;
           }
           
           .benefit-card {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 2rem;
             text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+          }
+          
+          .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-md);
+            border-color: transparent;
           }
           
           .benefit-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: ${primaryColor};
+            font-size: 3rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            display: inline-block;
+            background: rgba(0,0,0,0.03);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
           }
           
           .benefit-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
           }
           
           .testimonials {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 2rem;
+            margin-top: 2.5rem;
           }
           
           .testimonial {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 2rem;
             position: relative;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+          }
+          
+          .testimonial:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-md);
+            border-color: transparent;
+          }
+          
+          .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(0,0,0,0.1);
+            font-family: Georgia, serif;
+            line-height: 1;
           }
           
           .testimonial-text {
             font-style: italic;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            padding-top: 1rem;
           }
           
           .testimonial-author {
-            font-weight: 600;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+          }
+          
+          .testimonial-author::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 2px;
+            background: var(--primary);
+            margin-right: 10px;
           }
           
           .cta-section {
             text-align: center;
-            padding: 3rem 0;
-            background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            border-radius: 10px;
+            border-radius: var(--radius-md);
             margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDQ1KSI+PHJlY3QgaWQ9InBhdHRlcm4tYmFja2dyb3VuZCIgd2lkdGg9IjQwMCUiIGhlaWdodD0iNDAwJSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSI+PC9yZWN0PjxjaXJjbGUgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgY3g9IjIwIiBjeT0iMjAiIHI9IjEiPjwvY2lyY2xlPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgaGVpZ2h0PSIxMDAlIiB3aWR0aD0iMTAwJSI+PC9yZWN0Pjwvc3ZnPg==');
+            opacity: 0.6;
+          }
+          
+          .cta-content {
+            position: relative;
+            z-index: 1;
           }
           
           .cta-title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
           }
           
           .cta-subtitle {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
             opacity: 0.9;
           }
           
           .cta-button {
             display: inline-block;
             background-color: white;
-            color: ${primaryColor};
-            font-weight: 600;
-            font-size: 18px;
-            padding: 15px 40px;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 18px 50px;
             border-radius: 50px;
             text-decoration: none;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
             position: relative;
             overflow: hidden;
+            z-index: 1;
+          }
+          
+          .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0));
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+            z-index: -1;
           }
           
           .cta-button:hover {
-            background-color: #f0f0f0;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+          }
+          
+          .cta-button:hover::before {
+            transform: translateX(100%);
+          }
+          
+          .faq-item {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 2rem;
+          }
+          
+          .faq-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+          }
+          
+          .faq-question {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 2rem;
+          }
+          
+          .faq-question::before {
+            content: 'Q';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: 800;
+            color: var(--primary);
+          }
+          
+          .faq-answer {
+            padding-left: 2rem;
+            position: relative;
+          }
+          
+          .faq-answer::before {
+            content: 'A';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: 800;
+            color: var(--secondary);
+          }
+          
+          .steps-list {
+            counter-reset: steps;
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+          }
+          
+          .steps-list li {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 1.5rem;
+            counter-increment: steps;
+          }
+          
+          .steps-list li::before {
+            content: counter(steps);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+          }
+          
+          .steps-list li strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
           }
           
           .disclaimer {
             margin-top: 20px;
-            color: #999;
-            font-size: 12px;
-            max-width: 450px;
+            color: rgba(0,0,0,0.5);
+            font-size: 0.8rem;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            text-align: center;
           }
           
           .footer {
             background-color: #1a1a2e;
             color: white;
-            padding: 2rem 0;
+            padding: 3rem 0;
             margin-top: 3rem;
             text-align: center;
           }
@@ -1507,7 +1751,7 @@ export const generateProductInfoPage = (data) => {
           }
           
           .footer-links a:hover {
-            color: ${primaryColor};
+            color: var(--primary);
           }
           
           .footer p {
@@ -1528,11 +1772,19 @@ export const generateProductInfoPage = (data) => {
             }
             
             h1 {
-              font-size: 2rem;
+              font-size: 2.5rem;
             }
             
             .cta-title {
-              font-size: 1.8rem;
+              font-size: 2rem;
+            }
+            
+            .section {
+              padding: 2rem;
+            }
+            
+            .header {
+              padding: 4rem 0 5rem;
             }
           }
         </style>
@@ -1540,7 +1792,9 @@ export const generateProductInfoPage = (data) => {
       <body>
         <header class="header">
           <div class="container">
-            <img src="https://try.tmates.com/assets/img/logo.png" alt="TMates" class="logo">
+            <div class="logo-container">
+              <img src="https://try.tmates.com/assets/img/logo.png" alt="TMates" class="logo">
+            </div>
             <h1>TMates Weight Loss Program</h1>
             <p class="subtitle">${headline}</p>
           </div>
@@ -1579,60 +1833,77 @@ export const generateProductInfoPage = (data) => {
             
             <div class="section">
               <h2>How It Works</h2>
-              <p>Getting started with TMates is simple:</p>
-              <ol>
-                <li><strong>Complete an online assessment</strong> - Answer a few questions about your health and weight loss goals</li>
-                <li><strong>Connect with a doctor</strong> - A licensed physician will review your information and create a personalized plan</li>
-                <li><strong>Receive your medication</strong> - Your prescription is delivered discreetly to your door</li>
-                <li><strong>Start your journey</strong> - Follow your personalized plan and watch the pounds melt away</li>
+              <p>Getting started with TMates is simple and straightforward. Our process is designed to be convenient while ensuring you receive the highest quality medical care.</p>
+              
+              <ol class="steps-list">
+                <li>
+                  <strong>Complete an online assessment</strong>
+                  <p>Answer a few questions about your health history and weight loss goals. This takes just a few minutes and helps our doctors understand your needs.</p>
+                </li>
+                <li>
+                  <strong>Connect with a doctor</strong>
+                  <p>A licensed physician will review your information and create a personalized treatment plan tailored to your specific needs and goals.</p>
+                </li>
+                <li>
+                  <strong>Receive your medication</strong>
+                  <p>Your prescription is delivered discreetly to your door in unmarked packaging, ensuring your privacy and convenience.</p>
+                </li>
+                <li>
+                  <strong>Start your journey</strong>
+                  <p>Follow your personalized plan and watch the pounds melt away. Our team is available to support you throughout your weight loss journey.</p>
+                </li>
               </ol>
             </div>
             
             <div class="section">
               <h2>Success Stories</h2>
+              <p>Thousands of people have transformed their lives with TMates. Here are just a few of their stories:</p>
+              
               <div class="testimonials">
                 <div class="testimonial">
-                  <p class="testimonial-text">"I've tried everything to lose weight, but nothing worked until I found TMates. I've lost 30 pounds in 3 months and feel amazing!"</p>
-                  <p class="testimonial-author">- Sarah T., Lost 30 lbs</p>
+                  <p class="testimonial-text">I've tried everything to lose weight, but nothing worked until I found TMates. I've lost 30 pounds in 3 months and feel amazing! The medication helped control my hunger, and the support from the team kept me motivated.</p>
+                  <p class="testimonial-author">Sarah T., Lost 30 lbs</p>
                 </div>
                 <div class="testimonial">
-                  <p class="testimonial-text">"The convenience of having my medication delivered to my door makes sticking to my weight loss plan so much easier. Highly recommend!"</p>
-                  <p class="testimonial-author">- Michael R., Lost 45 lbs</p>
+                  <p class="testimonial-text">The convenience of having my medication delivered to my door makes sticking to my weight loss plan so much easier. No more trips to the pharmacy or doctor's office. Highly recommend!</p>
+                  <p class="testimonial-author">Michael R., Lost 45 lbs</p>
                 </div>
                 <div class="testimonial">
-                  <p class="testimonial-text">"For the first time, I don't feel hungry all the time. TMates has changed my relationship with food and helped me lose weight."</p>
-                  <p class="testimonial-author">- Jennifer L., Lost 25 lbs</p>
+                  <p class="testimonial-text">For the first time, I don't feel hungry all the time. TMates has changed my relationship with food and helped me lose weight consistently without the constant struggle. It's been life-changing.</p>
+                  <p class="testimonial-author">Jennifer L., Lost 25 lbs</p>
                 </div>
               </div>
             </div>
             
             <div class="cta-section">
-              <h2 class="cta-title">Ready to Start Your Weight Loss Journey?</h2>
-              <p class="cta-subtitle">Join over 50,000 satisfied customers who have transformed their lives with TMates</p>
-              <a href="${offerUrl}" class="cta-button" id="final-cta">${ctaText}</a>
+              <div class="cta-content">
+                <h2 class="cta-title">Ready to Start Your Weight Loss Journey?</h2>
+                <p class="cta-subtitle">Join over 50,000 satisfied customers who have transformed their lives with TMates</p>
+                <a href="${offerUrl}" class="cta-button" id="final-cta">${ctaText}</a>
+              </div>
             </div>
             
             <div class="section">
               <h2>Frequently Asked Questions</h2>
               <div class="faq-item">
                 <p class="faq-question">What medications does TMates use?</p>
-                <p class="faq-answer">TMates uses FDA-approved medications that have been clinically proven to help with weight loss. The specific medication recommended for you will depend on your medical history and weight loss goals.</p>
+                <p class="faq-answer">TMates uses FDA-approved medications that have been clinically proven to help with weight loss. The specific medication recommended for you will depend on your medical history and weight loss goals. Our doctors will determine the most appropriate medication for your individual needs.</p>
               </div>
               <div class="faq-item">
                 <p class="faq-question">Is TMates covered by insurance?</p>
-                <p class="faq-answer">TMates works with many insurance providers, but coverage varies. Our team can help you determine if your insurance will cover the cost of your medication.</p>
+                <p class="faq-answer">TMates works with many insurance providers, but coverage varies. Our team can help you determine if your insurance will cover the cost of your medication. We also offer affordable self-pay options for those without insurance coverage.</p>
               </div>
               <div class="faq-item">
                 <p class="faq-question">How quickly will I see results?</p>
-                <p class="faq-answer">Many patients start seeing results within the first few weeks. However, individual results may vary based on your starting weight, metabolism, and adherence to the program.</p>
+                <p class="faq-answer">Many patients start seeing results within the first few weeks. However, individual results may vary based on your starting weight, metabolism, and adherence to the program. Most patients report significant weight loss within the first 1-3 months of treatment.</p>
               </div>
               <div class="faq-item">
                 <p class="faq-question">Are there any side effects?</p>
-                <p class="faq-answer">As with any medication, there may be side effects. The most common side effects are mild and temporary, such as nausea, constipation, or headache. Your doctor will discuss potential side effects with you during your consultation.</p>
+                <p class="faq-answer">As with any medication, there may be side effects. The most common side effects are mild and temporary, such as nausea, constipation, or headache. Your doctor will discuss potential side effects with you during your consultation and monitor your progress to minimize any discomfort.</p>
               </div>
               <div class="faq-item">
                 <p class="faq-question">Can I cancel my subscription?</p>
-                <p class="faq-answer">Yes, you can cancel or pause your subscription at any time. There are no long-term commitments or cancellation fees.</p>
+                <p class="faq-answer">Yes, you can cancel or pause your subscription at any time. There are no long-term commitments or cancellation fees. We believe in providing flexibility to our patients and ensuring you have control over your treatment plan.</p>
               </div>
             </div>
           </div>
