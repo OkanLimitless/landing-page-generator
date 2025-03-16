@@ -1766,6 +1766,51 @@ export const generateProductInfoPage = (data) => {
             color: rgba(255, 255, 255, 0.5);
           }
           
+          /* Floating CTA Button */
+          .floating-cta {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99;
+            display: none; /* Hidden initially, shown after scroll */
+            animation: bounce 1s ease infinite alternate;
+          }
+          
+          .floating-cta-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+          }
+          
+          .floating-cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+          }
+          
+          .floating-cta-icon {
+            margin-right: 8px;
+            font-size: 1.2rem;
+          }
+          
+          @keyframes bounce {
+            from {
+              transform: translateY(0);
+            }
+            to {
+              transform: translateY(-10px);
+            }
+          }
+          
           @media (max-width: 768px) {
             .benefits-grid, .testimonials {
               grid-template-columns: 1fr;
@@ -1921,11 +1966,40 @@ export const generateProductInfoPage = (data) => {
           </div>
         </footer>
         
+        <!-- Floating CTA Button -->
+        <div class="floating-cta" id="floating-cta">
+          <a href="${offerUrl}" class="floating-cta-button" id="floating-cta-button">
+            <span class="floating-cta-icon">🚀</span> ${ctaText}
+          </a>
+        </div>
+        
         <script>
           document.addEventListener('DOMContentLoaded', function() {
             // Track final conversion when CTA is clicked
             const finalCta = document.getElementById('final-cta');
             finalCta.addEventListener('click', function() {
+              if (window.gtag) {
+                gtag('event', 'conversion', {
+                  'send_to': '${gtagAccount}/${gtagLabel}'
+                });
+              }
+            });
+            
+            // Floating CTA button functionality
+            const floatingCta = document.getElementById('floating-cta');
+            const floatingCtaButton = document.getElementById('floating-cta-button');
+            
+            // Show floating CTA after scrolling down
+            window.addEventListener('scroll', function() {
+              if (window.scrollY > 600) {
+                floatingCta.style.display = 'block';
+              } else {
+                floatingCta.style.display = 'none';
+              }
+            });
+            
+            // Track conversion when floating CTA is clicked
+            floatingCtaButton.addEventListener('click', function() {
               if (window.gtag) {
                 gtag('event', 'conversion', {
                   'send_to': '${gtagAccount}/${gtagLabel}'
