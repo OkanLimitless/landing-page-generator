@@ -286,50 +286,14 @@ const TMatesForm = ({ formData, setFormData }) => {
     <div className="space-y-6">
       <div className="grid gap-6 md:grid-cols-2">
         <div>
-          <label className="block text-sm font-medium mb-2">Headline</label>
+          <label className="block text-sm font-medium mb-2">Google Ads ID</label>
           <input 
             type="text" 
-            name="headline" 
-            value={formData.headline} 
+            name="gtagId" 
+            value={formData.gtagId} 
             onChange={handleChange} 
             className={commonInputClass}
-            placeholder="The easiest weight loss program ever, delivered to your door" 
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Subheadline</label>
-          <input 
-            type="text" 
-            name="subheadline" 
-            value={formData.subheadline} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Join 50,000+ weight loss patients" 
-          />
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-2">Description</label>
-        <textarea 
-          name="description" 
-          value={formData.description} 
-          onChange={handleChange} 
-          className={commonTextareaClass}
-          placeholder="Unlock the key to lasting weight loss with trusted and proven medications. Our medical team will create a personalized plan just for you." 
-        />
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className="block text-sm font-medium mb-2">CTA Button Text</label>
-          <input 
-            type="text" 
-            name="ctaText" 
-            value={formData.ctaText} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Take the 60-second quiz" 
+            placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX" 
           />
         </div>
         <div>
@@ -341,20 +305,6 @@ const TMatesForm = ({ formData, setFormData }) => {
             onChange={handleChange} 
             className={commonInputClass}
             placeholder="Enter offer URL" 
-          />
-        </div>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className="block text-sm font-medium mb-2">Google Ads ID</label>
-          <input 
-            type="text" 
-            name="gtagId" 
-            value={formData.gtagId} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX" 
           />
         </div>
       </div>
@@ -416,10 +366,6 @@ const Generator = () => {
 
   // Add TMates form data state
   const [tmatesFormData, setTMatesFormData] = useState({
-    headline: 'The easiest weight loss program ever, delivered to your door',
-    subheadline: 'Join 50,000+ weight loss patients',
-    description: 'Unlock the key to lasting weight loss with trusted and proven medications. Our medical team will create a personalized plan just for you.',
-    ctaText: 'Take the 60-second quiz',
     offerUrl: 'https://nmttrack.com/?a=25528&c=403992',
     gtagId: '',
     trackingScript: ''
