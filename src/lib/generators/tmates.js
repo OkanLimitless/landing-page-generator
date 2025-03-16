@@ -61,15 +61,42 @@ export const generateTMatesPage = (data) => {
             justify-content: center;
             align-items: center;
             padding: 20px;
+            color: #fff;
           }
           
           .container {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 12px;
             padding: 40px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
             max-width: 600px;
             width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          }
+          
+          .quiz-description {
+            color: rgba(255, 255, 255, 0.8);
+          }
+          
+          .option {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          }
+          
+          .option:hover {
+            background: rgba(255, 255, 255, 0.2);
+          }
+          
+          .option.selected {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+          }
+          
+          .question {
+            color: white;
           }
         `;
         containerClass = 'container';
@@ -79,41 +106,51 @@ export const generateTMatesPage = (data) => {
         // Split layout with image background
         layoutCSS = `
           body {
-            background-color: #f8f9fa;
+            background-color: #1a1a2e;
+            background-image: linear-gradient(135deg, #1a1a2e, #16213e);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            color: #fff;
           }
           
           .container {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             max-width: 700px;
             width: 90%;
             display: flex;
             flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
           }
           
-          .header-section {
-            background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
-            padding: 40px;
+          .quiz-description {
+            color: rgba(255, 255, 255, 0.8);
+          }
+          
+          .option {
+            background: rgba(255, 255, 255, 0.05);
             color: white;
-            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
           }
           
-          .content-section {
-            padding: 40px;
+          .option:hover {
+            background: rgba(255, 255, 255, 0.1);
           }
           
-          @media (max-width: 768px) {
-            .container {
-              flex-direction: column;
-            }
+          .option.selected {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: ${primaryColor};
+          }
+          
+          .question {
+            color: white;
           }
         `;
         containerClass = 'container';
@@ -123,22 +160,48 @@ export const generateTMatesPage = (data) => {
         // Minimal clean layout
         layoutCSS = `
           body {
-            background-color: white;
+            background-color: #f8f9fa;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            color: #333;
           }
           
           .container {
+            background-color: white;
             border: 1px solid #eaeaea;
             border-top: 5px solid ${primaryColor};
             border-radius: 8px;
             padding: 40px;
             max-width: 600px;
             width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+          }
+          
+          .quiz-description {
+            color: #666;
+          }
+          
+          .option {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #eaeaea;
+          }
+          
+          .option:hover {
+            background: #f0f0f0;
+          }
+          
+          .option.selected {
+            background: #f0f0f0;
+            border-color: ${primaryColor};
+          }
+          
+          .question {
+            color: #333;
           }
         `;
         containerClass = 'container';
@@ -424,7 +487,9 @@ export const generateTMatesPage = (data) => {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
+            background: ${layoutStyle === 3 ? `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})` : 
+                         layoutStyle === 2 ? 'linear-gradient(135deg, #1a1a2e, #16213e)' : 
+                         `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`};
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -467,7 +532,9 @@ export const generateTMatesPage = (data) => {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
+            background: ${layoutStyle === 3 ? `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})` : 
+                         layoutStyle === 2 ? 'linear-gradient(135deg, #1a1a2e, #16213e)' : 
+                         `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`};
             display: flex;
             justify-content: center;
             align-items: center;
@@ -640,13 +707,13 @@ export const generateTMatesPage = (data) => {
             font-size: clamp(1.5rem, 5vw, 2rem);
             margin-bottom: 2rem;
             line-height: 1.3;
-            color: ${layoutStyle === 2 ? 'white' : '#333'};
+            color: ${layoutStyle === 3 ? '#333' : 'white'};
           }
           
           .quiz-description {
             font-size: 1rem;
             margin-bottom: 2rem;
-            color: ${layoutStyle === 2 ? 'rgba(255,255,255,0.8)' : '#666'};
+            color: ${layoutStyle === 3 ? '#666' : 'rgba(255,255,255,0.8)'};
           }
           
           .options {
@@ -658,31 +725,38 @@ export const generateTMatesPage = (data) => {
           
           .option {
             padding: 1.2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: ${layoutStyle === 3 ? '#f8f9fa' : 
+                         layoutStyle === 2 ? 'rgba(255, 255, 255, 0.05)' : 
+                         'rgba(255, 255, 255, 0.1)'};
+            border: 2px solid ${layoutStyle === 3 ? '#eaeaea' : 
+                               layoutStyle === 2 ? 'rgba(255, 255, 255, 0.1)' : 
+                               'rgba(255, 255, 255, 0.2)'};
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
             font-size: 1.1rem;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: ${layoutStyle === 3 ? 'none' : 'blur(5px)'};
+            -webkit-backdrop-filter: ${layoutStyle === 3 ? 'none' : 'blur(5px)'};
             text-align: left;
-            color: ${layoutStyle === 2 ? 'white' : '#333'};
+            color: ${layoutStyle === 3 ? '#333' : 'white'};
           }
           .option:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: ${layoutStyle === 3 ? '#f0f0f0' : 
+                         layoutStyle === 2 ? 'rgba(255, 255, 255, 0.1)' : 
+                         'rgba(255, 255, 255, 0.2)'};
             border-color: ${primaryColor};
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
           }
-          .option:active {
-            transform: translateY(0);
-          }
           .option.selected {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: ${primaryColor};
+            background: ${layoutStyle === 3 ? '#f0f0f0' : 
+                         layoutStyle === 2 ? 'rgba(255, 255, 255, 0.15)' : 
+                         'rgba(255, 255, 255, 0.3)'};
+            border-color: ${layoutStyle === 3 ? primaryColor : 
+                          layoutStyle === 2 ? primaryColor : 
+                          'white'};
             box-shadow: 0 0 15px rgba(${parseInt(primaryColor.slice(1, 3), 16)}, ${parseInt(primaryColor.slice(3, 5), 16)}, ${parseInt(primaryColor.slice(5, 7), 16)}, 0.3);
           }
           .option::after {
@@ -721,7 +795,7 @@ export const generateTMatesPage = (data) => {
           }
           
           .benefit {
-            background-color: ${layoutStyle === 2 ? '#f8f9fa' : '#f8f9fa'};
+            background-color: ${layoutStyle === 3 ? '#f8f9fa' : 'rgba(255, 255, 255, 0.1)'};
             border-radius: 8px;
             padding: 15px;
             width: calc(50% - 10px);
@@ -735,22 +809,12 @@ export const generateTMatesPage = (data) => {
           .benefit:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-          }
-          
-          @media (max-width: 500px) {
-            .benefit {
-              width: 100%;
-            }
-          }
-          
-          .benefit-icon {
-            font-size: 24px;
-            color: ${primaryColor};
+            background-color: ${layoutStyle === 3 ? '#f0f0f0' : 'rgba(255, 255, 255, 0.15)'};
           }
           
           .benefit-text {
             font-size: 14px;
-            color: #555;
+            color: ${layoutStyle === 3 ? '#555' : 'rgba(255,255,255,0.9)'};
           }
           
           .cta-button {
@@ -764,7 +828,7 @@ export const generateTMatesPage = (data) => {
             text-decoration: none;
             margin-top: 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: ${layoutStyle === 3 ? '0 4px 10px rgba(0, 0, 0, 0.1)' : '0 4px 10px rgba(0, 0, 0, 0.2)'};
             position: relative;
             overflow: hidden;
           }
@@ -772,12 +836,12 @@ export const generateTMatesPage = (data) => {
           .cta-button:hover {
             background-color: ${secondaryColor};
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+            box-shadow: ${layoutStyle === 3 ? '0 6px 15px rgba(0, 0, 0, 0.15)' : '0 6px 15px rgba(0, 0, 0, 0.25)'};
           }
           
           .disclaimer {
             margin-top: 20px;
-            color: ${layoutStyle === 2 ? '#666' : '#999'};
+            color: ${layoutStyle === 3 ? '#999' : 'rgba(255, 255, 255, 0.7)'};
             font-size: 12px;
             max-width: 450px;
             margin-left: auto;
@@ -790,23 +854,23 @@ export const generateTMatesPage = (data) => {
             font-size: clamp(1.8rem, 5vw, 2.5rem);
             margin-bottom: 1.5rem;
             line-height: 1.2;
-            color: ${layoutStyle === 2 ? 'white' : '#333'};
+            color: ${layoutStyle === 3 ? '#333' : 'white'};
           }
           .results-subheading {
             font-size: 1.2rem;
             margin-bottom: 2rem;
-            color: ${layoutStyle === 2 ? 'rgba(255,255,255,0.9)' : '#666'};
+            color: ${layoutStyle === 3 ? '#666' : 'rgba(255,255,255,0.9)'};
           }
           
           /* Product recommendation styles */
           .product-recommendation {
-            background: rgba(255, 255, 255, 0.1);
+            background: ${layoutStyle === 3 ? 'white' : 'rgba(255, 255, 255, 0.1)'};
             border-radius: 12px;
             padding: 2rem;
             margin-bottom: 2rem;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: ${layoutStyle === 3 ? 'none' : 'blur(10px)'};
+            -webkit-backdrop-filter: ${layoutStyle === 3 ? 'none' : 'blur(10px)'};
+            border: ${layoutStyle === 3 ? '1px solid #eaeaea' : '1px solid rgba(255, 255, 255, 0.2)'};
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
           }
           
@@ -823,23 +887,23 @@ export const generateTMatesPage = (data) => {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: ${layoutStyle === 2 ? 'white' : '#333'};
+            color: ${layoutStyle === 3 ? '#333' : 'white'};
           }
           
           .product-description {
             font-size: 1rem;
-            color: ${layoutStyle === 2 ? 'rgba(255,255,255,0.8)' : '#666'};
+            color: ${layoutStyle === 3 ? '#666' : 'rgba(255,255,255,0.8)'};
             margin-bottom: 1rem;
           }
           
           /* Footer styles */
           #${ids.footer} {
-            background: rgba(255, 255, 255, 0.05);
+            background: ${layoutStyle === 3 ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.05)'};
             padding: 1.5rem 0;
             margin-top: auto;
             text-align: center;
             font-size: clamp(0.75rem, 2vw, 0.875rem);
-            color: rgba(255, 255, 255, 0.7);
+            color: ${layoutStyle === 3 ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.7)'};
           }
           .footer-links {
             margin: 1rem 0;
@@ -849,7 +913,7 @@ export const generateTMatesPage = (data) => {
             gap: 1rem;
           }
           .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
+            color: ${layoutStyle === 3 ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.7)'};
             text-decoration: none;
             padding: 0.5rem;
             transition: color 0.3s ease;
@@ -861,7 +925,7 @@ export const generateTMatesPage = (data) => {
             padding: 0 20px;
             font-size: clamp(0.7rem, 2vw, 0.75rem);
             line-height: 1.5;
-            color: rgba(255, 255, 255, 0.5);
+            color: ${layoutStyle === 3 ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.5)'};
           }
           
           ${animationCSS}
@@ -869,6 +933,22 @@ export const generateTMatesPage = (data) => {
           @media (max-width: 768px) {
             #${ids.container} { width: 95%; padding: 15px; }
             .benefit { width: 100%; }
+          }
+          
+          @media (max-width: 500px) {
+            .benefit {
+              width: 100%;
+            }
+          }
+          
+          .benefit-icon {
+            font-size: 24px;
+            color: ${primaryColor};
+          }
+          
+          .benefit-text {
+            font-size: 14px;
+            color: ${layoutStyle === 3 ? '#555' : 'rgba(255,255,255,0.9)'};
           }
         </style>
       </head>
@@ -1356,63 +1436,33 @@ export const generateProductInfoPage = (data) => {
           
           .cta-button {
             display: inline-block;
-            background-color: white;
-            color: ${primaryColor};
+            background-color: ${primaryColor};
+            color: white;
             font-weight: 600;
-            font-size: 1.1rem;
-            padding: 1rem 2rem;
+            font-size: 18px;
+            padding: 15px 40px;
             border-radius: 50px;
             text-decoration: none;
+            margin-top: 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: ${layoutStyle === 3 ? '0 4px 10px rgba(0, 0, 0, 0.1)' : '0 4px 10px rgba(0, 0, 0, 0.2)'};
+            position: relative;
+            overflow: hidden;
           }
           
           .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-          }
-          
-          .faq-item {
-            margin-bottom: 1.5rem;
-          }
-          
-          .faq-question {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #333;
-          }
-          
-          .faq-answer {
-            color: #666;
-          }
-          
-          .footer {
-            background: #333;
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-          }
-          
-          .footer-links {
-            margin: 1rem 0;
-          }
-          
-          .footer-links a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            opacity: 0.8;
-          }
-          
-          .footer-links a:hover {
-            opacity: 1;
+            background-color: ${secondaryColor};
+            transform: translateY(-2px);
+            box-shadow: ${layoutStyle === 3 ? '0 6px 15px rgba(0, 0, 0, 0.15)' : '0 6px 15px rgba(0, 0, 0, 0.25)'};
           }
           
           .disclaimer {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            max-width: 800px;
-            margin: 1rem auto 0;
+            margin-top: 20px;
+            color: ${layoutStyle === 3 ? '#999' : 'rgba(255, 255, 255, 0.7)'};
+            font-size: 12px;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
           }
           
           @media (max-width: 768px) {

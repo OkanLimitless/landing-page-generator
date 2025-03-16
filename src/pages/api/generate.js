@@ -4,7 +4,8 @@ import {
   generateQuizPage,
   generateProductDetailPage,
   generateAdultLanderPage,
-  generateTMatesPage
+  generateTMatesPage,
+  generateProductInfoPage
 } from '../../lib';
 import { generatePrivacyPolicy, generateTermsOfService } from '../../lib/generators/legal';
 import { getRandomStyle } from '../../lib/utils/style-variations';
@@ -103,6 +104,10 @@ export default async function handler(req, res) {
       case 'tmates':
         console.log('Generating TMates page...');
         html = generateTMatesPage(data);
+        
+        // Generate product info page for TMates
+        const productInfoPage = generateProductInfoPage(data);
+        productDetailPages['product-info.html'] = productInfoPage;
         break;
       default:
         throw new Error('Invalid page type');
@@ -126,7 +131,7 @@ export default async function handler(req, res) {
     zip.file('terms.html', terms);
     
     // Add product detail pages if they exist
-    if (type === 'quiz' && productDetailPages) {
+    if ((type === 'quiz' || type === 'tmates') && productDetailPages) {
       for (const [fileName, content] of Object.entries(productDetailPages)) {
         zip.file(fileName, content);
       }
@@ -145,7 +150,7 @@ export default async function handler(req, res) {
     };
     
     // Add product detail pages to manifest if they exist
-    if (type === 'quiz' && productDetailPages) {
+    if ((type === 'quiz' || type === 'tmates') && productDetailPages) {
       manifest.files = [
         ...manifest.files,
         ...Object.keys(productDetailPages)
