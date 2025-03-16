@@ -1000,7 +1000,7 @@ export const generateTMatesPage = (data) => {
                     </div>
                   </div>
                   
-                  <a href="#" class="cta-button" id="cta-button">Learn More About TMates</a>
+                  <a href="product-info.html" class="cta-button" id="cta-button">Learn More About TMates</a>
                   
                   <p class="disclaimer">Results may vary. Prescription medication requires online consultation with healthcare providers who will determine if a prescription is appropriate.</p>
                 </div>
@@ -1160,371 +1160,15 @@ export const generateTMatesPage = (data) => {
             
             // Track conversion when CTA is clicked
             const ctaButton = document.getElementById('cta-button');
-            ctaButton.addEventListener('click', function(e) {
-              // Prevent default to handle the navigation
-              e.preventDefault();
-              
+            ctaButton.addEventListener('click', function() {
               // Track conversion with gtag if available
               if (window.gtag) {
                 gtag('event', 'conversion', {
                   'send_to': '${gtagAccount}/${gtagLabel}'
                 });
               }
-              
-              // Create the product info page
-              const productInfoPage = generateProductInfoPage();
-              
-              // Create a blob and download it
-              const blob = new Blob([productInfoPage], { type: 'text/html' });
-              const url = URL.createObjectURL(blob);
-              
-              // Navigate to the product info page
-              window.location.href = url;
             });
           });
-          
-          // Function to generate the product info page
-          function generateProductInfoPage() {
-            return \`<!DOCTYPE html>
-            <html lang="en">
-            <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>TMates Weight Loss Program</title>
-              <style>
-                * { margin: 0; padding: 0; box-sizing: border-box; }
-                body {
-                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-                  line-height: 1.6;
-                  color: #333;
-                  background-color: #f8f9fa;
-                }
-                
-                .header {
-                  background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
-                  color: white;
-                  padding: 3rem 0;
-                  text-align: center;
-                }
-                
-                .container {
-                  max-width: 1000px;
-                  margin: 0 auto;
-                  padding: 0 20px;
-                }
-                
-                .logo {
-                  max-width: 180px;
-                  margin-bottom: 1.5rem;
-                }
-                
-                h1 {
-                  font-size: 2.5rem;
-                  margin-bottom: 1rem;
-                }
-                
-                .subtitle {
-                  font-size: 1.2rem;
-                  opacity: 0.9;
-                  max-width: 600px;
-                  margin: 0 auto;
-                }
-                
-                .content {
-                  padding: 3rem 0;
-                }
-                
-                .section {
-                  margin-bottom: 3rem;
-                  background: white;
-                  border-radius: 10px;
-                  padding: 2rem;
-                  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-                }
-                
-                h2 {
-                  font-size: 1.8rem;
-                  margin-bottom: 1.5rem;
-                  color: ${primaryColor};
-                }
-                
-                p {
-                  margin-bottom: 1rem;
-                }
-                
-                .benefits-grid {
-                  display: grid;
-                  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                  gap: 1.5rem;
-                  margin-top: 2rem;
-                }
-                
-                .benefit-card {
-                  background: #f8f9fa;
-                  border-radius: 8px;
-                  padding: 1.5rem;
-                  text-align: center;
-                }
-                
-                .benefit-icon {
-                  font-size: 2.5rem;
-                  margin-bottom: 1rem;
-                  color: ${primaryColor};
-                }
-                
-                .benefit-title {
-                  font-weight: 600;
-                  margin-bottom: 0.5rem;
-                }
-                
-                .testimonials {
-                  display: grid;
-                  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                  gap: 1.5rem;
-                  margin-top: 2rem;
-                }
-                
-                .testimonial {
-                  background: #f8f9fa;
-                  border-radius: 8px;
-                  padding: 1.5rem;
-                  position: relative;
-                }
-                
-                .testimonial-text {
-                  font-style: italic;
-                  margin-bottom: 1rem;
-                }
-                
-                .testimonial-author {
-                  font-weight: 600;
-                }
-                
-                .cta-section {
-                  text-align: center;
-                  padding: 3rem 0;
-                  background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
-                  color: white;
-                  border-radius: 10px;
-                  margin-bottom: 3rem;
-                }
-                
-                .cta-title {
-                  font-size: 2rem;
-                  margin-bottom: 1rem;
-                }
-                
-                .cta-subtitle {
-                  font-size: 1.1rem;
-                  margin-bottom: 2rem;
-                  opacity: 0.9;
-                }
-                
-                .cta-button {
-                  display: inline-block;
-                  background-color: white;
-                  color: ${primaryColor};
-                  font-weight: 600;
-                  font-size: 1.1rem;
-                  padding: 1rem 2rem;
-                  border-radius: 50px;
-                  text-decoration: none;
-                  transition: all 0.3s ease;
-                  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-                }
-                
-                .cta-button:hover {
-                  transform: translateY(-3px);
-                  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-                }
-                
-                .faq-item {
-                  margin-bottom: 1.5rem;
-                }
-                
-                .faq-question {
-                  font-weight: 600;
-                  margin-bottom: 0.5rem;
-                  color: #333;
-                }
-                
-                .faq-answer {
-                  color: #666;
-                }
-                
-                .footer {
-                  background: #333;
-                  color: white;
-                  padding: 2rem 0;
-                  text-align: center;
-                }
-                
-                .footer-links {
-                  margin: 1rem 0;
-                }
-                
-                .footer-links a {
-                  color: white;
-                  text-decoration: none;
-                  margin: 0 10px;
-                  opacity: 0.8;
-                }
-                
-                .footer-links a:hover {
-                  opacity: 1;
-                }
-                
-                .disclaimer {
-                  font-size: 0.8rem;
-                  opacity: 0.7;
-                  max-width: 800px;
-                  margin: 1rem auto 0;
-                }
-                
-                @media (max-width: 768px) {
-                  .benefits-grid, .testimonials {
-                    grid-template-columns: 1fr;
-                  }
-                  
-                  h1 {
-                    font-size: 2rem;
-                  }
-                  
-                  .cta-title {
-                    font-size: 1.8rem;
-                  }
-                }
-              </style>
-            </head>
-            <body>
-              <header class="header">
-                <div class="container">
-                  <img src="https://try.tmates.com/assets/img/logo.png" alt="TMates" class="logo">
-                  <h1>TMates Weight Loss Program</h1>
-                  <p class="subtitle">The easiest weight loss program ever, delivered to your door</p>
-                </div>
-              </header>
-              
-              <div class="content">
-                <div class="container">
-                  <div class="section">
-                    <h2>About TMates</h2>
-                    <p>TMates is a revolutionary weight loss program that combines FDA-approved medications with personalized support to help you achieve your weight loss goals.</p>
-                    <p>Our program is designed to make weight loss simple and effective, with medications that help control hunger and cravings, delivered discreetly to your door.</p>
-                    
-                    <div class="benefits-grid">
-                      <div class="benefit-card">
-                        <div class="benefit-icon">💊</div>
-                        <div class="benefit-title">FDA-Approved Medication</div>
-                        <p>Clinically proven medications that help control hunger and reduce cravings</p>
-                      </div>
-                      <div class="benefit-card">
-                        <div class="benefit-icon">👨‍⚕️</div>
-                        <div class="benefit-title">Medical Supervision</div>
-                        <p>Online consultation with licensed doctors who create your personalized plan</p>
-                      </div>
-                      <div class="benefit-card">
-                        <div class="benefit-icon">📦</div>
-                        <div class="benefit-title">Convenient Delivery</div>
-                        <p>Discreet delivery right to your door, no pharmacy visits needed</p>
-                      </div>
-                      <div class="benefit-card">
-                        <div class="benefit-icon">🔄</div>
-                        <div class="benefit-title">Flexible Plans</div>
-                        <p>Cancel or pause your plan anytime, with no long-term commitments</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="section">
-                    <h2>How It Works</h2>
-                    <p>Getting started with TMates is simple:</p>
-                    <ol>
-                      <li><strong>Complete an online assessment</strong> - Answer a few questions about your health and weight loss goals</li>
-                      <li><strong>Connect with a doctor</strong> - A licensed physician will review your information and create a personalized plan</li>
-                      <li><strong>Receive your medication</strong> - Your prescription is delivered discreetly to your door</li>
-                      <li><strong>Start your journey</strong> - Follow your personalized plan and watch the pounds melt away</li>
-                    </ol>
-                  </div>
-                  
-                  <div class="section">
-                    <h2>Success Stories</h2>
-                    <div class="testimonials">
-                      <div class="testimonial">
-                        <p class="testimonial-text">"I've tried everything to lose weight, but nothing worked until I found TMates. I've lost 30 pounds in 3 months and feel amazing!"</p>
-                        <p class="testimonial-author">- Sarah T., Lost 30 lbs</p>
-                      </div>
-                      <div class="testimonial">
-                        <p class="testimonial-text">"The convenience of having my medication delivered to my door makes sticking to my weight loss plan so much easier. Highly recommend!"</p>
-                        <p class="testimonial-author">- Michael R., Lost 45 lbs</p>
-                      </div>
-                      <div class="testimonial">
-                        <p class="testimonial-text">"For the first time, I don't feel hungry all the time. TMates has changed my relationship with food and helped me lose weight."</p>
-                        <p class="testimonial-author">- Jennifer L., Lost 25 lbs</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="cta-section">
-                    <h2 class="cta-title">Ready to Start Your Weight Loss Journey?</h2>
-                    <p class="cta-subtitle">Join over 50,000 satisfied customers who have transformed their lives with TMates</p>
-                    <a href="${offerUrl}" class="cta-button" id="final-cta">Get Started Now</a>
-                  </div>
-                  
-                  <div class="section">
-                    <h2>Frequently Asked Questions</h2>
-                    <div class="faq-item">
-                      <p class="faq-question">What medications does TMates use?</p>
-                      <p class="faq-answer">TMates uses FDA-approved medications that have been clinically proven to help with weight loss. The specific medication recommended for you will depend on your medical history and weight loss goals.</p>
-                    </div>
-                    <div class="faq-item">
-                      <p class="faq-question">Is TMates covered by insurance?</p>
-                      <p class="faq-answer">TMates works with many insurance providers, but coverage varies. Our team can help you determine if your insurance will cover the cost of your medication.</p>
-                    </div>
-                    <div class="faq-item">
-                      <p class="faq-question">How quickly will I see results?</p>
-                      <p class="faq-answer">Many patients start seeing results within the first few weeks. However, individual results may vary based on your starting weight, metabolism, and adherence to the program.</p>
-                    </div>
-                    <div class="faq-item">
-                      <p class="faq-question">Are there any side effects?</p>
-                      <p class="faq-answer">As with any medication, there may be side effects. The most common side effects are mild and temporary, such as nausea, constipation, or headache. Your doctor will discuss potential side effects with you during your consultation.</p>
-                    </div>
-                    <div class="faq-item">
-                      <p class="faq-question">Can I cancel my subscription?</p>
-                      <p class="faq-answer">Yes, you can cancel or pause your subscription at any time. There are no long-term commitments or cancellation fees.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <footer class="footer">
-                <div class="container">
-                  <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Contact Us</a>
-                  </div>
-                  <p>&copy; ${new Date().getFullYear()} TMates. All rights reserved.</p>
-                  <p class="disclaimer">Results may vary. Prescription medication requires online consultation with healthcare providers who will determine if a prescription is appropriate. This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google.</p>
-                </div>
-              </footer>
-              
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  // Track final conversion when CTA is clicked
-                  const finalCta = document.getElementById('final-cta');
-                  finalCta.addEventListener('click', function() {
-                    if (window.gtag) {
-                      gtag('event', 'conversion', {
-                        'send_to': '${gtagAccount}/${gtagLabel}'
-                      });
-                    }
-                  });
-                });
-              </script>
-            </body>
-            </html>\`;
-          }
           
           // Add a class to show we've loaded
           document.body.classList.add('loaded');
@@ -1533,6 +1177,389 @@ export const generateTMatesPage = (data) => {
       </html>`;
   } catch (error) {
     console.error('Error generating TMates page:', error);
+    throw error;
+  }
+};
+
+export const generateProductInfoPage = (data) => {
+  try {
+    // Check if preset is provided and merge with data
+    const presetData = data.preset ? contentPresets[data.preset] : {};
+    const mergedData = { ...presetData, ...data };
+    
+    // Extract gtag ID and label from the provided gtagId
+    const [gtagAccount, gtagLabel] = (mergedData.gtagId || '').split('/');
+    
+    // Generate random colors for styling
+    const generateRandomColor = () => {
+      const colors = [
+        '#4a90e2', '#5c6bc0', '#7e57c2', '#ab47bc', 
+        '#ec407a', '#ef5350', '#ff7043', '#ffca28',
+        '#26a69a', '#66bb6a', '#9ccc65', '#d4e157'
+      ];
+      return colors[Math.floor(Math.random() * colors.length)];
+    };
+    
+    const primaryColor = generateRandomColor();
+    const secondaryColor = generateRandomColor();
+    
+    // Default content if not provided
+    const headline = mergedData.headline || 'The easiest weight loss program ever, delivered to your door';
+    const subheadline = mergedData.subheadline || 'Join 50,000+ weight loss patients';
+    const ctaText = mergedData.ctaText || 'Get Started Now';
+    const offerUrl = mergedData.offerUrl || 'https://nmttrack.com/?a=25528&c=403992';
+    
+    return `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TMates Weight Loss Program</title>
+        ${mergedData.trackingScript || ''}
+        ${gtagAccount ? `
+          <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${gtagAccount}');
+          </script>
+        ` : ''}
+        <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+          }
+          
+          .header {
+            background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+          }
+          
+          .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+          }
+          
+          .logo {
+            max-width: 180px;
+            margin-bottom: 1.5rem;
+          }
+          
+          h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+          }
+          
+          .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+          }
+          
+          .content {
+            padding: 3rem 0;
+          }
+          
+          .section {
+            margin-bottom: 3rem;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+          }
+          
+          h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: ${primaryColor};
+          }
+          
+          p {
+            margin-bottom: 1rem;
+          }
+          
+          .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+          }
+          
+          .benefit-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+          }
+          
+          .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: ${primaryColor};
+          }
+          
+          .benefit-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+          }
+          
+          .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+          }
+          
+          .testimonial {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+          }
+          
+          .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+          }
+          
+          .testimonial-author {
+            font-weight: 600;
+          }
+          
+          .cta-section {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+          }
+          
+          .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+          }
+          
+          .cta-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+          }
+          
+          .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: ${primaryColor};
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          }
+          
+          .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+          }
+          
+          .faq-item {
+            margin-bottom: 1.5rem;
+          }
+          
+          .faq-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+          }
+          
+          .faq-answer {
+            color: #666;
+          }
+          
+          .footer {
+            background: #333;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+          }
+          
+          .footer-links {
+            margin: 1rem 0;
+          }
+          
+          .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            opacity: 0.8;
+          }
+          
+          .footer-links a:hover {
+            opacity: 1;
+          }
+          
+          .disclaimer {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            max-width: 800px;
+            margin: 1rem auto 0;
+          }
+          
+          @media (max-width: 768px) {
+            .benefits-grid, .testimonials {
+              grid-template-columns: 1fr;
+            }
+            
+            h1 {
+              font-size: 2rem;
+            }
+            
+            .cta-title {
+              font-size: 1.8rem;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <header class="header">
+          <div class="container">
+            <img src="https://try.tmates.com/assets/img/logo.png" alt="TMates" class="logo">
+            <h1>TMates Weight Loss Program</h1>
+            <p class="subtitle">${headline}</p>
+          </div>
+        </header>
+        
+        <div class="content">
+          <div class="container">
+            <div class="section">
+              <h2>About TMates</h2>
+              <p>TMates is a revolutionary weight loss program that combines FDA-approved medications with personalized support to help you achieve your weight loss goals.</p>
+              <p>Our program is designed to make weight loss simple and effective, with medications that help control hunger and cravings, delivered discreetly to your door.</p>
+              
+              <div class="benefits-grid">
+                <div class="benefit-card">
+                  <div class="benefit-icon">💊</div>
+                  <div class="benefit-title">FDA-Approved Medication</div>
+                  <p>Clinically proven medications that help control hunger and reduce cravings</p>
+                </div>
+                <div class="benefit-card">
+                  <div class="benefit-icon">👨‍⚕️</div>
+                  <div class="benefit-title">Medical Supervision</div>
+                  <p>Online consultation with licensed doctors who create your personalized plan</p>
+                </div>
+                <div class="benefit-card">
+                  <div class="benefit-icon">📦</div>
+                  <div class="benefit-title">Convenient Delivery</div>
+                  <p>Discreet delivery right to your door, no pharmacy visits needed</p>
+                </div>
+                <div class="benefit-card">
+                  <div class="benefit-icon">🔄</div>
+                  <div class="benefit-title">Flexible Plans</div>
+                  <p>Cancel or pause your plan anytime, with no long-term commitments</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="section">
+              <h2>How It Works</h2>
+              <p>Getting started with TMates is simple:</p>
+              <ol>
+                <li><strong>Complete an online assessment</strong> - Answer a few questions about your health and weight loss goals</li>
+                <li><strong>Connect with a doctor</strong> - A licensed physician will review your information and create a personalized plan</li>
+                <li><strong>Receive your medication</strong> - Your prescription is delivered discreetly to your door</li>
+                <li><strong>Start your journey</strong> - Follow your personalized plan and watch the pounds melt away</li>
+              </ol>
+            </div>
+            
+            <div class="section">
+              <h2>Success Stories</h2>
+              <div class="testimonials">
+                <div class="testimonial">
+                  <p class="testimonial-text">"I've tried everything to lose weight, but nothing worked until I found TMates. I've lost 30 pounds in 3 months and feel amazing!"</p>
+                  <p class="testimonial-author">- Sarah T., Lost 30 lbs</p>
+                </div>
+                <div class="testimonial">
+                  <p class="testimonial-text">"The convenience of having my medication delivered to my door makes sticking to my weight loss plan so much easier. Highly recommend!"</p>
+                  <p class="testimonial-author">- Michael R., Lost 45 lbs</p>
+                </div>
+                <div class="testimonial">
+                  <p class="testimonial-text">"For the first time, I don't feel hungry all the time. TMates has changed my relationship with food and helped me lose weight."</p>
+                  <p class="testimonial-author">- Jennifer L., Lost 25 lbs</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="cta-section">
+              <h2 class="cta-title">Ready to Start Your Weight Loss Journey?</h2>
+              <p class="cta-subtitle">Join over 50,000 satisfied customers who have transformed their lives with TMates</p>
+              <a href="${offerUrl}" class="cta-button" id="final-cta">${ctaText}</a>
+            </div>
+            
+            <div class="section">
+              <h2>Frequently Asked Questions</h2>
+              <div class="faq-item">
+                <p class="faq-question">What medications does TMates use?</p>
+                <p class="faq-answer">TMates uses FDA-approved medications that have been clinically proven to help with weight loss. The specific medication recommended for you will depend on your medical history and weight loss goals.</p>
+              </div>
+              <div class="faq-item">
+                <p class="faq-question">Is TMates covered by insurance?</p>
+                <p class="faq-answer">TMates works with many insurance providers, but coverage varies. Our team can help you determine if your insurance will cover the cost of your medication.</p>
+              </div>
+              <div class="faq-item">
+                <p class="faq-question">How quickly will I see results?</p>
+                <p class="faq-answer">Many patients start seeing results within the first few weeks. However, individual results may vary based on your starting weight, metabolism, and adherence to the program.</p>
+              </div>
+              <div class="faq-item">
+                <p class="faq-question">Are there any side effects?</p>
+                <p class="faq-answer">As with any medication, there may be side effects. The most common side effects are mild and temporary, such as nausea, constipation, or headache. Your doctor will discuss potential side effects with you during your consultation.</p>
+              </div>
+              <div class="faq-item">
+                <p class="faq-question">Can I cancel my subscription?</p>
+                <p class="faq-answer">Yes, you can cancel or pause your subscription at any time. There are no long-term commitments or cancellation fees.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <footer class="footer">
+          <div class="container">
+            <div class="footer-links">
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+              <a href="#">Contact Us</a>
+            </div>
+            <p>&copy; ${new Date().getFullYear()} TMates. All rights reserved.</p>
+            <p class="disclaimer">Results may vary. Prescription medication requires online consultation with healthcare providers who will determine if a prescription is appropriate. This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google.</p>
+          </div>
+        </footer>
+        
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            // Track final conversion when CTA is clicked
+            const finalCta = document.getElementById('final-cta');
+            finalCta.addEventListener('click', function() {
+              if (window.gtag) {
+                gtag('event', 'conversion', {
+                  'send_to': '${gtagAccount}/${gtagLabel}'
+                });
+              }
+            });
+          });
+        </script>
+      </body>
+      </html>`;
+  } catch (error) {
+    console.error('Error generating product info page:', error);
     throw error;
   }
 }; 
