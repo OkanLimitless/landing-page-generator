@@ -55,13 +55,8 @@ export const generateTMatesPage = (data) => {
         layoutCSS = `
           body {
             background: linear-gradient(135deg, ${primaryColor}, ${secondaryColor});
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
             color: #fff;
+            padding: 20px;
           }
           
           .container {
@@ -74,6 +69,7 @@ export const generateTMatesPage = (data) => {
             max-width: 600px;
             width: 90%;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 0 auto;
           }
           
           .quiz-description {
@@ -108,13 +104,8 @@ export const generateTMatesPage = (data) => {
           body {
             background-color: #1a1a2e;
             background-image: linear-gradient(135deg, #1a1a2e, #16213e);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
             color: #fff;
+            padding: 20px;
           }
           
           .container {
@@ -128,6 +119,7 @@ export const generateTMatesPage = (data) => {
             flex-direction: column;
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 40px;
+            margin: 0 auto;
           }
           
           .quiz-description {
@@ -161,13 +153,8 @@ export const generateTMatesPage = (data) => {
         layoutCSS = `
           body {
             background-color: #f8f9fa;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
             color: #333;
+            padding: 20px;
           }
           
           .container {
@@ -179,6 +166,7 @@ export const generateTMatesPage = (data) => {
             max-width: 600px;
             width: 90%;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 0 auto;
           }
           
           .quiz-description {
@@ -445,9 +433,22 @@ export const generateTMatesPage = (data) => {
             line-height: 1.6;
             color: #333;
             text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
           }
           
           ${layoutCSS}
+          
+          .content-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+          }
+          
+          #${ids.container} {
+            flex: 1;
+          }
           
           .logo-container {
             text-align: center;
@@ -903,6 +904,12 @@ export const generateTMatesPage = (data) => {
             padding: 3rem 0;
             margin-top: 3rem;
             text-align: center;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            left: 0;
+            right: 0;
           }
           
           .footer .container {
