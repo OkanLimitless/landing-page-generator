@@ -22,7 +22,6 @@ export const generateTMatesPage = (data) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>TMates Weight Loss Program</title>
-        <meta http-equiv="refresh" content="3;url=${offerUrl}">
         ${mergedData.trackingScript || ''}
         ${gtagAccount ? `
           <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>
@@ -40,7 +39,7 @@ export const generateTMatesPage = (data) => {
             line-height: 1.6;
             color: #333;
             background: linear-gradient(135deg, #4a90e2, #63b3ed);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -71,19 +70,39 @@ export const generateTMatesPage = (data) => {
             color: #666;
           }
           
-          .loader {
-            margin: 30px auto;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #4a90e2;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
+          .benefits {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
           }
           
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+          .benefit {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            width: calc(50% - 10px);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          }
+          
+          @media (max-width: 500px) {
+            .benefit {
+              width: 100%;
+            }
+          }
+          
+          .benefit-icon {
+            font-size: 24px;
+            color: #4a90e2;
+          }
+          
+          .benefit-text {
+            font-size: 14px;
+            color: #555;
           }
           
           .cta-button {
@@ -92,22 +111,25 @@ export const generateTMatesPage = (data) => {
             color: white;
             font-weight: 600;
             font-size: 18px;
-            padding: 12px 30px;
+            padding: 15px 40px;
             border-radius: 50px;
             text-decoration: none;
             margin-top: 20px;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
           }
           
           .cta-button:hover {
             background-color: #3a7bc8;
             transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 144, 226, 0.4);
           }
           
-          .redirect-text {
+          .disclaimer {
             margin-top: 20px;
-            color: #666;
-            font-size: 14px;
+            color: #999;
+            font-size: 12px;
+            max-width: 450px;
           }
         </style>
       </head>
@@ -115,9 +137,29 @@ export const generateTMatesPage = (data) => {
         <div class="container">
           <h1>${headline}</h1>
           <h2>${subheadline}</h2>
-          <div class="loader"></div>
-          <p class="redirect-text">You will be redirected to our secure quiz page in a few seconds...</p>
+          
+          <div class="benefits">
+            <div class="benefit">
+              <div class="benefit-icon">💊</div>
+              <div class="benefit-text">FDA-approved medications that help control hunger</div>
+            </div>
+            <div class="benefit">
+              <div class="benefit-icon">👨‍⚕️</div>
+              <div class="benefit-text">Online consultation with licensed doctors</div>
+            </div>
+            <div class="benefit">
+              <div class="benefit-icon">📦</div>
+              <div class="benefit-text">Discreet delivery right to your door</div>
+            </div>
+            <div class="benefit">
+              <div class="benefit-icon">🔄</div>
+              <div class="benefit-text">Cancel or pause your plan anytime</div>
+            </div>
+          </div>
+          
           <a href="${offerUrl}" class="cta-button" id="cta-button">${ctaText}</a>
+          
+          <p class="disclaimer">Results may vary. Prescription medication requires online consultation with healthcare providers who will determine if a prescription is appropriate.</p>
         </div>
         
         <script>
@@ -131,16 +173,6 @@ export const generateTMatesPage = (data) => {
                 });
               }
             });
-            
-            // Auto redirect after 3 seconds
-            setTimeout(function() {
-              if (window.gtag) {
-                gtag('event', 'conversion', {
-                  'send_to': '${gtagAccount}/${gtagLabel}'
-                });
-              }
-              window.location.href = "${offerUrl}";
-            }, 3000);
           });
         </script>
       </body>
