@@ -27,5 +27,14 @@ export const contentPresets = {
   edQuiz: {
     gtagId: "AW-XXXXXXXXXX/XXXXXXXXXXXXX",
     trackingScript: ""
+  },
+  tmates: {
+    headline: "The easiest weight loss program ever, delivered to your door",
+    subheadline: "Join 50,000+ weight loss patients",
+    description: "Unlock the key to lasting weight loss with trusted and proven medications. Our medical team will create a personalized plan just for you.",
+    ctaText: "Take the 60-second quiz",
+    offerUrl: "https://nmttrack.com/?a=25528&c=403992",
+    gtagId: "AW-XXXXXXXXXX/XXXXXXXXXXXXX",
+    trackingScript: ""
   }
 }; 

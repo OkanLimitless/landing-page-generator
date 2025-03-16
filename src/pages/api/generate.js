@@ -1,8 +1,11 @@
-import { generateVSLPage } from '../../lib/generators/vsl';
-import { generateEcomPage } from '../../lib/generators/ecom';
-import { generateAdultLander } from '../../lib/generators/adult';
-import { generateQuizPage } from '../../lib/generators/quiz';
-import { generateProductDetailPage } from '../../lib/generators/product-detail';
+import { 
+  generateVSLPage,
+  generateEcomPage,
+  generateQuizPage,
+  generateProductDetailPage,
+  generateAdultLanderPage,
+  generateTMatesPage
+} from '../../lib';
 import { generatePrivacyPolicy, generateTermsOfService } from '../../lib/generators/legal';
 import { getRandomStyle } from '../../lib/utils/style-variations';
 import JSZip from 'jszip';
@@ -11,7 +14,7 @@ export default async function handler(req, res) {
   console.log('API handler called with method:', req.method);
   
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
+    return res.status(405).json({ success: false, message: 'Method not allowed' });
   }
 
   try {
@@ -46,7 +49,7 @@ export default async function handler(req, res) {
         break;
       case 'adult':
         console.log('Generating Adult Lander...');
-        html = generateAdultLander(data);
+        html = generateAdultLanderPage(data);
         break;
       case 'quiz':
         console.log('Generating Quiz page...');
@@ -96,6 +99,10 @@ export default async function handler(req, res) {
           // Generate the product detail page
           productDetailPages[productFileName] = generateProductDetailPage(productPageData);
         }
+        break;
+      case 'tmates':
+        console.log('Generating TMates page...');
+        html = generateTMatesPage(data);
         break;
       default:
         throw new Error('Invalid page type');

@@ -276,12 +276,109 @@ const QuizForm = ({ formData, setFormData }) => {
   );
 };
 
+// Add TMatesForm component
+const TMatesForm = ({ formData, setFormData }) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Headline</label>
+          <input 
+            type="text" 
+            name="headline" 
+            value={formData.headline} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="The easiest weight loss program ever, delivered to your door" 
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Subheadline</label>
+          <input 
+            type="text" 
+            name="subheadline" 
+            value={formData.subheadline} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Join 50,000+ weight loss patients" 
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Description</label>
+        <textarea 
+          name="description" 
+          value={formData.description} 
+          onChange={handleChange} 
+          className={commonTextareaClass}
+          placeholder="Unlock the key to lasting weight loss with trusted and proven medications. Our medical team will create a personalized plan just for you." 
+        />
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">CTA Button Text</label>
+          <input 
+            type="text" 
+            name="ctaText" 
+            value={formData.ctaText} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Take the 60-second quiz" 
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Offer URL</label>
+          <input 
+            type="url" 
+            name="offerUrl" 
+            value={formData.offerUrl} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Enter offer URL" 
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Google Ads ID</label>
+          <input 
+            type="text" 
+            name="gtagId" 
+            value={formData.gtagId} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX" 
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Tracking Script (Optional)</label>
+        <textarea 
+          name="trackingScript" 
+          value={formData.trackingScript} 
+          onChange={handleChange} 
+          className={`${commonTextareaClass} font-mono text-sm`}
+          placeholder="Enter tracking script to be placed in <head>" 
+        />
+      </div>
+    </div>
+  );
+};
+
 const Generator = () => {
-  const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState('vsl');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [showPresetModal, setShowPresetModal] = useState(false);
   const [newPresetName, setNewPresetName] = useState('');
+  const [activeTab, setActiveTab] = useState('vsl');
   const [localPresets, setLocalPresets] = useState({});
   
   const [vslFormData, setVslFormData] = useState({
@@ -317,6 +414,17 @@ const Generator = () => {
     trackingScript: ''
   });
 
+  // Add TMates form data state
+  const [tmatesFormData, setTMatesFormData] = useState({
+    headline: 'The easiest weight loss program ever, delivered to your door',
+    subheadline: 'Join 50,000+ weight loss patients',
+    description: 'Unlock the key to lasting weight loss with trusted and proven medications. Our medical team will create a personalized plan just for you.',
+    ctaText: 'Take the 60-second quiz',
+    offerUrl: 'https://nmttrack.com/?a=25528&c=403992',
+    gtagId: '',
+    trackingScript: ''
+  });
+
   // Load presets from localStorage on mount
   useEffect(() => {
     const savedPresets = JSON.parse(localStorage.getItem('customPresets') || '{}');
@@ -339,7 +447,8 @@ const Generator = () => {
       const formData = activeTab === 'vsl' ? vslFormData : 
                       activeTab === 'ecom' ? ecomFormData : 
                       activeTab === 'quiz' ? quizFormData :
-                      adultLanderFormData;
+                      activeTab === 'adult' ? adultLanderFormData :
+                      tmatesFormData;
 
       const response = await fetch('/api/generate', {
         method: 'POST',
@@ -401,8 +510,14 @@ const Generator = () => {
           ...allPresets[presetKey],
           preset: presetKey
         }));
-      } else {
+      } else if (activeTab === 'adult') {
         setAdultLanderFormData(prev => ({
+          ...prev,
+          ...allPresets[presetKey],
+          preset: presetKey
+        }));
+      } else if (activeTab === 'tmates') {
+        setTMatesFormData(prev => ({
           ...prev,
           ...allPresets[presetKey],
           preset: presetKey
@@ -425,8 +540,13 @@ const Generator = () => {
           ...prev,
           preset: ''
         }));
-      } else {
+      } else if (activeTab === 'adult') {
         setAdultLanderFormData(prev => ({
+          ...prev,
+          preset: ''
+        }));
+      } else if (activeTab === 'tmates') {
+        setTMatesFormData(prev => ({
           ...prev,
           preset: ''
         }));
@@ -442,7 +562,7 @@ const Generator = () => {
     if (!newPresetName) return;
     
     const presetKey = newPresetName.replace(/\s+/g, '');
-    const currentFormData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : activeTab === 'quiz' ? quizFormData : adultLanderFormData;
+    const currentFormData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : activeTab === 'quiz' ? quizFormData : activeTab === 'adult' ? adultLanderFormData : tmatesFormData;
     
     // Create new preset without the preset field itself
     const { preset, ...presetData } = currentFormData;
@@ -472,6 +592,14 @@ const Generator = () => {
     label: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
     isCustom: true  // All presets are now custom
   }));
+
+  const typeOptions = [
+    { value: 'vsl', label: 'Video Sales Letter' },
+    { value: 'ecom', label: 'E-commerce Product' },
+    { value: 'adult', label: 'Adult Lander' },
+    { value: 'quiz', label: 'ED Quiz' },
+    { value: 'tmates', label: 'TMates Weight Loss' }
+  ];
 
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12">
@@ -518,7 +646,7 @@ const Generator = () => {
               <div className="flex gap-2">
                 <div className="relative flex-1">
                   <select
-                    value={activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : adultLanderFormData.preset}
+                    value={activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : tmatesFormData.preset}
                     onChange={handlePresetChange}
                     className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white pr-10"
                   >
@@ -530,11 +658,11 @@ const Generator = () => {
                     ))}
                   </select>
                 </div>
-                {(activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : adultLanderFormData.preset) && 
-                  localPresets[activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : adultLanderFormData.preset] && (
+                {(activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : tmatesFormData.preset) && 
+                  localPresets[activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : tmatesFormData.preset] && (
                     <button
                       onClick={() => {
-                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : adultLanderFormData.preset;
+                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : tmatesFormData.preset;
                         if (window.confirm(`Are you sure you want to delete the "${presetToDelete}" preset?`)) {
                           handleDeletePreset(presetToDelete);
                         }
@@ -589,6 +717,13 @@ const Generator = () => {
               >
                 Adult Lander
               </button>
+              <button 
+                className={`px-4 py-2 ${activeTab === 'tmates' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
+                onClick={() => setActiveTab('tmates')}
+                disabled={loading}
+              >
+                Weight Loss
+              </button>
             </div>
 
             {error && (
@@ -612,10 +747,15 @@ const Generator = () => {
                 formData={quizFormData}
                 setFormData={setQuizFormData}
               />
-            ) : (
+            ) : activeTab === 'adult' ? (
               <AdultLanderForm
                 formData={adultLanderFormData}
                 setFormData={setAdultLanderFormData}
+              />
+            ) : (
+              <TMatesForm
+                formData={tmatesFormData}
+                setFormData={setTMatesFormData}
               />
             )}
 
