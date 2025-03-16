@@ -898,34 +898,47 @@ export const generateTMatesPage = (data) => {
           
           /* Footer styles */
           #${ids.footer} {
-            background: ${layoutStyle === 3 ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.05)'};
-            padding: 1.5rem 0;
-            margin-top: auto;
+            background-color: #1a1a2e;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
             text-align: center;
-            font-size: clamp(0.75rem, 2vw, 0.875rem);
-            color: ${layoutStyle === 3 ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.7)'};
           }
+          
+          .footer .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+          }
+          
           .footer-links {
-            margin: 1rem 0;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
           }
+          
           .footer-links a {
-            color: ${layoutStyle === 3 ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.7)'};
+            color: white;
             text-decoration: none;
-            padding: 0.5rem;
+            font-size: 1rem;
             transition: color 0.3s ease;
           }
-          .footer-links a:hover { color: ${primaryColor}; }
-          .footer-disclaimer {
+          
+          .footer-links a:hover {
+            color: ${primaryColor};
+          }
+          
+          .footer p {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+          }
+          
+          .footer .disclaimer {
+            font-size: 0.8rem;
             max-width: 600px;
-            margin: 1rem auto;
-            padding: 0 20px;
-            font-size: clamp(0.7rem, 2vw, 0.75rem);
-            line-height: 1.5;
-            color: ${layoutStyle === 3 ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.5)'};
+            margin: 1rem auto 0;
+            color: rgba(255, 255, 255, 0.5);
           }
           
           ${animationCSS}
@@ -1463,6 +1476,50 @@ export const generateProductInfoPage = (data) => {
             max-width: 450px;
             margin-left: auto;
             margin-right: auto;
+          }
+          
+          .footer {
+            background-color: #1a1a2e;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+          }
+          
+          .footer .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+          }
+          
+          .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+          }
+          
+          .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+          }
+          
+          .footer-links a:hover {
+            color: ${primaryColor};
+          }
+          
+          .footer p {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+          }
+          
+          .footer .disclaimer {
+            font-size: 0.8rem;
+            max-width: 600px;
+            margin: 1rem auto 0;
+            color: rgba(255, 255, 255, 0.5);
           }
           
           @media (max-width: 768px) {
