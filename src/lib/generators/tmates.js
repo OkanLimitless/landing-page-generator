@@ -1436,8 +1436,8 @@ export const generateProductInfoPage = (data) => {
           
           .cta-button {
             display: inline-block;
-            background-color: ${primaryColor};
-            color: white;
+            background-color: white;
+            color: ${primaryColor};
             font-weight: 600;
             font-size: 18px;
             padding: 15px 40px;
@@ -1445,20 +1445,20 @@ export const generateProductInfoPage = (data) => {
             text-decoration: none;
             margin-top: 20px;
             transition: all 0.3s ease;
-            box-shadow: ${layoutStyle === 3 ? '0 4px 10px rgba(0, 0, 0, 0.1)' : '0 4px 10px rgba(0, 0, 0, 0.2)'};
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
           }
           
           .cta-button:hover {
-            background-color: ${secondaryColor};
+            background-color: #f0f0f0;
             transform: translateY(-2px);
-            box-shadow: ${layoutStyle === 3 ? '0 6px 15px rgba(0, 0, 0, 0.15)' : '0 6px 15px rgba(0, 0, 0, 0.25)'};
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
           }
           
           .disclaimer {
             margin-top: 20px;
-            color: ${layoutStyle === 3 ? '#999' : 'rgba(255, 255, 255, 0.7)'};
+            color: #999;
             font-size: 12px;
             max-width: 450px;
             margin-left: auto;
@@ -1584,8 +1584,8 @@ export const generateProductInfoPage = (data) => {
         <footer class="footer">
           <div class="container">
             <div class="footer-links">
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Service</a>
+              <a href="privacy.html">Privacy Policy</a>
+              <a href="terms.html">Terms of Service</a>
               <a href="#">Contact Us</a>
             </div>
             <p>&copy; ${new Date().getFullYear()} TMates. All rights reserved.</p>
