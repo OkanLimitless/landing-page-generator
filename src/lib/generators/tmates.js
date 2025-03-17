@@ -1115,7 +1115,7 @@ export const generateTMatesPage = (data) => {
                 <a href="terms.html">Terms of Service</a>
                 <a href="#">Contact Us</a>
               </div>
-              <p>&copy; ${new Date().getFullYear()} TMates. All rights reserved.</p>
+              <p>&copy; ${new Date().getFullYear()} All rights reserved.</p>
               <p class="disclaimer">Results may vary. Prescription medication requires online consultation with healthcare providers who will determine if a prescription is appropriate. This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google.</p>
             </div>
           </footer>
@@ -1966,7 +1966,7 @@ export const generateProductInfoPage = (data) => {
               <a href="terms.html">Terms of Service</a>
               <a href="#">Contact Us</a>
             </div>
-            <p>&copy; ${new Date().getFullYear()} TMates. All rights reserved.</p>
+            <p>&copy; ${new Date().getFullYear()} All rights reserved.</p>
             <p class="disclaimer">Results may vary. Prescription medication requires online consultation with healthcare providers who will determine if a prescription is appropriate. This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google.</p>
           </div>
         </footer>
