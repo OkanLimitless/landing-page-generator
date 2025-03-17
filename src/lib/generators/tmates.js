@@ -94,6 +94,20 @@ export const generateTMatesPage = (data) => {
           .question {
             color: white;
           }
+          
+          /* Ensure footer text is visible */
+          #${ids.footer} {
+            background-color: #1a1a2e;
+            color: white;
+          }
+          
+          #${ids.footer} a, #${ids.footer} p {
+            color: white;
+          }
+          
+          #${ids.footer} .disclaimer {
+            color: rgba(255, 255, 255, 0.7);
+          }
         `;
         containerClass = 'container';
         break;
@@ -144,6 +158,21 @@ export const generateTMatesPage = (data) => {
           .question {
             color: white;
           }
+          
+          /* Ensure footer text is visible */
+          #${ids.footer} {
+            background-color: #1a1a2e;
+            color: white;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+          }
+          
+          #${ids.footer} a, #${ids.footer} p {
+            color: white;
+          }
+          
+          #${ids.footer} .disclaimer {
+            color: rgba(255, 255, 255, 0.7);
+          }
         `;
         containerClass = 'container';
         break;
@@ -190,6 +219,20 @@ export const generateTMatesPage = (data) => {
           
           .question {
             color: #333;
+          }
+          
+          /* Ensure footer text is visible */
+          #${ids.footer} {
+            background-color: #1a1a2e;
+            color: white;
+          }
+          
+          #${ids.footer} a, #${ids.footer} p {
+            color: white;
+          }
+          
+          #${ids.footer} .disclaimer {
+            color: rgba(255, 255, 255, 0.7);
           }
         `;
         containerClass = 'container';
@@ -436,6 +479,9 @@ export const generateTMatesPage = (data) => {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
+            padding-bottom: 0;
+            margin: 0;
           }
           
           ${layoutCSS}
@@ -444,10 +490,15 @@ export const generateTMatesPage = (data) => {
             flex: 1;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
           }
           
           #${ids.container} {
             flex: 1;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
           }
           
           .logo-container {
@@ -910,6 +961,7 @@ export const generateTMatesPage = (data) => {
             box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
             left: 0;
             right: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
           }
           
           .footer .container {
