@@ -36,5 +36,13 @@ export const contentPresets = {
     offerUrl: "https://nmttrack.com/?a=25528&c=403992",
     gtagId: "AW-XXXXXXXXXX/XXXXXXXXXXXXX",
     trackingScript: ""
+  },
+  gutterLeads: {
+    title: "Millions of American Families May Be Eligible for Getting Gutter Guards Installed at Low Rates",
+    text: "Gutter Protection helps homeowners install their gutter guards with maximum savings and in minimum time (without cutting corners on materials, labor, or the customer experience). They can get things done on a budget, as numerous gutter guards are available at discount rates.",
+    buttonText: "Find Out What Your Home Qualifies For!",
+    url: "https://example.com/gutter-qualification",
+    gtagId: "AW-XXXXXXXXXX/XXXXXXXXXXXXX",
+    logoUrl: "https://example.com/gutter-logo.png"
   }
 }; 
