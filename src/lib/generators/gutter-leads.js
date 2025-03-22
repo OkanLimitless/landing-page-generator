@@ -237,19 +237,18 @@ export const generateGutterLeadPage = (data) => {
           }
 
           function buildTargetUrl() {
-            const baseUrl = '${mergedData.url}';
-            // Create a URLSearchParams object for cleaner parameter handling
-            const params = new URLSearchParams();
+            let baseUrl = '${mergedData.url}';
+            const gclid = getUrlParameter('gclid');
             
-            // Add a random parameter to help avoid Google's policy flags
-            params.append('rand', Math.floor(Math.random() * 1000).toString());
+            if (gclid) {
+              if (baseUrl.includes('?')) {
+                baseUrl += '&gclid=' + gclid;
+              } else {
+                baseUrl += '?gclid=' + gclid;
+              }
+            }
             
-            // Add the tracking parameters
-            params.append('gclid', getUrlParameter('gclid') || '');
-            params.append('gtag_id', '${gtagAccount}');
-            params.append('gtag_label', '${gtagLabel}');
-            
-            return \`\${baseUrl}?\${params.toString()}\`;
+            return baseUrl;
           }
 
           document.addEventListener('DOMContentLoaded', function() {
