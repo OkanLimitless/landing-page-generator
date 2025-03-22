@@ -5,7 +5,8 @@ import {
   generateProductDetailPage,
   generateAdultLanderPage,
   generateTMatesPage,
-  generateProductInfoPage
+  generateProductInfoPage,
+  generateGutterLeadPage
 } from '../../lib';
 import { generatePrivacyPolicy, generateTermsOfService } from '../../lib/generators/legal';
 import { getRandomStyle } from '../../lib/utils/style-variations';
@@ -108,6 +109,10 @@ export default async function handler(req, res) {
         // Generate product info page for TMates
         const productInfoPage = generateProductInfoPage(data);
         productDetailPages['product-info.html'] = productInfoPage;
+        break;
+      case 'gutterLeads':
+        console.log('Generating Gutter Leads page...');
+        html = generateGutterLeadPage(data);
         break;
       default:
         throw new Error('Invalid page type');

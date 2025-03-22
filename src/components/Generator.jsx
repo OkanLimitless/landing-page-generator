@@ -323,6 +323,98 @@ const TMatesForm = ({ formData, setFormData }) => {
   );
 };
 
+// Add GutterLeadsForm component
+const GutterLeadsForm = ({ formData, setFormData }) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <label htmlFor="title" className="block text-sm font-medium text-gray-400 mb-1">Title</label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          value={formData.title || ''}
+          onChange={handleChange}
+          className="block w-full rounded-md bg-gray-800 border-gray-700 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-white"
+          placeholder="Enter your headline"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="text" className="block text-sm font-medium text-gray-400 mb-1">Description Text</label>
+        <textarea
+          name="text"
+          id="text"
+          rows={6}
+          value={formData.text || ''}
+          onChange={handleChange}
+          className="block w-full rounded-md bg-gray-800 border-gray-700 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-white"
+          placeholder="Enter your description (use new lines for bullet points)"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="url" className="block text-sm font-medium text-gray-400 mb-1">Target URL</label>
+          <input
+            type="text"
+            name="url"
+            id="url"
+            value={formData.url || ''}
+            onChange={handleChange}
+            className="block w-full rounded-md bg-gray-800 border-gray-700 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-white"
+            placeholder="https://example.com/landing"
+          />
+        </div>
+        <div>
+          <label htmlFor="buttonText" className="block text-sm font-medium text-gray-400 mb-1">Button Text</label>
+          <input
+            type="text"
+            name="buttonText"
+            id="buttonText"
+            value={formData.buttonText || ''}
+            onChange={handleChange}
+            className="block w-full rounded-md bg-gray-800 border-gray-700 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-white"
+            placeholder="Find Out What Your Home Qualifies For!"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="gtagId" className="block text-sm font-medium text-gray-400 mb-1">Google Ads Tag ID</label>
+          <input
+            type="text"
+            name="gtagId"
+            id="gtagId"
+            value={formData.gtagId || ''}
+            onChange={handleChange}
+            className="block w-full rounded-md bg-gray-800 border-gray-700 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-white"
+            placeholder="AW-XXXXXXXXXX/XXXXXXXXXXXXX"
+          />
+        </div>
+        <div>
+          <label htmlFor="logoUrl" className="block text-sm font-medium text-gray-400 mb-1">Logo Image URL</label>
+          <input
+            type="text"
+            name="logoUrl"
+            id="logoUrl"
+            value={formData.logoUrl || ''}
+            onChange={handleChange}
+            className="block w-full rounded-md bg-gray-800 border-gray-700 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-white"
+            placeholder="https://example.com/logo.png"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Generator = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -371,6 +463,16 @@ const Generator = () => {
     trackingScript: ''
   });
 
+  // Add gutterLeads form data state
+  const [gutterLeadsFormData, setGutterLeadsFormData] = useState({
+    title: '',
+    text: '',
+    buttonText: '',
+    url: '',
+    gtagId: '',
+    logoUrl: ''
+  });
+
   // Load presets from localStorage on mount
   useEffect(() => {
     const savedPresets = JSON.parse(localStorage.getItem('customPresets') || '{}');
@@ -390,29 +492,48 @@ const Generator = () => {
       setLoading(true);
       setError(null);
 
-      const formData = activeTab === 'vsl' ? vslFormData : 
-                      activeTab === 'ecom' ? ecomFormData : 
-                      activeTab === 'quiz' ? quizFormData :
-                      activeTab === 'adult' ? adultLanderFormData :
-                      tmatesFormData;
+      let data;
+      
+      switch (activeTab) {
+        case 'vsl':
+          data = vslFormData;
+          break;
+        case 'ecom':
+          data = ecomFormData;
+          break;
+        case 'quiz':
+          data = quizFormData;
+          break;
+        case 'adult':
+          data = adultLanderFormData;
+          break;
+        case 'tmates':
+          data = tmatesFormData;
+          break;
+        case 'gutterLeads':
+          data = gutterLeadsFormData;
+          break;
+        default:
+          throw new Error('Invalid tab selection');
+      }
 
       const response = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           type: activeTab,
-          data: formData
+          data: data
         })
       });
 
-      const data = await response.json();
+      const dataResponse = await response.json();
 
-      if (!data.success) {
-        throw new Error(data.message || 'Generation failed');
+      if (!dataResponse.success) {
+        throw new Error(dataResponse.message || 'Generation failed');
       }
 
       // Convert base64 zip to blob and download
-      const binaryString = window.atob(data.zipContent);
+      const binaryString = window.atob(dataResponse.zipContent);
       const bytes = new Uint8Array(binaryString.length);
       for (let i = 0; i < binaryString.length; i++) {
         bytes[i] = binaryString.charCodeAt(i);
@@ -468,6 +589,12 @@ const Generator = () => {
           ...allPresets[presetKey],
           preset: presetKey
         }));
+      } else if (activeTab === 'gutterLeads') {
+        setGutterLeadsFormData(prev => ({
+          ...prev,
+          ...allPresets[presetKey],
+          preset: presetKey
+        }));
       }
     } else {
       // Clear preset selection
@@ -496,6 +623,11 @@ const Generator = () => {
           ...prev,
           preset: ''
         }));
+      } else if (activeTab === 'gutterLeads') {
+        setGutterLeadsFormData(prev => ({
+          ...prev,
+          preset: ''
+        }));
       }
     }
   };
@@ -508,7 +640,7 @@ const Generator = () => {
     if (!newPresetName) return;
     
     const presetKey = newPresetName.replace(/\s+/g, '');
-    const currentFormData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : activeTab === 'quiz' ? quizFormData : activeTab === 'adult' ? adultLanderFormData : tmatesFormData;
+    const currentFormData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : activeTab === 'quiz' ? quizFormData : activeTab === 'adult' ? adultLanderFormData : activeTab === 'tmates' ? tmatesFormData : gutterLeadsFormData;
     
     // Create new preset without the preset field itself
     const { preset, ...presetData } = currentFormData;
@@ -544,7 +676,8 @@ const Generator = () => {
     { value: 'ecom', label: 'E-commerce Product' },
     { value: 'adult', label: 'Adult Lander' },
     { value: 'quiz', label: 'ED Quiz' },
-    { value: 'tmates', label: 'TMates Weight Loss' }
+    { value: 'tmates', label: 'TMates Weight Loss' },
+    { value: 'gutterLeads', label: 'Gutter Leads' }
   ];
 
   return (
@@ -592,7 +725,7 @@ const Generator = () => {
               <div className="flex gap-2">
                 <div className="relative flex-1">
                   <select
-                    value={activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : tmatesFormData.preset}
+                    value={activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : gutterLeadsFormData.preset}
                     onChange={handlePresetChange}
                     className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white pr-10"
                   >
@@ -604,11 +737,11 @@ const Generator = () => {
                     ))}
                   </select>
                 </div>
-                {(activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : tmatesFormData.preset) && 
-                  localPresets[activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : tmatesFormData.preset] && (
+                {(activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : gutterLeadsFormData.preset) && 
+                  localPresets[activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : gutterLeadsFormData.preset] && (
                     <button
                       onClick={() => {
-                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : tmatesFormData.preset;
+                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : gutterLeadsFormData.preset;
                         if (window.confirm(`Are you sure you want to delete the "${presetToDelete}" preset?`)) {
                           handleDeletePreset(presetToDelete);
                         }
@@ -670,6 +803,13 @@ const Generator = () => {
               >
                 Weight Loss
               </button>
+              <button 
+                className={`px-4 py-2 ${activeTab === 'gutterLeads' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
+                onClick={() => setActiveTab('gutterLeads')}
+                disabled={loading}
+              >
+                Gutter Leads
+              </button>
             </div>
 
             {error && (
@@ -698,12 +838,17 @@ const Generator = () => {
                 formData={adultLanderFormData}
                 setFormData={setAdultLanderFormData}
               />
-            ) : (
+            ) : activeTab === 'tmates' ? (
               <TMatesForm
                 formData={tmatesFormData}
                 setFormData={setTMatesFormData}
               />
-            )}
+            ) : activeTab === 'gutterLeads' ? (
+              <GutterLeadsForm
+                formData={gutterLeadsFormData}
+                setFormData={setGutterLeadsFormData}
+              />
+            ) : null}
 
             <div className="mt-6 flex justify-end">
               <button 
