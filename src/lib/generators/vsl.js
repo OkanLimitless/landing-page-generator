@@ -175,12 +175,12 @@ export const generateVSLPage = (data) => {
           <div id="${ids.video}" role="button" tabindex="0">
             <img src="${mergedData.thumbnailUrl}" alt="${mergedData.headline}">
           </div>
-          <a href="#" class="cta-button">
-            ${mergedData.ctaText || 'Watch FREE Video Guide Now'}
-          </a>
           <div class="description">
             ${mergedData.description.split('\n').map(p => `<p>${p}</p>`).join('')}
           </div>
+          <a href="#" class="cta-button">
+            ${mergedData.ctaText || 'Watch FREE Video Guide Now'}
+          </a>
         </main>
         <footer id="${ids.footer}">
           <div class="container">
