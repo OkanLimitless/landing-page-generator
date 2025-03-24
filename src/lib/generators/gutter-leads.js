@@ -253,12 +253,12 @@ export const generateGutterLeadPage = (data) => {
               }
             }
             
-            // Set a timeout to ensure navigation happens even if tracking fails
-            var redirectTimeout = setTimeout(handleRedirect, 500);
+            // Increase timeout to ensure hit has time to be sent
+            var redirectTimeout = setTimeout(handleRedirect, 1000);
             
-            // Try to report conversion
             try {
               if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
+                // Send the conversion event
                 gtag('event', 'conversion', {
                   'send_to': '${gtagAccount}/${gtagLabel}',
                   'value': 1.0,
@@ -268,7 +268,13 @@ export const generateGutterLeadPage = (data) => {
                     // Clear the timeout and handle redirect
                     clearTimeout(redirectTimeout);
                     handleRedirect();
-                  }
+                  },
+                  'transport_type': 'beacon' // Use beacon API to help ensure hit delivery
+                });
+                
+                // As an additional measure, log another event with higher priority
+                gtag('event', 'page_view', {
+                  'send_to': '${gtagAccount}'
                 });
               } else {
                 // If gtag isn't available, clear timeout and navigate immediately
