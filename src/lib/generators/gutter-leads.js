@@ -242,50 +242,23 @@ export const generateGutterLeadPage = (data) => {
           }
 
           function gtag_report_conversion(url) {
-            // Flag to track if redirection has been handled
-            var redirectHandled = false;
-            
-            // Function to handle redirection
-            function handleRedirect() {
-              if (!redirectHandled && typeof(url) != 'undefined') {
-                redirectHandled = true;
-                window.location.href = url;
+            var callback = function () {
+              if (typeof(url) != 'undefined') {
+                window.location = url;
               }
-            }
+            };
             
-            // Increase timeout to ensure hit has time to be sent
-            var redirectTimeout = setTimeout(handleRedirect, 1000);
-            
-            try {
-              if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
-                // Send the conversion event
-                gtag('event', 'conversion', {
-                  'send_to': '${gtagAccount}/${gtagLabel}',
-                  'value': 1.0,
-                  'currency': 'USD',
-                  'transaction_id': '',
-                  'event_callback': function() {
-                    // Clear the timeout and handle redirect
-                    clearTimeout(redirectTimeout);
-                    handleRedirect();
-                  },
-                  'transport_type': 'beacon' // Use beacon API to help ensure hit delivery
-                });
-                
-                // As an additional measure, log another event with higher priority
-                gtag('event', 'page_view', {
-                  'send_to': '${gtagAccount}'
-                });
-              } else {
-                // If gtag isn't available, clear timeout and navigate immediately
-                clearTimeout(redirectTimeout);
-                handleRedirect();
-              }
-            } catch (e) {
-              console.log('Conversion tracking error:', e);
-              // If there's an error, clear timeout and navigate immediately
-              clearTimeout(redirectTimeout);
-              handleRedirect();
+            if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
+              gtag('event', 'conversion', {
+                'send_to': '${gtagAccount}/${gtagLabel}',
+                'value': 1.0,
+                'currency': 'EUR',
+                'transaction_id': '',
+                'event_callback': callback
+              });
+            } else {
+              // If gtag isn't available, just navigate
+              callback();
             }
             
             return false;
@@ -300,7 +273,6 @@ export const generateGutterLeadPage = (data) => {
               ctaButton.href = targetUrl;
               ctaButton.onclick = function(e) {
                 e.preventDefault();
-                // Call gtag_report_conversion which handles both tracking and navigation
                 return gtag_report_conversion(targetUrl);
               };
             }
