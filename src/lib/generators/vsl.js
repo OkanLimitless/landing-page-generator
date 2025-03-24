@@ -209,23 +209,44 @@ export const generateVSLPage = (data) => {
           }
 
           function gtag_report_conversion(url) {
-            // Try to report conversion but prioritize navigation
+            // Flag to track if redirection has been handled
+            var redirectHandled = false;
+            
+            // Function to handle redirection
+            function handleRedirect() {
+              if (!redirectHandled && typeof(url) != 'undefined') {
+                redirectHandled = true;
+                window.location.href = url;
+              }
+            }
+            
+            // Set a timeout to ensure navigation happens even if tracking fails
+            var redirectTimeout = setTimeout(handleRedirect, 500);
+            
+            // Try to report conversion
             try {
               if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
                 gtag('event', 'conversion', {
                   'send_to': '${gtagAccount}/${gtagLabel}',
                   'value': 1.0,
                   'currency': 'USD',
-                  'transaction_id': ''
+                  'transaction_id': '',
+                  'event_callback': function() {
+                    // Clear the timeout and handle redirect
+                    clearTimeout(redirectTimeout);
+                    handleRedirect();
+                  }
                 });
+              } else {
+                // If gtag isn't available, clear timeout and navigate immediately
+                clearTimeout(redirectTimeout);
+                handleRedirect();
               }
             } catch (e) {
               console.log('Conversion tracking error:', e);
-            }
-            
-            // Always navigate to the URL regardless of conversion tracking
-            if (typeof(url) != 'undefined') {
-              window.location.href = url;
+              // If there's an error, clear timeout and navigate immediately
+              clearTimeout(redirectTimeout);
+              handleRedirect();
             }
             
             return false;
@@ -238,13 +259,8 @@ export const generateVSLPage = (data) => {
             const videoDiv = document.getElementById('${ids.video}');
             if (videoDiv) {
               videoDiv.onclick = function() {
-                // Try to track but ensure navigation happens
-                try {
-                  gtag_report_conversion(videoUrl);
-                } catch (e) {
-                  window.location.href = videoUrl;
-                }
-                return false;
+                // Call gtag_report_conversion which handles both tracking and navigation
+                return gtag_report_conversion(videoUrl);
               };
             }
             
@@ -253,13 +269,8 @@ export const generateVSLPage = (data) => {
               button.href = videoUrl;
               button.onclick = function(e) {
                 e.preventDefault();
-                // Try to track but ensure navigation happens
-                try {
-                  gtag_report_conversion(videoUrl);
-                } catch (e) {
-                  window.location.href = videoUrl;
-                }
-                return false;
+                // Call gtag_report_conversion which handles both tracking and navigation
+                return gtag_report_conversion(videoUrl);
               };
             });
           });
