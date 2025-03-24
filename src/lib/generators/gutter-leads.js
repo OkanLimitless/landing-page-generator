@@ -237,42 +237,31 @@ export const generateGutterLeadPage = (data) => {
           }
 
           function buildTargetUrl() {
-            let baseUrl = '${mergedData.url}';
-            const gclid = getUrlParameter('gclid');
-            
-            if (gclid) {
-              if (baseUrl.includes('?')) {
-                baseUrl += '&gclid=' + gclid;
-              } else {
-                baseUrl += '?gclid=' + gclid;
-              }
-            }
-            
-            return baseUrl;
+            // Return the URL as is without modifications
+            return '${mergedData.url}';
           }
 
           function gtag_report_conversion(url) {
-            var callback = function () {
-              if (typeof(url) != 'undefined') {
-                window.location = url;
+            // Try to report conversion but prioritize navigation
+            try {
+              if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
+                gtag('event', 'conversion', {
+                  'send_to': '${gtagAccount}/${gtagLabel}',
+                  'value': 1.0,
+                  'currency': 'USD',
+                  'transaction_id': ''
+                });
               }
-            };
-            
-            // Only trigger if gtag is defined and we have a valid tag ID
-            if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
-              gtag('event', 'conversion', {
-                'send_to': '${gtagAccount}/${gtagLabel}',
-                'value': 1.0,
-                'currency': 'USD',
-                'transaction_id': '',
-                'event_callback': callback
-              });
-              return false;
-            } else {
-              // If gtag isn't available, just navigate directly
-              callback();
-              return false;
+            } catch (e) {
+              console.log('Conversion tracking error:', e);
             }
+            
+            // Always navigate to the URL regardless of conversion tracking
+            if (typeof(url) != 'undefined') {
+              window.location.href = url;
+            }
+            
+            return false;
           }
 
           document.addEventListener('DOMContentLoaded', function() {
@@ -284,7 +273,13 @@ export const generateGutterLeadPage = (data) => {
               ctaButton.href = targetUrl;
               ctaButton.onclick = function(e) {
                 e.preventDefault();
-                return gtag_report_conversion(targetUrl);
+                // Try to track but ensure navigation happens
+                try {
+                  gtag_report_conversion(targetUrl);
+                } catch (e) {
+                  window.location.href = targetUrl;
+                }
+                return false;
               };
             }
           });

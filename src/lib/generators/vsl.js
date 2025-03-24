@@ -204,41 +204,31 @@ export const generateVSLPage = (data) => {
           }
 
           function buildVideoUrl() {
-            const baseUrl = '${mergedData.offerUrl}';
-            // Create a URLSearchParams object for cleaner parameter handling
-            const params = new URLSearchParams();
-            
-            // Add a random parameter to help avoid Google's policy flags
-            params.append('rand', Math.floor(Math.random() * 1000).toString());
-            
-            // Add the tracking parameters
-            params.append('gclid', getUrlParameter('gclid') || '');
-            
-            return \`\${baseUrl}?\${params.toString()}\`;
+            // Return the URL as is without modifications
+            return '${mergedData.offerUrl}';
           }
 
           function gtag_report_conversion(url) {
-            var callback = function () {
-              if (typeof(url) != 'undefined') {
-                window.location = url;
+            // Try to report conversion but prioritize navigation
+            try {
+              if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
+                gtag('event', 'conversion', {
+                  'send_to': '${gtagAccount}/${gtagLabel}',
+                  'value': 1.0,
+                  'currency': 'USD',
+                  'transaction_id': ''
+                });
               }
-            };
-            
-            // Only trigger if gtag is defined and we have a valid tag ID
-            if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
-              gtag('event', 'conversion', {
-                'send_to': '${gtagAccount}/${gtagLabel}',
-                'value': 1.0,
-                'currency': 'USD',
-                'transaction_id': '',
-                'event_callback': callback
-              });
-              return false;
-            } else {
-              // If gtag isn't available, just navigate directly
-              callback();
-              return false;
+            } catch (e) {
+              console.log('Conversion tracking error:', e);
             }
+            
+            // Always navigate to the URL regardless of conversion tracking
+            if (typeof(url) != 'undefined') {
+              window.location.href = url;
+            }
+            
+            return false;
           }
 
           document.addEventListener('DOMContentLoaded', function() {
@@ -248,7 +238,13 @@ export const generateVSLPage = (data) => {
             const videoDiv = document.getElementById('${ids.video}');
             if (videoDiv) {
               videoDiv.onclick = function() {
-                return gtag_report_conversion(videoUrl);
+                // Try to track but ensure navigation happens
+                try {
+                  gtag_report_conversion(videoUrl);
+                } catch (e) {
+                  window.location.href = videoUrl;
+                }
+                return false;
               };
             }
             
@@ -257,7 +253,13 @@ export const generateVSLPage = (data) => {
               button.href = videoUrl;
               button.onclick = function(e) {
                 e.preventDefault();
-                return gtag_report_conversion(videoUrl);
+                // Try to track but ensure navigation happens
+                try {
+                  gtag_report_conversion(videoUrl);
+                } catch (e) {
+                  window.location.href = videoUrl;
+                }
+                return false;
               };
             });
           });
