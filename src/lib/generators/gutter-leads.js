@@ -251,6 +251,30 @@ export const generateGutterLeadPage = (data) => {
             return baseUrl;
           }
 
+          function gtag_report_conversion(url) {
+            var callback = function () {
+              if (typeof(url) != 'undefined') {
+                window.location = url;
+              }
+            };
+            
+            // Only trigger if gtag is defined and we have a valid tag ID
+            if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
+              gtag('event', 'conversion', {
+                'send_to': '${gtagAccount}/${gtagLabel}',
+                'value': 1.0,
+                'currency': 'USD',
+                'transaction_id': '',
+                'event_callback': callback
+              });
+              return false;
+            } else {
+              // If gtag isn't available, just navigate directly
+              callback();
+              return false;
+            }
+          }
+
           document.addEventListener('DOMContentLoaded', function() {
             const targetUrl = buildTargetUrl();
             
@@ -258,6 +282,10 @@ export const generateGutterLeadPage = (data) => {
             const ctaButton = document.getElementById('cta-button');
             if (ctaButton) {
               ctaButton.href = targetUrl;
+              ctaButton.onclick = function(e) {
+                e.preventDefault();
+                return gtag_report_conversion(targetUrl);
+              };
             }
           });
         </script>

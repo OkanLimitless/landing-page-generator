@@ -213,10 +213,32 @@ export const generateVSLPage = (data) => {
             
             // Add the tracking parameters
             params.append('gclid', getUrlParameter('gclid') || '');
-            params.append('gtag_id', '${gtagAccount}');
-            params.append('gtag_label', '${gtagLabel}');
             
             return \`\${baseUrl}?\${params.toString()}\`;
+          }
+
+          function gtag_report_conversion(url) {
+            var callback = function () {
+              if (typeof(url) != 'undefined') {
+                window.location = url;
+              }
+            };
+            
+            // Only trigger if gtag is defined and we have a valid tag ID
+            if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
+              gtag('event', 'conversion', {
+                'send_to': '${gtagAccount}/${gtagLabel}',
+                'value': 1.0,
+                'currency': 'USD',
+                'transaction_id': '',
+                'event_callback': callback
+              });
+              return false;
+            } else {
+              // If gtag isn't available, just navigate directly
+              callback();
+              return false;
+            }
           }
 
           document.addEventListener('DOMContentLoaded', function() {
@@ -226,13 +248,17 @@ export const generateVSLPage = (data) => {
             const videoDiv = document.getElementById('${ids.video}');
             if (videoDiv) {
               videoDiv.onclick = function() {
-                window.location.href = videoUrl;
+                return gtag_report_conversion(videoUrl);
               };
             }
             
             // Update CTA buttons
             document.querySelectorAll('.cta-button').forEach(button => {
               button.href = videoUrl;
+              button.onclick = function(e) {
+                e.preventDefault();
+                return gtag_report_conversion(videoUrl);
+              };
             });
           });
         </script>
