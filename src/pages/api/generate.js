@@ -55,7 +55,21 @@ export default async function handler(req, res) {
         break;
       case 'quiz':
         console.log('Generating Quiz page...');
-        html = generateQuizPage(data);
+        const quizPages = generateQuizPage(data);
+        
+        if (!quizPages || typeof quizPages !== 'object') {
+          throw new Error('Failed to generate quiz pages');
+        }
+        
+        html = quizPages['index.html'];
+        if (!html) {
+          throw new Error('Failed to generate index.html for quiz');
+        }
+        
+        // Add quiz.html to productDetailPages
+        if (quizPages['quiz.html']) {
+          productDetailPages['quiz.html'] = quizPages['quiz.html'];
+        }
         
         // Generate product detail pages for the quiz
         const productNames = [
