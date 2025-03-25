@@ -151,7 +151,7 @@ function generateLandingHTML(data, styles, ids) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced ED Treatment Solution</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A" />
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A" />
     ${styles.fonts.urls.map(url => `<link href="${url}" rel="stylesheet">`).join('\n')}
     ${data.trackingScript || ''}
     ${gtagAccount ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>` : ''}
@@ -316,6 +316,7 @@ export const generateQuizPage = (data) => {
       :root {
         --primary: ${styles.colors.primary};
         --accent: ${styles.colors.accent};
+        --gradient: linear-gradient(135deg, var(--primary), var(--accent));
       }
       
       * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -324,109 +325,231 @@ export const generateQuizPage = (data) => {
         font-family: ${styles.fonts.body};
         line-height: 1.6;
         color: #333;
-        background: #f8f9fa;
+        background: #f5f7fa;
         min-height: 100vh;
+        position: relative;
+      }
+
+      body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 300px;
+        background: var(--gradient);
+        z-index: -1;
+        opacity: 0.8;
       }
 
       .quiz-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2.5rem;
         position: relative;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
       }
 
       .quiz-header {
         text-align: center;
-        margin-bottom: 2rem;
-        padding: 1rem;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .quiz-header::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: var(--gradient);
+        border-radius: 3px;
       }
 
       .quiz-title {
         font-family: ${styles.fonts.heading};
-        font-size: 2rem;
-        color: var(--primary);
-        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 1rem;
+      }
+
+      .quiz-subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 1.5rem;
       }
 
       .progress-container {
         width: 100%;
-        height: 6px;
+        height: 8px;
         background: #e9ecef;
-        border-radius: 3px;
-        margin: 1rem 0;
+        border-radius: 4px;
+        margin: 2rem 0;
         overflow: hidden;
+        position: relative;
       }
 
       .progress-bar {
         height: 100%;
-        background: var(--primary);
+        background: var(--gradient);
         width: 0;
-        transition: width 0.3s ease;
+        transition: width 0.5s ease;
+        border-radius: 4px;
+      }
+
+      .question-count {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        color: #777;
       }
 
       .question {
         background: white;
-        padding: 2rem;
+        padding: 2.5rem;
         border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
         opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.3s ease;
+        transform: translateY(30px);
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        border: 1px solid #f0f0f0;
+        display: none;
       }
 
       .question.active {
         opacity: 1;
         transform: translateY(0);
+        display: block;
+      }
+
+      .question::before {
+        content: attr(data-step);
+        position: absolute;
+        top: -15px;
+        left: 20px;
+        background: var(--gradient);
+        color: white;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 0.9rem;
       }
 
       .question h3 {
-        font-size: 1.5rem;
-        color: var(--primary);
-        margin-bottom: 1rem;
+        font-size: 1.6rem;
+        color: #333;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
       }
 
       .options {
         display: grid;
-        gap: 1rem;
+        gap: 1.2rem;
       }
 
       .option {
-        padding: 1.2rem;
-        background: #f8f9fa;
+        padding: 1.4rem;
+        background: #f9fafc;
         border: 2px solid #e9ecef;
-        border-radius: 8px;
+        border-radius: 10px;
         cursor: pointer;
         transition: all 0.3s ease;
         font-size: 1.1rem;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      .option::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: var(--gradient);
+        opacity: 0;
+        transition: all 0.3s ease;
       }
 
       .option:hover {
         border-color: var(--primary);
-        background: #fff;
-        transform: translateY(-2px);
+        background: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      }
+
+      .option:hover::before {
+        opacity: 1;
       }
 
       .option.selected {
         border-color: var(--primary);
-        background: var(--primary);
-        color: white;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      }
+
+      .option.selected::before {
+        opacity: 1;
+      }
+
+      .option.selected::after {
+        content: '✓';
+        position: absolute;
+        right: 20px;
+        color: var(--primary);
+        font-weight: bold;
+        font-size: 1.2rem;
       }
 
       .submit-button {
         ${styles.button(styles.colors)}
         display: block;
         width: 100%;
-        padding: 1.2rem;
-        margin-top: 2rem;
-        font-size: 1.2rem;
+        padding: 1.4rem;
+        margin-top: 2.5rem;
+        font-size: 1.3rem;
         border: none;
-        border-radius: 8px;
+        border-radius: 10px;
         cursor: pointer;
         transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: var(--gradient);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .submit-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: all 0.6s ease;
+        z-index: -1;
+      }
+
+      .submit-button:hover::before {
+        left: 100%;
       }
 
       .loading-overlay {
@@ -435,11 +558,12 @@ export const generateQuizPage = (data) => {
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(255,255,255,0.95);
+        background: rgba(255,255,255,0.97);
         display: none;
         justify-content: center;
         align-items: center;
         z-index: 1000;
+        backdrop-filter: blur(5px);
       }
 
       .loading-overlay.active {
@@ -448,36 +572,48 @@ export const generateQuizPage = (data) => {
 
       .loading-content {
         text-align: center;
+        max-width: 500px;
+        padding: 2rem;
       }
 
       .loading-title {
-        font-size: 2rem;
-        color: var(--primary);
-        margin-bottom: 2rem;
+        font-size: 2.2rem;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 2.5rem;
+        font-weight: 700;
       }
 
       .loading-steps {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
+        text-align: left;
       }
 
       .loading-step {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 1.2rem;
         opacity: 0.5;
-        transition: opacity 0.3s ease;
+        transition: all 0.5s ease;
+        transform: translateX(-20px);
+        padding: 1rem;
+        border-radius: 8px;
       }
 
       .loading-step.active {
         opacity: 1;
+        transform: translateX(0);
+        background: #f5f7fa;
       }
 
       .loading-step .checkmark {
-        width: 24px;
-        height: 24px;
-        background: var(--primary);
+        width: 30px;
+        height: 30px;
+        background: var(--gradient);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -485,7 +621,7 @@ export const generateQuizPage = (data) => {
         color: white;
         opacity: 0;
         transform: scale(0);
-        transition: all 0.3s ease;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
       .loading-step.active .checkmark {
@@ -493,11 +629,44 @@ export const generateQuizPage = (data) => {
         transform: scale(1);
       }
 
+      .loading-step span {
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
+
+      .loading-anim {
+        height: 5px;
+        width: 100%;
+        margin-top: 2rem;
+        background: #e9ecef;
+        border-radius: 3px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .loading-anim::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -50%;
+        width: 50%;
+        height: 100%;
+        background: var(--gradient);
+        animation: loading 1.5s infinite linear;
+        border-radius: 3px;
+      }
+
+      @keyframes loading {
+        0% { left: -50%; }
+        100% { left: 100%; }
+      }
+
       .results-section {
         display: none;
         opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.3s ease;
+        transform: translateY(30px);
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        padding: 2rem;
       }
 
       .results-section.active {
@@ -506,62 +675,177 @@ export const generateQuizPage = (data) => {
         transform: translateY(0);
       }
 
-      .results-title {
+      .results-header {
         text-align: center;
-        font-size: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .results-title {
+        font-size: 2.5rem;
         color: var(--primary);
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .results-subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .results-message {
+        background: #f0f9ff;
+        border-left: 4px solid var(--primary);
+        padding: 1.5rem;
+        margin-bottom: 3rem;
+        border-radius: 6px;
       }
 
       .products-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        margin-top: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2.5rem;
+        margin-top: 2.5rem;
       }
 
       .product-card {
         background: white;
-        border-radius: 12px;
+        border-radius: 14px;
         overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+        transition: all 0.4s ease;
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
       }
 
       .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      }
+
+      .product-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--gradient);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        z-index: 10;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       }
 
       .product-image {
         width: 100%;
-        height: 200px;
+        height: 220px;
         object-fit: cover;
+        border-bottom: 1px solid #f0f0f0;
       }
 
       .product-info {
-        padding: 1.5rem;
+        padding: 1.8rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
       }
 
       .product-name {
-        font-size: 1.5rem;
-        color: var(--primary);
-        margin-bottom: 0.5rem;
+        font-size: 1.6rem;
+        color: #333;
+        margin-bottom: 0.8rem;
+        font-weight: 600;
       }
 
       .product-description {
         color: #666;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+      }
+
+      .product-features {
+        margin-bottom: 1.5rem;
+        padding-left: 1.2rem;
+      }
+
+      .product-features li {
+        margin-bottom: 0.5rem;
+        position: relative;
+      }
+
+      .product-features li::before {
+        content: '✓';
+        color: var(--primary);
+        position: absolute;
+        left: -1.2rem;
+        font-weight: bold;
       }
 
       .product-button {
         ${styles.button(styles.colors)}
         display: block;
         width: 100%;
-        padding: 1rem;
+        padding: 1.2rem;
         text-align: center;
         text-decoration: none;
-        border-radius: 6px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: var(--gradient);
+      }
+
+      .product-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+
+      .trust-indicators {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        color: #666;
+      }
+
+      .trust-icon {
+        font-size: 1.5rem;
+        color: var(--primary);
+      }
+
+      @media (max-width: 768px) {
+        .quiz-container {
+          padding: 1.5rem;
+          margin: 1rem;
+        }
+        
+        .question {
+          padding: 1.5rem;
+        }
+        
+        .quiz-title {
+          font-size: 2rem;
+        }
+        
+        .option {
+          padding: 1.2rem;
+        }
+        
+        .products-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       ${styles.buttonHover ? styles.buttonHover(styles.colors) : ''}
@@ -571,7 +855,11 @@ export const generateQuizPage = (data) => {
     <div class="quiz-container" id="${ids.quizForm}">
         <div class="quiz-header">
             <h1 class="quiz-title">ED Treatment Qualification Quiz</h1>
-            <p>Answer a few quick questions to find your perfect solution</p>
+            <p class="quiz-subtitle">Answer a few quick questions to find your perfect solution</p>
+            <div class="question-count">
+                <span id="current-question">Question 1</span>
+                <span>3 Questions Total</span>
+            </div>
             <div class="progress-container">
                 <div class="progress-bar" id="progress-bar"></div>
             </div>
@@ -630,39 +918,86 @@ export const generateQuizPage = (data) => {
                     <span>Finalizing recommendations...</span>
                 </div>
             </div>
+            <div class="loading-anim"></div>
         </div>
     </div>
 
     <div class="results-section" id="results-section">
-        <h2 class="results-title">Great News! You Qualify for Our Solutions</h2>
-        <p class="results-subtitle">Based on your answers, we've found the perfect treatment options for you.</p>
+        <div class="results-header">
+            <h2 class="results-title">Great News! You Qualify For Treatment</h2>
+            <p class="results-subtitle">Based on your answers, we've found the perfect solutions for you</p>
+        </div>
+        
+        <div class="results-message">
+            <p>Our analysis shows you're an excellent candidate for ED treatment. We've matched your profile with our top recommended products.</p>
+        </div>
         
         <div class="products-grid">
             <div class="product-card">
+                <div class="product-badge">MOST POPULAR</div>
                 <img src="https://i.imgur.com/VTN5W8c.png" alt="AlphaBites" class="product-image">
                 <div class="product-info">
                     <h3 class="product-name">AlphaBites</h3>
-                    <p class="product-description">Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.</p>
-                    <a href="https://afflat3e1.com/trk/lnk/7EF4AD2B-B866-46E8-AE93-217072D69F31/?o=28584&c=918277&a=271469&k=C710AE04C0E95E8AF6C4BC458930795E&l=31571" class="product-button">Learn More</a>
+                    <p class="product-description">Our newest formula combines the benefits of both Viagra and Cialis in one powerful treatment. Starts working in 15 minutes and lasts for up to 36 hours.</p>
+                    <ul class="product-features">
+                        <li>Fast-acting formula (15 min)</li>
+                        <li>Long-lasting (36 hours)</li>
+                        <li>No prescription needed</li>
+                        <li>Clinically tested ingredients</li>
+                    </ul>
+                    <a href="vsl.html" class="product-button">Learn More</a>
                 </div>
             </div>
             
             <div class="product-card">
+                <div class="product-badge">NATURAL</div>
                 <img src="https://i.imgur.com/g5LZLPR.png" alt="Brazilian Wood" class="product-image">
                 <div class="product-info">
                     <h3 class="product-name">Brazilian Wood</h3>
-                    <p class="product-description">Natural herbal formula for sustained performance. Made with premium ingredients from the Amazon rainforest.</p>
-                    <a href="https://afflat3e1.com/trk/lnk/7EF4AD2B-B866-46E8-AE93-217072D69F31/?o=26286&c=918277&a=271469&k=FD40240F18D488603D3C98D218ED5998&l=32307" class="product-button">Learn More</a>
+                    <p class="product-description">All-natural herbal formula developed with premium ingredients from the Amazon rainforest. Enhances blood flow and performance without side effects.</p>
+                    <ul class="product-features">
+                        <li>100% natural ingredients</li>
+                        <li>No side effects</li>
+                        <li>Cumulative benefits</li>
+                        <li>Improves stamina & energy</li>
+                    </ul>
+                    <a href="ecom.html" class="product-button">Learn More</a>
                 </div>
             </div>
             
             <div class="product-card">
+                <div class="product-badge">STRONGEST</div>
                 <img src="https://i.imgur.com/C6UJxbC.png" alt="EndoPeak" class="product-image">
                 <div class="product-info">
                     <h3 class="product-name">EndoPeak</h3>
-                    <p class="product-description">Advanced formula designed to maximize blood flow and enhance sensitivity. Clinically tested for optimal results.</p>
-                    <a href="https://endopeak24.com/b/order-now.php?aff_id=130095" class="product-button">Learn More</a>
+                    <p class="product-description">Advanced pharmaceutical-grade formula designed to maximize blood flow and enhance sensitivity. Our strongest solution for men with severe ED symptoms.</p>
+                    <ul class="product-features">
+                        <li>Maximum strength formula</li>
+                        <li>Enhanced sensitivity</li>
+                        <li>Works for severe cases</li>
+                        <li>Money-back guarantee</li>
+                    </ul>
+                    <a href="gutter-leads.html" class="product-button">Learn More</a>
                 </div>
+            </div>
+        </div>
+        
+        <div class="trust-indicators">
+            <div class="trust-item">
+                <span class="trust-icon">🔒</span>
+                <span>Secure Checkout</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">🚚</span>
+                <span>Discreet Shipping</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">📱</span>
+                <span>24/7 Support</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">💯</span>
+                <span>Satisfaction Guaranteed</span>
             </div>
         </div>
     </div>
@@ -675,12 +1010,15 @@ export const generateQuizPage = (data) => {
             const loadingOverlay = document.getElementById('loading-overlay');
             const resultsSection = document.getElementById('results-section');
             const progressBar = document.getElementById('progress-bar');
+            const currentQuestionText = document.getElementById('current-question');
             let currentStep = 1;
+            let selectedOptions = [];
 
-            // Update progress bar
+            // Update progress bar and question counter
             function updateProgress() {
-                const progress = ((currentStep - 1) / (questions.length - 1)) * 100;
+                const progress = ((currentStep - 1) / (questions.length)) * 100;
                 progressBar.style.width = progress + '%';
+                currentQuestionText.textContent = `Question ${currentStep}`;
             }
 
             // Handle option selection
@@ -688,11 +1026,15 @@ export const generateQuizPage = (data) => {
                 option.addEventListener('click', function() {
                     const currentQuestion = this.closest('.question');
                     const options = currentQuestion.querySelectorAll('.option');
+                    const questionIndex = parseInt(currentQuestion.getAttribute('data-step')) - 1;
                     
                     options.forEach(opt => opt.classList.remove('selected'));
                     this.classList.add('selected');
                     
-                    // Move to next question
+                    // Store selection
+                    selectedOptions[questionIndex] = this.getAttribute('data-value');
+                    
+                    // Move to next question with delay for animation
                     setTimeout(() => {
                         if (currentStep < questions.length) {
                             currentQuestion.classList.remove('active');
@@ -700,12 +1042,26 @@ export const generateQuizPage = (data) => {
                             questions[currentStep - 1].classList.add('active');
                             updateProgress();
                         }
-                    }, 300);
+                    }, 400);
                 });
             });
 
             // Handle submit button
             submitButton.addEventListener('click', function() {
+                // Validate all questions answered
+                if (selectedOptions.length < questions.length) {
+                    // Find first unanswered question
+                    for (let i = 0; i < questions.length; i++) {
+                        if (!selectedOptions[i]) {
+                            currentStep = i + 1;
+                            questions.forEach(q => q.classList.remove('active'));
+                            questions[i].classList.add('active');
+                            updateProgress();
+                            return;
+                        }
+                    }
+                }
+                
                 // Show loading overlay
                 loadingOverlay.classList.add('active');
                 
@@ -720,17 +1076,18 @@ export const generateQuizPage = (data) => {
                 // Show results after loading
                 setTimeout(() => {
                     loadingOverlay.classList.remove('active');
+                    document.querySelector('.quiz-container').style.display = 'none';
                     resultsSection.classList.add('active');
                 }, 4000);
             });
 
-            // Track product clicks
+            // Track product clicks for conversion tracking
             document.querySelectorAll('.product-button').forEach(button => {
                 button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const url = this.getAttribute('href');
-                    
                     if (typeof gtag !== 'undefined') {
+                        e.preventDefault();
+                        const url = this.getAttribute('href');
+                        
                         gtag('event', 'conversion', {
                             'send_to': '${gtagAccount}/${gtagLabel}',
                             'value': 1.0,
@@ -739,8 +1096,6 @@ export const generateQuizPage = (data) => {
                                 window.location = url;
                             }
                         });
-                    } else {
-                        window.location = url;
                     }
                 });
             });
