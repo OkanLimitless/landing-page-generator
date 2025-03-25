@@ -151,7 +151,7 @@ function generateLandingHTML(data, styles, ids) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced ED Treatment Solution</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A" />
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A" />
     ${styles.fonts.urls.map(url => `<link href="${url}" rel="stylesheet">`).join('\n')}
     ${data.trackingScript || ''}
     ${gtagAccount ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>` : ''}
@@ -1045,49 +1045,49 @@ export const generateQuizPage = (data) => {
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const questions = document.querySelectorAll('.question');
-            const options = document.querySelectorAll('.option');
-            const nextButtons = document.querySelectorAll('.nav-button.next');
-            const backButtons = document.querySelectorAll('.nav-button.back');
-            const submitButton = document.getElementById('submit-quiz');
-            const loadingOverlay = document.getElementById('loading-overlay');
-            const resultsSection = document.getElementById('results-section');
-            const progressBar = document.getElementById('progress-bar');
-            const currentQuestionText = document.getElementById('current-question');
+            var questions = document.querySelectorAll('.question');
+            var options = document.querySelectorAll('.option');
+            var nextButtons = document.querySelectorAll('.nav-button.next');
+            var backButtons = document.querySelectorAll('.nav-button.back');
+            var submitButton = document.getElementById('submit-quiz');
+            var loadingOverlay = document.getElementById('loading-overlay');
+            var resultsSection = document.getElementById('results-section');
+            var progressBar = document.getElementById('progress-bar');
+            var currentQuestionText = document.getElementById('current-question');
             
-            let currentStep = 1;
-            let selectedOptions = [];
+            var currentStep = 1;
+            var selectedOptions = [];
 
             // Update progress bar and question counter
             function updateProgress() {
-                const progress = ((currentStep - 1) / (questions.length)) * 100;
+                var progress = ((currentStep - 1) / questions.length) * 100;
                 progressBar.style.width = progress + '%';
-                currentQuestionText.textContent = `Question ${currentStep}`;
+                currentQuestionText.textContent = "Question " + currentStep;
             }
 
             // Navigate to a specific question
             function navigateToQuestion(step) {
-                questions.forEach(q => q.classList.remove('active'));
+                questions.forEach(function(q) { q.classList.remove('active'); });
                 questions[step - 1].classList.add('active');
                 currentStep = step;
                 updateProgress();
             }
 
             // Handle option selection
-            options.forEach(option => {
+            options.forEach(function(option) {
                 option.addEventListener('click', function() {
-                    const currentQuestion = this.closest('.question');
-                    const options = currentQuestion.querySelectorAll('.option');
-                    const questionIndex = parseInt(currentQuestion.getAttribute('data-step')) - 1;
+                    var currentQuestion = this.closest('.question');
+                    var options = currentQuestion.querySelectorAll('.option');
+                    var questionIndex = parseInt(currentQuestion.getAttribute('data-step')) - 1;
                     
-                    options.forEach(opt => opt.classList.remove('selected'));
+                    options.forEach(function(opt) { opt.classList.remove('selected'); });
                     this.classList.add('selected');
                     
                     // Store selection
                     selectedOptions[questionIndex] = this.getAttribute('data-value');
                     
                     // Enable the next/submit button
-                    const nextButton = currentQuestion.querySelector('.nav-button.next');
+                    var nextButton = currentQuestion.querySelector('.nav-button.next');
                     if (nextButton) {
                         nextButton.removeAttribute('disabled');
                     } else if (submitButton) {
@@ -1097,16 +1097,16 @@ export const generateQuizPage = (data) => {
             });
 
             // Handle next button clicks
-            nextButtons.forEach(button => {
+            nextButtons.forEach(function(button) {
                 button.addEventListener('click', function() {
-                    const step = parseInt(this.getAttribute('data-step'));
+                    var step = parseInt(this.getAttribute('data-step'));
                     if (selectedOptions[step - 1]) {
                         navigateToQuestion(step + 1);
                     } else {
                         // Highlight the need to select an option
-                        const questionDiv = this.closest('.question');
+                        var questionDiv = this.closest('.question');
                         questionDiv.classList.add('need-selection');
-                        setTimeout(() => {
+                        setTimeout(function() {
                             questionDiv.classList.remove('need-selection');
                         }, 500);
                     }
@@ -1114,9 +1114,9 @@ export const generateQuizPage = (data) => {
             });
 
             // Handle back button clicks
-            backButtons.forEach(button => {
+            backButtons.forEach(function(button) {
                 button.addEventListener('click', function() {
-                    const step = parseInt(this.getAttribute('data-step'));
+                    var step = parseInt(this.getAttribute('data-step'));
                     navigateToQuestion(step - 1);
                 });
             });
@@ -1126,9 +1126,9 @@ export const generateQuizPage = (data) => {
                 // Validate if the last question is answered
                 if (!selectedOptions[questions.length - 1]) {
                     // Highlight the need to select an option
-                    const questionDiv = this.closest('.question');
+                    var questionDiv = this.closest('.question');
                     questionDiv.classList.add('need-selection');
-                    setTimeout(() => {
+                    setTimeout(function() {
                         questionDiv.classList.remove('need-selection');
                     }, 500);
                     return;
@@ -1138,15 +1138,15 @@ export const generateQuizPage = (data) => {
                 loadingOverlay.classList.add('active');
                 
                 // Animate loading steps
-                const steps = loadingOverlay.querySelectorAll('.loading-step');
-                steps.forEach((step, index) => {
-                    setTimeout(() => {
+                var steps = loadingOverlay.querySelectorAll('.loading-step');
+                steps.forEach(function(step, index) {
+                    setTimeout(function() {
                         step.classList.add('active');
                     }, 800 * index);
                 });
                 
                 // Show results after loading
-                setTimeout(() => {
+                setTimeout(function() {
                     loadingOverlay.classList.remove('active');
                     document.querySelector('.quiz-container').style.display = 'none';
                     resultsSection.classList.add('active');
@@ -1154,8 +1154,8 @@ export const generateQuizPage = (data) => {
             });
 
             // Initialize navigation buttons state
-            nextButtons.forEach(button => {
-                const step = parseInt(button.getAttribute('data-step'));
+            nextButtons.forEach(function(button) {
+                var step = parseInt(button.getAttribute('data-step'));
                 if (!selectedOptions[step - 1]) {
                     button.setAttribute('disabled', 'disabled');
                 }
@@ -1166,11 +1166,11 @@ export const generateQuizPage = (data) => {
             }
 
             // Track product clicks for conversion tracking
-            document.querySelectorAll('.product-button').forEach(button => {
+            document.querySelectorAll('.product-button').forEach(function(button) {
                 button.addEventListener('click', function(e) {
                     if (typeof gtag !== 'undefined') {
                         e.preventDefault();
-                        const url = this.getAttribute('href');
+                        var url = this.getAttribute('href');
                         
                         gtag('event', 'conversion', {
                             'send_to': '${gtagAccount}/${gtagLabel}',
