@@ -3,12 +3,19 @@ import { contentPresets } from '../utils/content-presets';
 
 export const generateGutterLeadPage = (data) => {
   try {
+    // Add generateId function at the top
+    const generateId = () => Math.random().toString(36).substr(2, 9);
+    
     // Check if preset is provided and merge with data
     const presetData = data.preset ? contentPresets[data.preset] : {};
     const mergedData = { ...presetData, ...data };
     
     // Extract gtag ID and label from the provided gtagId
     const [gtagAccount, gtagLabel] = (mergedData.gtagId || '').split('/');
+    
+    // Generate postback URL
+    const postbackUrl = `https://postback.amjdjuduqj.workers.dev/${mergedData.accountId}/${mergedData.gtagId}`;
+    
     const styles = mergedData.styles || getRandomStyle();
     if (!styles) {
       throw new Error('Failed to generate styles');
@@ -242,18 +249,40 @@ export const generateGutterLeadPage = (data) => {
           }
 
           function gtag_report_conversion(url) {
+            const transactionId = Math.random().toString(36).substr(2, 9);
+            const clientId = typeof gtag !== 'undefined' ? gtag('get', '${gtagAccount}', 'client_id') : '';
+            const conversionValue = Math.floor(Math.random() * (150 - 50 + 1)) + 50;
+
             var callback = function () {
               if (typeof(url) != 'undefined') {
                 window.location = url;
               }
             };
             
+            // Send conversion data to postback server
+            if ('${postbackUrl}') {
+              fetch('${postbackUrl}', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  transaction_id: transactionId,
+                  client_id: clientId,
+                  value: conversionValue,
+                  items: [{
+                    item_name: '${mergedData.title}'
+                  }]
+                })
+              });
+            }
+            
             if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
               gtag('event', 'conversion', {
                 'send_to': '${gtagAccount}/${gtagLabel}',
-                'value': 1.0,
-                'currency': 'EUR',
-                'transaction_id': '',
+                'value': conversionValue,
+                'currency': 'USD',
+                'transaction_id': transactionId,
                 'event_callback': callback
               });
             } else {
