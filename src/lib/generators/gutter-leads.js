@@ -236,6 +236,14 @@ export const generateGutterLeadPage = (data) => {
           </div>
         </footer>
         <script>
+          function waitForGtag(callback) {
+            if (typeof gtag !== 'undefined') {
+              callback();
+            } else {
+              setTimeout(() => waitForGtag(callback), 100);
+            }
+          }
+
           function getUrlParameter(name) {
             name = name.replace(/[\\[]/, '\\\\[').replace(/[\\]]/, '\\\\]');
             var regex = new RegExp('[\\\\?&]' + name + '=([^&#]*)');
@@ -244,7 +252,6 @@ export const generateGutterLeadPage = (data) => {
           }
 
           function buildTargetUrl() {
-            // Return the URL as is without modifications
             return '${mergedData.url}';
           }
 
@@ -252,54 +259,32 @@ export const generateGutterLeadPage = (data) => {
             const transactionId = Math.random().toString(36).substr(2, 9);
             const conversionValue = Math.floor(Math.random() * (150 - 50 + 1)) + 50;
 
-            // Main callback that will be used after getting client_id
-            function processConversion(clientId) {
-              // Send conversion data to postback server
-              if ('${postbackUrl}') {
-                fetch('${postbackUrl}', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                    transaction_id: transactionId,
-                    client_id: clientId,
-                    value: conversionValue,
-                    items: [{
-                      item_name: '${mergedData.title}'
-                    }]
-                  })
-                });
-              }
+            console.log('Starting conversion tracking...');
+            
+            if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
+              console.log('gtag is available, sending conversion...');
               
-              if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
-                gtag('event', 'conversion', {
-                  'send_to': '${gtagAccount}/${gtagLabel}',
-                  'value': conversionValue,
-                  'currency': 'USD',
-                  'transaction_id': transactionId,
-                  'event_callback': function() {
-                    if (typeof(url) != 'undefined') {
+              gtag('event', 'conversion', {
+                'send_to': '${gtagAccount}/${gtagLabel}',
+                'value': conversionValue,
+                'currency': 'USD',
+                'transaction_id': transactionId,
+                'event_callback': function() {
+                  console.log('Conversion sent successfully!');
+                  // Add delay before redirect
+                  setTimeout(() => {
+                    if (typeof(url) !== 'undefined') {
+                      console.log('Redirecting to:', url);
                       window.location = url;
                     }
-                  }
-                });
-              } else {
-                // If gtag isn't available, just navigate
-                if (typeof(url) != 'undefined') {
-                  window.location = url;
+                  }, 500);
                 }
-              }
-            }
-
-            // Get client ID using proper format
-            if (typeof gtag !== 'undefined' && '${gtagAccount}') {
-              gtag('get', '${gtagAccount}', 'client_id', function(client_id) {
-                processConversion(client_id);
               });
             } else {
-              // If gtag isn't available, proceed without client_id
-              processConversion('');
+              console.log('gtag not available, proceeding with redirect');
+              if (typeof(url) !== 'undefined') {
+                window.location = url;
+              }
             }
             
             return false;
@@ -308,15 +293,20 @@ export const generateGutterLeadPage = (data) => {
           document.addEventListener('DOMContentLoaded', function() {
             const targetUrl = buildTargetUrl();
             
-            // Update CTA button
-            const ctaButton = document.getElementById('cta-button');
-            if (ctaButton) {
-              ctaButton.href = targetUrl;
-              ctaButton.onclick = function(e) {
-                e.preventDefault();
-                return gtag_report_conversion(targetUrl);
-              };
-            }
+            // Wait for gtag to be available before setting up click handlers
+            waitForGtag(function() {
+              console.log('gtag is ready, setting up click handlers');
+              
+              // Update CTA button
+              const ctaButton = document.getElementById('cta-button');
+              if (ctaButton) {
+                ctaButton.href = targetUrl;
+                ctaButton.onclick = function(e) {
+                  e.preventDefault();
+                  return gtag_report_conversion(targetUrl);
+                };
+              }
+            });
           });
         </script>
       </body>
