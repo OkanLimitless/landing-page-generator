@@ -151,7 +151,7 @@ function generateLandingHTML(data, styles, ids) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced ED Treatment Solution</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A" />
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A" />
     ${styles.fonts.urls.map(url => `<link href="${url}" rel="stylesheet">`).join('\n')}
     ${data.trackingScript || ''}
     ${gtagAccount ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>` : ''}
@@ -517,6 +517,35 @@ export const generateQuizPage = (data) => {
         font-size: 1.2rem;
       }
 
+      .navigation-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+
+      .nav-button {
+        ${styles.button(styles.colors)}
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: var(--gradient);
+      }
+
+      .nav-button.back {
+        background: #e9ecef;
+        color: #666;
+      }
+
+      .nav-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
       .submit-button {
         ${styles.button(styles.colors)}
         display: block;
@@ -865,36 +894,48 @@ export const generateQuizPage = (data) => {
             </div>
         </div>
         
-        <div class="question active" data-step="1">
-            <h3>What is your age range?</h3>
-            <div class="options">
-                <div class="option" data-value="18-30">18-30 years</div>
-                <div class="option" data-value="31-45">31-45 years</div>
-                <div class="option" data-value="46-60">46-60 years</div>
-                <div class="option" data-value="60+">60+ years</div>
+        <div class="questions-container">
+            <div class="question active" data-step="1">
+                <h3>What is your age range?</h3>
+                <div class="options">
+                    <div class="option" data-value="18-30">18-30 years</div>
+                    <div class="option" data-value="31-45">31-45 years</div>
+                    <div class="option" data-value="46-60">46-60 years</div>
+                    <div class="option" data-value="60+">60+ years</div>
+                </div>
+                <div class="navigation-buttons">
+                    <div></div> <!-- Empty div for spacing -->
+                    <button class="nav-button next" data-step="1">Continue</button>
+                </div>
+            </div>
+
+            <div class="question" data-step="2">
+                <h3>How often do you experience ED symptoms?</h3>
+                <div class="options">
+                    <div class="option" data-value="rarely">Rarely</div>
+                    <div class="option" data-value="sometimes">Sometimes</div>
+                    <div class="option" data-value="often">Often</div>
+                    <div class="option" data-value="always">Almost Always</div>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="nav-button back" data-step="2">Back</button>
+                    <button class="nav-button next" data-step="2">Continue</button>
+                </div>
+            </div>
+
+            <div class="question" data-step="3">
+                <h3>Have you tried ED medication before?</h3>
+                <div class="options">
+                    <div class="option" data-value="no">No, never</div>
+                    <div class="option" data-value="yes-some">Yes, with some success</div>
+                    <div class="option" data-value="yes-no">Yes, but without success</div>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="nav-button back" data-step="3">Back</button>
+                    <button class="submit-button" id="submit-quiz">See Your Results</button>
+                </div>
             </div>
         </div>
-
-        <div class="question" data-step="2">
-            <h3>How often do you experience ED symptoms?</h3>
-            <div class="options">
-                <div class="option" data-value="rarely">Rarely</div>
-                <div class="option" data-value="sometimes">Sometimes</div>
-                <div class="option" data-value="often">Often</div>
-                <div class="option" data-value="always">Almost Always</div>
-            </div>
-        </div>
-
-        <div class="question" data-step="3">
-            <h3>Have you tried ED medication before?</h3>
-            <div class="options">
-                <div class="option" data-value="no">No, never</div>
-                <div class="option" data-value="yes-some">Yes, with some success</div>
-                <div class="option" data-value="yes-no">Yes, but without success</div>
-            </div>
-        </div>
-
-        <button class="submit-button">See Your Results</button>
     </div>
 
     <div class="loading-overlay" id="loading-overlay">
@@ -945,7 +986,7 @@ export const generateQuizPage = (data) => {
                         <li>No prescription needed</li>
                         <li>Clinically tested ingredients</li>
                     </ul>
-                    <a href="vsl.html" class="product-button">Learn More</a>
+                    <a href="product-alphabites.html" class="product-button">Learn More</a>
                 </div>
             </div>
             
@@ -961,7 +1002,7 @@ export const generateQuizPage = (data) => {
                         <li>Cumulative benefits</li>
                         <li>Improves stamina & energy</li>
                     </ul>
-                    <a href="ecom.html" class="product-button">Learn More</a>
+                    <a href="product-brazilian-wood.html" class="product-button">Learn More</a>
                 </div>
             </div>
             
@@ -977,7 +1018,7 @@ export const generateQuizPage = (data) => {
                         <li>Works for severe cases</li>
                         <li>Money-back guarantee</li>
                     </ul>
-                    <a href="gutter-leads.html" class="product-button">Learn More</a>
+                    <a href="product-endopeak.html" class="product-button">Learn More</a>
                 </div>
             </div>
         </div>
@@ -1006,11 +1047,14 @@ export const generateQuizPage = (data) => {
         document.addEventListener('DOMContentLoaded', function() {
             const questions = document.querySelectorAll('.question');
             const options = document.querySelectorAll('.option');
-            const submitButton = document.querySelector('.submit-button');
+            const nextButtons = document.querySelectorAll('.nav-button.next');
+            const backButtons = document.querySelectorAll('.nav-button.back');
+            const submitButton = document.getElementById('submit-quiz');
             const loadingOverlay = document.getElementById('loading-overlay');
             const resultsSection = document.getElementById('results-section');
             const progressBar = document.getElementById('progress-bar');
             const currentQuestionText = document.getElementById('current-question');
+            
             let currentStep = 1;
             let selectedOptions = [];
 
@@ -1019,6 +1063,14 @@ export const generateQuizPage = (data) => {
                 const progress = ((currentStep - 1) / (questions.length)) * 100;
                 progressBar.style.width = progress + '%';
                 currentQuestionText.textContent = `Question ${currentStep}`;
+            }
+
+            // Navigate to a specific question
+            function navigateToQuestion(step) {
+                questions.forEach(q => q.classList.remove('active'));
+                questions[step - 1].classList.add('active');
+                currentStep = step;
+                updateProgress();
             }
 
             // Handle option selection
@@ -1034,32 +1086,52 @@ export const generateQuizPage = (data) => {
                     // Store selection
                     selectedOptions[questionIndex] = this.getAttribute('data-value');
                     
-                    // Move to next question with delay for animation
-                    setTimeout(() => {
-                        if (currentStep < questions.length) {
-                            currentQuestion.classList.remove('active');
-                            currentStep++;
-                            questions[currentStep - 1].classList.add('active');
-                            updateProgress();
-                        }
-                    }, 400);
+                    // Enable the next/submit button
+                    const nextButton = currentQuestion.querySelector('.nav-button.next');
+                    if (nextButton) {
+                        nextButton.removeAttribute('disabled');
+                    } else if (submitButton) {
+                        submitButton.removeAttribute('disabled');
+                    }
+                });
+            });
+
+            // Handle next button clicks
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const step = parseInt(this.getAttribute('data-step'));
+                    if (selectedOptions[step - 1]) {
+                        navigateToQuestion(step + 1);
+                    } else {
+                        // Highlight the need to select an option
+                        const questionDiv = this.closest('.question');
+                        questionDiv.classList.add('need-selection');
+                        setTimeout(() => {
+                            questionDiv.classList.remove('need-selection');
+                        }, 500);
+                    }
+                });
+            });
+
+            // Handle back button clicks
+            backButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const step = parseInt(this.getAttribute('data-step'));
+                    navigateToQuestion(step - 1);
                 });
             });
 
             // Handle submit button
             submitButton.addEventListener('click', function() {
-                // Validate all questions answered
-                if (selectedOptions.length < questions.length) {
-                    // Find first unanswered question
-                    for (let i = 0; i < questions.length; i++) {
-                        if (!selectedOptions[i]) {
-                            currentStep = i + 1;
-                            questions.forEach(q => q.classList.remove('active'));
-                            questions[i].classList.add('active');
-                            updateProgress();
-                            return;
-                        }
-                    }
+                // Validate if the last question is answered
+                if (!selectedOptions[questions.length - 1]) {
+                    // Highlight the need to select an option
+                    const questionDiv = this.closest('.question');
+                    questionDiv.classList.add('need-selection');
+                    setTimeout(() => {
+                        questionDiv.classList.remove('need-selection');
+                    }, 500);
+                    return;
                 }
                 
                 // Show loading overlay
@@ -1080,6 +1152,18 @@ export const generateQuizPage = (data) => {
                     resultsSection.classList.add('active');
                 }, 4000);
             });
+
+            // Initialize navigation buttons state
+            nextButtons.forEach(button => {
+                const step = parseInt(button.getAttribute('data-step'));
+                if (!selectedOptions[step - 1]) {
+                    button.setAttribute('disabled', 'disabled');
+                }
+            });
+
+            if (!selectedOptions[questions.length - 1]) {
+                submitButton.setAttribute('disabled', 'disabled');
+            }
 
             // Track product clicks for conversion tracking
             document.querySelectorAll('.product-button').forEach(button => {
