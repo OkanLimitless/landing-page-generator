@@ -256,29 +256,30 @@ export const generateGutterLeadPage = (data) => {
           }
 
           function gtag_report_conversion(url) {
-            const transactionId = Math.random().toString(36).substr(2, 9);
-            const conversionValue = Math.floor(Math.random() * (150 - 50 + 1)) + 50;
+            var callback = function () {
+              console.log('Conversion sent successfully!');
+              setTimeout(() => {
+                if (typeof(url) !== 'undefined') {
+                  console.log('Redirecting to:', url);
+                  window.location = url;
+                }
+              }, 1000); // 1000ms delay to ensure the conversion request completes
+            };
 
             console.log('Starting conversion tracking...');
-            
             if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
               console.log('gtag is available, sending conversion...');
-              
+              console.log('Conversion details:', {
+                send_to: '${gtagAccount}/${gtagLabel}',
+                value: 1.0,
+                currency: 'EUR'
+              });
+
               gtag('event', 'conversion', {
                 'send_to': '${gtagAccount}/${gtagLabel}',
-                'value': conversionValue,
-                'currency': 'USD',
-                'transaction_id': transactionId,
-                'event_callback': function() {
-                  console.log('Conversion sent successfully!');
-                  // Add delay before redirect
-                  setTimeout(() => {
-                    if (typeof(url) !== 'undefined') {
-                      console.log('Redirecting to:', url);
-                      window.location = url;
-                    }
-                  }, 500);
-                }
+                'value': 1.0,
+                'currency': 'EUR',
+                'event_callback': callback
               });
             } else {
               console.log('gtag not available, proceeding with redirect');
@@ -286,7 +287,7 @@ export const generateGutterLeadPage = (data) => {
                 window.location = url;
               }
             }
-            
+
             return false;
           }
 
