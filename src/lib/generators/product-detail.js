@@ -59,16 +59,14 @@ export const generateProductDetailPage = (data) => {
     // Use local images instead of placeholders
     let productImage = mergedData.productImage || '';
     
-    // Set product-specific images based on product name
+    // Set product-specific images based on product name with the provided imgur links
     if (!productImage) {
       if (productName.toLowerCase().includes('brazilian') || productName === 'Brazilian Wood') {
-        productImage = '/images/BrazlilianWood_1Bottle.png';
+        productImage = 'https://i.imgur.com/g5LZLPR.png';
       } else if (productName === 'AlphaBites' || productName === 'Alpha Bites') {
-        // If no specific image exists for AlphaBites, use a generated one
-        productImage = getHeroImagePlaceholder(productName, 'bottle');
+        productImage = 'https://i.imgur.com/VTN5W8c.png';
       } else if (productName === 'EndoPeak') {
-        // If no specific image exists for EndoPeak, use a generated one
-        productImage = getHeroImagePlaceholder(productName, 'pill');
+        productImage = 'https://i.imgur.com/C6UJxbC.png';
       } else {
         // For all other products, use a random style from our hero image generator
         const placeholderTypes = ['bottle', 'scientific', 'gradient', 'pill'];
@@ -88,8 +86,8 @@ export const generateProductDetailPage = (data) => {
       productDescription = 'Advanced formula designed to maximize blood flow and enhance sensitivity. Clinically tested for optimal results.';
     }
 
-    // Doctor image using data URI for a consistent placeholder
-    const doctorPlaceholder = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%22100%22%20fill%3D%22%23E0E0E0%22%2F%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2230%22%20fill%3D%22%23AEAEAE%22%2F%3E%3Cpath%20d%3D%22M50%20180C50%20130%20150%20130%20150%20180%22%20fill%3D%22%23AEAEAE%22%2F%3E%3C%2Fsvg%3E';
+    // Doctor image - using the provided imgur link with direct image URL
+    const doctorImage = 'https://i.imgur.com/ZTojZ2n.png';
 
     // Hardcoded doctor information - randomly select one from the list
     const doctors = [
@@ -97,19 +95,19 @@ export const generateProductDetailPage = (data) => {
         name: 'Dr. Michael Stevens',
         title: 'MD, Board Certified Urologist',
         quote: '"This innovative formula combines the best aspects of existing ED medications with fewer side effects."',
-        image: doctorPlaceholder
+        image: doctorImage
       },
       {
         name: 'Dr. Robert Johnson',
         title: 'MD, Sexual Health Specialist',
         quote: '"After reviewing the clinical data, I\'m impressed with the efficacy and safety profile of this formula."',
-        image: doctorPlaceholder
+        image: doctorImage
       },
       {
         name: 'Dr. David Williams',
         title: 'MD, Men\'s Health Expert',
         quote: '"The dual-action mechanism provides both rapid onset and extended duration, addressing the main limitations of traditional ED medications."',
-        image: doctorPlaceholder
+        image: doctorImage
       }
     ];
     
@@ -118,7 +116,7 @@ export const generateProductDetailPage = (data) => {
     const doctorName = doctors[doctorIndex].name;
     const doctorTitle = doctors[doctorIndex].title;
     const doctorQuote = doctors[doctorIndex].quote;
-    const doctorImage = doctors[doctorIndex].image;
+    const selectedDoctorImage = doctors[doctorIndex].image;
 
     return `<!DOCTYPE html>
       <html lang="en">
@@ -682,7 +680,7 @@ export const generateProductDetailPage = (data) => {
                 <h2 class="section-title">Expert Recommendation</h2>
                 <div class="doctor-container">
                   <div class="doctor-image">
-                    <img src="${doctorImage}" alt="${doctorName}">
+                    <img src="${selectedDoctorImage}" alt="${doctorName}">
                   </div>
                   <div class="doctor-content">
                     <p class="doctor-quote">${doctorQuote}</p>
@@ -810,41 +808,6 @@ export const generateProductDetailPage = (data) => {
                 </div>
                 <div class="faq-answer">
                   <p>All orders are shipped in discreet, unmarked packaging to protect your privacy. No one will know what's inside.</p>
-                </div>
-              </div>
-            </section>
-            
-            <section id="${ids.container}" class="trust-badges">
-              <div class="trust-badge">
-                <img src="/images/fda-registered.png" alt="FDA Approved">
-                <p>FDA Approved</p>
-              </div>
-              <div class="trust-badge">
-                <img src="/images/secure-payment.png" alt="Secure Ordering">
-                <p>Secure Ordering</p>
-              </div>
-              <div class="trust-badge">
-                <img src="/images/gmp-certified.png" alt="Quality Certified">
-                <p>Quality Certified</p>
-              </div>
-              <div class="trust-badge">
-                <img src="/images/money-back.png" alt="Money Back Guarantee">
-                <p>Money Back Guarantee</p>
-              </div>
-              <div class="trust-badge">
-                <img src="/images/180days.png" alt="180 Day Guarantee">
-                <p>180-Day Guarantee</p>
-              </div>
-            </section>
-            
-            <section id="${ids.container}" class="money-back-guarantee">
-              <div class="guarantee-container">
-                <div class="guarantee-image">
-                  <img src="/images/180days.png" alt="180-Day Money Back Guarantee" width="150">
-                </div>
-                <div class="guarantee-content">
-                  <h2>180-Day Money Back Guarantee</h2>
-                  <p>We're so confident in the effectiveness of ${productName} that we offer a full 180-day money back guarantee. If you're not completely satisfied with your results, simply return the unused portion for a full refund, no questions asked.</p>
                 </div>
               </div>
             </section>
