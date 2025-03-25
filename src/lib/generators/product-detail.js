@@ -1,6 +1,27 @@
 import { getRandomStyle } from '../utils/style-variations';
 import { contentPresets } from '../utils/content-presets';
 
+// Helper function that generates hero images for landing pages
+function getHeroImagePlaceholder(productName, type = 'pill') {
+  const encodedName = encodeURIComponent(productName);
+  
+  // Different hero image styles
+  switch(type) {
+    case 'pill': 
+      return `data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22600%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23F8F9FA%22%2F%3E%3Cellipse%20cx%3D%22300%22%20cy%3D%22200%22%20rx%3D%22150%22%20ry%3D%2260%22%20fill%3D%22%234169E1%22%2F%3E%3Ctext%20x%3D%22300%22%20y%3D%22200%22%20font-size%3D%2232%22%20fill%3D%22white%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3E${encodedName}%3C%2Ftext%3E%3Cellipse%20cx%3D%22300%22%20cy%3D%22200%22%20rx%3D%22150%22%20ry%3D%2260%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E`;
+      
+    case 'bottle':
+      return `data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22600%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23F8F9FA%22%2F%3E%3Cpath%20d%3D%22M250%2080L250%20120L230%20140L230%20320L370%20320L370%20140L350%20120L350%2080Z%22%20fill%3D%22%234169E1%22%20opacity%3D%220.8%22%2F%3E%3Crect%20x%3D%22250%22%20y%3D%2280%22%20width%3D%22100%22%20height%3D%2240%22%20fill%3D%22%23333%22%2F%3E%3Ctext%20x%3D%22300%22%20y%3D%22200%22%20font-size%3D%2224%22%20fill%3D%22white%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3E${encodedName}%3C%2Ftext%3E%3C%2Fsvg%3E`;
+    
+    case 'scientific':
+      return `data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22600%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23F8F9FA%22%2F%3E%3Ccircle%20cx%3D%22200%22%20cy%3D%22200%22%20r%3D%2280%22%20fill%3D%22%234169E1%22%20opacity%3D%220.7%22%2F%3E%3Ccircle%20cx%3D%22330%22%20cy%3D%22170%22%20r%3D%2260%22%20fill%3D%22%23FF6B6B%22%20opacity%3D%220.7%22%2F%3E%3Ccircle%20cx%3D%22380%22%20cy%3D%22250%22%20r%3D%2270%22%20fill%3D%22%2362BD69%22%20opacity%3D%220.7%22%2F%3E%3Ctext%20x%3D%22300%22%20y%3D%22200%22%20font-size%3D%2228%22%20fill%3D%22%23333%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3E${encodedName}%3C%2Ftext%3E%3C%2Fsvg%3E`;
+      
+    case 'gradient':
+    default:
+      return `data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22600%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22grad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%234169E1%3Bstop-opacity%3A1%22%20%2F%3E%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23FF6B6B%3Bstop-opacity%3A1%22%20%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url%28%23grad%29%22%2F%3E%3Ctext%20x%3D%22300%22%20y%3D%22200%22%20font-size%3D%2240%22%20fill%3D%22white%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3E${encodedName}%3C%2Ftext%3E%3C%2Fsvg%3E`;
+  }
+}
+
 export const generateProductDetailPage = (data) => {
   try {
     // Check if preset is provided and merge with data
@@ -34,12 +55,32 @@ export const generateProductDetailPage = (data) => {
 
     // Product details with fallbacks
     const productName = mergedData.productName || 'Alpha Bites';
-    const productImage = mergedData.productImage || 'https://via.placeholder.com/600x400/FF5733/FFFFFF?text=' + encodeURIComponent(productName);
+    
+    // Use local images instead of placeholders
+    let productImage = mergedData.productImage || '';
+    
+    // Set product-specific images based on product name
+    if (!productImage) {
+      if (productName.toLowerCase().includes('brazilian') || productName === 'Brazilian Wood') {
+        productImage = '/images/BrazlilianWood_1Bottle.png';
+      } else if (productName === 'AlphaBites' || productName === 'Alpha Bites') {
+        // If no specific image exists for AlphaBites, use a generated one
+        productImage = getHeroImagePlaceholder(productName, 'bottle');
+      } else if (productName === 'EndoPeak') {
+        // If no specific image exists for EndoPeak, use a generated one
+        productImage = getHeroImagePlaceholder(productName, 'pill');
+      } else {
+        // For all other products, use a random style from our hero image generator
+        const placeholderTypes = ['bottle', 'scientific', 'gradient', 'pill'];
+        const randomType = placeholderTypes[Math.floor(Math.random() * placeholderTypes.length)];
+        productImage = getHeroImagePlaceholder(productName, randomType);
+      }
+    }
     
     // Hardcoded product descriptions based on product name
     let productDescription = 'Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.';
     
-    if (productName === 'AlphaBites') {
+    if (productName === 'AlphaBites' || productName === 'Alpha Bites') {
       productDescription = 'Our newest formula with the benefits of both Viagra and Cialis. Works in 15 minutes, lasts for 36 hours.';
     } else if (productName === 'Brazilian Wood') {
       productDescription = 'Natural herbal formula for sustained performance. Made with premium ingredients from the Amazon rainforest.';
@@ -47,25 +88,28 @@ export const generateProductDetailPage = (data) => {
       productDescription = 'Advanced formula designed to maximize blood flow and enhance sensitivity. Clinically tested for optimal results.';
     }
 
+    // Doctor image using data URI for a consistent placeholder
+    const doctorPlaceholder = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%22100%22%20fill%3D%22%23E0E0E0%22%2F%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2230%22%20fill%3D%22%23AEAEAE%22%2F%3E%3Cpath%20d%3D%22M50%20180C50%20130%20150%20130%20150%20180%22%20fill%3D%22%23AEAEAE%22%2F%3E%3C%2Fsvg%3E';
+
     // Hardcoded doctor information - randomly select one from the list
     const doctors = [
       {
         name: 'Dr. Michael Stevens',
         title: 'MD, Board Certified Urologist',
         quote: '"This innovative formula combines the best aspects of existing ED medications with fewer side effects."',
-        image: 'https://www.wellstar.org/-/media/project/wellstar/org/physician/jeffery-williams-md.jpg'
+        image: doctorPlaceholder
       },
       {
         name: 'Dr. Robert Johnson',
         title: 'MD, Sexual Health Specialist',
         quote: '"After reviewing the clinical data, I\'m impressed with the efficacy and safety profile of this formula."',
-        image: 'https://www.wellstar.org/-/media/project/wellstar/org/physician/jeffery-williams-md.jpg'
+        image: doctorPlaceholder
       },
       {
         name: 'Dr. David Williams',
         title: 'MD, Men\'s Health Expert',
         quote: '"The dual-action mechanism provides both rapid onset and extended duration, addressing the main limitations of traditional ED medications."',
-        image: 'https://www.wellstar.org/-/media/project/wellstar/org/physician/jeffery-williams-md.jpg'
+        image: doctorPlaceholder
       }
     ];
     
@@ -772,35 +816,35 @@ export const generateProductDetailPage = (data) => {
             
             <section id="${ids.container}" class="trust-badges">
               <div class="trust-badge">
-                <img src="https://i.imgur.com/iy0JXRq.png" alt="FDA Approved">
+                <img src="/images/fda-registered.png" alt="FDA Approved">
                 <p>FDA Approved</p>
               </div>
               <div class="trust-badge">
-                <img src="https://i.imgur.com/Kp6pcWY.png" alt="Secure Ordering">
+                <img src="/images/secure-payment.png" alt="Secure Ordering">
                 <p>Secure Ordering</p>
               </div>
               <div class="trust-badge">
-                <img src="https://i.imgur.com/YKAuphN.png" alt="Discreet Packaging">
-                <p>Discreet Packaging</p>
+                <img src="/images/gmp-certified.png" alt="Quality Certified">
+                <p>Quality Certified</p>
               </div>
               <div class="trust-badge">
-                <img src="https://i.imgur.com/Po9MDwu.png" alt="24/7 Support">
-                <p>24/7 Support</p>
+                <img src="/images/money-back.png" alt="Money Back Guarantee">
+                <p>Money Back Guarantee</p>
               </div>
               <div class="trust-badge">
-                <img src="https://i.imgur.com/sMWQCaM.png" alt="90-Day Money Back Guarantee">
-                <p>90-Day Money Back Guarantee</p>
+                <img src="/images/180days.png" alt="180 Day Guarantee">
+                <p>180-Day Guarantee</p>
               </div>
             </section>
             
             <section id="${ids.container}" class="money-back-guarantee">
               <div class="guarantee-container">
                 <div class="guarantee-image">
-                  <img src="https://i.imgur.com/sMWQCaM.png" alt="90-Day Money Back Guarantee" width="150">
+                  <img src="/images/180days.png" alt="180-Day Money Back Guarantee" width="150">
                 </div>
                 <div class="guarantee-content">
-                  <h2>90-Day Money Back Guarantee</h2>
-                  <p>We're so confident in the effectiveness of ${productName} that we offer a full 90-day money back guarantee. If you're not completely satisfied with your results, simply return the unused portion for a full refund, no questions asked.</p>
+                  <h2>180-Day Money Back Guarantee</h2>
+                  <p>We're so confident in the effectiveness of ${productName} that we offer a full 180-day money back guarantee. If you're not completely satisfied with your results, simply return the unused portion for a full refund, no questions asked.</p>
                 </div>
               </div>
             </section>
