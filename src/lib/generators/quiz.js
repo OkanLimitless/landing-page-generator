@@ -869,7 +869,7 @@ function generateQuizHTML(data, styles, ids) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.98);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -877,13 +877,13 @@ function generateQuizHTML(data, styles, ids) {
         }
 
         .loader {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             border: 5px solid var(--bg-light);
             border-top: 5px solid var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
         }
 
         @keyframes spin {
@@ -892,37 +892,99 @@ function generateQuizHTML(data, styles, ids) {
         }
 
         .loading-text {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .loading-steps {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+        }
+
+        .loading-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-step.active {
+            opacity: 1;
+        }
+
+        .loading-step-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            background: var(--primary);
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .loading-step-text {
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .results-section {
             display: none;
-            padding: 2rem 0;
+            padding: 3rem 0;
+            background: linear-gradient(to bottom, #f8f9fa, #ffffff);
         }
 
         .results-header {
             text-align: center;
             margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .results-header:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
         }
 
         .results-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 1rem;
             color: var(--text-dark);
+            font-weight: 700;
         }
 
         .results-subtitle {
             color: var(--text-medium);
             font-size: 1.1rem;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
+            line-height: 1.6;
         }
 
         .products-container {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .product-card {
@@ -931,57 +993,125 @@ function generateQuizHTML(data, styles, ids) {
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid #eee;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            border-color: var(--primary);
         }
 
         .product-header {
-            background: var(--primary);
+            background-color: var(--primary);
             color: white;
-            padding: 1rem 2rem;
+            padding: 1rem 0;
             text-align: center;
+            position: relative;
+        }
+        
+        .product-card:nth-child(1) .product-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #8A2BE2 100%);
+        }
+        
+        .product-card:nth-child(2) .product-header {
+            background: linear-gradient(135deg, #4B9E47 0%, #357935 100%);
+        }
+        
+        .product-card:nth-child(3) .product-header {
+            background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%);
         }
 
         .product-recommendation {
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-weight: 600;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
         .product-content {
             padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            position: relative;
         }
 
         .product-image-container {
             display: flex;
             justify-content: center;
             margin-bottom: 1.5rem;
+            height: 180px;
+            align-items: center;
         }
 
         .product-image {
-            max-width: 180px;
-            max-height: 180px;
+            max-width: 160px;
+            max-height: 160px;
             object-fit: contain;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
         }
 
         .product-title {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             text-align: center;
+            font-weight: 700;
+            color: var(--text-dark);
         }
 
         .product-description {
             color: var(--text-medium);
             margin-bottom: 1.5rem;
             text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .product-pricing {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+        
+        .product-discount {
+            background: #FDF2F2;
+            color: #E53E3E;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
         }
 
         .product-features {
             margin-bottom: 2rem;
+            background: #f9f9f9;
+            padding: 1.25rem;
+            border-radius: 8px;
+        }
+        
+        .features-title {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            text-align: center;
+            font-weight: 600;
         }
 
         .feature-item {
@@ -995,10 +1125,35 @@ function generateQuizHTML(data, styles, ids) {
             font-size: 1.2rem;
             margin-right: 0.8rem;
             flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            background: rgba(var(--primary-rgb), 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .product-card:nth-child(1) .feature-icon {
+            color: var(--primary);
+            background: rgba(var(--primary-rgb), 0.1);
+        }
+        
+        .product-card:nth-child(2) .feature-icon {
+            color: #4B9E47;
+            background: rgba(75, 158, 71, 0.1);
+        }
+        
+        .product-card:nth-child(3) .feature-icon {
+            color: #D4AF37;
+            background: rgba(212, 175, 55, 0.1);
         }
 
         .feature-text {
             flex: 1;
+            font-size: 0.9rem;
+            color: var(--text-medium);
         }
 
         .product-button {
@@ -1010,32 +1165,86 @@ function generateQuizHTML(data, styles, ids) {
             border-radius: 6px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+        }
+        
+        .product-card:nth-child(1) .product-button {
+            background: var(--primary);
+        }
+        
+        .product-card:nth-child(2) .product-button {
+            background: #4B9E47;
+        }
+        
+        .product-card:nth-child(3) .product-button {
+            background: #D4AF37;
         }
 
         .product-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+        
+        .testimonial-badge {
+            position: absolute;
+            bottom: 90px;
+            right: -10px;
+            background: #F7FAFC;
+            padding: 0.5rem 1rem;
+            border-radius: 20px 0 0 20px;
+            box-shadow: -2px 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            max-width: 200px;
+            z-index: 1;
+            border: 1px solid #E2E8F0;
+        }
+        
+        .testimonial-stars {
+            color: #FFB400;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+        
+        .testimonial-text {
+            font-size: 0.75rem;
+            color: var(--text-medium);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
         .trust-indicators {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 2.5rem;
+            margin: 2rem 0 3rem;
             flex-wrap: wrap;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
         .trust-item {
             display: flex;
             align-items: center;
             color: var(--text-medium);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            background: #F7FAFC;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
 
         .trust-icon {
-            margin-right: 0.5rem;
+            margin-right: 0.8rem;
             color: var(--primary);
+            font-size: 1.2rem;
         }
 
         .footer {
@@ -1106,8 +1315,6 @@ function generateQuizHTML(data, styles, ids) {
                 gap: 1rem;
             }
         }
-
-        ${styles.buttonHover ? styles.buttonHover(styles.colors) : ''}
     </style>
 </head>
 <body>
@@ -1196,6 +1403,20 @@ function generateQuizHTML(data, styles, ids) {
     <div class="loading-overlay">
         <div class="loader"></div>
         <p class="loading-text">Analyzing your answers...</p>
+        <div class="loading-steps">
+            <div class="loading-step" id="step1">
+                <div class="loading-step-icon">1</div>
+                <div class="loading-step-text">Processing your responses</div>
+            </div>
+            <div class="loading-step" id="step2">
+                <div class="loading-step-icon">2</div>
+                <div class="loading-step-text">Matching with ideal solutions</div>
+            </div>
+            <div class="loading-step" id="step3">
+                <div class="loading-step-icon">3</div>
+                <div class="loading-step-text">Generating recommendations</div>
+            </div>
+        </div>
     </div>
     
     <div class="container results-section">
@@ -1216,7 +1437,13 @@ function generateQuizHTML(data, styles, ids) {
                     <h3 class="product-title">AlphaBites</h3>
                     <p class="product-description">Fast-acting treatment that works in as little as 15 minutes and lasts up to 6 hours</p>
                     
+                    <div class="product-pricing">
+                        <span class="product-price">$2.50 per dose</span>
+                        <span class="product-discount">67% OFF</span>
+                    </div>
+                    
                     <div class="product-features">
+                        <h4 class="features-title">Key Benefits</h4>
                         <div class="feature-item">
                             <span class="feature-icon">✓</span>
                             <span class="feature-text">Works in 15-30 minutes</span>
@@ -1235,6 +1462,11 @@ function generateQuizHTML(data, styles, ids) {
                         </div>
                     </div>
                     
+                    <div class="testimonial-badge">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <div class="testimonial-text">"Works every time, no side effects!"</div>
+                    </div>
+                    
                     <a href="product-alphabites.html" class="product-button">Learn More</a>
                 </div>
             </div>
@@ -1250,7 +1482,13 @@ function generateQuizHTML(data, styles, ids) {
                     <h3 class="product-title">Brazilian Wood</h3>
                     <p class="product-description">Natural supplement that improves erection quality and sexual performance over time</p>
                     
+                    <div class="product-pricing">
+                        <span class="product-price">$49.95 monthly</span>
+                        <span class="product-discount">50% OFF</span>
+                    </div>
+                    
                     <div class="product-features">
+                        <h4 class="features-title">Key Benefits</h4>
                         <div class="feature-item">
                             <span class="feature-icon">✓</span>
                             <span class="feature-text">All-natural ingredients</span>
@@ -1269,6 +1507,11 @@ function generateQuizHTML(data, styles, ids) {
                         </div>
                     </div>
                     
+                    <div class="testimonial-badge">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <div class="testimonial-text">"Natural solution that really works!"</div>
+                    </div>
+                    
                     <a href="product-brazilian-wood.html" class="product-button">Learn More</a>
                 </div>
             </div>
@@ -1284,7 +1527,13 @@ function generateQuizHTML(data, styles, ids) {
                     <h3 class="product-title">EndoPeak</h3>
                     <p class="product-description">Long-lasting solution that works for up to 36 hours, providing weekend-long coverage</p>
                     
+                    <div class="product-pricing">
+                        <span class="product-price">$4.95 per dose</span>
+                        <span class="product-discount">BUY 3, GET 2 FREE</span>
+                    </div>
+                    
                     <div class="product-features">
+                        <h4 class="features-title">Key Benefits</h4>
                         <div class="feature-item">
                             <span class="feature-icon">✓</span>
                             <span class="feature-text">Effects last 24-36 hours</span>
@@ -1301,6 +1550,11 @@ function generateQuizHTML(data, styles, ids) {
                             <span class="feature-icon">✓</span>
                             <span class="feature-text">Most powerful formula available</span>
                         </div>
+                    </div>
+                    
+                    <div class="testimonial-badge">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <div class="testimonial-text">"One dose lasts the entire weekend!"</div>
                     </div>
                     
                     <a href="product-endopeak.html" class="product-button">Learn More</a>
@@ -1320,6 +1574,10 @@ function generateQuizHTML(data, styles, ids) {
             <div class="trust-item">
                 <span class="trust-icon">🚚</span>
                 <span>Discreet Shipping</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>Verified Results</span>
             </div>
         </div>
     </div>
@@ -1388,7 +1646,7 @@ function generateQuizHTML(data, styles, ids) {
                         if (currentStep < totalQuestions) {
                             navigateToQuestion(currentStep + 1);
                         } else {
-                            // If last question, highlight submit button
+                            // If last question, show submit button since we now have a selection
                             submitButton.style.display = 'block';
                             submitButton.style.animation = 'pulse 2s infinite';
                         }
@@ -1408,25 +1666,36 @@ function generateQuizHTML(data, styles, ids) {
                 // Show loading overlay
                 loadingOverlay.style.display = 'flex';
                 
-                // Simulate processing time (2 seconds)
+                // Animate through loading steps
+                document.getElementById('step1').classList.add('active');
+                
                 setTimeout(function() {
-                    // Hide quiz container
-                    document.querySelector('.quiz-container').style.display = 'none';
+                    document.getElementById('step2').classList.add('active');
                     
-                    // Hide loading overlay
-                    loadingOverlay.style.display = 'none';
-                    
-                    // Show results
-                    resultsSection.style.display = 'block';
-                    
-                    // Track conversion
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'quiz_completed', {
-                            'event_category': 'engagement',
-                            'event_label': JSON.stringify(selectedOptions)
-                        });
-                    }
-                }, 2000);
+                    setTimeout(function() {
+                        document.getElementById('step3').classList.add('active');
+                        
+                        // Wait a bit more before showing results
+                        setTimeout(function() {
+                            // Hide quiz container
+                            document.querySelector('.quiz-container').style.display = 'none';
+                            
+                            // Hide loading overlay
+                            loadingOverlay.style.display = 'none';
+                            
+                            // Show results
+                            resultsSection.style.display = 'block';
+                            
+                            // Track conversion
+                            if (typeof gtag === 'function') {
+                                gtag('event', 'quiz_completed', {
+                                    'event_category': 'engagement',
+                                    'event_label': JSON.stringify(selectedOptions)
+                                });
+                            }
+                        }, 800);
+                    }, 700);
+                }, 700);
             });
             
             // Track product clicks
@@ -1472,9 +1741,14 @@ function generateQuizHTML(data, styles, ids) {
                     backButton.style.visibility = 'hidden';
                 }
                 
-                // Show or hide submit button
+                // Show or hide submit button - Only show if we're on the last question AND an option has been selected
                 if (currentStep === totalQuestions) {
-                    submitButton.style.display = 'block';
+                    // Check if the user has answered the last question
+                    if (selectedOptions[currentStep]) {
+                        submitButton.style.display = 'block';
+                    } else {
+                        submitButton.style.display = 'none';
+                    }
                 } else {
                     submitButton.style.display = 'none';
                 }
@@ -1533,7 +1807,7 @@ function generateProductPage(productName, data, styles) {
       break;
     case 'endopeak':
       productTitle = 'EndoPeak';
-      productDescription = 'Premium long-lasting solution that works for up to 36 hours, providing weekend-long coverage with a single dose. Our strongest formula for maximum results.';
+      productDescription = 'Premium long-lasting solution that works for up to 36 hours, providing weekend-long coverage';
       productFeatures = [
         'Effects last 24-36 hours',
         'Starts working in 30-60 minutes',
@@ -1676,136 +1950,105 @@ function generateProductPage(productName, data, styles) {
 
         .feature-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 0.8rem;
         }
 
         .feature-icon {
             color: var(--primary);
-            margin-right: 1rem;
             font-size: 1.2rem;
+            margin-right: 0.8rem;
+            flex-shrink: 0;
         }
 
-        .order-button {
+        .feature-text {
+            flex: 1;
+        }
+
+        .product-button {
             ${styles.button(styles.colors)}
-            display: inline-block;
-            padding: 1.2rem 2.5rem;
+            display: block;
+            width: 100%;
+            padding: 1rem;
             text-align: center;
             border-radius: 6px;
             font-weight: 600;
-            font-size: 1.1rem;
             text-decoration: none;
             transition: all 0.2s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 1.5rem;
+            margin-top: auto;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
         }
-
-        .order-button:hover {
+        
+        .product-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .testimonial-badge {
+            position: absolute;
+            bottom: 90px;
+            right: -10px;
+            background: #F7FAFC;
+            padding: 0.5rem 1rem;
+            border-radius: 20px 0 0 20px;
+            box-shadow: -2px 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            max-width: 200px;
+            z-index: 1;
+            border: 1px solid #E2E8F0;
+        }
+        
+        .testimonial-stars {
+            color: #FFB400;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+        
+        .testimonial-text {
+            font-size: 0.75rem;
+            color: var(--text-medium);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        .special-offer {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            display: inline-block;
-        }
-
-        .testimonials-section {
-            background: var(--bg-light);
-            padding: 4rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: var(--text-dark);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial-card {
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin: 2rem 0 3rem;
+            flex-wrap: wrap;
             background: white;
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 1.5rem;
+        .trust-item {
+            display: flex;
+            align-items: center;
             color: var(--text-medium);
+            font-size: 0.95rem;
+            background: #F7FAFC;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
 
-        .testimonial-author {
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .testimonial-rating {
-            color: #FFD700;
-            margin-bottom: 0.5rem;
-        }
-
-        .faq-section {
-            padding: 4rem 0;
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-light);
-            padding-bottom: 1.5rem;
-        }
-
-        .faq-question {
+        .trust-icon {
+            margin-right: 0.8rem;
+            color: var(--primary);
             font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: var(--text-dark);
-        }
-
-        .faq-answer {
-            color: var(--text-medium);
-        }
-
-        .cta-section {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            padding: 4rem 0;
-            text-align: center;
-            color: white;
-        }
-
-        .cta-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-text {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .footer {
             background: #2f2f2f;
             color: #e0e0e0;
-            padding: 3rem 0;
+            padding: 2rem 0;
+            margin-top: auto;
         }
 
         .footer-content {
@@ -1846,7 +2089,7 @@ function generateProductPage(productName, data, styles) {
         }
 
         .footer-disclaimer {
-            margin-top: 3rem;
+            margin-top: 2rem;
             padding-top: 1.5rem;
             border-top: 1px solid #444;
             text-align: center;
@@ -1861,15 +2104,12 @@ function generateProductPage(productName, data, styles) {
             
             .product-container {
                 grid-template-columns: 1fr;
-                gap: 2rem;
             }
             
-            .product-title {
-                font-size: 2rem;
-            }
-            
-            .testimonials-grid {
-                grid-template-columns: 1fr;
+            .trust-indicators {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
             }
         }
     </style>
@@ -1905,7 +2145,11 @@ function generateProductPage(productName, data, styles) {
                             `).join('')}
                         </ul>
                     </div>
-                    <a href="#order-now" class="order-button">Order Now</a>
+                    <div class="testimonial-badge">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <div class="testimonial-text">"${productTitle} works every time, no side effects!"</div>
+                    </div>
+                    <a href="#order-now" class="product-button">Order Now</a>
                 </div>
             </div>
         </div>
@@ -1966,7 +2210,7 @@ function generateProductPage(productName, data, styles) {
         <div class="container">
             <h2 class="cta-title">Ready to Transform Your Confidence?</h2>
             <p class="cta-text">Join thousands of satisfied customers who have rediscovered their confidence and improved their relationships.</p>
-            <a href="#" class="order-button">Order ${productTitle} Now</a>
+            <a href="#" class="product-button">Order ${productTitle} Now</a>
         </div>
     </section>
 
