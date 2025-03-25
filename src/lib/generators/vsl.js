@@ -217,44 +217,56 @@ export const generateVSLPage = (data) => {
 
           function gtag_report_conversion(url) {
             const transactionId = Math.random().toString(36).substr(2, 9);
-            const clientId = typeof gtag !== 'undefined' ? gtag('get', '${gtagAccount}', 'client_id') : '';
             const conversionValue = Math.floor(Math.random() * (150 - 50 + 1)) + 50;
 
-            var callback = function () {
-              if (typeof(url) != 'undefined') {
-                window.location = url;
+            // Main callback that will be used after getting client_id
+            function processConversion(clientId) {
+              // Send conversion data to postback server
+              if ('${postbackUrl}') {
+                fetch('${postbackUrl}', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    transaction_id: transactionId,
+                    client_id: clientId,
+                    value: conversionValue,
+                    items: [{
+                      item_name: '${mergedData.headline}'
+                    }]
+                  })
+                });
               }
-            };
-            
-            // Send conversion data to postback server
-            if ('${postbackUrl}') {
-              fetch('${postbackUrl}', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  transaction_id: transactionId,
-                  client_id: clientId,
-                  value: conversionValue,
-                  items: [{
-                    item_name: '${mergedData.headline}'
-                  }]
-                })
-              });
+              
+              if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
+                gtag('event', 'conversion', {
+                  'send_to': '${gtagAccount}/${gtagLabel}',
+                  'value': conversionValue,
+                  'currency': 'USD',
+                  'transaction_id': transactionId,
+                  'event_callback': function() {
+                    if (typeof(url) != 'undefined') {
+                      window.location = url;
+                    }
+                  }
+                });
+              } else {
+                // If gtag isn't available, just navigate
+                if (typeof(url) != 'undefined') {
+                  window.location = url;
+                }
+              }
             }
-            
-            if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
-              gtag('event', 'conversion', {
-                'send_to': '${gtagAccount}/${gtagLabel}',
-                'value': conversionValue,
-                'currency': 'USD',
-                'transaction_id': transactionId,
-                'event_callback': callback
+
+            // Get client ID using proper format
+            if (typeof gtag !== 'undefined' && '${gtagAccount}') {
+              gtag('get', '${gtagAccount}', 'client_id', function(client_id) {
+                processConversion(client_id);
               });
             } else {
-              // If gtag isn't available, just navigate
-              callback();
+              // If gtag isn't available, proceed without client_id
+              processConversion('');
             }
             
             return false;
