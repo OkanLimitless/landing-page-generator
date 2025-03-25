@@ -527,6 +527,7 @@ export const generateProductDetailPage = (data) => {
           #${ids.footer} {
             background: #333;
             padding: ${styles.spacing.vertical} 0;
+            padding-bottom: calc(${styles.spacing.vertical} + 80px); /* Add extra padding at the bottom to account for sticky CTA */
             margin-top: auto;
             text-align: center;
             font-size: clamp(0.75rem, 2vw, 0.875rem);
@@ -602,6 +603,83 @@ export const generateProductDetailPage = (data) => {
             .guarantee-container {
               flex-direction: column;
               text-align: center;
+            }
+          }
+          
+          /* Sticky CTA Button */
+          .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+          }
+          .sticky-cta.visible {
+            transform: translateY(0);
+          }
+          .sticky-cta-content {
+            width: 100%;
+            max-width: ${styles.container.maxWidth};
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+          }
+          .sticky-product-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+          }
+          .sticky-product-image {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 5px;
+          }
+          .sticky-product-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+          }
+          .sticky-cta-button {
+            ${styles.button(styles.colors)}
+            padding: 10px 25px;
+            border-radius: ${styles.borderRadius};
+            font-weight: ${styles.fonts.weights.heading};
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+          }
+          .sticky-cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background-color: ${styles.colors.accent};
+          }
+          
+          @media (max-width: 768px) {
+            .sticky-cta-content {
+              padding: 0 10px;
+            }
+            .sticky-product-info {
+              gap: 10px;
+            }
+            .sticky-product-name {
+              font-size: 0.9rem;
+              max-width: 100px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            .sticky-cta-button {
+              font-size: 0.9rem;
+              padding: 8px 15px;
             }
           }
         </style>
@@ -836,6 +914,17 @@ export const generateProductDetailPage = (data) => {
           </footer>
         </div>
         
+        <!-- Sticky CTA Button -->
+        <div class="sticky-cta" id="sticky-cta">
+          <div class="sticky-cta-content">
+            <div class="sticky-product-info">
+              <img src="${productImage}" alt="${productName}" class="sticky-product-image">
+              <span class="sticky-product-name">${productName}</span>
+            </div>
+            <a href="${mergedData.offerUrl || '#order-now'}" class="sticky-cta-button">Get Started Now</a>
+          </div>
+        </div>
+        
         <script>
           document.addEventListener('DOMContentLoaded', function() {
             // Loading animation
@@ -846,6 +935,24 @@ export const generateProductDetailPage = (data) => {
             setTimeout(() => {
               loadingOverlay.classList.add('slide-up');
             }, 1500);
+            
+            // Sticky CTA button behavior
+            const stickyCta = document.getElementById('sticky-cta');
+            let lastScrollTop = 0;
+            let scrollThreshold = 300; // Show after scrolling this many pixels
+            
+            window.addEventListener('scroll', function() {
+              let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+              
+              // Show the sticky CTA after scrolling down past the threshold
+              if (scrollTop > scrollThreshold) {
+                stickyCta.classList.add('visible');
+              } else {
+                stickyCta.classList.remove('visible');
+              }
+              
+              lastScrollTop = scrollTop;
+            });
             
             // FAQ toggle functionality
             const faqQuestions = document.querySelectorAll('.faq-question');

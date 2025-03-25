@@ -151,7 +151,7 @@ function generateLandingHTML(data, styles, ids) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced ED Treatment Solution | Roman</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A" />
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A" />
     ${styles.fonts.urls.map(url => `<link href="${url}" rel="stylesheet">`).join('\n')}
     ${data.trackingScript || ''}
     ${gtagAccount ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${gtagAccount}"></script>` : ''}
@@ -646,7 +646,7 @@ function generateQuizHTML(data, styles, ids) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ED Treatment Finder | Roman</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A" />
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     ${data.trackingScript || ''}
     <style>
@@ -1211,7 +1211,7 @@ function generateQuizHTML(data, styles, ids) {
                 </div>
                 <div class="product-content">
                     <div class="product-image-container">
-                        <img src="product-alphabites.jpg" alt="AlphaBites Product" class="product-image">
+                        <img src="https://i.imgur.com/VTN5W8c.png" alt="AlphaBites Product" class="product-image">
                     </div>
                     <h3 class="product-title">AlphaBites</h3>
                     <p class="product-description">Fast-acting treatment that works in as little as 15 minutes and lasts up to 6 hours</p>
@@ -1245,7 +1245,7 @@ function generateQuizHTML(data, styles, ids) {
                 </div>
                 <div class="product-content">
                     <div class="product-image-container">
-                        <img src="product-brazilian-wood.jpg" alt="Brazilian Wood Product" class="product-image">
+                        <img src="https://i.imgur.com/g5LZLPR.png" alt="Brazilian Wood Product" class="product-image">
                     </div>
                     <h3 class="product-title">Brazilian Wood</h3>
                     <p class="product-description">Natural supplement that improves erection quality and sexual performance over time</p>
@@ -1279,7 +1279,7 @@ function generateQuizHTML(data, styles, ids) {
                 </div>
                 <div class="product-content">
                     <div class="product-image-container">
-                        <img src="product-endopeak.jpg" alt="EndoPeak Product" class="product-image">
+                        <img src="https://i.imgur.com/C6UJxbC.png" alt="EndoPeak Product" class="product-image">
                     </div>
                     <h3 class="product-title">EndoPeak</h3>
                     <p class="product-description">Long-lasting solution that works for up to 36 hours, providing weekend-long coverage</p>
@@ -1511,7 +1511,7 @@ function generateProductPage(productName, data, styles) {
         'Minimal side effects',
         'Discreet packaging and delivery'
       ];
-      productImage = 'product-alphabites.jpg';
+      productImage = 'https://i.imgur.com/VTN5W8c.png';
       productPrice = '$2.50 per dose';
       productAction = 'Limited Time Offer: Get 67% Off Your First Order';
       break;
@@ -1527,7 +1527,7 @@ function generateProductPage(productName, data, styles) {
         'Enhances stamina and performance',
         'Monthly subscription available'
       ];
-      productImage = 'product-brazilian-wood.jpg';
+      productImage = 'https://i.imgur.com/g5LZLPR.png';
       productPrice = '$49.95 monthly supply';
       productAction = 'Special Offer: First Month 50% Off';
       break;
@@ -1543,7 +1543,7 @@ function generateProductPage(productName, data, styles) {
         'Weekend-long coverage',
         '100% money-back guarantee'
       ];
-      productImage = 'product-endopeak.jpg';
+      productImage = 'https://i.imgur.com/C6UJxbC.png';
       productPrice = '$4.95 per dose';
       productAction = 'Exclusive Discount: Buy 3, Get 2 Free';
       break;
@@ -1940,7 +1940,7 @@ function generateProductPage(productName, data, styles) {
             <div class="faq-container">
                 <div class="faq-item">
                     <h3 class="faq-question">How quickly does ${productTitle} work?</h3>
-                    <p class="faq-answer">The time to effectiveness varies by product. AlphaBites works in 15-30 minutes, EndoPeak in 30-60 minutes, and Brazilian Wood builds effectiveness over time with regular use.</p>
+                    <p class="faq-answer">The time to effectiveness varies by product. AlphaBites works in 15-30 minutes, EndoPeak in 30-60 minutes, and Brazilian Wood builds effectiveness over time.</p>
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">Are there any side effects?</h3>
