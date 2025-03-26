@@ -609,6 +609,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     <style>
       body {
         font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background-color: #f8fafc;
       }
       .med-card {
         transition: transform 0.2s ease-in-out;
@@ -625,68 +626,187 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       .get-offer-btn:hover {
         transform: scale(1.03);
       }
+      .hero-gradient {
+        background: linear-gradient(to bottom, #e0e7ff, #f1f5f9);
+      }
+      .next-step-btn {
+        background: linear-gradient(to right, #60a5fa, #6366f1);
+        transition: all 0.3s ease;
+      }
+      .next-step-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+      }
+      .badge {
+        background-color: #4338ca;
+        padding: 0.5rem 1rem;
+        color: white;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        display: inline-block;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .circle-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 9999px;
+        background-color: #e0e7ff;
+        color: #4f46e5;
+        flex-shrink: 0;
+      }
     </style>
     
     <!-- Google tag for conversion tracking -->
     ${googleTag || ''}
   </head>
-  <body class="font-sans bg-gray-50 text-gray-800">
+  <body class="font-sans">
     ${navbar}
     
-    <!-- Header section -->
-    <div class="bg-gradient-to-r from-blue-500 to-indigo-600 py-8 md:py-12">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="flex flex-col md:flex-row items-center">
-          <div class="md:w-1/2 mb-6 md:mb-0">
-            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Top 10 Weight Loss Medications</h1>
-            <p class="text-white text-lg mb-6">Medically reviewed and ranked by our team of experts</p>
-            <div class="bg-white bg-opacity-20 rounded-lg p-3 inline-block text-white">
-              <span class="font-medium">Last Updated:</span> ${new Date().toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'})}
+    <!-- New Hero Section based on the image -->
+    <section class="hero-gradient py-10 pb-24 relative">
+      <div class="container mx-auto px-6 max-w-4xl">
+        <!-- Logo Section -->
+        <div class="flex justify-center mb-5">
+          <div class="bg-indigo-600 rounded-full w-16 h-16 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-10 h-10 rotate-45">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m-11.142 0L12 13.5l4.179-2.25m0 0L16.5 12l4.5-2.25-9.75-5.25L2.25 9.75l4.5 2.25" />
+            </svg>
+          </div>
+        </div>
+        
+        <div class="text-center mb-4">
+          <h1 class="text-4xl md:text-5xl font-bold text-blue-500 mb-6 leading-tight">
+            The easiest weight loss<br class="hidden md:block"> program ever,<br class="hidden md:block"> delivered to your door
+          </h1>
+          
+          <h2 class="text-xl text-gray-700 mb-10">
+            Join <span class="text-blue-500 font-bold">40,000+</span> weight loss patients
+          </h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 max-w-3xl mx-auto">
+          <!-- Benefit 1 -->
+          <div class="flex items-center">
+            <div class="circle-icon mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-gray-800 font-medium">Doctor approval after an easy <span class="font-bold">90-sec-ond quiz</span></p>
             </div>
           </div>
-          <div class="md:w-1/2">
-            <img src="https://placehold.co/600x400/4A90E2/FFFFFF/png?text=Weight+Loss+Solutions" alt="Weight loss medication" class="w-full rounded-lg shadow-lg">
+          
+          <!-- Benefit 2 -->
+          <div class="flex items-center">
+            <div class="circle-icon mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-gray-800 font-medium">Both <span class="font-bold">oral and injectable</span> GLP-1 plans available</p>
+            </div>
+          </div>
+          
+          <!-- Benefit 3 -->
+          <div class="flex items-center">
+            <div class="circle-icon mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-gray-800 font-medium">No Insurance required. No Waitlist. No Hidden Fees</p>
+            </div>
+          </div>
+          
+          <!-- Benefit 4 -->
+          <div class="flex items-center">
+            <div class="circle-icon mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0l-3.75-3.75M17.25 21L21 17.25" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-gray-800 font-medium">Lose up to <span class="font-bold">33 pounds</span> in 4 months</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- CTA Button -->
+        <div class="flex justify-center">
+          <a href="#top-medications" class="next-step-btn text-white py-4 px-10 rounded-md text-xl font-semibold flex items-center justify-between w-full md:w-96 shadow-lg">
+            <span>NEXT STEP</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </a>
+        </div>
+        
+        <!-- Editor's Choice Badge - Absolute positioned -->
+        <div class="absolute bottom-0 left-0 transform translate-y-1/2">
+          <div class="badge">
+            Editor's Choice - March 2025
           </div>
         </div>
       </div>
-    </div>
+    </section>
     
-    <!-- Top 10 medications list -->
-    <div class="max-w-5xl mx-auto px-4 py-12">
-      ${medications.map(med => `
-        <div class="mb-8 border rounded-lg overflow-hidden shadow-md med-card">
-          <div class="bg-blue-100 p-4">
-            <div class="flex items-start">
-              <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-2xl mr-4 flex-shrink-0">${med.id}</div>
-              <div>
-                <h2 class="text-xl font-bold">${med.name}</h2>
-                <p class="text-gray-600">${med.subtitle}</p>
-              </div>
-              <div class="ml-auto flex items-center">
-                <div class="hidden md:flex rating-stars mr-2">
-                  ${generateStars(med.rating)}
-                </div>
-                <div class="text-right">
-                  <div class="font-bold text-lg">${med.rating}/5</div>
-                  <span class="text-sm text-gray-500">(${med.reviews} reviews)</span>
-                </div>
-              </div>
-            </div>
+    <!-- Most Popular Section -->
+    <section id="top-medications" class="py-8 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center mb-6">
+          <div class="bg-teal-700 text-white text-sm font-bold py-2 px-4 rounded mr-4">
+            MOST POPULAR
           </div>
-          <div class="p-5 bg-white">
-            <ul class="mb-5 space-y-3">
-              ${med.benefits.map(benefit => `
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                  <span>${benefit}</span>
-                </li>
-              `).join('')}
-            </ul>
-            <button class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm">Get Offer</button>
+          <div class="flex items-end">
+            <span class="text-6xl font-bold mr-4">1</span>
+            <h2 class="text-3xl font-bold">Remedy Meds</h2>
           </div>
         </div>
-      `).join('')}
-    </div>
+        
+        <!-- Top 10 medications list -->
+        <div class="max-w-5xl mx-auto px-4 py-6">
+          ${medications.map(med => `
+            <div class="mb-8 border rounded-lg overflow-hidden shadow-md med-card">
+              <div class="bg-blue-100 p-4">
+                <div class="flex items-start">
+                  <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-2xl mr-4 flex-shrink-0">${med.id}</div>
+                  <div>
+                    <h2 class="text-xl font-bold">${med.name}</h2>
+                    <p class="text-gray-600">${med.subtitle}</p>
+                  </div>
+                  <div class="ml-auto flex items-center">
+                    <div class="hidden md:flex rating-stars mr-2">
+                      ${generateStars(med.rating)}
+                    </div>
+                    <div class="text-right">
+                      <div class="font-bold text-lg">${med.rating}/5</div>
+                      <span class="text-sm text-gray-500">(${med.reviews} reviews)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-5 bg-white">
+                <ul class="mb-5 space-y-3">
+                  ${med.benefits.map(benefit => `
+                    <li class="flex items-start">
+                      <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                      <span>${benefit}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+                <button class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm">Get Offer</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
     
     <!-- FAQ Section -->
     <div class="max-w-5xl mx-auto px-4 py-8 mb-12">
