@@ -6,7 +6,8 @@ import {
   generateAdultLanderPage,
   generateTMatesPage,
   generateProductInfoPage,
-  generateGutterLeadPage
+  generateGutterLeadPage,
+  generateGLPPage
 } from '../../lib';
 import { generatePrivacyPolicy, generateTermsOfService } from '../../lib/generators/legal';
 import { getRandomStyle } from '../../lib/utils/style-variations';
@@ -127,6 +128,10 @@ export default async function handler(req, res) {
       case 'gutterLeads':
         console.log('Generating Gutter Leads page...');
         html = generateGutterLeadPage(data);
+        break;
+      case 'glp':
+        console.log('Generating GLP Health page...');
+        html = generateGLPPage(data);
         break;
       default:
         throw new Error('Invalid page type');

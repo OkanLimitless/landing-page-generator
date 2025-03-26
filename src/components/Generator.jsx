@@ -415,6 +415,151 @@ const GutterLeadsForm = ({ formData, setFormData }) => {
   );
 };
 
+// Add GLPForm component for weight loss landing page
+const GLPForm = ({ formData, setFormData }) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Brand Name</label>
+          <input 
+            type="text" 
+            name="brandName" 
+            value={formData.brandName || 'GLP-1'} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Brand Name (e.g. GLP-1)" 
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Hero Title</label>
+          <input 
+            type="text" 
+            name="heroTitle" 
+            value={formData.heroTitle || 'Transform Your Health Journey'} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Main headline for hero section" 
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Hero Description</label>
+        <textarea 
+          name="heroDescription" 
+          value={formData.heroDescription || 'Discover science-backed nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.'} 
+          onChange={handleChange} 
+          className={commonTextareaClass}
+          placeholder="Description text for hero section" 
+        />
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Hero Image URL</label>
+          <input 
+            type="url" 
+            name="heroImageUrl" 
+            value={formData.heroImageUrl || 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="URL for hero section image" 
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Background Image URL</label>
+          <input 
+            type="url" 
+            name="backgroundImageUrl" 
+            value={formData.backgroundImageUrl || 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="URL for background image" 
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">CTA Button Text</label>
+          <input 
+            type="text" 
+            name="ctaButtonText" 
+            value={formData.ctaButtonText || 'Get Started'} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Text for call-to-action button" 
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Target URL</label>
+          <input 
+            type="url" 
+            name="targetUrl" 
+            value={formData.targetUrl} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Target URL for the CTA button (your affiliate link)" 
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="block text-sm font-medium mb-2">Google Ads ID</label>
+          <input 
+            type="text" 
+            name="gtagId" 
+            value={formData.gtagId} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX" 
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Primary Color</label>
+          <input 
+            type="text" 
+            name="primaryColor" 
+            value={formData.primaryColor || '#4f46e5'} 
+            onChange={handleChange} 
+            className={commonInputClass}
+            placeholder="Primary color hex (e.g. #4f46e5)" 
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Newsletter Form Heading</label>
+        <input 
+          type="text" 
+          name="newsletterHeading" 
+          value={formData.newsletterHeading || 'Get Nutrition and Diet Tips in Your Inbox'} 
+          onChange={handleChange} 
+          className={commonInputClass}
+          placeholder="Title for newsletter signup section" 
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Tracking Script (Optional)</label>
+        <textarea 
+          name="trackingScript" 
+          value={formData.trackingScript} 
+          onChange={handleChange} 
+          className={`${commonTextareaClass} font-mono text-sm`}
+          placeholder="Enter tracking script to be placed in <head>" 
+        />
+      </div>
+    </div>
+  );
+};
+
 const Generator = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -473,6 +618,21 @@ const Generator = () => {
     logoUrl: ''
   });
 
+  // Add GLP form data state
+  const [glpFormData, setGlpFormData] = useState({
+    brandName: 'GLP-1',
+    heroTitle: 'Transform Your Health Journey',
+    heroDescription: 'Discover science-backed nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.',
+    heroImageUrl: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    backgroundImageUrl: 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    ctaButtonText: 'Get Started',
+    targetUrl: '',
+    gtagId: '',
+    primaryColor: '#4f46e5',
+    newsletterHeading: 'Get Nutrition and Diet Tips in Your Inbox',
+    trackingScript: ''
+  });
+
   // Load presets from localStorage on mount
   useEffect(() => {
     const savedPresets = JSON.parse(localStorage.getItem('customPresets') || '{}');
@@ -512,6 +672,9 @@ const Generator = () => {
           break;
         case 'gutterLeads':
           data = gutterLeadsFormData;
+          break;
+        case 'glp':
+          data = glpFormData;
           break;
         default:
           throw new Error('Invalid tab selection');
@@ -595,6 +758,12 @@ const Generator = () => {
           ...allPresets[presetKey],
           preset: presetKey
         }));
+      } else if (activeTab === 'glp') {
+        setGlpFormData(prev => ({
+          ...prev,
+          ...allPresets[presetKey],
+          preset: presetKey
+        }));
       }
     } else {
       // Clear preset selection
@@ -628,6 +797,11 @@ const Generator = () => {
           ...prev,
           preset: ''
         }));
+      } else if (activeTab === 'glp') {
+        setGlpFormData(prev => ({
+          ...prev,
+          preset: ''
+        }));
       }
     }
   };
@@ -640,7 +814,7 @@ const Generator = () => {
     if (!newPresetName) return;
     
     const presetKey = newPresetName.replace(/\s+/g, '');
-    const currentFormData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : activeTab === 'quiz' ? quizFormData : activeTab === 'adult' ? adultLanderFormData : activeTab === 'tmates' ? tmatesFormData : gutterLeadsFormData;
+    const currentFormData = activeTab === 'vsl' ? vslFormData : activeTab === 'ecom' ? ecomFormData : activeTab === 'quiz' ? quizFormData : activeTab === 'adult' ? adultLanderFormData : activeTab === 'tmates' ? tmatesFormData : activeTab === 'gutterLeads' ? gutterLeadsFormData : glpFormData;
     
     // Create new preset without the preset field itself
     const { preset, ...presetData } = currentFormData;
@@ -677,7 +851,8 @@ const Generator = () => {
     { value: 'adult', label: 'Adult Lander' },
     { value: 'quiz', label: 'ED Quiz' },
     { value: 'tmates', label: 'TMates Weight Loss' },
-    { value: 'gutterLeads', label: 'Gutter Leads' }
+    { value: 'gutterLeads', label: 'Gutter Leads' },
+    { value: 'glp', label: 'GLP Health Hub' }
   ];
 
   return (
@@ -725,7 +900,7 @@ const Generator = () => {
               <div className="flex gap-2">
                 <div className="relative flex-1">
                   <select
-                    value={activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : gutterLeadsFormData.preset}
+                    value={activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : activeTab === 'gutterLeads' ? gutterLeadsFormData.preset : glpFormData.preset}
                     onChange={handlePresetChange}
                     className="w-full p-3 border rounded-lg bg-white/5 border-white/10 text-white pr-10"
                   >
@@ -737,11 +912,11 @@ const Generator = () => {
                     ))}
                   </select>
                 </div>
-                {(activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : gutterLeadsFormData.preset) && 
-                  localPresets[activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : gutterLeadsFormData.preset] && (
+                {(activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : activeTab === 'gutterLeads' ? gutterLeadsFormData.preset : glpFormData.preset) && 
+                  localPresets[activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : activeTab === 'gutterLeads' ? gutterLeadsFormData.preset : glpFormData.preset] && (
                     <button
                       onClick={() => {
-                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : gutterLeadsFormData.preset;
+                        const presetToDelete = activeTab === 'vsl' ? vslFormData.preset : activeTab === 'ecom' ? ecomFormData.preset : activeTab === 'quiz' ? quizFormData.preset : activeTab === 'adult' ? adultLanderFormData.preset : activeTab === 'tmates' ? tmatesFormData.preset : activeTab === 'gutterLeads' ? gutterLeadsFormData.preset : glpFormData.preset;
                         if (window.confirm(`Are you sure you want to delete the "${presetToDelete}" preset?`)) {
                           handleDeletePreset(presetToDelete);
                         }
@@ -810,6 +985,13 @@ const Generator = () => {
               >
                 Gutter Leads
               </button>
+              <button 
+                className={`px-4 py-2 ${activeTab === 'glp' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
+                onClick={() => setActiveTab('glp')}
+                disabled={loading}
+              >
+                GLP Health
+              </button>
             </div>
 
             {error && (
@@ -847,6 +1029,11 @@ const Generator = () => {
               <GutterLeadsForm
                 formData={gutterLeadsFormData}
                 setFormData={setGutterLeadsFormData}
+              />
+            ) : activeTab === 'glp' ? (
+              <GLPForm
+                formData={glpFormData}
+                setFormData={setGlpFormData}
               />
             ) : null}
 
