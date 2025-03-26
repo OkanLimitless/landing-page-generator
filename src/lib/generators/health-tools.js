@@ -1,7 +1,16 @@
 // Health tools generator functions for the landing page
 
 // Generate BMI Calculator page
-export const generateBMICalculator = (brandName, navbar, footer, customStyles, googleTag) => {
+export const generateBMICalculator = (brandName, navbar, footer, customStyles = '', googleTag = '') => {
+  // Create a default styling if customStyles is not provided
+  const styles = `
+    <style>
+      body {
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      }
+    </style>
+  `;
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,14 +21,10 @@ export const generateBMICalculator = (brandName, navbar, footer, customStyles, g
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Custom styles -->
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-  </style>
+  ${styles}
   
   <!-- Google tag for conversion tracking -->
-  ${googleTag || ''}
+  ${googleTag}
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
   ${navbar}
@@ -149,7 +154,16 @@ export const generateBMICalculator = (brandName, navbar, footer, customStyles, g
 };
 
 // Generate Meal Planner page
-export const generateMealPlanner = (brandName, navbar, footer, customStyles, googleTag) => {
+export const generateMealPlanner = (brandName, navbar, footer, customStyles = '', googleTag = '') => {
+  // Create a default styling if customStyles is not provided
+  const styles = `
+    <style>
+      body {
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      }
+    </style>
+  `;
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,14 +174,10 @@ export const generateMealPlanner = (brandName, navbar, footer, customStyles, goo
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Custom styles -->
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-  </style>
+  ${styles}
   
   <!-- Google tag for conversion tracking -->
-  ${googleTag || ''}
+  ${googleTag}
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
   ${navbar}

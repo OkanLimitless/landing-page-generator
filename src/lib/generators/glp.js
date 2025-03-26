@@ -1474,6 +1474,36 @@ export const generateGLPPage = (data) => {
     blogPostPages['rapid-weight-loss-is-it-safe.html'] = generateBlogPost(placeholderPost, brandName, primaryColor);
   }
 
+  // Define custom styles based on the primary color
+  const customStyles = `
+    <style>
+      body {
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      }
+      
+      /* Custom styles for primary color */
+      .custom-btn {
+        background-color: ${primaryColor};
+      }
+      .custom-btn:hover {
+        background-color: ${primaryColor}dd;
+      }
+      .custom-text {
+        color: ${primaryColor};
+      }
+    </style>
+  `;
+
+  // Define Google Tag Manager script if gtagId is provided
+  const googleTag = gtagId ? `
+  <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagId.split('/')[0]}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${gtagId.split('/')[0]}');
+  </script>` : '';
+
   // Main page HTML
   const mainPageHtml = `
 <!DOCTYPE html>
@@ -1488,22 +1518,7 @@ export const generateGLPPage = (data) => {
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Custom styles -->
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-
-    /* Custom styles for primary color */
-    .custom-btn {
-      background-color: ${primaryColor};
-    }
-    .custom-btn:hover {
-      background-color: ${primaryColor}dd;
-    }
-    .custom-text {
-      color: ${primaryColor};
-    }
-  </style>
+  ${customStyles}
   
   <!-- Google tag for conversion tracking -->
   ${gtagId ? `
