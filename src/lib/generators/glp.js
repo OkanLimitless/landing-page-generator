@@ -3,7 +3,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import { generateBMICalculator, generateMealPlanner } from './health-tools.js';
+import { generateBMICalculator, generateMealPlanner, generateTopTenWeightLossMeds } from './health-tools.js';
 
 // Blog post data - we'll use this to generate individual blog post pages
 const blogPosts = {
@@ -1153,8 +1153,8 @@ export const generateGLPPage = (data) => {
             ${heroDescription}
           </p>
           <a 
-            href="${targetUrl}"
-            onclick="gtag_report_conversion('${targetUrl}')"
+            href="top-ten-weight-loss-meds.html"
+            onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
             class="inline-flex items-center bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
             ${ctaButtonText}
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1572,6 +1572,7 @@ export const generateGLPPage = (data) => {
     'index.html': mainPageHtml,
     'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, googleTag),
     'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, googleTag),
+    'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbar, footer, customStyles, googleTag),
     'privacy.html': `
 <!DOCTYPE html>
 <html lang="en">
