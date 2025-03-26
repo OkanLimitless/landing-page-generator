@@ -1572,7 +1572,7 @@ export const generateGLPPage = (data) => {
     'index.html': mainPageHtml,
     'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, googleTag),
     'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, googleTag),
-    'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbar, footer, customStyles, googleTag),
+    'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbar, footer, customStyles, googleTag, targetUrl),
     'privacy.html': `
 <!DOCTYPE html>
 <html lang="en">

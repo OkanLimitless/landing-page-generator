@@ -456,7 +456,7 @@ export const generateMealPlanner = (brandName, navbar, footer, customStyles = ''
 };
 
 // Generate Top Ten Weight Loss Medications page
-export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customStyles = '', googleTag = '') => {
+export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customStyles = '', googleTag = '', affiliateLink = '#') => {
   // Define medication data
   const medications = [
     {
@@ -593,6 +593,11 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       ${'<svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>'.repeat(emptyStars)}
     `;
   };
+  
+  // Extract Google Tag ID parts if available
+  const gtagIdMatch = googleTag.match(/id=([^"&]+)/);
+  const gtagId = gtagIdMatch ? gtagIdMatch[1] : '';
+  const [gtagAccount, gtagLabel] = gtagId.split('/');
   
   // Create HTML for the page
   return `<!DOCTYPE html>
@@ -739,7 +744,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         
         <!-- CTA Button -->
         <div class="flex justify-center">
-          <a href="#top-medications" class="next-step-btn text-white py-4 px-10 rounded-md text-xl font-semibold flex items-center justify-between w-full md:w-96 shadow-lg">
+          <a href="#top-medications" class="next-step-btn text-white py-4 px-10 rounded-md text-xl font-semibold flex items-center justify-between w-full md:w-96 shadow-lg" onclick="return gtag_report_conversion('${affiliateLink}')">
             <span>NEXT STEP</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -800,7 +805,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                     </li>
                   `).join('')}
                 </ul>
-                <button class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm">Get Offer</button>
+                <button class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm" onclick="gtag_report_conversion('${affiliateLink}')">Get Offer</button>
               </div>
             </div>
           `).join('')}
@@ -875,6 +880,45 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     </div>
     
     ${footer}
+    
+    <!-- Conversion tracking script -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callback = function() {
+          if (typeof(url) !== 'undefined' && url && url !== '#') {
+            window.location = url;
+          }
+        };
+        
+        if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
+          gtag('event', 'conversion', {
+            'send_to': '${gtagAccount}/${gtagLabel}',
+            'value': 1.0,
+            'currency': 'USD',
+            'event_callback': callback
+          });
+          return false;
+        } else {
+          // If gtag is not available or IDs aren't set, just navigate
+          if (typeof(url) !== 'undefined' && url && url !== '#') {
+            window.location = url;
+          }
+          return false;
+        }
+      }
+      
+      // Add event listeners to all buttons when the DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        // Add handlers to all "Get Offer" buttons
+        const getOfferButtons = document.querySelectorAll('.get-offer-btn');
+        getOfferButtons.forEach(button => {
+          button.addEventListener('click', function(e) {
+            e.preventDefault();
+            gtag_report_conversion('${affiliateLink}');
+          });
+        });
+      });
+    </script>
   </body>
 </html>`;
 }; 
