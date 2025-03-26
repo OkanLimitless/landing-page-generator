@@ -1079,6 +1079,65 @@ export const generateGLPPage = (data) => {
     trackingScript = ''
   } = data;
 
+  // Define custom styles for the page
+  const customStyles = `
+    <style>
+      body {
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      }
+      .hero-button {
+        background: linear-gradient(to right, ${primaryColor}, #6366f1);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+      }
+      .hero-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4);
+      }
+      @media (max-width: 768px) {
+        .hero-content-mobile {
+          text-align: center;
+        }
+        .hero-button-mobile {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  `;
+
+  // Define Google Tag Manager script if gtagId is provided
+  const googleTag = gtagId ? `
+  <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagId.split('/')[0]}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${gtagId.split('/')[0]}');
+  </script>` : '';
+  
+  // Define conversion tracking script
+  const conversionTracking = `
+  <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      if (typeof gtag !== 'undefined' && '${gtagId}') {
+        gtag('event', 'conversion', {
+          'send_to': '${gtagId}',
+          'event_callback': callback
+        });
+        return false;
+      } else {
+        return true;
+      }
+    }
+  </script>
+  `;
+
   // Generate the navbar component
   const navbar = `
   <header class="bg-indigo-900/90 text-white shadow-md sticky top-0 z-50">
@@ -1117,7 +1176,7 @@ export const generateGLPPage = (data) => {
   // Generate the hero section component
   const heroSection = `
   <section class="relative">
-    <!-- Background image -->
+    <!-- Background image with lower opacity -->
     <div class="absolute inset-0 z-0 overflow-hidden">
       <div 
         class="w-full h-full bg-cover bg-center"
@@ -1126,15 +1185,15 @@ export const generateGLPPage = (data) => {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          filter: brightness(0.6);
+          filter: brightness(0.4); /* Increased darkness for better text contrast */
         "
       ></div>
     </div>
     
-    <div class="container mx-auto px-4 pt-14 pb-20 md:pt-20 md:pb-32 relative z-10">
-      <div class="flex flex-col md:flex-row items-center">
-        <!-- Left side - Healthy Food Bowl -->
-        <div class="w-full md:w-1/2 p-4">
+    <div class="container mx-auto px-4 pt-16 pb-24 md:pt-24 md:pb-32 relative z-10">
+      <div class="flex flex-col-reverse md:flex-row items-center">
+        <!-- Right side on mobile, left side on desktop - Healthy Food Bowl -->
+        <div class="w-full md:w-1/2 p-4 mt-8 md:mt-0">
           <div class="max-w-sm mx-auto md:ml-0 md:mr-auto bg-white rounded-lg overflow-hidden shadow-xl">
             <img 
               src="${heroImageUrl}" 
@@ -1144,21 +1203,21 @@ export const generateGLPPage = (data) => {
           </div>
         </div>
         
-        <!-- Right side - Text Content -->
-        <div class="w-full md:w-1/2 text-white mt-8 md:mt-0">
-          <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+        <!-- Left side on mobile, right side on desktop - Text Content -->
+        <div class="w-full md:w-1/2 text-white text-center md:text-left hero-content-mobile">
+          <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
             ${heroTitle}
           </h1>
-          <p class="text-gray-200 mb-6 max-w-lg">
+          <p class="text-gray-100 mb-8 max-w-lg mx-auto md:mx-0 text-lg">
             ${heroDescription}
           </p>
           <a 
             href="top-ten-weight-loss-meds.html"
             onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
-            class="inline-flex items-center bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
+            class="inline-flex items-center justify-center hero-button hero-button-mobile text-white font-medium py-4 px-8 rounded-full transition-all duration-300 text-lg w-full sm:w-auto">
             ${ctaButtonText}
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
@@ -1173,13 +1232,13 @@ export const generateGLPPage = (data) => {
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
-            We give Loss & Clarity
+            Weight Loss & Obesity
           </div>
           <div class="whitespace-nowrap flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
-            Guides & Tutorials
+            Fitness & Exercise
           </div>
           <div class="whitespace-nowrap flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1258,24 +1317,6 @@ export const generateGLPPage = (data) => {
       </div>
     </section>
   `;
-
-  // Add Google Ads conversion tracking if gtagId is provided
-  const conversionTracking = gtagId ? `
-  <script>
-    function gtag_report_conversion(url) {
-      var callback = function () {
-        if (typeof(url) != 'undefined') {
-          window.location = url;
-        }
-      };
-      gtag('event', 'conversion', {
-        'send_to': '${gtagId}',
-        'event_callback': callback
-      });
-      return false;
-    }
-  </script>
-  ` : '';
 
   // Generate the newsletter section
   const newsletterSection = `
@@ -1473,36 +1514,6 @@ export const generateGLPPage = (data) => {
     
     blogPostPages['rapid-weight-loss-is-it-safe.html'] = generateBlogPost(placeholderPost, brandName, primaryColor);
   }
-
-  // Define custom styles based on the primary color
-  const customStyles = `
-    <style>
-      body {
-        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      }
-      
-      /* Custom styles for primary color */
-      .custom-btn {
-        background-color: ${primaryColor};
-      }
-      .custom-btn:hover {
-        background-color: ${primaryColor}dd;
-      }
-      .custom-text {
-        color: ${primaryColor};
-      }
-    </style>
-  `;
-
-  // Define Google Tag Manager script if gtagId is provided
-  const googleTag = gtagId ? `
-  <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagId.split('/')[0]}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '${gtagId.split('/')[0]}');
-  </script>` : '';
 
   // Main page HTML
   const mainPageHtml = `
