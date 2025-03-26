@@ -1,16 +1,16 @@
 const colors = {
   accents: [
-    { primary: '#ffd700', secondary: '#ff9d00', text: '#000000' },  // Gold
-    { primary: '#4a90e2', secondary: '#357abd', text: '#ffffff' },  // Ocean
-    { primary: '#50c878', secondary: '#3da75c', text: '#ffffff' },  // Emerald
-    { primary: '#e94560', secondary: '#c13850', text: '#ffffff' },  // Ruby
-    { primary: '#9b59b6', secondary: '#8e44ad', text: '#ffffff' }   // Amethyst
+    { primary: '#3B82F6', secondary: '#2563EB', text: '#ffffff' },  // Blue
+    { primary: '#10B981', secondary: '#059669', text: '#ffffff' },  // Green
+    { primary: '#F59E0B', secondary: '#D97706', text: '#ffffff' },  // Amber
+    { primary: '#8B5CF6', secondary: '#7C3AED', text: '#ffffff' },  // Purple
+    { primary: '#EC4899', secondary: '#DB2777', text: '#ffffff' }   // Pink
   ],
   backgrounds: [
-    { main: '#17203f', overlay: 'linear-gradient(45deg, #17203f, #1c2951)' },
-    { main: '#1a1a2e', overlay: 'linear-gradient(135deg, #1a1a2e, #16213e)' },
-    { main: '#1b2f1b', overlay: 'linear-gradient(90deg, #1b2f1b, #243524)' },
-    { main: '#2d142c', overlay: 'linear-gradient(180deg, #2d142c, #391a39)' }
+    { main: '#1E293B', overlay: 'linear-gradient(145deg, #1E293B, #0F172A)' },
+    { main: '#1F2937', overlay: 'linear-gradient(135deg, #1F2937, #111827)' },
+    { main: '#18181B', overlay: 'linear-gradient(150deg, #18181B, #09090B)' },
+    { main: '#1E1B4B', overlay: 'linear-gradient(165deg, #1E1B4B, #312E81)' }
   ]
 };
 

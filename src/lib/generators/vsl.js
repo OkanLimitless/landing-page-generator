@@ -70,6 +70,16 @@ export const generateVSLPage = (data) => {
             display: flex;
             flex-direction: column;
           }
+          .advertisement-label {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #9CA3AF;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin: 1rem auto;
+            width: fit-content;
+          }
           #${ids.container} {
             width: 90%;
             max-width: ${styles.container.maxWidth};
@@ -175,6 +185,7 @@ export const generateVSLPage = (data) => {
       <body>
         ${decorativeHTML}
         <main id="${ids.container}">
+          <div class="advertisement-label">Advertisement</div>
           <h1 class="headline">
             ${mergedData.headline.split(':')[0]}:
             <span class="highlight">${mergedData.headline.split(':')[1] || ''}</span>
@@ -182,6 +193,9 @@ export const generateVSLPage = (data) => {
           <div id="${ids.video}" role="button" tabindex="0">
             <img src="${mergedData.thumbnailUrl}" alt="${mergedData.headline}">
           </div>
+          <a href="#" class="cta-button">
+            ${mergedData.ctaText || 'Watch FREE Video Guide Now'}
+          </a>
           <div class="description">
             ${mergedData.description.split('\n').map(p => `<p>${p}</p>`).join('')}
           </div>
@@ -191,13 +205,21 @@ export const generateVSLPage = (data) => {
         </main>
         <footer id="${ids.footer}">
           <div class="container">
-            <div class="footer-links">
-              <a href="privacy.html">Privacy Policy</a>
-              <a href="terms.html">Terms of Service</a>
-            </div>
             <div class="footer-disclaimer">
-              This site is not a part of Google, Inc. or Google.com, nor is it sponsored or endorsed by Google. 
-              YouTube is a trademark of Google Inc.
+              <p>This site is not a part of the Youtube website or Youtube Inc. Additionally, This site is NOT endorsed by Youtube in any way. YOUTUBE is a trademark of YOUTUBE, Inc.</p>
+              
+              <p>FDA Compliance</p>
+              <p>The information on this website has not been evaluated by the Food & Drug Administration or any other medical body. We do not aim to diagnose, treat, cure or prevent any illness or disease. Information is shared for educational purposes only. You should always consult your doctor before acting on any content on this website, especially if you are pregnant, nursing, taking medication or have a medical condition.</p>
+              
+              <p>Results May Vary: the weight loss results testimonials are in no way a guarantee of results. Individual weight loss results, including amount and time, will vary. Whether genetic or environmental, it should be noted that food intake, rates of metabolism and levels of exercise and physical exertion vary from person to person. This means weight loss results will also vary from person to person.</p>
+              
+              <p>Some names and personal identifying information on this site have been changed to protect the privacy of individuals.</p>
+              
+              <p>No individual result should be seen as typical.</p>
+              
+              <p>Marketing Disclosure: This website is a market place. As such you should know that the owner has a monetary connection to the product and services advertised on the site. The owner receives payment whenever a qualified lead is referred but that is the extent of it.</p>
+              
+              <p>Advertising Disclosure: This website and the products & services referred to on the site are advertising marketplaces. This website is an advertisement and not a news publication. Any photographs of persons used on this site are models. The owner of this site and of the products and services referred to on this site only provides a service where consumers can obtain and compare.</p>
             </div>
             <div>&copy; ${new Date().getFullYear()} All rights reserved</div>
           </div>
