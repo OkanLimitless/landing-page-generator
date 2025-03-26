@@ -1,10 +1,6 @@
 // GLP Health Landing Page Generator
 // This file generates a weight loss/health landing page similar to the example shown
 
-import fs from 'fs';
-import path from 'path';
-import { generateBMICalculator, generateMealPlanner } from './health-tools.js';
-
 // Blog post data - we'll use this to generate individual blog post pages
 const blogPosts = {
   "dont-fall-for-fad-diets": {
@@ -1177,7 +1173,7 @@ export const generateGLPPage = (data) => {
           </div>
           <div class="whitespace-nowrap flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             Guides & Tutorials
           </div>
@@ -1555,8 +1551,6 @@ export const generateGLPPage = (data) => {
   // Return both the main page and blog posts
   return {
     'index.html': mainPageHtml,
-    'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, googleTag),
-    'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, googleTag),
     'privacy.html': `
 <!DOCTYPE html>
 <html lang="en">
@@ -1918,6 +1912,8 @@ export const generateGLPPage = (data) => {
 </body>
 </html>
     `,
+    'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, googleTag),
+    'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, googleTag),
     ...blogPostPages
   };
 }; 
