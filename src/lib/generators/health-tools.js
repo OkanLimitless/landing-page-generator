@@ -744,7 +744,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         
         <!-- CTA Button -->
         <div class="flex justify-center">
-          <a href="#top-medications" class="next-step-btn text-white py-4 px-10 rounded-md text-xl font-semibold flex items-center justify-between w-full md:w-96 shadow-lg" onclick="return gtag_report_conversion('${affiliateLink}')">
+          <a href="${affiliateLink}" class="next-step-btn text-white py-4 px-10 rounded-md text-xl font-semibold flex items-center justify-between w-full md:w-96 shadow-lg" onclick="return gtag_report_conversion('${affiliateLink}', event)">
             <span>NEXT STEP</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -805,7 +805,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                     </li>
                   `).join('')}
                 </ul>
-                <button class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm" onclick="gtag_report_conversion('${affiliateLink}')">Get Offer</button>
+                <button class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm" onclick="gtag_report_conversion('${affiliateLink}', event)">Get Offer</button>
               </div>
             </div>
           `).join('')}
@@ -883,7 +883,12 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     
     <!-- Conversion tracking script -->
     <script>
-      function gtag_report_conversion(url) {
+      function gtag_report_conversion(url, event) {
+        // If an event is passed, prevent default behavior
+        if (event) {
+          event.preventDefault();
+        }
+        
         var callback = function() {
           if (typeof(url) !== 'undefined' && url && url !== '#') {
             window.location = url;
@@ -909,12 +914,11 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       
       // Add event listeners to all buttons when the DOM is loaded
       document.addEventListener('DOMContentLoaded', function() {
-        // Add handlers to all "Get Offer" buttons
-        const getOfferButtons = document.querySelectorAll('.get-offer-btn');
+        // Add handlers to all "Get Offer" buttons that don't already have onclick handlers
+        const getOfferButtons = document.querySelectorAll('.get-offer-btn:not([onclick])');
         getOfferButtons.forEach(button => {
           button.addEventListener('click', function(e) {
-            e.preventDefault();
-            gtag_report_conversion('${affiliateLink}');
+            gtag_report_conversion('${affiliateLink}', e);
           });
         });
       });
