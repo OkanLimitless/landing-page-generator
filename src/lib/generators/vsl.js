@@ -8,7 +8,27 @@ export const generateVSLPage = (data) => {
     
     // Check if preset is provided and merge with data
     const presetData = data.preset ? contentPresets[data.preset] : {};
+    
+    // Ensure that the user-provided data takes precedence over preset data
     const mergedData = { ...presetData, ...data };
+    
+    // Ensure URLs have fallbacks if not provided
+    if (!mergedData.offerUrl) {
+      console.warn('No offer URL provided, using fallback');
+      mergedData.offerUrl = '#';
+    }
+    
+    if (!mergedData.thumbnailUrl) {
+      console.warn('No thumbnail URL provided, using fallback');
+      mergedData.thumbnailUrl = 'https://via.placeholder.com/640x360?text=No+Image+Provided';
+    }
+    
+    // Log data for debugging
+    console.log('Generated page with data:', { 
+      headline: mergedData.headline,
+      offerUrl: mergedData.offerUrl,
+      thumbnailUrl: mergedData.thumbnailUrl
+    });
     
     // Extract gtag ID and label from the provided gtagId
     const [gtagAccount, gtagLabel] = (mergedData.gtagId || '').split('/');
@@ -193,13 +213,13 @@ export const generateVSLPage = (data) => {
           <div id="${ids.video}" role="button" tabindex="0">
             <img src="${mergedData.thumbnailUrl}" alt="${mergedData.headline}">
           </div>
-          <a href="#" class="cta-button">
+          <a href="${mergedData.offerUrl}" class="cta-button">
             ${mergedData.ctaText || 'Watch FREE Video Guide Now'}
           </a>
           <div class="description">
             ${mergedData.description.split('\n').map(p => `<p>${p}</p>`).join('')}
           </div>
-          <a href="#" class="cta-button">
+          <a href="${mergedData.offerUrl}" class="cta-button">
             ${mergedData.ctaText || 'Watch FREE Video Guide Now'}
           </a>
         </main>
@@ -241,16 +261,21 @@ export const generateVSLPage = (data) => {
           }
 
           function buildVideoUrl() {
-            return '${mergedData.offerUrl}';
+            // Make sure we have a valid URL from the data
+            const url = '${mergedData.offerUrl || ""}';
+            console.log('Building video URL:', url);
+            return url || '#';
           }
 
           function gtag_report_conversion(url) {
             var callback = function () {
               console.log('Conversion sent successfully!');
               setTimeout(() => {
-                if (typeof(url) !== 'undefined') {
+                if (typeof(url) !== 'undefined' && url && url !== '#') {
                   console.log('Redirecting to:', url);
                   window.location = url;
+                } else {
+                  console.warn('No valid URL to redirect to');
                 }
               }, 1000); // 1000ms delay to ensure the conversion request completes
             };
@@ -282,6 +307,7 @@ export const generateVSLPage = (data) => {
 
           document.addEventListener('DOMContentLoaded', function() {
             const videoUrl = buildVideoUrl();
+            console.log('Video URL:', videoUrl);
             
             // Wait for gtag to be available before setting up click handlers
             waitForGtag(function() {
@@ -291,17 +317,33 @@ export const generateVSLPage = (data) => {
               const videoDiv = document.getElementById('${ids.video}');
               if (videoDiv) {
                 videoDiv.onclick = function() {
-                  return gtag_report_conversion(videoUrl);
+                  if (videoUrl && videoUrl !== '#') {
+                    return gtag_report_conversion(videoUrl);
+                  } else {
+                    console.warn('No valid URL for video click');
+                    return false;
+                  }
                 };
               }
               
               // Update CTA buttons
               document.querySelectorAll('.cta-button').forEach(button => {
-                button.href = videoUrl;
-                button.onclick = function(e) {
-                  e.preventDefault();
-                  return gtag_report_conversion(videoUrl);
-                };
+                // Make sure the href is set correctly
+                if (videoUrl && videoUrl !== '#') {
+                  button.href = videoUrl;
+                  button.onclick = function(e) {
+                    e.preventDefault();
+                    return gtag_report_conversion(videoUrl);
+                  };
+                } else {
+                  console.warn('No valid URL for CTA button');
+                  button.href = '#';
+                  button.onclick = function(e) {
+                    e.preventDefault();
+                    console.warn('Button clicked but no URL is set');
+                    return false;
+                  };
+                }
               });
             });
           });
