@@ -131,7 +131,17 @@ export default async function handler(req, res) {
         break;
       case 'glp':
         console.log('Generating GLP Health page...');
-        html = generateGLPPage(data);
+        const glpPages = generateGLPPage(data);
+        
+        // Extract the main index.html
+        html = glpPages['index.html'];
+        
+        // Store the blog post pages
+        for (const [fileName, content] of Object.entries(glpPages)) {
+          if (fileName !== 'index.html') {
+            productDetailPages[fileName] = content;
+          }
+        }
         break;
       default:
         throw new Error('Invalid page type');
@@ -155,7 +165,7 @@ export default async function handler(req, res) {
     zip.file('terms.html', terms);
     
     // Add product detail pages if they exist
-    if ((type === 'quiz' || type === 'tmates') && productDetailPages) {
+    if ((type === 'quiz' || type === 'tmates' || type === 'glp') && productDetailPages) {
       for (const [fileName, content] of Object.entries(productDetailPages)) {
         zip.file(fileName, content);
       }
@@ -174,7 +184,7 @@ export default async function handler(req, res) {
     };
     
     // Add product detail pages to manifest if they exist
-    if ((type === 'quiz' || type === 'tmates') && productDetailPages) {
+    if ((type === 'quiz' || type === 'tmates' || type === 'glp') && productDetailPages) {
       manifest.files = [
         ...manifest.files,
         ...Object.keys(productDetailPages)
