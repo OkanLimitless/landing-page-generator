@@ -7,7 +7,7 @@ const blogPosts = {
     title: "Don't Fall for Fad Diets",
     image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
     excerpt: "Get the real truth about what works for diets, and learn some healthy weight-loss strategies that actually work.",
-    externalUrl: "https://www.webmd.com/diet/features/the-truth-about-fad-diets",
+    externalUrl: "https://www.webmd.com/diet/features/why-do-we-keep-falling-for-fad-diets",
     content: `
       <h2>The Truth About Fad Diets</h2>
       <p>Fad diets often promise quick weight loss by promoting a specific food or nutrient, or by severely restricting certain food groups. While these diets may lead to short-term weight loss, they are rarely sustainable in the long term and can even be harmful to your health.</p>
@@ -342,7 +342,7 @@ const blogPosts = {
   },
   "plant-based-diets-beyond-the-hype": {
     title: "Plant-Based Diets: Beyond the Hype",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
+    image: "https://images.unsplash.com/photo-1512621776951-a500c9a57435?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
     excerpt: "Explore the benefits of plant-based diets and debunk common myths about their limitations.",
     externalUrl: "https://www.harvardhealth.org/healthy-eating/plant-based-diets-beyond-the-hype",
     content: `
@@ -443,11 +443,11 @@ const blogPosts = {
       <p>The link between sleep and weight management is undeniable. Inadequate sleep can lead to weight gain, while getting enough sleep can support weight loss and maintenance. By prioritizing sleep, regulating appetite hormones, and engaging in regular physical activity, you can improve your overall health and weight management efforts.</p>
     `
   },
-  "protein-timing-does-when-you-eat-matter-for-weight-loss": {
+  "protein-timing-weight-loss": {
     title: "Protein Timing: Does When You Eat Matter for Weight Loss?",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
-    excerpt: "Explore the role of protein timing in weight loss and overall health.",
-    externalUrl: "https://www.academyofnutritionanddietetics.org/nutrition-dietetics-practice-group/practice-resources/professional-resources/nutrition-today/2018/07/protein-timing-does-when-you-eat-matter-for-weight-loss",
+    image: "https://images.unsplash.com/photo-1506224772180-d75b3efbe9be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
+    excerpt: "New study challenges conventional wisdom about protein consumption timing, revealing optimal windows for muscle growth and fat loss.",
+    externalUrl: "https://www.health.harvard.edu/staying-healthy/protein-at-every-meal-may-help-preserve-muscle-strength-as-you-age",
     content: `
       <h2>The Importance of Protein Timing</h2>
       <p>Protein is an essential macronutrient that plays a crucial role in weight management and overall health. While the amount of protein you consume is important, when you eat it may also affect your weight loss efforts.</p>
@@ -482,142 +482,11 @@ const blogPosts = {
       <p>If you're interested in learning more about protein timing and its potential benefits, consult with a healthcare professional or registered dietitian.</p>
     `
   },
-  "low-carb-diets-surprising-boost-heart-health-improvements": {
-    title: "Low-Carb Diet's Surprising Boost: Heart Health Improvements",
-    image: "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
-    excerpt: "Discover how low-carb diets can lead to significant heart health improvements, even for overweight individuals.",
-    externalUrl: "https://nypost.com/2021/10/01/low-carb-diet-benefits-heart-health-for-overweight-people-researchers-say/",
-    content: `
-      <h2>Study Overview</h2>
-      <ul>
-        <li>Decreased physical activity due to fatigue</li>
-        <li>Impaired exercise performance and reduced intensity</li>
-        <li>Alterations in resting metabolic rate</li>
-        <li>Changes in non-exercise activity thermogenesis (NEAT)</li>
-      </ul>
-      
-      <h3>Disrupted Glucose Metabolism</h3>
-      <p>Just one night of poor sleep can induce temporary insulin resistance comparable to that seen in type 2 diabetes. A study in the journal Diabetes Care found that healthy subjects restricted to 4 hours of sleep for six nights exhibited impaired glucose tolerance and insulin sensitivity.</p>
-      
-      <p>This metabolic disruption not only increases diabetes risk but also promotes fat storage, particularly in the abdominal region—a pattern associated with greater cardiometabolic risk.</p>
-      
-      <h2>Sleep Quality vs. Quantity</h2>
-      <p>While most research focuses on sleep duration, quality matters as well. Studies using polysomnography (sleep lab monitoring) have found that reduced slow-wave sleep—the deepest, most restorative sleep stage—is associated with impaired glucose metabolism even when total sleep time remains constant.</p>
-      
-      <p>Common sleep disorders also impact weight:</p>
-      
-      <ul>
-        <li><strong>Obstructive Sleep Apnea (OSA):</strong> Creates a vicious cycle where weight gain worsens OSA, which further impairs sleep quality, making weight loss more difficult</li>
-        <li><strong>Insomnia:</strong> Associated with an 58% increased risk of obesity according to a 2018 meta-analysis</li>
-        <li><strong>Restless Legs Syndrome:</strong> Linked to metabolic dysfunction and increased BMI in multiple studies</li>
-      </ul>
-      
-      <h2>Sleep Optimization Strategies for Weight Management</h2>
-      <p>For individuals struggling with weight management, improving sleep may offer a relatively low-effort intervention with significant benefits. Sleep medicine specialists recommend several evidence-based strategies:</p>
-      
-      <h3>Prioritize Sleep Duration</h3>
-      <p>Adults should aim for 7-9 hours of sleep per night, the range associated with optimal metabolic function. A study in the journal Sleep found that individuals getting at least 7 hours of sleep lost twice as much fat when following a calorie-restricted diet compared to those sleeping less than 7 hours.</p>
-      
-      <h3>Maintain Consistent Sleep Timing</h3>
-      <p>Circadian rhythm disruption contributes to metabolic dysfunction. Going to bed and waking at similar times each day—even on weekends—helps maintain hormonal balance and metabolic health.</p>
-      
-      <h3>Create an Optimal Sleep Environment</h3>
-      <p>Research from the National Sleep Foundation highlights three key environmental factors for sleep quality:</p>
-      
-      <ul>
-        <li><strong>Temperature:</strong> Maintain bedroom temperature between 60-67°F (15-19°C)</li>
-        <li><strong>Light:</strong> Eliminate sources of artificial light, including electronics</li>
-        <li><strong>Noise:</strong> Minimize disruptive sounds or use white noise if necessary</li>
-      </ul>
-      
-      <h3>Address Sleep Disorders</h3>
-      <p>Individuals with suspected sleep disorders should seek professional evaluation. Treating conditions like sleep apnea not only improves sleep quality but often leads to spontaneous weight loss. A 2018 meta-analysis found that CPAP treatment for sleep apnea resulted in modest but significant weight loss even without dietary intervention.</p>
-      
-      <h2>Clinical Applications</h2>
-      <p>The research has begun influencing clinical practice. The American Academy of Sleep Medicine now recommends that healthcare providers screen for sleep problems in patients with obesity. Likewise, weight management programs increasingly incorporate sleep assessments and interventions.</p>
-      
-      <p>Dr. Susan Redline, professor of sleep medicine at Harvard Medical School, advocates for this integrated approach: "When we address sleep problems alongside nutrition and exercise, we see improved outcomes across all domains. It's not about choosing between diet, exercise, and sleep—it's about optimizing all three."</p>
-      
-      <h2>Conclusion</h2>
-      <p>The scientific evidence clearly establishes sleep as a critical factor in weight regulation. While not a standalone solution, improving sleep quality and quantity appears to enhance the effectiveness of traditional weight management approaches while minimizing physiological resistance to weight loss.</p>
-      
-      <p>Given the minimal cost and additional health benefits associated with improved sleep, sleep optimization represents an underutilized but potentially powerful tool in addressing the obesity epidemic. For individuals struggling with weight management, addressing sleep problems may help overcome plateaus and enhance long-term success.</p>
-    `
-  },
-  "protein-timing-weight-loss": {
-    title: "Protein Timing: Does When You Eat Matter for Weight Loss?",
-    image: "https://images.unsplash.com/photo-1506224772180-d75b3efbe9be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
-    excerpt: "New study challenges conventional wisdom about protein consumption timing, revealing optimal windows for muscle growth and fat loss.",
-    externalUrl: "https://www.acefitness.org/resources/pros/expert-articles/7173/protein-timing-is-it-important/",
-    content: `
-      <h2>The Protein Timing Hypothesis</h2>
-      <p>For decades, fitness enthusiasts and bodybuilders have followed rigid protein timing protocols, particularly emphasizing the "anabolic window"—a brief period after exercise during which protein consumption was thought to be critical for muscle growth. However, recent research has begun to challenge these long-held beliefs, suggesting a more nuanced approach may be optimal for those seeking weight loss and body composition improvements.</p>
-      
-      <p>Dr. Alan Aragon, a nutrition researcher and advisor to the Alan Aragon Research Review, explains: "The traditional view of protein timing has been greatly oversimplified. Our understanding has evolved substantially, revealing that optimal timing strategies depend on individual factors including training status, age, overall diet quality, and specific goals."</p>
-      
-      <h2>Evolution of Protein Timing Research</h2>
-      <p>The concept of protein timing gained prominence in the early 2000s when studies suggested that consuming protein immediately after resistance training could significantly enhance muscle protein synthesis (MPS)—the process through which the body builds new muscle tissue. This led to the widespread recommendation that athletes consume protein within 30-60 minutes post-workout.</p>
-      
-      <p>However, a landmark meta-analysis published in the Journal of the International Society of Sports Nutrition in 2013 questioned this narrow approach. After examining 43 studies, researchers concluded that total daily protein intake was far more important than precise timing for muscle and strength development.</p>
-      
-      <h2>Current Evidence on Timing for Weight Loss</h2>
-      <p>When specifically examining protein timing for weight loss purposes, several patterns have emerged from recent research:</p>
-      
-      <h3>Breakfast Protein Consumption</h3>
-      <p>A study published in the American Journal of Clinical Nutrition found that participants consuming a high-protein breakfast (35g protein) experienced reduced hunger, decreased cravings, and lower evening snacking of high-fat foods compared to those consuming normal-protein breakfasts or skipping breakfast entirely.</p>
-      
-      <p>Dr. Heather Leidy, lead researcher on multiple protein timing studies, notes: "Consuming protein at breakfast appears to influence neural signals controlling food motivation and reward-driven eating behavior, which may reduce unhealthy snacking and support weight management efforts."</p>
-      
-      <h3>Pre-Sleep Protein</h3>
-      <p>Research from Maastricht University has demonstrated that consuming 30-40g of protein before sleep may increase muscle protein synthesis during overnight recovery. For weight loss purposes, this strategy has shown potential benefits for next-day metabolic rate and fat oxidation without disrupting sleep quality.</p>
-      
-      <h3>Protein Distribution Throughout the Day</h3>
-      <p>Perhaps most significantly for weight management, multiple studies now indicate that distributing protein intake evenly across daily meals (25-30g per meal) may be superior to the common pattern of consuming minimal protein at breakfast, moderate amounts at lunch, and large amounts at dinner.</p>
-      
-      <p>A 2014 study in the Journal of Nutrition found that evenly distributed protein intake (30g at each meal) resulted in 25% greater muscle protein synthesis than the same total amount consumed in a skewed pattern (10g at breakfast, 15g at lunch, 65g at dinner).</p>
-      
-      <h2>Practical Applications for Weight Loss</h2>
-      <p>Based on the current evidence, several protein timing strategies show promise for supporting weight loss efforts:</p>
-      
-      <h3>Prioritize Breakfast Protein</h3>
-      <p>Including 25-30g of protein at breakfast appears to reduce hunger hormones, increase satiety, and decrease cravings throughout the day. Practical options include:</p>
-      <ul>
-        <li>Greek yogurt with berries and nuts (24g protein per cup)</li>
-        <li>Protein smoothie with whey or plant protein, fruit, and nut butter</li>
-        <li>Egg white omelet with vegetables and a side of cottage cheese</li>
-      </ul>
-      
-      <h3>Consider Pre-Sleep Protein</h3>
-      <p>For those engaging in regular resistance training, consuming 30-40g of slow-digesting protein before bed may enhance overnight recovery and next-day metabolism. Options include:</p>
-      <ul>
-        <li>Cottage cheese, which contains high levels of casein protein</li>
-        <li>Greek yogurt with a tablespoon of nut butter</li>
-        <li>Protein shake made with casein protein powder</li>
-      </ul>
-      
-      <h3>Balance Daily Distribution</h3>
-      <p>Rather than saving most protein consumption for dinner, aim for 25-30g at each main meal. This approach may optimize muscle protein synthesis throughout the day and enhance satiety, potentially reducing overall calorie intake.</p>
-      
-      <h2>Individual Variations and Considerations</h2>
-      <p>While these general guidelines apply to most healthy adults, several factors may influence optimal protein timing strategies:</p>
-      <ul>
-        <li><strong>Age:</strong> Older adults (65+) may benefit from slightly higher protein doses (40g) per meal due to anabolic resistance</li>
-        <li><strong>Training Status:</strong> Highly active individuals may benefit more from specific post-workout timing strategies than sedentary individuals</li>
-        <li><strong>Meal Frequency:</strong> Those following intermittent fasting protocols will need to adjust distribution strategies within their eating window</li>
-        <li><strong>Protein Quality:</strong> Plant-based proteins may require larger portions to achieve the same muscle protein synthetic response as animal proteins</li>
-      </ul>
-      
-      <h2>Conclusion</h2>
-      <p>While the "anabolic window" concept has been largely overemphasized, protein timing still appears to play a meaningful role in weight management and body composition. The current evidence suggests that focusing on breakfast protein, considering pre-sleep protein, and distributing intake evenly throughout the day may optimize results.</p>
-      
-      <p>However, these timing strategies should be viewed as optimizations rather than fundamentals. Total daily protein intake (generally 1.6-2.2g per kg of body weight for active individuals seeking weight loss) remains the most crucial factor. As research continues to evolve, personalized approaches that consider individual lifestyle, preferences, and physiological responses will likely yield the best outcomes.</p>
-    `
-  },
   "low-carb-heart-health-benefits": {
     title: "Low-Carb Diet's Surprising Boost: Heart Health Improves in Overweight Individuals",
     image: "https://images.unsplash.com/photo-1559235038-1b0fadf76f78?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
     excerpt: "New research shows that high unsaturated fat, low-carb diets may reduce cardiovascular disease risk independently of weight loss.",
-    externalUrl: "https://nypost.com/2021/10/01/low-carb-diet-benefits-heart-health-for-overweight-people-researchers-say/",
+    externalUrl: "https://health.clevelandclinic.org/keto-diet-and-heart-disease",
     content: `
       <h2>Study Overview</h2>
       <p>Researchers have found that a low-carb diet high in unsaturated fats may improve cardiovascular health in overweight individuals. Published in the American Journal of Clinical Nutrition, the study focused on the effects of carbohydrate restriction on heart disease risk factors. By targeting both weight loss and heart health, the study offers new insights into effective dietary strategies for those struggling with obesity.</p>
@@ -729,7 +598,7 @@ const blogPosts = {
     title: "The Role of Gut Health in Weight Management",
     image: "https://images.unsplash.com/photo-1583525693097-5ac6f6726659?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
     excerpt: "Research from the NIH Human Microbiome Project reveals how your gut bacteria may control your weight more than your willpower does.",
-    externalUrl: "https://www.nih.gov/news-events/nih-research-matters/gut-microbiome-weight",
+    externalUrl: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5082693/",
     content: `
       <h2>The Gut Microbiome: Your Internal Weight Management System</h2>
       <p>The human gut hosts trillions of microorganisms collectively known as the gut microbiome—a complex ecosystem that scientists now recognize as a key regulator of metabolism, appetite, and body weight. Research from the NIH Human Microbiome Project and other major studies has revealed that the composition of gut bacteria differs significantly between individuals with obesity and those of normal weight, suggesting these microscopic organisms play a far greater role in weight regulation than previously understood.</p>
@@ -1210,7 +1079,7 @@ export const generateGLPPage = (data) => {
   const navbar = `
   <header class="bg-indigo-900/90 text-white shadow-md sticky top-0 z-50">
     <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="/" class="flex items-center space-x-2">
+      <a href="index.html" class="flex items-center space-x-2">
         <div class="relative h-8 w-16">
           <h2 class="text-xl font-bold tracking-tight text-white">
             <span class="text-white">${brandName.split('-')[0]}</span>
@@ -1220,15 +1089,15 @@ export const generateGLPPage = (data) => {
       </a>
       
       <nav class="hidden md:flex items-center space-x-4 text-sm">
-        <a href="#" class="hover:text-purple-300 transition-colors py-2 px-1">Popular Diet Plans</a>
-        <a href="#" class="hover:text-purple-300 transition-colors py-2 px-1">Healthy Weight Resources</a>
-        <a href="#" class="hover:text-purple-300 transition-colors py-2 px-1">Healthy Eating & Nutrition</a>
-        <a href="#" class="hover:text-purple-300 transition-colors py-2 px-1">Calorie Counting</a>
-        <a href="#" class="hover:text-purple-300 transition-colors py-2 px-1">Best & Worst Diets</a>
+        <a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors py-2 px-1">Popular Diet Plans</a>
+        <a href="index.html#nutrition" class="hover:text-purple-300 transition-colors py-2 px-1">Healthy Weight Resources</a>
+        <a href="index.html#nutrition" class="hover:text-purple-300 transition-colors py-2 px-1">Healthy Eating & Nutrition</a>
+        <a href="index.html#calorie-counting" class="hover:text-purple-300 transition-colors py-2 px-1">Calorie Counting</a>
+        <a href="index.html#best-worst" class="hover:text-purple-300 transition-colors py-2 px-1">Best & Worst Diets</a>
       </nav>
       
       <div class="flex items-center space-x-3">
-        <a href="#newsletter" class="hidden md:block bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1.5 px-4 rounded-full transition-colors">
+        <a href="index.html#newsletter" class="hidden md:block bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1.5 px-4 rounded-full transition-colors">
           Subscribe
         </a>
         <button class="md:hidden text-white focus:outline-none">
@@ -1464,20 +1333,21 @@ export const generateGLPPage = (data) => {
         <div>
           <h3 class="text-white font-medium mb-4">Quick Links</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="#" class="hover:text-purple-300 transition-colors">Home</a></li>
-            <li><a href="#" class="hover:text-purple-300 transition-colors">Articles</a></li>
-            <li><a href="#" class="hover:text-purple-300 transition-colors">Diet Plans</a></li>
-            <li><a href="#" class="hover:text-purple-300 transition-colors">About Us</a></li>
-            <li><a href="#" class="hover:text-purple-300 transition-colors">Contact Us</a></li>
+            <li><a href="index.html" class="hover:text-purple-300 transition-colors">Home</a></li>
+            <li><a href="index.html#articles" class="hover:text-purple-300 transition-colors">Articles</a></li>
+            <li><a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors">Diet Plans</a></li>
+            <li><a href="index.html#recipes" class="hover:text-purple-300 transition-colors">Recipes</a></li>
+            <li><a href="about.html" class="hover:text-purple-300 transition-colors">About Us</a></li>
           </ul>
         </div>
         
         <div>
           <h3 class="text-white font-medium mb-4">Resources</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="#" class="hover:text-purple-300 transition-colors">BMI Calculator</a></li>
-            <li><a href="#" class="hover:text-purple-300 transition-colors">Meal Planner</a></li>
-            <li><a href="#" class="hover:text-purple-300 transition-colors">Blog</a></li>
+            <li><a href="bmi-calculator.html" class="hover:text-purple-300 transition-colors">BMI Calculator</a></li>
+            <li><a href="meal-planner.html" class="hover:text-purple-300 transition-colors">Meal Planner</a></li>
+            <li><a href="index.html#articles" class="hover:text-purple-300 transition-colors">Blog</a></li>
+            <li><a href="faq.html" class="hover:text-purple-300 transition-colors">FAQ</a></li>
           </ul>
         </div>
         
@@ -1505,20 +1375,16 @@ export const generateGLPPage = (data) => {
                 <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
               </svg>
             </a>
-            <a href="#" class="text-gray-400 hover:text-white">
-              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z" clip-rule="evenodd" />
-              </svg>
-            </a>
           </div>
         </div>
       </div>
       
-      <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm">
-        <p>© 2023 - All rights reserved.</p>
-        <div class="flex mt-4 md:mt-0">
-          <a href="#" class="mr-4 hover:text-purple-300 transition-colors">Privacy</a>
-          <a href="#" class="hover:text-purple-300 transition-colors">Terms</a>
+      <div class="mt-12 pt-8 border-t border-indigo-800 text-center text-sm text-gray-400">
+        <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+        <div class="mt-2 flex justify-center space-x-4">
+          <a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy</a>
+          <a href="terms.html" class="hover:text-purple-300 transition-colors">Terms</a>
+          <a href="contact.html" class="hover:text-purple-300 transition-colors">Contact</a>
         </div>
       </div>
     </div>
@@ -1685,6 +1551,369 @@ export const generateGLPPage = (data) => {
   // Return both the main page and blog posts
   return {
     'index.html': mainPageHtml,
+    'privacy.html': `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | ${brandName}</title>
+  <meta name="description" content="Privacy Policy for ${brandName}">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom styles -->
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  ${navbar}
+  
+  <main class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
+      <h1 class="text-3xl font-bold mb-6">Privacy Policy</h1>
+      
+      <div class="prose prose-slate max-w-none">
+        <p class="mb-4">Last Updated: ${new Date().toLocaleDateString()}</p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">1. Introduction</h2>
+        <p class="mb-4">Welcome to ${brandName}. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you visit our website and tell you about your privacy rights and how the law protects you.</p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">2. Information We Collect</h2>
+        <p class="mb-4">We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:</p>
+        <ul class="list-disc pl-6 mb-4">
+          <li>Identity Data includes first name, last name, username or similar identifier.</li>
+          <li>Contact Data includes email address and telephone numbers.</li>
+          <li>Technical Data includes internet protocol (IP) address, browser type and version, time zone setting and location, browser plug-in types and versions, operating system and platform, and other technology on the devices you use to access this website.</li>
+          <li>Usage Data includes information about how you use our website, products and services.</li>
+        </ul>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">3. How We Use Your Information</h2>
+        <p class="mb-4">We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:</p>
+        <ul class="list-disc pl-6 mb-4">
+          <li>Where we need to perform the contract we are about to enter into or have entered into with you.</li>
+          <li>Where it is necessary for our legitimate interests (or those of a third party) and your interests and fundamental rights do not override those interests.</li>
+          <li>Where we need to comply with a legal obligation.</li>
+        </ul>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">4. Data Security</h2>
+        <p class="mb-4">We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed. In addition, we limit access to your personal data to those employees, agents, contractors and other third parties who have a business need to know.</p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">5. Contact Us</h2>
+        <p class="mb-4">If you have any questions about this privacy policy or our privacy practices, please contact us at:</p>
+        <p class="mb-4">Email: privacy@${brandName.toLowerCase().replace(/\s+/g, '')}.com</p>
+      </div>
+    </div>
+  </main>
+  
+  ${footer}
+</body>
+</html>
+    `,
+    'terms.html': `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Use | ${brandName}</title>
+  <meta name="description" content="Terms of Use for ${brandName}">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom styles -->
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  ${navbar}
+  
+  <main class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
+      <h1 class="text-3xl font-bold mb-6">Terms of Use</h1>
+      
+      <div class="prose prose-slate max-w-none">
+        <p class="mb-4">Last Updated: ${new Date().toLocaleDateString()}</p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">1. Acceptance of Terms</h2>
+        <p class="mb-4">By accessing and using the ${brandName} website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by these terms, please do not use this website.</p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">2. Use License</h2>
+        <p class="mb-4">Permission is granted to temporarily download one copy of the materials on ${brandName}'s website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+        <ul class="list-disc pl-6 mb-4">
+          <li>modify or copy the materials;</li>
+          <li>use the materials for any commercial purpose or for any public display;</li>
+          <li>attempt to reverse engineer any software contained on ${brandName}'s website;</li>
+          <li>remove any copyright or other proprietary notations from the materials; or</li>
+          <li>transfer the materials to another person or "mirror" the materials on any other server.</li>
+        </ul>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">3. Disclaimer</h2>
+        <p class="mb-4">The materials on ${brandName}'s website are provided "as is". ${brandName} makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">4. Limitations</h2>
+        <p class="mb-4">In no event shall ${brandName} or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on ${brandName}'s website, even if ${brandName} or a ${brandName} authorized representative has been notified orally or in writing of the possibility of such damage.</p>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">5. Governing Law</h2>
+        <p class="mb-4">These terms and conditions are governed by and construed in accordance with the laws and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
+        
+        <h2 class="text-xl font-semibold mt-6 mb-4">6. Contact Us</h2>
+        <p class="mb-4">If you have any questions about these Terms of Use, please contact us at:</p>
+        <p class="mb-4">Email: terms@${brandName.toLowerCase().replace(/\s+/g, '')}.com</p>
+      </div>
+    </div>
+  </main>
+  
+  ${footer}
+</body>
+</html>
+    `,
+    'contact.html': `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | ${brandName}</title>
+  <meta name="description" content="Contact ${brandName} for any questions or inquiries">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom styles -->
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  ${navbar}
+  
+  <main class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
+      <h1 class="text-3xl font-bold mb-6">Contact Us</h1>
+      
+      <div class="prose prose-slate max-w-none mb-8">
+        <p>We'd love to hear from you! Please fill out the form below with your inquiry and we'll get back to you as soon as possible.</p>
+      </div>
+      
+      <form class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+            <input type="text" id="first-name" name="first-name" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+          
+          <div>
+            <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+            <input type="text" id="last-name" name="last-name" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+        </div>
+        
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+          <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+        
+        <div>
+          <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+          <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+        
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+          <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+        </div>
+        
+        <div>
+          <button type="submit" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Send Message
+          </button>
+        </div>
+      </form>
+      
+      <div class="mt-12 border-t border-gray-200 pt-8">
+        <h2 class="text-xl font-semibold mb-4">Other Ways to Reach Us</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-md font-medium text-gray-900">Email</h3>
+              <p class="mt-1 text-sm text-gray-600">contact@${brandName.toLowerCase().replace(/\s+/g, '')}.com</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-md font-medium text-gray-900">Phone</h3>
+              <p class="mt-1 text-sm text-gray-600">(800) 123-4567</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  ${footer}
+
+  <script>
+    // Simple form handling - prevent default form submission
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message! This is a demo form and no data will be sent.');
+      });
+    });
+  </script>
+</body>
+</html>
+    `,
+    'about.html': `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | ${brandName}</title>
+  <meta name="description" content="Learn more about ${brandName} and our mission to help people achieve their weight and wellness goals.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom styles -->
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  ${navbar}
+  
+  <main class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
+      <h1 class="text-3xl font-bold mb-6">About Us</h1>
+      
+      <div class="prose prose-slate max-w-none mb-8">
+        <p>Welcome to ${brandName}, your trusted source for science-based nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.</p>
+        <p>Our team of nutrition experts is dedicated to providing you with the latest research-backed information and practical advice to help you make informed decisions about your diet and lifestyle.</p>
+        <p>Whether you're looking to lose weight, improve your health, or simply learn more about nutrition, we're here to help you every step of the way.</p>
+      </div>
+      
+      <div class="bg-indigo-100 p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-4">Our Mission</h2>
+        <p>Our mission is to empower individuals to make sustainable lifestyle changes that lead to long-term weight loss and improved health. We believe that a healthy diet and regular exercise are key components of a balanced lifestyle.</p>
+      </div>
+      
+      <div class="bg-green-100 p-6 rounded-lg shadow-md mt-6">
+        <h2 class="text-xl font-semibold mb-4">Our Approach</h2>
+        <p>We take a personalized approach to nutrition, considering your individual needs, preferences, and goals. Our diet plans are designed to be sustainable and enjoyable, with a focus on balanced nutrition and portion control.</p>
+      </div>
+      
+      <div class="bg-yellow-100 p-6 rounded-lg shadow-md mt-6">
+        <h2 class="text-xl font-semibold mb-4">Our Expertise</h2>
+        <p>Our team includes registered dietitians, nutritionists, and health professionals with extensive experience in weight management and nutrition. We stay up-to-date with the latest research and trends in the field.</p>
+      </div>
+      
+      <div class="bg-blue-100 p-6 rounded-lg shadow-md mt-6">
+        <h2 class="text-xl font-semibold mb-4">Our Guarantee</h2>
+        <p>We're confident in our ability to help you achieve your goals. That's why we offer a 100% satisfaction guarantee. If you're not happy with our service, we'll work with you to find a solution.</p>
+      </div>
+    </div>
+  </main>
+  
+  ${footer}
+</body>
+</html>
+    `,
+    'faq.html': `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ | ${brandName}</title>
+  <meta name="description" content="Frequently asked questions about our nutrition advice, diet plans, and weight loss strategies.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom styles -->
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  ${navbar}
+  
+  <main class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
+      <h1 class="text-3xl font-bold mb-6">Frequently Asked Questions</h1>
+      
+      <div class="prose prose-slate max-w-none mb-8">
+        <p>Here are some common questions we receive about our nutrition advice, diet plans, and weight loss strategies. If you have a question that isn't answered here, please don't hesitate to contact us.</p>
+      </div>
+      
+      <div class="bg-indigo-100 p-6 rounded-lg shadow-md mb-6">
+        <h2 class="text-xl font-semibold mb-4">What is a balanced diet?</h2>
+        <p>A balanced diet includes a variety of foods from all food groups, including fruits, vegetables, whole grains, lean proteins, and healthy fats. The key is to eat a variety of foods in moderation and to listen to your body's hunger and fullness cues.</p>
+      </div>
+      
+      <div class="bg-green-100 p-6 rounded-lg shadow-md mb-6">
+        <h2 class="text-xl font-semibold mb-4">How much protein should I eat?</h2>
+        <p>The amount of protein you need depends on your individual needs and goals. Generally, aim for 0.8-1.2 grams of protein per kilogram of body weight daily. For example, if you weigh 150 pounds, you would aim for 60-90 grams of protein per day.</p>
+      </div>
+      
+      <div class="bg-yellow-100 p-6 rounded-lg shadow-md mb-6">
+        <h2 class="text-xl font-semibold mb-4">What's the difference between low-carb and keto diets?</h2>
+        <p>Both low-carb and keto diets involve significantly reducing carbohydrate intake. However, keto diets are much lower in carbohydrates, typically under 50 grams per day, and focus on increasing fat intake to enter a state of ketosis. Low-carb diets may allow for a higher carbohydrate intake, but still involve significantly reducing overall carbohydrate consumption.</p>
+      </div>
+      
+      <div class="bg-blue-100 p-6 rounded-lg shadow-md mb-6">
+        <h2 class="text-xl font-semibold mb-4">How long should I fast for intermittent fasting?</h2>
+        <p>The length of your fasting periods depends on your personal preferences and goals. Some people choose to fast for 16 hours, while others fast for 18 hours. The key is to find a fasting schedule that works for you and that you can stick to long-term.</p>
+      </div>
+      
+      <div class="bg-purple-100 p-6 rounded-lg shadow-md mb-6">
+        <h2 class="text-xl font-semibold mb-4">How much exercise should I do?</h2>
+        <p>The amount of exercise you should do depends on your individual fitness level and goals. Aim for at least 150 minutes of moderate-intensity aerobic activity per week, along with muscle-strengthening activities on two or more days per week.</p>
+      </div>
+      
+      <div class="bg-pink-100 p-6 rounded-lg shadow-md mb-6">
+        <h2 class="text-xl font-semibold mb-4">How can I stay motivated to stick to a new diet?</h2>
+        <p>Staying motivated can be challenging, but there are several strategies you can use to stay on track. Set realistic goals, find a diet that you enjoy, and consider working with a dietitian or nutritionist for personalized advice.</p>
+      </div>
+    </div>
+  </main>
+  
+  ${footer}
+</body>
+</html>
+    `,
+    'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, googleTag),
+    'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, googleTag),
     ...blogPostPages
   };
 }; 
