@@ -2530,62 +2530,88 @@ export const generateGLPPage = (data) => {
   `;
 
   // Generate the final HTML
+  
+  // Main page HTML with randomized content section order
+  // Always keep the hero at the top, but randomize other content sections
+  
+  // Create an array of content sections
+  const contentSections = [
+    popularDietPlansSection,
+    nutritionTipsSection,
+    calorieCountingSection,
+    bestWorstDietsSection
+  ];
+  
+  // Shuffle the array
+  for (let i = contentSections.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [contentSections[i], contentSections[j]] = [contentSections[j], contentSections[i]];
+  }
+  
+  // Join the shuffled content sections
+  const randomizedContentSections = contentSections.join('\n');
+  
+  // Main page HTML
   const html = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${brandName}</title>
-  <meta name="description" content="${brandName}'s health landing page">
+  <title>${brandName} | Science-Based Weight Loss & Nutrition Advice</title>
+  <meta name="description" content="Discover science-backed nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;700&family=Lato:wght@400;700&family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Outfit:wght@400;500;700&family=Poppins:wght@400;500;700&family=Raleway:wght@400;500;700&display=swap" rel="stylesheet">
+  
   <!-- Custom styles -->
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-  </style>
+  ${customStyles}
+  
+  <!-- Google tag for conversion tracking -->
+  ${gtagId ? `
+  <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagId.split('/')[0]}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${gtagId.split('/')[0]}');
+  </script>` : ''}
+  
+  ${trackingScript || ''}
 </head>
-<body class="bg-gray-50">
+<body class="min-h-screen bg-gradient-to-b from-indigo-900/10 to-white">
   ${navbar}
+  ${heroSection}
   
-  <main class="container mx-auto px-4 py-12">
-    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
-      <h1 class="text-3xl font-bold mb-6">${brandName}</h1>
-      
-      <div class="prose prose-slate max-w-none mb-8">
-        <p>${brandName} is your trusted source for science-based nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.</p>
-      </div>
-      
-      <div class="bg-indigo-100 p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-semibold mb-4">Our Mission</h2>
-        <p>Our mission is to empower individuals to make sustainable lifestyle changes that lead to long-term weight loss and improved health. We believe that a healthy diet and regular exercise are key components of a balanced lifestyle.</p>
-      </div>
-      
-      <div class="bg-green-100 p-6 rounded-lg shadow-md mt-6">
-        <h2 class="text-xl font-semibold mb-4">Our Approach</h2>
-        <p>We take a personalized approach to nutrition, considering your individual needs, preferences, and goals. Our diet plans are designed to be sustainable and enjoyable, with a focus on balanced nutrition and portion control.</p>
-      </div>
-      
-      <div class="bg-yellow-100 p-6 rounded-lg shadow-md mt-6">
-        <h2 class="text-xl font-semibold mb-4">Our Expertise</h2>
-        <p>Our team includes registered dietitians, nutritionists, and health professionals with extensive experience in weight management and nutrition. We stay up-to-date with the latest research and trends in the field.</p>
-      </div>
-      
-      <div class="bg-blue-100 p-6 rounded-lg shadow-md mt-6">
-        <h2 class="text-xl font-semibold mb-4">Our Guarantee</h2>
-        <p>We're confident in our ability to help you achieve your goals. That's why we offer a 100% satisfaction guarantee. If you're not happy with our service, we'll work with you to find a solution.</p>
-      </div>
+  <div class="bg-gray-50">
+    <div class="container mx-auto px-4 py-12">
+      ${randomizedContentSections}
     </div>
-  </main>
+  </div>
   
+  ${newsletterSection}
   ${footer}
+  
+  <script>
+    // Simple form handling - prevent default form submission
+    document.addEventListener('DOMContentLoaded', function() {
+      const forms = document.querySelectorAll('form');
+      forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          alert('Thank you for subscribing! This is a demo form.');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
-    `;
+  `;
 
   // Generate blog posts pages
   const blogPostPages = {};
