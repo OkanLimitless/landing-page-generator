@@ -1831,85 +1831,189 @@ export const generateGLPPage = (data) => {
       break;
   }
 
-  // Generate the newsletter section
-  let newsletterSection = '';
+  // Generate the nutrition tips section
+  let nutritionTipsSection = '';
   
   switch(layoutStyle) {
     case 1:
-      // Side by side layout
-      newsletterSection = `
-      <section id="newsletter" class="bg-white py-12 md:py-16">
-        <div class="max-w-4xl mx-auto px-4">
-          <div class="bg-gradient-to-r from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-lg overflow-hidden shadow-xl">
-            <div class="p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <img src="${randomHeroImage}" 
-                    alt="Healthy meal prep containers" 
-                    class="w-full h-auto rounded-lg shadow-lg" />
-              </div>
-              <div class="text-white">
-                <h2 class="text-2xl font-bold mb-4">${newsletterHeading}</h2>
-                <p class="mb-6 opacity-90">
-                  To stay informed about the latest diet trends, useful nutrition advice, and healthy recipes that can transform your health.
-                </p>
-                <form class="space-y-3">
-                  <div>
-                    <input 
-                      type="email" 
-                      placeholder="Your email address" 
-                      class="w-full p-3 rounded-lg text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-                      required
-                    />
-                  </div>
-                  <button 
-                    type="submit" 
-                    class="w-full bg-white text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-opacity-90 font-medium py-3 px-6 rounded-lg transition duration-300 shadow-md hover:shadow-lg"
-                  >
-                    Subscribe Now
-                  </button>
-                </form>
+      // Standard layout
+      nutritionTipsSection = `
+      <section id="nutrition-tips" class="py-12 md:py-16">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">Essential Nutrition Tips for Weight Loss</h2>
+            <p class="text-gray-600 max-w-3xl mx-auto">Simple yet effective nutrition strategies that can help you achieve your weight loss goals in a healthy and sustainable way.</p>
+          </div>
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Tip 1 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div class="p-6">
+                <div class="w-12 h-12 bg-${primaryColor.replace('#', '').substring(0, 6)} rounded-full flex items-center justify-center text-white mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Focus on Protein</h3>
+                <p class="text-gray-600">Increasing your protein intake can boost metabolism, reduce appetite, and help you lose body fat without losing muscle.</p>
+                <div class="mt-4 text-sm">
+                  <span class="font-medium">Tip:</span> Aim for 25-30% of your calories from protein sources like lean meats, fish, eggs, dairy, and legumes.
+                </div>
               </div>
             </div>
+            
+            <!-- Tip 2 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div class="p-6">
+                <div class="w-12 h-12 bg-${primaryColor.replace('#', '').substring(0, 6)} rounded-full flex items-center justify-center text-white mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Eat Whole Foods</h3>
+                <p class="text-gray-600">Whole foods are more filling, contain more nutrients, and are less likely to trigger overeating compared to processed foods.</p>
+                <div class="mt-4 text-sm">
+                  <span class="font-medium">Tip:</span> Shop the perimeter of the grocery store where whole foods like fruits, vegetables, and fresh proteins are typically located.
+                </div>
+              </div>
+            </div>
+            
+            <!-- Tip 3 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div class="p-6">
+                <div class="w-12 h-12 bg-${primaryColor.replace('#', '').substring(0, 6)} rounded-full flex items-center justify-center text-white mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Practice Mindful Eating</h3>
+                <p class="text-gray-600">Paying attention to how and what you eat can help you consume fewer calories and enjoy your food more.</p>
+                <div class="mt-4 text-sm">
+                  <span class="font-medium">Tip:</span> Eat slowly, without distractions, and stop when you're 80% full to avoid overeating.
+                </div>
+              </div>
+            </div>
+            
+            <!-- Tip 4 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div class="p-6">
+                <div class="w-12 h-12 bg-${primaryColor.replace('#', '').substring(0, 6)} rounded-full flex items-center justify-center text-white mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Meal Prep</h3>
+                <p class="text-gray-600">Preparing meals in advance ensures you have healthy options ready when hunger strikes, reducing the temptation of fast food.</p>
+                <div class="mt-4 text-sm">
+                  <span class="font-medium">Tip:</span> Set aside a few hours each week to prep meals and snacks for busy days.
+                </div>
+              </div>
+            </div>
+            
+            <!-- Tip 5 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div class="p-6">
+                <div class="w-12 h-12 bg-${primaryColor.replace('#', '').substring(0, 6)} rounded-full flex items-center justify-center text-white mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Watch Liquid Calories</h3>
+                <p class="text-gray-600">Beverages can contribute a significant amount of calories to your diet without providing the same feeling of fullness as solid foods.</p>
+                <div class="mt-4 text-sm">
+                  <span class="font-medium">Tip:</span> Stick to water, unsweetened tea, or black coffee most of the time, and limit sugary drinks and alcohol.
+                </div>
+              </div>
+            </div>
+            
+            <!-- Tip 6 -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div class="p-6">
+                <div class="w-12 h-12 bg-${primaryColor.replace('#', '').substring(0, 6)} rounded-full flex items-center justify-center text-white mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Balance Your Plate</h3>
+                <p class="text-gray-600">A balanced meal should include protein, complex carbohydrates, healthy fats, and plenty of vegetables for optimal nutrition.</p>
+                <div class="mt-4 text-sm">
+                  <span class="font-medium">Tip:</span> Use the plate method: fill half your plate with vegetables, one quarter with protein, and one quarter with whole grains.
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-12 text-center">
+            <a href="top-ten-weight-loss-meds.html" class="inline-block bg-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 text-white font-medium py-3 px-8 rounded-md transition duration-300">
+              Explore Weight Loss Medications
+            </a>
           </div>
         </div>
       </section>
       `;
       break;
-      
+    
     case 2:
-      // Clean centered layout
-      newsletterSection = `
-      <section id="newsletter" class="py-16">
-        <div class="max-w-3xl mx-auto px-4">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden border" style="border-color: ${primaryColor};">
-            <div class="p-10 text-center">
-              <div class="w-16 h-16 mx-auto mb-4 bg-${primaryColor.replace('#', '').substring(0, 6)} rounded-full flex items-center justify-center text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+      // Centered layout with alternating sections
+      nutritionTipsSection = `
+      <section id="nutrition-tips" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mx-auto text-center mb-16">
+            <span class="text-${primaryColor.replace('#', '').substring(0, 6)} font-semibold text-sm uppercase tracking-wider">SCIENCE-BACKED ADVICE</span>
+            <h2 class="text-3xl font-bold mt-2 mb-4">Smart Nutrition for Effective Weight Loss</h2>
+            <p class="text-gray-600">These evidence-based nutrition tips can help you create sustainable eating habits that support weight loss while maintaining your health.</p>
+          </div>
+          
+          <div class="max-w-4xl mx-auto space-y-12">
+            <!-- Tip 1 -->
+            <div class="flex flex-col md:flex-row items-center bg-white rounded-xl overflow-hidden shadow-md">
+              <div class="md:w-1/3 bg-${primaryColor.replace('#', '').substring(0, 6)} p-8 text-white">
+                <div class="text-3xl font-bold mb-2">01</div>
+                <h3 class="text-xl font-semibold">Prioritize Protein</h3>
               </div>
-              <h2 class="text-2xl font-bold mb-2">${newsletterHeading}</h2>
-              <p class="text-gray-600 mb-6 max-w-lg mx-auto">
-                Join our community to receive the latest tips, articles, and resources directly to your inbox.
-              </p>
-              <form class="max-w-md mx-auto">
-                <div class="relative mb-4">
-                  <input 
-                    type="email" 
-                    placeholder="Enter your email" 
-                    class="w-full p-4 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-${primaryColor.replace('#', '').substring(0, 6)} focus:border-${primaryColor.replace('#', '').substring(0, 6)}"
-                    required
-                  />
-                  <button 
-                    type="submit" 
-                    class="absolute right-1 top-1 bottom-1 px-4 bg-${primaryColor.replace('#', '').substring(0, 6)} text-white rounded-md hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 transition duration-300"
-                  >
-                    Subscribe
-                  </button>
-                </div>
-                <p class="text-xs text-gray-500">We respect your privacy. Unsubscribe at any time.</p>
-              </form>
+              <div class="md:w-2/3 p-8">
+                <p class="text-gray-700">Research shows that protein helps control hunger hormones, preserves muscle mass during weight loss, and requires more energy to digest compared to carbs and fats. Aim for lean protein sources with every meal, such as eggs, chicken, fish, tofu, or Greek yogurt.</p>
+              </div>
             </div>
+            
+            <!-- Tip 2 -->
+            <div class="flex flex-col md:flex-row-reverse items-center bg-white rounded-xl overflow-hidden shadow-md">
+              <div class="md:w-1/3 bg-${secondaryColor.replace('#', '').substring(0, 6)} p-8 text-white">
+                <div class="text-3xl font-bold mb-2">02</div>
+                <h3 class="text-xl font-semibold">Fiber Is Your Friend</h3>
+              </div>
+              <div class="md:w-2/3 p-8">
+                <p class="text-gray-700">Dietary fiber slows digestion, promotes fullness, and helps regulate blood sugar. Studies show people who eat more fiber tend to have lower body weights. Focus on vegetables, fruits, legumes, and whole grains to boost your daily fiber intake to the recommended 25-30 grams.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 3 -->
+            <div class="flex flex-col md:flex-row items-center bg-white rounded-xl overflow-hidden shadow-md">
+              <div class="md:w-1/3 bg-${primaryColor.replace('#', '').substring(0, 6)} p-8 text-white">
+                <div class="text-3xl font-bold mb-2">03</div>
+                <h3 class="text-xl font-semibold">Control Portions</h3>
+              </div>
+              <div class="md:w-2/3 p-8">
+                <p class="text-gray-700">Even healthy foods can contribute to weight gain when portion sizes are too large. Use smaller plates, measure servings initially to train your eye, and use your hand as a portable portion guide (palm for protein, fist for veggies, cupped hand for carbs).</p>
+              </div>
+            </div>
+            
+            <!-- Tip 4 -->
+            <div class="flex flex-col md:flex-row-reverse items-center bg-white rounded-xl overflow-hidden shadow-md">
+              <div class="md:w-1/3 bg-${secondaryColor.replace('#', '').substring(0, 6)} p-8 text-white">
+                <div class="text-3xl font-bold mb-2">04</div>
+                <h3 class="text-xl font-semibold">Strategic Meal Timing</h3>
+              </div>
+              <div class="md:w-2/3 p-8">
+                <p class="text-gray-700">When you eat can be almost as important as what you eat. Recent research supports time-restricted eating (limiting food intake to an 8-10 hour window) for improved metabolic health. Also, eating more calories earlier in the day may improve weight loss compared to larger evening meals.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-16 text-center">
+            <a href="top-ten-weight-loss-meds.html" class="inline-block bg-gradient-to-r from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} text-white font-medium py-3 px-8 rounded-full shadow-md hover:shadow-lg transition duration-300">
+              Discover Weight Loss Solutions
+            </a>
           </div>
         </div>
       </section>
@@ -1917,51 +2021,87 @@ export const generateGLPPage = (data) => {
       break;
       
     case 3:
-      // Full width with background
-      newsletterSection = `
-      <section id="newsletter" class="py-16 bg-gray-900 text-white">
+      // Modern layout with cards
+      nutritionTipsSection = `
+      <section id="nutrition-tips" class="py-16">
         <div class="container mx-auto px-4">
-          <div class="max-w-5xl mx-auto">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
-              <div class="md:w-1/2">
-                <h2 class="text-3xl font-bold mb-3">${newsletterHeading}</h2>
-                <p class="mb-4 text-gray-300 max-w-md">
-                  Get expert nutrition advice, meal plans, and weight loss tips delivered directly to your inbox.
-                </p>
-                <div class="flex items-center text-sm text-gray-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-${primaryColor.replace('#', '').substring(0, 6)}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>One email per week. No spam. Unsubscribe anytime.</span>
+          <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+            <div class="max-w-xl">
+              <h2 class="text-3xl font-bold mb-3">Evidence-Based Nutrition Tips</h2>
+              <p class="text-gray-600">Separating nutrition facts from fiction to help you make better food choices for sustainable weight management.</p>
+            </div>
+            <a href="top-ten-weight-loss-meds.html" class="mt-6 md:mt-0 text-${primaryColor.replace('#', '').substring(0, 6)} font-medium hover:underline flex items-center">
+              Explore weight loss solutions
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Tip 1 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">1</span>
                 </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Choose Nutrient-Dense Foods</h3>
+                <p class="text-gray-700">Focus on foods that provide maximum nutritional value for their calories. Vegetables, fruits, lean proteins, and whole grains deliver essential vitamins, minerals, and fiber while keeping calorie counts reasonable.</p>
               </div>
-              
-              <div class="md:w-1/2 w-full">
-                <form class="bg-white p-6 rounded-lg shadow-md">
-                  <div class="mb-4">
-                    <label class="block text-gray-800 text-sm font-medium mb-2">Email Address</label>
-                    <input 
-                      type="email" 
-                      placeholder="you@example.com" 
-                      class="w-full p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-${primaryColor.replace('#', '').substring(0, 6)} focus:border-${primaryColor.replace('#', '').substring(0, 6)}"
-                      required
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label class="block text-gray-800 text-sm font-medium mb-2">First Name</label>
-                    <input 
-                      type="text" 
-                      placeholder="Your name" 
-                      class="w-full p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-${primaryColor.replace('#', '').substring(0, 6)} focus:border-${primaryColor.replace('#', '').substring(0, 6)}"
-                    />
-                  </div>
-                  <button 
-                    type="submit" 
-                    class="w-full bg-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 text-white font-medium py-3 px-6 rounded-md transition duration-300"
-                  >
-                    Subscribe Now
-                  </button>
-                </form>
+            </div>
+            
+            <!-- Tip 2 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">2</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Monitor Calorie Density</h3>
+                <p class="text-gray-700">Foods with low calorie density let you eat larger portions while consuming fewer calories. Water-rich foods like soups, salads, and fruits can help you feel full without excess calories.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 3 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">3</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Include Healthy Fats</h3>
+                <p class="text-gray-700">Not all fats are created equal. Monounsaturated and polyunsaturated fats from sources like avocados, nuts, seeds, and olive oil support heart health and can help control hunger.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 4 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">4</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Stay Hydrated</h3>
+                <p class="text-gray-700">Drinking water before meals can reduce hunger and help you consume fewer calories. Sometimes thirst signals are mistaken for hunger, so try drinking water first when cravings strike.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 5 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">5</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Plan for Indulgences</h3>
+                <p class="text-gray-700">Sustainable weight loss includes planned treats. The 80/20 approach—eating nutritious foods 80% of the time and allowing yourself treats 20% of the time—can help prevent feelings of deprivation.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 6 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">6</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Cook at Home</h3>
+                <p class="text-gray-700">Home-cooked meals typically contain fewer calories, less sodium, and less fat than restaurant meals. Taking control of your ingredients is a powerful way to improve your diet quality.</p>
               </div>
             </div>
           </div>
@@ -1970,343 +2110,434 @@ export const generateGLPPage = (data) => {
       `;
       break;
   }
-  
-  // Main page HTML with randomized content section order
-  // Always keep the hero at the top, but randomize other content sections
-  
-  // Create an array of content sections
-  const contentSections = [
-    popularDietPlansSection,
-    nutritionTipsSection,
-    calorieCountingSection,
-    bestWorstDietsSection
-  ];
-  
-  // Shuffle the array
-  for (let i = contentSections.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [contentSections[i], contentSections[j]] = [contentSections[j], contentSections[i]];
-  }
-  
-  // Join the shuffled content sections
-  const randomizedContentSections = contentSections.join('\n');
 
-  // Main page HTML
-  const mainPageHtml = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${brandName} | Science-Based Weight Loss & Nutrition Advice</title>
-  <meta name="description" content="Discover science-backed nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.">
+  // Generate the calorie counting section
+  let calorieCountingSection = '';
   
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;700&family=Lato:wght@400;700&family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Outfit:wght@400;500;700&family=Poppins:wght@400;500;700&family=Raleway:wght@400;500;700&display=swap" rel="stylesheet">
-  
-  <!-- Custom styles -->
-  ${customStyles}
-  
-  <!-- Google tag for conversion tracking -->
-  ${gtagId ? `
-  <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagId.split('/')[0]}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '${gtagId.split('/')[0]}');
-  </script>` : ''}
-  
-  ${conversionTracking}
-  
-  <!-- Custom tracking script -->
-  ${trackingScript || ''}
-</head>
-<body class="min-h-screen bg-gradient-to-b from-indigo-900/10 to-white">
-  ${navbar}
-  ${heroSection}
-  
-  <div class="bg-gray-50">
-    <div class="container mx-auto px-4 py-12">
-      ${randomizedContentSections}
+  switch(layoutStyle) {
+    case 1:
+      // Standard layout
+      calorieCountingSection = `
+      <section id="calorie-counting" class="py-12 md:py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">Calorie Counting 101</h2>
+            <p class="text-gray-600 max-w-3xl mx-auto">Understanding the basics of energy balance and how to properly track your calorie intake for effective weight management.</p>
+          </div>
+          
+          <div class="flex flex-col lg:flex-row gap-8 items-center max-w-5xl mx-auto">
+            <div class="lg:w-1/2">
+              <img src="https://images.unsplash.com/photo-1593476123561-9516f2097158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                alt="Person tracking calories" class="rounded-lg shadow-md w-full">
+            </div>
+            
+            <div class="lg:w-1/2 space-y-6">
+              <div class="bg-white p-6 rounded-lg shadow-sm">
+                <h3 class="text-xl font-semibold text-${primaryColor.replace('#', '').substring(0, 6)} mb-3">What Are Calories?</h3>
+                <p class="text-gray-700">Calories are simply a unit of energy. Your body needs energy to function, and it gets this energy from the food and beverages you consume. Different macronutrients provide different amounts of calories:</p>
+                <ul class="mt-2 space-y-1 text-gray-600">
+                  <li>• Carbohydrates: 4 calories per gram</li>
+                  <li>• Protein: 4 calories per gram</li>
+                  <li>• Fat: 9 calories per gram</li>
+                  <li>• Alcohol: 7 calories per gram</li>
+                </ul>
+              </div>
+              
+              <div class="bg-white p-6 rounded-lg shadow-sm">
+                <h3 class="text-xl font-semibold text-${primaryColor.replace('#', '').substring(0, 6)} mb-3">Energy Balance</h3>
+                <p class="text-gray-700">Weight management comes down to energy balance:</p>
+                <ul class="mt-2 space-y-1 text-gray-600">
+                  <li>• To lose weight: Consume fewer calories than you burn</li>
+                  <li>• To maintain weight: Consume the same number of calories as you burn</li>
+                  <li>• To gain weight: Consume more calories than you burn</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      `;
+      break;
+    
+    case 2:
+      // Centered layout with alternating sections
+      calorieCountingSection = `
+      <section id="calorie-counting" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mx-auto text-center mb-16">
+            <span class="text-${primaryColor.replace('#', '').substring(0, 6)} font-semibold text-sm uppercase tracking-wider">SCIENCE-BACKED ADVICE</span>
+            <h2 class="text-3xl font-bold mt-2 mb-4">Smart Nutrition for Effective Weight Loss</h2>
+            <p class="text-gray-600">These evidence-based nutrition tips can help you create sustainable eating habits that support weight loss while maintaining your health.</p>
+          </div>
+          
+          <div class="max-w-4xl mx-auto space-y-12">
+            <!-- Tip 1 -->
+            <div class="flex flex-col md:flex-row items-center bg-white rounded-xl overflow-hidden shadow-md">
+              <div class="md:w-1/3 bg-${primaryColor.replace('#', '').substring(0, 6)} p-8 text-white">
+                <div class="text-3xl font-bold mb-2">01</div>
+                <h3 class="text-xl font-semibold">Prioritize Protein</h3>
+              </div>
+              <div class="md:w-2/3 p-8">
+                <p class="text-gray-700">Research shows that protein helps control hunger hormones, preserves muscle mass during weight loss, and requires more energy to digest compared to carbs and fats. Aim for lean protein sources with every meal, such as eggs, chicken, fish, tofu, or Greek yogurt.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 2 -->
+            <div class="flex flex-col md:flex-row-reverse items-center bg-white rounded-xl overflow-hidden shadow-md">
+              <div class="md:w-1/3 bg-${secondaryColor.replace('#', '').substring(0, 6)} p-8 text-white">
+                <div class="text-3xl font-bold mb-2">02</div>
+                <h3 class="text-xl font-semibold">Fiber Is Your Friend</h3>
+              </div>
+              <div class="md:w-2/3 p-8">
+                <p class="text-gray-700">Dietary fiber slows digestion, promotes fullness, and helps regulate blood sugar. Studies show people who eat more fiber tend to have lower body weights. Focus on vegetables, fruits, legumes, and whole grains to boost your daily fiber intake to the recommended 25-30 grams.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 3 -->
+            <div class="flex flex-col md:flex-row items-center bg-white rounded-xl overflow-hidden shadow-md">
+              <div class="md:w-1/3 bg-${primaryColor.replace('#', '').substring(0, 6)} p-8 text-white">
+                <div class="text-3xl font-bold mb-2">03</div>
+                <h3 class="text-xl font-semibold">Control Portions</h3>
+              </div>
+              <div class="md:w-2/3 p-8">
+                <p class="text-gray-700">Even healthy foods can contribute to weight gain when portion sizes are too large. Use smaller plates, measure servings initially to train your eye, and use your hand as a portable portion guide (palm for protein, fist for veggies, cupped hand for carbs).</p>
+              </div>
+            </div>
+            
+            <!-- Tip 4 -->
+            <div class="flex flex-col md:flex-row-reverse items-center bg-white rounded-xl overflow-hidden shadow-md">
+              <div class="md:w-1/3 bg-${secondaryColor.replace('#', '').substring(0, 6)} p-8 text-white">
+                <div class="text-3xl font-bold mb-2">04</div>
+                <h3 class="text-xl font-semibold">Strategic Meal Timing</h3>
+              </div>
+              <div class="md:w-2/3 p-8">
+                <p class="text-gray-700">When you eat can be almost as important as what you eat. Recent research supports time-restricted eating (limiting food intake to an 8-10 hour window) for improved metabolic health. Also, eating more calories earlier in the day may improve weight loss compared to larger evening meals.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-16 text-center">
+            <a href="top-ten-weight-loss-meds.html" class="inline-block bg-gradient-to-r from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} text-white font-medium py-3 px-8 rounded-full shadow-md hover:shadow-lg transition duration-300">
+              Discover Weight Loss Solutions
+            </a>
+          </div>
+        </div>
+      </section>
+      `;
+      break;
+      
+    case 3:
+      // Modern layout with cards
+      calorieCountingSection = `
+      <section id="calorie-counting" class="py-16">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+            <div class="max-w-xl">
+              <h2 class="text-3xl font-bold mb-3">Evidence-Based Nutrition Tips</h2>
+              <p class="text-gray-600">Separating nutrition facts from fiction to help you make better food choices for sustainable weight management.</p>
+            </div>
+            <a href="top-ten-weight-loss-meds.html" class="mt-6 md:mt-0 text-${primaryColor.replace('#', '').substring(0, 6)} font-medium hover:underline flex items-center">
+              Explore weight loss solutions
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Tip 1 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">1</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Choose Nutrient-Dense Foods</h3>
+                <p class="text-gray-700">Focus on foods that provide maximum nutritional value for their calories. Vegetables, fruits, lean proteins, and whole grains deliver essential vitamins, minerals, and fiber while keeping calorie counts reasonable.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 2 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">2</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Monitor Calorie Density</h3>
+                <p class="text-gray-700">Foods with low calorie density let you eat larger portions while consuming fewer calories. Water-rich foods like soups, salads, and fruits can help you feel full without excess calories.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 3 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">3</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Include Healthy Fats</h3>
+                <p class="text-gray-700">Not all fats are created equal. Monounsaturated and polyunsaturated fats from sources like avocados, nuts, seeds, and olive oil support heart health and can help control hunger.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 4 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">4</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Stay Hydrated</h3>
+                <p class="text-gray-700">Drinking water before meals can reduce hunger and help you consume fewer calories. Sometimes thirst signals are mistaken for hunger, so try drinking water first when cravings strike.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 5 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">5</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Plan for Indulgences</h3>
+                <p class="text-gray-700">Sustainable weight loss includes planned treats. The 80/20 approach—eating nutritious foods 80% of the time and allowing yourself treats 20% of the time—can help prevent feelings of deprivation.</p>
+              </div>
+            </div>
+            
+            <!-- Tip 6 -->
+            <div class="relative bg-gradient-to-br from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-xl overflow-hidden shadow-lg p-1">
+              <div class="bg-white rounded-lg p-6 h-full">
+                <div class="absolute top-4 right-4 w-8 h-8 bg-${primaryColor.replace('#', '').substring(0, 6)}/10 rounded-full flex items-center justify-center text-${primaryColor.replace('#', '').substring(0, 6)}">
+                  <span class="font-bold">6</span>
+                </div>
+                <h3 class="text-xl font-bold mt-3 mb-4">Cook at Home</h3>
+                <p class="text-gray-700">Home-cooked meals typically contain fewer calories, less sodium, and less fat than restaurant meals. Taking control of your ingredients is a powerful way to improve your diet quality.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      `;
+      break;
+  }
+
+  // Generate the best and worst diets section
+  let bestWorstDietsSection = `
+  <section id="best-worst-diets" class="py-12 md:py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Best & Worst Diets Compared</h2>
+        <p class="text-gray-600 max-w-3xl mx-auto">Not all diets are created equal. Here's a science-based comparison of popular approaches to weight loss.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Best Diets -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="bg-green-500 text-white py-3 px-6">
+            <h3 class="text-xl font-bold">Top-Rated Approaches</h3>
+          </div>
+          <div class="p-6">
+            <ul class="space-y-4">
+              <li class="flex">
+                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <span class="font-semibold">Mediterranean Diet</span>
+                  <p class="text-sm text-gray-600 mt-1">Emphasizes fruits, vegetables, whole grains, olive oil, and lean proteins. Has strong research supporting heart health and sustainable weight loss.</p>
+                </div>
+              </li>
+              <li class="flex">
+                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <span class="font-semibold">DASH Diet</span>
+                  <p class="text-sm text-gray-600 mt-1">Designed to lower blood pressure, this balanced approach emphasizes fruits, vegetables, and low-fat dairy while limiting sodium.</p>
+                </div>
+              </li>
+              <li class="flex">
+                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <span class="font-semibold">Flexitarian Diet</span>
+                  <p class="text-sm text-gray-600 mt-1">Emphasizes plant foods but allows occasional meat, offering flexibility and balanced nutrition for sustainable weight management.</p>
+                </div>
+              </li>
+            </ul>
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <p class="text-sm text-gray-600">These approaches share common elements: emphasis on whole foods, reasonable portions, and sustainable lifestyle changes rather than severe restrictions.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Worst Diets -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="bg-red-500 text-white py-3 px-6">
+            <h3 class="text-xl font-bold">Approaches to Avoid</h3>
+          </div>
+          <div class="p-6">
+            <ul class="space-y-4">
+              <li class="flex">
+                <svg class="h-6 w-6 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <div>
+                  <span class="font-semibold">Extreme Low-Calorie Diets</span>
+                  <p class="text-sm text-gray-600 mt-1">Very low-calorie diets (under 1,000 calories) can lead to muscle loss, nutrient deficiencies, and metabolic damage.</p>
+                </div>
+              </li>
+              <li class="flex">
+                <svg class="h-6 w-6 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <div>
+                  <span class="font-semibold">Detox Diets & Cleanses</span>
+                  <p class="text-sm text-gray-600 mt-1">These offer no proven benefits beyond what your liver and kidneys already do naturally, and may cause energy crashes and nutrient deficiencies.</p>
+                </div>
+              </li>
+              <li class="flex">
+                <svg class="h-6 w-6 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <div>
+                  <span class="font-semibold">Most "Fad" Diets</span>
+                  <p class="text-sm text-gray-600 mt-1">Diets that eliminate entire food groups or make extreme claims typically lead to short-term results followed by weight regain.</p>
+                </div>
+              </li>
+            </ul>
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <p class="text-sm text-gray-600">Warning signs of problematic diets include promises of rapid weight loss, elimination of whole food groups, rigid rules, and lack of peer-reviewed research.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12 text-center">
+        <a href="top-ten-weight-loss-meds.html" class="inline-block bg-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 text-white font-medium py-3 px-8 rounded-md transition duration-300">
+          Explore Medical Weight Loss Options
+        </a>
+      </div>
     </div>
-  </div>
-  
-  ${newsletterSection}
-  ${footer}
-  
-  <script>
-    // Simple form handling - prevent default form submission
-    document.addEventListener('DOMContentLoaded', function() {
-      const forms = document.querySelectorAll('form');
-      forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          alert('Thank you for subscribing! This is a demo form.');
-        });
-      });
-    });
-  </script>
-</body>
-</html>
+  </section>
   `;
 
-  // Return both the main page and blog posts
-  return {
-    'index.html': mainPageHtml,
-    'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, googleTag),
-    'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, googleTag),
-    'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbar, footer, customStyles, googleTag, targetUrl),
-    'privacy.html': `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy | ${brandName}</title>
-  <meta name="description" content="Privacy Policy for ${brandName}">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Custom styles -->
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-  </style>
-</head>
-<body class="bg-gray-50">
-  ${navbar}
-  
-  <main class="container mx-auto px-4 py-12">
-    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
-      <h1 class="text-3xl font-bold mb-6">Privacy Policy</h1>
-      
-      <div class="prose prose-slate max-w-none">
-        <p class="mb-4">Last Updated: ${new Date().toLocaleDateString()}</p>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">1. Introduction</h2>
-        <p class="mb-4">Welcome to ${brandName}. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you visit our website and tell you about your privacy rights and how the law protects you.</p>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">2. Information We Collect</h2>
-        <p class="mb-4">We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:</p>
-        <ul class="list-disc pl-6 mb-4">
-          <li>Identity Data includes first name, last name, username or similar identifier.</li>
-          <li>Contact Data includes email address and telephone numbers.</li>
-          <li>Technical Data includes internet protocol (IP) address, browser type and version, time zone setting and location, browser plug-in types and versions, operating system and platform, and other technology on the devices you use to access this website.</li>
-          <li>Usage Data includes information about how you use our website, products and services.</li>
-        </ul>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">3. How We Use Your Information</h2>
-        <p class="mb-4">We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:</p>
-        <ul class="list-disc pl-6 mb-4">
-          <li>Where we need to perform the contract we are about to enter into or have entered into with you.</li>
-          <li>Where it is necessary for our legitimate interests (or those of a third party) and your interests and fundamental rights do not override those interests.</li>
-          <li>Where we need to comply with a legal obligation.</li>
-        </ul>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">4. Data Security</h2>
-        <p class="mb-4">We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed. In addition, we limit access to your personal data to those employees, agents, contractors and other third parties who have a business need to know.</p>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">5. Contact Us</h2>
-        <p class="mb-4">If you have any questions about this privacy policy or our privacy practices, please contact us at:</p>
-        <p class="mb-4">Email: privacy@${brandName.toLowerCase().replace(/\s+/g, '')}.com</p>
-      </div>
-    </div>
-  </main>
-  
-  ${footer}
-</body>
-</html>
-    `,
-    'terms.html': `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms of Use | ${brandName}</title>
-  <meta name="description" content="Terms of Use for ${brandName}">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Custom styles -->
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-  </style>
-</head>
-<body class="bg-gray-50">
-  ${navbar}
-  
-  <main class="container mx-auto px-4 py-12">
-    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
-      <h1 class="text-3xl font-bold mb-6">Terms of Use</h1>
-      
-      <div class="prose prose-slate max-w-none">
-        <p class="mb-4">Last Updated: ${new Date().toLocaleDateString()}</p>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">1. Acceptance of Terms</h2>
-        <p class="mb-4">By accessing and using the ${brandName} website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by these terms, please do not use this website.</p>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">2. Use License</h2>
-        <p class="mb-4">Permission is granted to temporarily download one copy of the materials on ${brandName}'s website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
-        <ul class="list-disc pl-6 mb-4">
-          <li>modify or copy the materials;</li>
-          <li>use the materials for any commercial purpose or for any public display;</li>
-          <li>attempt to reverse engineer any software contained on ${brandName}'s website;</li>
-          <li>remove any copyright or other proprietary notations from the materials; or</li>
-          <li>transfer the materials to another person or "mirror" the materials on any other server.</li>
-        </ul>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">3. Disclaimer</h2>
-        <p class="mb-4">The materials on ${brandName}'s website are provided "as is". ${brandName} makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">4. Limitations</h2>
-        <p class="mb-4">In no event shall ${brandName} or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on ${brandName}'s website, even if ${brandName} or a ${brandName} authorized representative has been notified orally or in writing of the possibility of such damage.</p>
-
-        <h2 class="text-xl font-semibold mt-6 mb-4">5. Governing Law</h2>
-        <p class="mb-4">These terms and conditions are governed by and construed in accordance with the laws and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
+  // Generate the newsletter section
+  let newsletterSection = `
+  <section id="newsletter" class="py-12 md:py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Get Your Free Nutrition Guide</h2>
+        <p class="text-gray-600 mb-10">Sign up for our newsletter to receive exclusive tips, recipes, and updates straight to your inbox.</p>
         
-        <h2 class="text-xl font-semibold mt-6 mb-4">6. Contact Us</h2>
-        <p class="mb-4">If you have any questions about these Terms of Use, please contact us at:</p>
-        <p class="mb-4">Email: terms@${brandName.toLowerCase().replace(/\s+/g, '')}.com</p>
-      </div>
-    </div>
-  </main>
-  
-  ${footer}
-</body>
-</html>
-    `,
-    'contact.html': `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us | ${brandName}</title>
-  <meta name="description" content="Contact ${brandName} for any questions or inquiries">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Custom styles -->
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-  </style>
-</head>
-<body class="bg-gray-50">
-  ${navbar}
-  
-  <main class="container mx-auto px-4 py-12">
-    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
-      <h1 class="text-3xl font-bold mb-6">Contact Us</h1>
-      
-      <div class="prose prose-slate max-w-none mb-8">
-        <p>We'd love to hear from you! Please fill out the form below with your inquiry and we'll get back to you as soon as possible.</p>
-      </div>
-      
-      <form class="space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-            <input type="text" id="first-name" name="first-name" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-          </div>
-          
-          <div>
-            <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-            <input type="text" id="last-name" name="last-name" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-          </div>
-        </div>
-        
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-          <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-        </div>
-        
-        <div>
-          <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-          <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-        </div>
-        
-        <div>
-          <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-          <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
-        </div>
-        
-        <div>
-          <button type="submit" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Send Message
+        <form class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+          <input type="email" id="email" name="email" placeholder="Enter your email" class="w-full md:w-auto px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          <button type="submit" class="w-full md:w-auto bg-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 text-white font-medium py-3 px-8 rounded-md shadow-sm hover:shadow-lg transition duration-300 sm:text-sm">
+            Subscribe
           </button>
-        </div>
-      </form>
-      
-      <div class="mt-12 border-t border-gray-200 pt-8">
-        <h2 class="text-xl font-semibold mb-4">Other Ways to Reach Us</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="flex items-start">
-            <div class="flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </form>
+      </div>
+    </div>
+  </section>
+  `;
+
+  // Generate the footer
+  const footer = `
+  <footer class="bg-indigo-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between">
+        <div class="mb-8 md:mb-0">
+          <div class="relative h-8 w-32 mb-4">
+            <h2 class="text-xl font-bold tracking-tight text-white">
+              <span class="text-white">${brandName.split('-')[0]}</span>
+              <span class="text-purple-300">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
+            </h2>
+          </div>
+          <p class="text-gray-300 text-sm max-w-xs">
+            Your trusted source for nutrition, diet, and health information to help you make better lifestyle choices.
+          </p>
+          <div class="mt-4 flex space-x-4">
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
               </svg>
-            </div>
-            <div class="ml-3">
-              <h3 class="text-md font-medium text-gray-900">Email</h3>
-              <p class="mt-1 text-sm text-gray-600">contact@${brandName.toLowerCase().replace(/\s+/g, '')}.com</p>
-            </div>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+              </svg>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li><a href="index.html" class="text-gray-300 hover:text-white text-sm transition-colors">Home</a></li>
+              <li><a href="index.html#articles" class="text-gray-300 hover:text-white text-sm transition-colors">Articles</a></li>
+              <li><a href="index.html#diet-plans" class="text-gray-300 hover:text-white text-sm transition-colors">Diet Plans</a></li>
+              <li><a href="index.html#recipes" class="text-gray-300 hover:text-white text-sm transition-colors">Recipes</a></li>
+              <li><a href="index.html#about-us" class="text-gray-300 hover:text-white text-sm transition-colors">About Us</a></li>
+            </ul>
           </div>
           
-          <div class="flex items-start">
-            <div class="flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-            </div>
-            <div class="ml-3">
-              <h3 class="text-md font-medium text-gray-900">Phone</h3>
-              <p class="mt-1 text-sm text-gray-600">(800) 123-4567</p>
-            </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Resources</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">Nutrition Calculator</a></li>
+              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">Meal Planner</a></li>
+              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">Blog</a></li>
+              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">FAQ</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Support</h3>
+            <ul class="space-y-2">
+              <li><a href="privacy.html" class="text-gray-300 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
+              <li><a href="terms.html" class="text-gray-300 hover:text-white text-sm transition-colors">Terms of Use</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>Contact</a></li>
+              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Help Center</a></li>
+            </ul>
           </div>
         </div>
       </div>
+      
+      <div class="mt-12 pt-8 border-t border-indigo-800 text-center text-sm text-gray-400">
+        <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+        <div class="mt-2 flex justify-center space-x-4">
+          <a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy</a>
+          <a href="terms.html" class="hover:text-purple-300 transition-colors">Terms</a>
+          <a href="contact.html" class="hover:text-purple-300 transition-colors">Contact</a>
+        </div>
+      </div>
     </div>
-  </main>
-  
-  ${footer}
+  </footer>
+  `;
 
-  <script>
-    // Simple form handling - prevent default form submission
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.querySelector('form');
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Thank you for your message! This is a demo form and no data will be sent.');
-      });
-    });
-  </script>
-</body>
-</html>
-    `,
-    'about.html': `
+  // Generate the final HTML
+  const html = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | ${brandName}</title>
-  <meta name="description" content="Learn more about ${brandName} and our mission to help people achieve their weight and wellness goals.">
+  <title>${brandName}</title>
+  <meta name="description" content="${brandName}'s health landing page">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -2323,12 +2554,10 @@ export const generateGLPPage = (data) => {
   
   <main class="container mx-auto px-4 py-12">
     <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
-      <h1 class="text-3xl font-bold mb-6">About Us</h1>
+      <h1 class="text-3xl font-bold mb-6">${brandName}</h1>
       
       <div class="prose prose-slate max-w-none mb-8">
-        <p>Welcome to ${brandName}, your trusted source for science-based nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.</p>
-        <p>Our team of nutrition experts is dedicated to providing you with the latest research-backed information and practical advice to help you make informed decisions about your diet and lifestyle.</p>
-        <p>Whether you're looking to lose weight, improve your health, or simply learn more about nutrition, we're here to help you every step of the way.</p>
+        <p>${brandName} is your trusted source for science-based nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.</p>
       </div>
       
       <div class="bg-indigo-100 p-6 rounded-lg shadow-md">
@@ -2356,73 +2585,7 @@ export const generateGLPPage = (data) => {
   ${footer}
 </body>
 </html>
-    `,
-    'faq.html': `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQ | ${brandName}</title>
-  <meta name="description" content="Frequently asked questions about our nutrition advice, diet plans, and weight loss strategies.">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Custom styles -->
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-  </style>
-</head>
-<body class="bg-gray-50">
-  ${navbar}
-  
-  <main class="container mx-auto px-4 py-12">
-    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
-      <h1 class="text-3xl font-bold mb-6">Frequently Asked Questions</h1>
-      
-      <div class="prose prose-slate max-w-none mb-8">
-        <p>Here are some common questions we receive about our nutrition advice, diet plans, and weight loss strategies. If you have a question that isn't answered here, please don't hesitate to contact us.</p>
-      </div>
-      
-      <div class="bg-indigo-100 p-6 rounded-lg shadow-md mb-6">
-        <h2 class="text-xl font-semibold mb-4">What is a balanced diet?</h2>
-        <p>A balanced diet includes a variety of foods from all food groups, including fruits, vegetables, whole grains, lean proteins, and healthy fats. The key is to eat a variety of foods in moderation and to listen to your body's hunger and fullness cues.</p>
-      </div>
-      
-      <div class="bg-green-100 p-6 rounded-lg shadow-md mb-6">
-        <h2 class="text-xl font-semibold mb-4">How much protein should I eat?</h2>
-        <p>The amount of protein you need depends on your individual needs and goals. Generally, aim for 0.8-1.2 grams of protein per kilogram of body weight daily. For example, if you weigh 150 pounds, you would aim for 60-90 grams of protein per day.</p>
-      </div>
-      
-      <div class="bg-yellow-100 p-6 rounded-lg shadow-md mb-6">
-        <h2 class="text-xl font-semibold mb-4">What's the difference between low-carb and keto diets?</h2>
-        <p>Both low-carb and keto diets involve significantly reducing carbohydrate intake. However, keto diets are much lower in carbohydrates, typically under 50 grams per day, and focus on increasing fat intake to enter a state of ketosis. Low-carb diets may allow for a higher carbohydrate intake, but still involve significantly reducing overall carbohydrate consumption.</p>
-      </div>
-      
-      <div class="bg-blue-100 p-6 rounded-lg shadow-md mb-6">
-        <h2 class="text-xl font-semibold mb-4">How long should I fast for intermittent fasting?</h2>
-        <p>The length of your fasting periods depends on your personal preferences and goals. Some people choose to fast for 16 hours, while others fast for 18 hours. The key is to find a fasting schedule that works for you and that you can stick to long-term.</p>
-      </div>
-      
-      <div class="bg-purple-100 p-6 rounded-lg shadow-md mb-6">
-        <h2 class="text-xl font-semibold mb-4">How much exercise should I do?</h2>
-        <p>The amount of exercise you should do depends on your individual fitness level and goals. Aim for at least 150 minutes of moderate-intensity aerobic activity per week, along with muscle-strengthening activities on two or more days per week.</p>
-      </div>
-      
-      <div class="bg-pink-100 p-6 rounded-lg shadow-md mb-6">
-        <h2 class="text-xl font-semibold mb-4">How can I stay motivated to stick to a new diet?</h2>
-        <p>Staying motivated can be challenging, but there are several strategies you can use to stay on track. Set realistic goals, find a diet that you enjoy, and consider working with a dietitian or nutritionist for personalized advice.</p>
-      </div>
-    </div>
-  </main>
-  
-  ${footer}
-</body>
-</html>
-    `,
-    ...blogPostPages
-  };
+    `;
+
+  return html;
 }; 
