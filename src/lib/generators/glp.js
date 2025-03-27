@@ -2587,5 +2587,81 @@ export const generateGLPPage = (data) => {
 </html>
     `;
 
-  return html;
+  // Generate blog posts pages
+  const blogPostPages = {};
+  
+  // Loop through the blog posts and generate a page for each one
+  for (const [slug, post] of Object.entries(blogPosts)) {
+    blogPostPages[`${slug}.html`] = generateBlogPost(post, brandName, primaryColor);
+  }
+  
+  // Check if "rapid-weight-loss-is-it-safe" blog post exists, if not, create it
+  if (!blogPostPages["rapid-weight-loss-is-it-safe.html"]) {
+    const rapidWeightLossPost = {
+      title: "Rapid Weight Loss: Is It Safe?",
+      image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
+      excerpt: "Medical professionals weigh in on the dangers of fast weight loss programs and offer safer alternatives.",
+      content: `
+        <h2>Understanding Rapid Weight Loss</h2>
+        <p>Rapid weight loss is typically defined as losing more than 2 pounds per week. While quick results can be motivating, losing weight too quickly can have serious health consequences.</p>
+        
+        <h2>The Risks of Losing Weight Too Quickly</h2>
+        
+        <h3>Muscle Loss</h3>
+        <p>When you lose weight rapidly, you're not just losing fat—you're also losing muscle mass. This can slow your metabolism and make it harder to maintain weight loss in the long term.</p>
+        
+        <h3>Nutritional Deficiencies</h3>
+        <p>Very low-calorie diets often don't provide all the nutrients your body needs. This can lead to deficiencies in essential vitamins and minerals, causing problems like hair loss, brittle nails, and weakened immune function.</p>
+        
+        <h3>Gallstones</h3>
+        <p>Rapid weight loss is a known risk factor for developing gallstones. When you lose weight quickly, your liver secretes extra cholesterol into the bile, which can form into stones.</p>
+        
+        <h3>Metabolic Slowdown</h3>
+        <p>Your body adapts to severe calorie restriction by slowing your metabolism to conserve energy. This "metabolic adaptation" can make it increasingly difficult to continue losing weight and easier to regain it once you stop the diet.</p>
+        
+        <h3>Psychological Effects</h3>
+        <p>Crash diets can lead to an unhealthy relationship with food, triggering disordered eating patterns, food obsession, and a cycle of losing and regaining weight (yo-yo dieting).</p>
+        
+        <h2>When Rapid Weight Loss Might Be Appropriate</h2>
+        <p>In some specific medical situations, rapid weight loss may be prescribed under close medical supervision:</p>
+        <ul>
+          <li>Preparation for surgery</li>
+          <li>Severe obesity with immediate health risks</li>
+          <li>Certain medical conditions where quick weight loss would be beneficial</li>
+        </ul>
+        <p>These scenarios should always be managed by healthcare professionals with regular monitoring.</p>
+        
+        <h2>Healthier Approaches to Weight Loss</h2>
+        
+        <h3>Set Realistic Goals</h3>
+        <p>Aim for a gradual weight loss of 1-2 pounds per week. This pace is sustainable and primarily comes from fat loss rather than muscle and water loss.</p>
+        
+        <h3>Focus on Nutrition, Not Just Calories</h3>
+        <p>Emphasize nutrient-dense whole foods like vegetables, fruits, lean proteins, whole grains, and healthy fats. This ensures you're getting essential nutrients while creating a modest calorie deficit.</p>
+        
+        <h3>Include Regular Physical Activity</h3>
+        <p>Combine cardiovascular exercise with strength training to preserve muscle mass while losing fat. Aim for at least 150 minutes of moderate activity per week plus strength training 2-3 times weekly.</p>
+        
+        <h3>Address Behavioral Factors</h3>
+        <p>Work on recognizing emotional eating triggers, practicing mindful eating, and developing healthy coping mechanisms that don't involve food.</p>
+        
+        <h3>Consider Professional Support</h3>
+        <p>Working with registered dietitians, certified personal trainers, or behavioral therapists can provide personalized guidance and accountability.</p>
+        
+        <h2>Conclusion</h2>
+        <p>While the allure of rapid weight loss is understandable, the potential health risks typically outweigh the benefits. Sustainable weight management is a long-term commitment that involves gradual changes to eating and exercise habits. Remember that healthy weight loss focuses on improving overall health, not just changing the number on the scale.</p>
+      `
+    };
+    
+    blogPostPages["rapid-weight-loss-is-it-safe.html"] = generateBlogPost(rapidWeightLossPost, brandName, primaryColor);
+  }
+
+  // Return all the pages
+  return {
+    'index.html': html,
+    'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, googleTag),
+    'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, googleTag),
+    'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbar, footer, customStyles, googleTag, targetUrl),
+    ...blogPostPages
+  };
 }; 
