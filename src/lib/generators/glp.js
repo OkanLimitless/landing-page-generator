@@ -1057,6 +1057,11 @@ const generateBlogPost = (post, brandName, primaryColor) => {
       
       <div class="mt-12 pt-8 border-t border-indigo-800 text-center text-sm text-gray-400">
         <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+        <div class="mt-2 flex justify-center space-x-4">
+          <a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy</a>
+          <a href="terms.html" class="hover:text-purple-300 transition-colors">Terms</a>
+          <a href="contact.html" class="hover:text-purple-300 transition-colors">Contact</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -1399,8 +1404,8 @@ export const generateGLPPage = (data) => {
         <div>
           <h3 class="text-white font-medium mb-4">Support</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="#" class="hover:text-purple-300 transition-colors">Privacy Policy</a></li>
-            <li><a href="#" class="hover:text-purple-300 transition-colors">Terms of Use</a></li>
+            <li><a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy Policy</a></li>
+            <li><a href="terms.html" class="hover:text-purple-300 transition-colors">Terms of Use</a></li>
           </ul>
           
           <h3 class="text-white font-medium mt-6 mb-4">Connect With Us</h3>
@@ -1515,6 +1520,160 @@ export const generateGLPPage = (data) => {
     blogPostPages['rapid-weight-loss-is-it-safe.html'] = generateBlogPost(placeholderPost, brandName, primaryColor);
   }
 
+  // Generate additional content sections
+  const nutritionTipsSection = `
+    <section id="nutrition" class="py-12">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Healthy Eating & Nutrition</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Portion Control</h3>
+            <p class="text-gray-600">Learn how proper portion sizing can help you maintain a healthy weight without sacrificing the foods you love.</p>
+            <a href="faq.html" class="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium">Learn more →</a>
+          </div>
+          
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Macronutrients 101</h3>
+            <p class="text-gray-600">Understand the role of proteins, carbohydrates, and fats in your diet and how to balance them for optimal health.</p>
+            <a href="faq.html" class="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium">Learn more →</a>
+          </div>
+          
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Meal Timing</h3>
+            <p class="text-gray-600">Discover whether when you eat matters as much as what you eat, and strategies for timing meals for energy and weight management.</p>
+            <a href="faq.html" class="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium">Learn more →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  const calorieCountingSection = `
+    <section id="calorie-counting" class="py-12 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Calorie Counting</h2>
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+          <div class="flex flex-col md:flex-row items-center mb-8">
+            <div class="md:w-1/3 mb-6 md:mb-0 md:mr-8">
+              <img src="https://images.unsplash.com/photo-1508098682722-e99c643e7f3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Healthy meals" class="rounded-lg shadow-md">
+            </div>
+            <div class="md:w-2/3">
+              <h3 class="text-2xl font-semibold mb-4">Do Calories Really Matter?</h3>
+              <p class="text-gray-700 mb-4">While calories are not the only factor in weight management, they play a significant role. Understanding your caloric needs based on your age, gender, activity level, and goals is essential for effective weight management.</p>
+              <p class="text-gray-700">Our calorie calculator tools and guides can help you determine your needs without obsessing over every number.</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <div class="bg-indigo-50 p-6 rounded-lg">
+              <h4 class="text-lg font-semibold mb-2">BMI Calculator</h4>
+              <p class="text-gray-700 mb-4">Calculate your Body Mass Index (BMI) to get a general idea of your weight status based on your height and weight.</p>
+              <a href="bmi-calculator.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Try BMI Calculator</a>
+            </div>
+            
+            <div class="bg-purple-50 p-6 rounded-lg">
+              <h4 class="text-lg font-semibold mb-2">Meal Planner</h4>
+              <p class="text-gray-700 mb-4">Create personalized meal plans based on your caloric needs, dietary preferences, and weight goals.</p>
+              <a href="meal-planner.html" class="inline-block bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors text-sm">Try Meal Planner</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  const bestWorstDietsSection = `
+    <section id="best-worst" class="py-12">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Best & Worst Diets</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
+            <h3 class="text-xl font-semibold mb-4 text-green-700">Top-Rated Approaches</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <span class="font-medium">Mediterranean Diet:</span>
+                  <p class="text-gray-600 text-sm mt-1">Emphasizes plant-based foods, healthy fats, and moderate protein intake. Consistently ranked as one of the healthiest eating patterns.</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <span class="font-medium">DASH Diet:</span>
+                  <p class="text-gray-600 text-sm mt-1">Designed to help lower blood pressure and promote heart health through balanced nutrition and reduced sodium intake.</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <span class="font-medium">Flexitarian Diet:</span>
+                  <p class="text-gray-600 text-sm mt-1">A mostly vegetarian diet that allows occasional meat consumption, balancing the benefits of plant-based eating with flexibility.</p>
+                </div>
+              </li>
+            </ul>
+            <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-block mt-6 text-green-600 hover:text-green-800 font-medium">Learn more about top diets →</a>
+          </div>
+          
+          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500">
+            <h3 class="text-xl font-semibold mb-4 text-red-700">Approaches to Avoid</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <div>
+                  <span class="font-medium">Extreme Detox Diets:</span>
+                  <p class="text-gray-600 text-sm mt-1">Often eliminate essential nutrients and can lead to metabolic slowdown, muscle loss, and nutritional deficiencies.</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <div>
+                  <span class="font-medium">Highly Restrictive Fad Diets:</span>
+                  <p class="text-gray-600 text-sm mt-1">Promising quick results but typically unsustainable and potentially harmful to long-term metabolic health.</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <div>
+                  <span class="font-medium">Single Food Diets:</span>
+                  <p class="text-gray-600 text-sm mt-1">Diets focused on a single food (like cabbage soup or grapefruit) lack nutritional diversity and are impossible to maintain.</p>
+                </div>
+              </li>
+            </ul>
+            <a href="dont-fall-for-fad-diets.html" class="inline-block mt-6 text-red-600 hover:text-red-800 font-medium">Learn more about diets to avoid →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
   // Main page HTML
   const mainPageHtml = `
 <!DOCTYPE html>
@@ -1553,9 +1712,9 @@ export const generateGLPPage = (data) => {
   <div class="bg-gray-50">
     <div class="container mx-auto px-4 py-12">
       ${popularDietPlansSection}
-      
-      <!-- Additional content sections would go here -->
-      <!-- For brevity, we're not adding all 5 sections but could be expanded -->
+      ${nutritionTipsSection}
+      ${calorieCountingSection}
+      ${bestWorstDietsSection}
     </div>
   </div>
   
