@@ -1830,124 +1830,245 @@ export const generateGLPPage = (data) => {
                   </div>
                   <button 
                     type="submit" 
-  // Generate the newsletter section
-  const newsletterSection = `
-  <section id="newsletter" class="bg-white py-12 md:py-16">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg overflow-hidden shadow-xl">
-        <div class="p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                alt="Healthy meal prep containers" 
-                class="w-full h-auto rounded-lg shadow-lg" />
-          </div>
-          <div class="text-white">
-            <h2 class="text-2xl font-bold mb-4">${newsletterHeading}</h2>
-            <p class="mb-6 opacity-90">
-              To stay informed about the latest diet trends, useful nutrition advice, and healthy recipes that can transform your health.
-            </p>
-            <form class="space-y-3">
-              <div>
-                <input 
-                  type="email" 
-                  placeholder="Your email address" 
-                  class="w-full p-3 rounded-lg text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-                  required
-                />
+                    class="w-full bg-purple-700 hover:bg-purple-800 text-white font-medium py-3 px-6 rounded-lg transition duration-300 shadow-md hover:shadow-lg"
+                  >
+                    Subscribe Now
+                  </button>
+                </form>
               </div>
-              <button 
-                type="submit" 
-                class="w-full bg-purple-700 hover:bg-purple-800 text-white font-medium py-3 px-6 rounded-lg transition duration-300 shadow-md hover:shadow-lg"
-              >
-                Subscribe Now
-              </button>
-            </form>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-  `;
-
-  // Generate the footer
-  const footer = `
-  <footer class="bg-indigo-900 text-gray-300">
-    <div class="container mx-auto px-4 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div>
-          <h2 class="text-xl font-bold mb-4 text-white">
-            <span class="text-white">${brandName.split('-')[0]}</span>
-            <span class="text-purple-300">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
-          </h2>
-          <p class="text-sm mb-4">
-            Your trusted source for nutrition data, diet and health information as well as healthy recipes and expert advice.
-          </p>
-          <p class="text-xs">
-            ${brandName} is a division of Health Care Hub, LLC.
-          </p>
-        </div>
-        
-        <div>
-          <h3 class="text-white font-medium mb-4">Quick Links</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="index.html" class="hover:text-purple-300 transition-colors">Home</a></li>
-            <li><a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors">Articles</a></li>
-            <li><a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors">Diet Plans</a></li>
-            <li><a href="meal-planner.html" class="hover:text-purple-300 transition-colors">Recipes</a></li>
-            <li><a href="about.html" class="hover:text-purple-300 transition-colors">About Us</a></li>
-          </ul>
-        </div>
-        
-        <div>
-          <h3 class="text-white font-medium mb-4">Resources</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="bmi-calculator.html" class="hover:text-purple-300 transition-colors">BMI Calculator</a></li>
-            <li><a href="meal-planner.html" class="hover:text-purple-300 transition-colors">Meal Planner</a></li>
-            <li><a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors">Blog</a></li>
-            <li><a href="faq.html" class="hover:text-purple-300 transition-colors">FAQ</a></li>
-          </ul>
-        </div>
-        
-        <div>
-          <h3 class="text-white font-medium mb-4">Support</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy Policy</a></li>
-            <li><a href="terms.html" class="hover:text-purple-300 transition-colors">Terms of Use</a></li>
-            <li><a href="contact.html" class="hover:text-purple-300 transition-colors">Contact Us</a></li>
-          </ul>
-          
-          <h3 class="text-white font-medium mt-6 mb-4">Connect With Us</h3>
-          <div class="flex space-x-4">
-            <a href="about.html" class="text-gray-400 hover:text-white">
-              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
-              </svg>
-            </a>
-            <a href="contact.html" class="text-gray-400 hover:text-white">
-              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
-              </svg>
-            </a>
-            <a href="faq.html" class="text-gray-400 hover:text-white">
-              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
+      </section>
+      `;
+      break;
       
-      <div class="mt-12 pt-8 border-t border-indigo-800 text-center text-sm text-gray-400">
-        <p class="mb-2">© ${new Date().getFullYear()} ${brandName} - All Rights Reserved</p>
-        <div class="flex justify-center space-x-4">
-          <a href="privacy.html" class="hover:text-white transition-colors">Privacy</a>
-          <a href="terms.html" class="hover:text-white transition-colors">Terms</a>
-          <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+    case 2:
+      // Rest of case 2 implementation
+    case 3:
+      // Rest of case 3 implementation
+  }
+
+  // Generate the footer with different layouts
+  let footer = '';
+  
+  switch(layoutStyle) {
+    case 1:
+      // Standard footer with grid layout
+      footer = `
+      <footer class="bg-indigo-900 text-gray-300">
+        <div class="container mx-auto px-4 py-12">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h2 class="text-xl font-bold mb-4 text-white">
+                <span class="text-white">${brandName.split('-')[0]}</span>
+                <span class="text-purple-300">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
+              </h2>
+              <p class="text-sm mb-4">
+                Your trusted source for nutrition data, diet and health information as well as healthy recipes and expert advice.
+              </p>
+              <p class="text-xs">
+                ${brandName} is a division of Health Care Hub, LLC.
+              </p>
+            </div>
+            
+            <div>
+              <h3 class="text-white font-medium mb-4">Quick Links</h3>
+              <ul class="space-y-2 text-sm">
+                <li><a href="index.html" class="hover:text-purple-300 transition-colors">Home</a></li>
+                <li><a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors">Articles</a></li>
+                <li><a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors">Diet Plans</a></li>
+                <li><a href="meal-planner.html" class="hover:text-purple-300 transition-colors">Recipes</a></li>
+                <li><a href="about.html" class="hover:text-purple-300 transition-colors">About Us</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="text-white font-medium mb-4">Resources</h3>
+              <ul class="space-y-2 text-sm">
+                <li><a href="bmi-calculator.html" class="hover:text-purple-300 transition-colors">BMI Calculator</a></li>
+                <li><a href="meal-planner.html" class="hover:text-purple-300 transition-colors">Meal Planner</a></li>
+                <li><a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors">Blog</a></li>
+                <li><a href="top-ten-weight-loss-meds.html" class="hover:text-purple-300 transition-colors">Weight Loss Options</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="text-white font-medium mb-4">Legal</h3>
+              <ul class="space-y-2 text-sm">
+                <li><a href="terms.html" class="hover:text-purple-300 transition-colors">Terms of Use</a></li>
+                <li><a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy Policy</a></li>
+                <li><a href="disclaimer.html" class="hover:text-purple-300 transition-colors">Disclaimer</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="mt-12 pt-8 border-t border-indigo-800 text-center text-sm text-gray-400">
+            <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+            <div class="mt-2 flex justify-center space-x-4">
+              <a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy</a>
+              <a href="terms.html" class="hover:text-purple-300 transition-colors">Terms</a>
+              <a href="contact.html" class="hover:text-purple-300 transition-colors">Contact</a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </footer>
-  `;
+      </footer>
+      `;
+      break;
+      
+    case 2:
+      // Minimal clean footer with horizontal layout
+      footer = `
+      <footer class="bg-gray-900 text-gray-400">
+        <div class="container mx-auto px-4 py-12">
+          <div class="flex flex-col md:flex-row justify-between mb-8">
+            <div class="mb-8 md:mb-0 md:w-1/3">
+              <h2 class="text-xl font-bold mb-4 text-white">
+                ${brandName}
+              </h2>
+              <p class="text-sm max-w-md">
+                Trusted nutrition data and health information to help you make informed decisions about your diet and lifestyle.
+              </p>
+            </div>
+            
+            <div class="md:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-8">
+              <div>
+                <h3 class="text-white font-medium mb-4 text-sm uppercase tracking-wider">Navigation</h3>
+                <ul class="space-y-2 text-sm">
+                  <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                  <li><a href="index.html#diet-plans" class="hover:text-white transition-colors">Articles</a></li>
+                  <li><a href="meal-planner.html" class="hover:text-white transition-colors">Recipes</a></li>
+                  <li><a href="about.html" class="hover:text-white transition-colors">About</a></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 class="text-white font-medium mb-4 text-sm uppercase tracking-wider">Tools</h3>
+                <ul class="space-y-2 text-sm">
+                  <li><a href="bmi-calculator.html" class="hover:text-white transition-colors">BMI Calculator</a></li>
+                  <li><a href="meal-planner.html" class="hover:text-white transition-colors">Meal Planner</a></li>
+                  <li><a href="top-ten-weight-loss-meds.html" class="hover:text-white transition-colors">Weight Loss Guide</a></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 class="text-white font-medium mb-4 text-sm uppercase tracking-wider">Legal</h3>
+                <ul class="space-y-2 text-sm">
+                  <li><a href="terms.html" class="hover:text-white transition-colors">Terms</a></li>
+                  <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy</a></li>
+                  <li><a href="disclaimer.html" class="hover:text-white transition-colors">Disclaimer</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-sm">© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+            <div class="mt-4 md:mt-0 flex space-x-4">
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+      `;
+      break;
+      
+    case 3:
+      // Modern bold footer
+      footer = `
+      <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-4">
+          <!-- Top section with logo and social -->
+          <div class="py-10 border-b border-gray-700 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-2 mb-6 md:mb-0">
+              <h2 class="text-2xl font-bold">
+                ${brandName}
+              </h2>
+            </div>
+            
+            <div class="flex space-x-6">
+              <a href="#" class="hover:text-${primaryColor.replace('#', '')} transition-colors">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+                </svg>
+              </a>
+              <a href="#" class="hover:text-${primaryColor.replace('#', '')} transition-colors">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                </svg>
+              </a>
+              <a href="#" class="hover:text-${primaryColor.replace('#', '')} transition-colors">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Middle section with links -->
+          <div class="py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+              <h3 class="text-lg font-bold mb-4">About</h3>
+              <ul class="space-y-3">
+                <li><a href="index.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Home</a></li>
+                <li><a href="about.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">About Us</a></li>
+                <li><a href="index.html#diet-plans" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Blog</a></li>
+                <li><a href="contact.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Contact</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="text-lg font-bold mb-4">Articles</h3>
+              <ul class="space-y-3">
+                <li><a href="dont-fall-for-fad-diets.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Fad Diets</a></li>
+                <li><a href="high-protein-low-carb-diets-for-weight-loss.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Low-Carb Diets</a></li>
+                <li><a href="mediterranean-diet-clinches-2025-gold.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Mediterranean Diet</a></li>
+                <li><a href="rapid-weight-loss-is-it-safe.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Rapid Weight Loss</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="text-lg font-bold mb-4">Tools</h3>
+              <ul class="space-y-3">
+                <li><a href="bmi-calculator.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">BMI Calculator</a></li>
+                <li><a href="meal-planner.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Meal Planner</a></li>
+                <li><a href="top-ten-weight-loss-meds.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Weight Loss Guide</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="text-lg font-bold mb-4">Legal</h3>
+              <ul class="space-y-3">
+                <li><a href="terms.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Terms of Use</a></li>
+                <li><a href="privacy.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Privacy Policy</a></li>
+                <li><a href="disclaimer.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Disclaimer</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Bottom section with copyright -->
+          <div class="py-6 border-t border-gray-700 text-center text-sm">
+            <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+      `;
+      break;
+  }
 
   // Generate all blog post pages
   const blogPostPages = {};
