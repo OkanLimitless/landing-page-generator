@@ -1073,11 +1073,18 @@ export const generateGLPPage = (data) => {
   // Generate random styles for each generation
   const generateRandomColor = () => {
     const colors = [
+      // Original colors
       '#4a90e2', '#5c6bc0', '#7e57c2', '#ab47bc', 
       '#ec407a', '#ef5350', '#ff7043', '#ffca28',
       '#26a69a', '#66bb6a', '#9ccc65', '#d4e157',
       '#4f46e5', '#8b5cf6', '#4338ca', '#7e22ce',
-      '#06b6d4', '#0891b2', '#059669', '#10b981'
+      '#06b6d4', '#0891b2', '#059669', '#10b981',
+      // Additional colors for more variety
+      '#f97316', '#ea580c', '#c2410c', '#a3e635',
+      '#84cc16', '#65a30d', '#14b8a6', '#0d9488',
+      '#0369a1', '#0284c7', '#0891b2', '#7c3aed',
+      '#8b5cf6', '#a855f7', '#d946ef', '#ec4899',
+      '#f43f5e', '#ef4444', '#3b82f6', '#6366f1'
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   };
@@ -1085,22 +1092,54 @@ export const generateGLPPage = (data) => {
   // Choose a random layout style (1-3)
   const layoutStyle = Math.floor(Math.random() * 3) + 1;
   
-  // Generate random hero image URLs
+  // Generate random hero image URLs - expanded collection
   const heroImageOptions = [
+    // Original options
     'https://images.unsplash.com/photo-1512621776951-a500c9a57435?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
     'https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
     'https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
     'https://images.unsplash.com/photo-1494390248081-4e521a5940db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-    'https://images.unsplash.com/photo-1607532941433-304659e8198a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+    'https://images.unsplash.com/photo-1607532941433-304659e8198a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    // Additional options
+    'https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1535914254981-b5012eebbd15?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1574056568753-3f9d276d4c82?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1511909525232-61113c912358?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1505253758473-96b7015fcd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1535914254981-b5012eebbd15?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
   ];
   
-  // Generate random background image URLs
+  // Generate random background image URLs - expanded collection
   const backgroundImageOptions = [
+    // Original options
     'https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
     'https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
     'https://images.unsplash.com/photo-1543362906-acfc16c67564?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
     'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
+    'https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    // Additional options
+    'https://images.unsplash.com/photo-1447710441604-5bdc41bc6517?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1557682250-f4ba47c7983e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1557682260-96773eb01377?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1579372786545-d24232daf58c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
+  ];
+  
+  // Generate random font families
+  const fontFamilyOptions = [
+    "'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+    "'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+    "'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+    "'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+    "'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+    "'Raleway', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+    "'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+    "'Lato', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
   ];
   
   // Generate random CTA button text options
@@ -1111,20 +1150,30 @@ export const generateGLPPage = (data) => {
     'Discover Your Plan',
     'Start Your Journey',
     'See Diet Plans',
-    'Begin Now'
+    'Begin Now',
+    'View Weight Loss Options',
+    'Explore Solutions',
+    'Find Your Plan',
+    'Get Results',
+    'Take The First Step'
   ];
   
-  // Random color selection
-  const primaryColor = data.primaryColor || generateRandomColor();
+  // IMPORTANT: Always use random values for these visual elements, ignoring any user input
+  // Random color selection (force random, not from data)
+  const primaryColor = generateRandomColor();
   const secondaryColor = generateRandomColor();
   
+  // Randomly select hero image, background image, and button text
+  const randomHeroImage = heroImageOptions[Math.floor(Math.random() * heroImageOptions.length)];
+  const randomBackgroundImage = backgroundImageOptions[Math.floor(Math.random() * backgroundImageOptions.length)];
+  const randomButtonText = ctaButtonTextOptions[Math.floor(Math.random() * ctaButtonTextOptions.length)];
+  const randomFont = fontFamilyOptions[Math.floor(Math.random() * fontFamilyOptions.length)];
+  
+  // Extract other data from the input
   const {
     brandName = 'GLP-1',
     heroTitle = 'Transform Your Health Journey',
     heroDescription = 'Discover science-backed nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.',
-    heroImageUrl = heroImageOptions[Math.floor(Math.random() * heroImageOptions.length)],
-    backgroundImageUrl = backgroundImageOptions[Math.floor(Math.random() * backgroundImageOptions.length)],
-    ctaButtonText = ctaButtonTextOptions[Math.floor(Math.random() * ctaButtonTextOptions.length)],
     targetUrl = '#',
     gtagId = '',
     newsletterHeading = 'Get Nutrition and Diet Tips in Your Inbox',
@@ -1141,7 +1190,7 @@ export const generateGLPPage = (data) => {
       customStyles = `
         <style>
           body {
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: ${randomFont};
           }
           .hero-button {
             background: linear-gradient(to right, ${primaryColor}, ${secondaryColor});
@@ -1177,7 +1226,7 @@ export const generateGLPPage = (data) => {
       customStyles = `
         <style>
           body {
-            font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: ${randomFont};
           }
           .hero-section {
             background-color: ${primaryColor}10;
@@ -1223,7 +1272,7 @@ export const generateGLPPage = (data) => {
       customStyles = `
         <style>
           body {
-            font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: ${randomFont};
           }
           .hero-button {
             background: ${primaryColor};
@@ -1305,37 +1354,37 @@ export const generateGLPPage = (data) => {
 
   // Generate the navbar component
   const navbar = `
-  <header class="bg-indigo-900/90 text-white shadow-md sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center space-x-2">
-        <div class="relative h-8 w-16">
-          <h2 class="text-xl font-bold tracking-tight text-white">
-            <span class="text-white">${brandName.split('-')[0]}</span>
-            <span class="text-purple-300">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
-          </h2>
+  <nav class="bg-white shadow sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex-shrink-0">
+          <a href="#" class="flex items-center">
+            <span class="font-bold text-xl text-${primaryColor.replace('#', '').substring(0, 6)}">${brandName}</span>
+          </a>
         </div>
-      </a>
-      
-      <nav class="hidden md:flex items-center space-x-4 text-sm">
-        <a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors py-2 px-1">Popular Diet Plans</a>
-        <a href="index.html#nutrition" class="hover:text-purple-300 transition-colors py-2 px-1">Healthy Eating & Nutrition</a>
-        <a href="index.html#calorie-counting" class="hover:text-purple-300 transition-colors py-2 px-1">Calorie Counting</a>
-        <a href="index.html#best-worst" class="hover:text-purple-300 transition-colors py-2 px-1">Best & Worst Diets</a>
-        <a href="about.html" class="hover:text-purple-300 transition-colors py-2 px-1">About Us</a>
-      </nav>
-      
-      <div class="flex items-center space-x-3">
-        <a href="index.html#newsletter" class="hidden md:block bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1.5 px-4 rounded-full transition-colors">
-          Subscribe
-        </a>
-        <button class="md:hidden text-white focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-center space-x-4">
+            <a href="index.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2 rounded-md text-sm font-medium">Home</a>
+            <a href="index.html#diet-plans" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2 rounded-md text-sm font-medium">Diet Plans</a>
+            <a href="meal-planner.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2 rounded-md text-sm font-medium">Meal Planner</a>
+            <a href="bmi-calculator.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2 rounded-md text-sm font-medium">BMI Calculator</a>
+            <a href="about.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2 rounded-md text-sm font-medium">About Us</a>
+            <a href="top-ten-weight-loss-meds.html" class="bg-${primaryColor.replace('#', '').substring(0, 6)} text-white hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 px-4 py-2 rounded-md text-sm font-medium ml-2">
+              Get Started
+            </a>
+          </div>
+        </div>
+        <!-- Mobile menu button -->
+        <div class="md:hidden flex items-center">
+          <button type="button" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
-  </header>
+  </nav>
   `;
 
   // Generate the hero section component with different layouts
@@ -1351,7 +1400,7 @@ export const generateGLPPage = (data) => {
           <div 
             class="w-full h-full bg-cover bg-center"
             style="
-              background-image: url('${backgroundImageUrl}');
+              background-image: url('${randomBackgroundImage}');
               background-size: cover;
               background-position: center;
               background-repeat: no-repeat;
@@ -1366,7 +1415,7 @@ export const generateGLPPage = (data) => {
             <div class="w-full md:w-1/2 p-4 mt-8 md:mt-0">
               <div class="max-w-sm mx-auto md:ml-0 md:mr-auto bg-white rounded-lg overflow-hidden shadow-xl">
                 <img 
-                  src="${heroImageUrl}" 
+                  src="${randomHeroImage}" 
                   alt="Healthy Bowl with Vegetables and Proteins" 
                   class="w-full h-auto"
                 />
@@ -1385,7 +1434,7 @@ export const generateGLPPage = (data) => {
                 href="top-ten-weight-loss-meds.html"
                 onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
                 class="inline-flex items-center justify-center hero-button hero-button-mobile text-white font-medium py-4 px-8 rounded-full transition-all duration-300 text-lg w-full sm:w-auto">
-                ${ctaButtonText}
+                ${randomButtonText}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -1395,38 +1444,23 @@ export const generateGLPPage = (data) => {
         </div>
         
         <!-- Category Nav -->
-        <div class="bg-white shadow-md border-t border-gray-100 relative z-10">
+        <div class="bg-white shadow-md z-10 relative">
           <div class="container mx-auto px-4">
-            <div class="flex overflow-x-auto py-3 gap-6 text-sm text-gray-700">
-              <a href="index.html#best-worst" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-                Weight Loss & Obesity
+            <div class="grid grid-cols-3 md:grid-cols-5 divide-x divide-gray-200">
+              <a href="index.html#best-worst" class="py-4 text-center hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50 transition-colors">
+                Weight Loss
               </a>
-              <a href="index.html#nutrition" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                Fitness & Exercise
+              <a href="index.html#nutrition" class="py-4 text-center hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50 transition-colors">
+                Exercise
               </a>
-              <a href="meal-planner.html" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
-                </svg>
-                Food & Recipes
+              <a href="meal-planner.html" class="py-4 text-center hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50 transition-colors">
+                Recipes
               </a>
-              <a href="index.html#nutrition" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                </svg>
-                Nutrition Science
+              <a href="index.html#nutrition" class="hidden md:block py-4 text-center hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50 transition-colors">
+                Nutrition
               </a>
-              <a href="index.html#diet-plans" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-                Diet Plans & Programs
+              <a href="index.html#diet-plans" class="hidden md:block py-4 text-center hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50 transition-colors">
+                Diets
               </a>
             </div>
           </div>
@@ -1436,61 +1470,60 @@ export const generateGLPPage = (data) => {
       break;
       
     case 2:
-      // Centered hero layout with image on top
+      // Centered hero layout
       heroSection = `
-      <section class="relative hero-section">
-        <div class="container mx-auto px-4 pt-16 pb-24 md:pt-24 md:pb-32 relative z-10">
-          <div class="flex flex-col items-center">
-            <!-- Top image -->
-            <div class="w-full max-w-md mb-8">
-              <div class="bg-white rounded-lg overflow-hidden shadow-lg">
-                <img 
-                  src="${heroImageUrl}" 
-                  alt="Healthy Food" 
-                  class="w-full h-auto"
-                />
-              </div>
+      <section class="relative py-24 md:py-32">
+        <!-- Background color gradient -->
+        <div class="absolute inset-0 z-0">
+          <div class="w-full h-full" style="background: linear-gradient(135deg, ${primaryColor}15, ${secondaryColor}10);"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
+              ${heroTitle}
+            </h1>
+            <p class="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+              ${heroDescription}
+            </p>
+            
+            <!-- Hero image in the center -->
+            <div class="relative max-w-md mx-auto mb-10 bg-white rounded-xl overflow-hidden shadow-xl">
+              <img 
+                src="${randomHeroImage}" 
+                alt="Healthy Lifestyle" 
+                class="w-full h-auto"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
             
-            <!-- Text Content centered -->
-            <div class="w-full max-w-2xl text-center">
-              <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 text-gray-900">
-                ${heroTitle}
-              </h1>
-              <p class="text-gray-700 mb-8 mx-auto text-lg max-w-xl">
-                ${heroDescription}
-              </p>
-              <a 
-                href="top-ten-weight-loss-meds.html"
-                onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
-                class="inline-flex items-center justify-center hero-button text-white font-medium py-4 px-8 rounded-md transition-all duration-300 text-lg">
-                ${ctaButtonText}
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </a>
-            </div>
+            <a 
+              href="top-ten-weight-loss-meds.html"
+              onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
+              class="inline-flex hero-button py-4 px-8 text-lg font-medium rounded">
+              ${randomButtonText}
+            </a>
           </div>
         </div>
         
-        <!-- Category Nav -->
-        <div class="bg-white shadow-md border-t border-gray-100 relative z-10">
+        <!-- Nav pills style -->
+        <div class="mt-16 bg-white shadow-sm z-10 relative">
           <div class="container mx-auto px-4">
-            <div class="flex overflow-x-auto py-3 gap-6 text-sm text-gray-700 justify-center">
-              <a href="index.html#best-worst" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-                Weight Loss & Obesity
+            <div class="flex justify-center space-x-2 py-4 overflow-x-auto">
+              <a href="index.html#best-worst" class="px-4 py-2 rounded-full border border-gray-200 hover:border-${primaryColor.replace('#', '').substring(0, 6)} hover:text-${primaryColor.replace('#', '').substring(0, 6)} transition-colors">
+                Weight Loss
               </a>
-              <a href="index.html#nutrition" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-                Fitness & Exercise
+              <a href="index.html#nutrition" class="px-4 py-2 rounded-full border border-gray-200 hover:border-${primaryColor.replace('#', '').substring(0, 6)} hover:text-${primaryColor.replace('#', '').substring(0, 6)} transition-colors">
+                Exercise
               </a>
-              <a href="meal-planner.html" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-                Food & Recipes
+              <a href="meal-planner.html" class="px-4 py-2 rounded-full border border-gray-200 hover:border-${primaryColor.replace('#', '').substring(0, 6)} hover:text-${primaryColor.replace('#', '').substring(0, 6)} transition-colors">
+                Recipes
               </a>
-              <a href="index.html#nutrition" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-                Nutrition Science
+              <a href="index.html#nutrition" class="px-4 py-2 rounded-full border border-gray-200 hover:border-${primaryColor.replace('#', '').substring(0, 6)} hover:text-${primaryColor.replace('#', '').substring(0, 6)} transition-colors hidden md:inline-block">
+                Nutrition
               </a>
-              <a href="index.html#diet-plans" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-                Diet Plans
+              <a href="index.html#diet-plans" class="px-4 py-2 rounded-full border border-gray-200 hover:border-${primaryColor.replace('#', '').substring(0, 6)} hover:text-${primaryColor.replace('#', '').substring(0, 6)} transition-colors hidden md:inline-block">
+                Diets
               </a>
             </div>
           </div>
@@ -1508,7 +1541,7 @@ export const generateGLPPage = (data) => {
           <div 
             class="w-full h-full bg-cover bg-center"
             style="
-              background-image: url('${backgroundImageUrl}');
+              background-image: url('${randomBackgroundImage}');
               background-size: cover;
               background-position: center;
               background-repeat: no-repeat;
@@ -1531,7 +1564,7 @@ export const generateGLPPage = (data) => {
               <!-- Image between text and button -->
               <div class="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden ring-4 ring-white">
                 <img 
-                  src="${heroImageUrl}" 
+                  src="${randomHeroImage}" 
                   alt="Healthy Food" 
                   class="w-full h-full object-cover"
                 />
@@ -1541,7 +1574,7 @@ export const generateGLPPage = (data) => {
                 href="top-ten-weight-loss-meds.html"
                 onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
                 class="inline-flex items-center justify-center hero-button text-white font-bold py-4 px-10 text-lg">
-                ${ctaButtonText}
+                ${randomButtonText}
               </a>
             </div>
           </div>
@@ -1551,19 +1584,19 @@ export const generateGLPPage = (data) => {
         <div class="bg-white shadow-md relative z-10">
           <div class="container mx-auto px-4">
             <div class="grid grid-cols-3 md:grid-cols-5 divide-x divide-gray-200">
-              <a href="index.html#best-worst" class="py-4 text-center hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+              <a href="index.html#best-worst" class="py-4 text-center hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50 transition-colors">
                 Weight Loss
               </a>
-              <a href="index.html#nutrition" class="py-4 text-center hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+              <a href="index.html#nutrition" class="py-4 text-center hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50 transition-colors">
                 Exercise
               </a>
-              <a href="meal-planner.html" class="py-4 text-center hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+              <a href="meal-planner.html" class="py-4 text-center hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50 transition-colors">
                 Recipes
               </a>
-              <a href="index.html#nutrition" class="hidden md:block py-4 text-center hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+              <a href="index.html#nutrition" class="hidden md:block py-4 text-center hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50 transition-colors">
                 Nutrition
               </a>
-              <a href="index.html#diet-plans" class="hidden md:block py-4 text-center hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+              <a href="index.html#diet-plans" class="hidden md:block py-4 text-center hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50 transition-colors">
                 Diets
               </a>
             </div>
@@ -1592,7 +1625,7 @@ export const generateGLPPage = (data) => {
                 <div class="p-6">
                   <h3 class="text-xl font-semibold mb-2">Don't Fall for Fad Diets</h3>
                   <p class="text-gray-600 mb-4">Discover why most fad diets fail in the long run and what science tells us about sustainable weight loss approaches.</p>
-                  <a href="dont-fall-for-fad-diets.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+                  <a href="dont-fall-for-fad-diets.html" class="inline-block bg-${primaryColor.replace('#', '').substring(0, 6)} text-white px-4 py-2 rounded hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 transition-colors text-sm">Read More</a>
                 </div>
               </div>
               
@@ -1603,7 +1636,7 @@ export const generateGLPPage = (data) => {
                 <div class="p-6">
                   <h3 class="text-xl font-semibold mb-2">High-Protein, Low-Carb Diets for Weight Loss</h3>
                   <p class="text-gray-600 mb-4">A detailed look at how high-protein, low-carb diets work and whether they're right for your lifestyle.</p>
-                  <a href="high-protein-low-carb-diets-for-weight-loss.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+                  <a href="high-protein-low-carb-diets-for-weight-loss.html" class="inline-block bg-${primaryColor.replace('#', '').substring(0, 6)} text-white px-4 py-2 rounded hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 transition-colors text-sm">Read More</a>
                 </div>
               </div>
               
@@ -1614,7 +1647,7 @@ export const generateGLPPage = (data) => {
                 <div class="p-6">
                   <h3 class="text-xl font-semibold mb-2">Mediterranean Diet Clinches 2025 Gold</h3>
                   <p class="text-gray-600 mb-4">Experts urge caution despite the Mediterranean diet's recognition as the gold standard for heart health and weight management.</p>
-                  <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+                  <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-block bg-${primaryColor.replace('#', '').substring(0, 6)} text-white px-4 py-2 rounded hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 transition-colors text-sm">Read More</a>
                 </div>
               </div>
               
@@ -1625,7 +1658,7 @@ export const generateGLPPage = (data) => {
                 <div class="p-6">
                   <h3 class="text-xl font-semibold mb-2">Rapid Weight Loss: Is It Safe?</h3>
                   <p class="text-gray-600 mb-4">Medical professionals weigh in on the dangers of fast weight loss programs and offer safer alternatives.</p>
-                  <a href="rapid-weight-loss-is-it-safe.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+                  <a href="rapid-weight-loss-is-it-safe.html" class="inline-block bg-${primaryColor.replace('#', '').substring(0, 6)} text-white px-4 py-2 rounded hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 transition-colors text-sm">Read More</a>
                 </div>
               </div>
             </div>
@@ -1652,7 +1685,7 @@ export const generateGLPPage = (data) => {
                 <div class="md:w-3/5 p-6">
                   <h3 class="text-xl font-semibold mb-2">Don't Fall for Fad Diets</h3>
                   <p class="text-gray-600 mb-4">Discover why most fad diets fail in the long run and what science tells us about sustainable weight loss.</p>
-                  <a href="dont-fall-for-fad-diets.html" class="inline-block px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors text-sm rounded">Read More</a>
+                  <a href="dont-fall-for-fad-diets.html" class="inline-block px-4 py-2 border border-${primaryColor.replace('#', '').substring(0, 6)} text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)} hover:text-white transition-colors text-sm rounded">Read More</a>
                 </div>
               </div>
               
@@ -1665,7 +1698,7 @@ export const generateGLPPage = (data) => {
                 <div class="md:w-3/5 p-6">
                   <h3 class="text-xl font-semibold mb-2">High-Protein, Low-Carb Diets</h3>
                   <p class="text-gray-600 mb-4">A detailed look at how high-protein, low-carb diets work and whether they're right for your lifestyle.</p>
-                  <a href="high-protein-low-carb-diets-for-weight-loss.html" class="inline-block px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors text-sm rounded">Read More</a>
+                  <a href="high-protein-low-carb-diets-for-weight-loss.html" class="inline-block px-4 py-2 border border-${primaryColor.replace('#', '').substring(0, 6)} text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)} hover:text-white transition-colors text-sm rounded">Read More</a>
                 </div>
               </div>
               
@@ -1678,7 +1711,7 @@ export const generateGLPPage = (data) => {
                 <div class="md:w-3/5 p-6">
                   <h3 class="text-xl font-semibold mb-2">Mediterranean Diet Clinches Gold</h3>
                   <p class="text-gray-600 mb-4">Experts urge caution despite the Mediterranean diet's recognition as a gold standard for health.</p>
-                  <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-block px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors text-sm rounded">Read More</a>
+                  <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-block px-4 py-2 border border-${primaryColor.replace('#', '').substring(0, 6)} text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)} hover:text-white transition-colors text-sm rounded">Read More</a>
                 </div>
               </div>
               
@@ -1691,7 +1724,7 @@ export const generateGLPPage = (data) => {
                 <div class="md:w-3/5 p-6">
                   <h3 class="text-xl font-semibold mb-2">Rapid Weight Loss: Is It Safe?</h3>
                   <p class="text-gray-600 mb-4">Medical professionals weigh in on the dangers of fast weight loss programs and safer alternatives.</p>
-                  <a href="rapid-weight-loss-is-it-safe.html" class="inline-block px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors text-sm rounded">Read More</a>
+                  <a href="rapid-weight-loss-is-it-safe.html" class="inline-block px-4 py-2 border border-${primaryColor.replace('#', '').substring(0, 6)} text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)} hover:text-white transition-colors text-sm rounded">Read More</a>
                 </div>
               </div>
             </div>
@@ -1798,26 +1831,26 @@ export const generateGLPPage = (data) => {
       break;
   }
 
-  // Generate the newsletter section with different layouts
+  // Generate the newsletter section
   let newsletterSection = '';
   
   switch(layoutStyle) {
     case 1:
-      // Gradient background with image side-by-side
+      // Side by side layout
       newsletterSection = `
       <section id="newsletter" class="bg-white py-12 md:py-16">
         <div class="max-w-4xl mx-auto px-4">
-          <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg overflow-hidden shadow-xl">
+          <div class="bg-gradient-to-r from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} rounded-lg overflow-hidden shadow-xl">
             <div class="p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                <img src="${randomHeroImage}" 
                     alt="Healthy meal prep containers" 
                     class="w-full h-auto rounded-lg shadow-lg" />
               </div>
               <div class="text-white">
                 <h2 class="text-2xl font-bold mb-4">${newsletterHeading}</h2>
                 <p class="mb-6 opacity-90">
-                  Stay informed about the latest diet trends, useful nutrition advice, and healthy recipes that can transform your health.
+                  To stay informed about the latest diet trends, useful nutrition advice, and healthy recipes that can transform your health.
                 </p>
                 <form class="space-y-3">
                   <div>
@@ -1830,7 +1863,7 @@ export const generateGLPPage = (data) => {
                   </div>
                   <button 
                     type="submit" 
-                    class="w-full bg-purple-700 hover:bg-purple-800 text-white font-medium py-3 px-6 rounded-lg transition duration-300 shadow-md hover:shadow-lg"
+                    class="w-full bg-white text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-opacity-90 font-medium py-3 px-6 rounded-lg transition duration-300 shadow-md hover:shadow-lg"
                   >
                     Subscribe Now
                   </button>
@@ -1844,464 +1877,119 @@ export const generateGLPPage = (data) => {
       break;
       
     case 2:
-      // Rest of case 2 implementation
-    case 3:
-      // Rest of case 3 implementation
-  }
-
-  // Generate the footer with different layouts
-  let footer = '';
-  
-  switch(layoutStyle) {
-    case 1:
-      // Standard footer with grid layout
-      footer = `
-      <footer class="bg-indigo-900 text-gray-300">
-        <div class="container mx-auto px-4 py-12">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h2 class="text-xl font-bold mb-4 text-white">
-                <span class="text-white">${brandName.split('-')[0]}</span>
-                <span class="text-purple-300">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
-              </h2>
-              <p class="text-sm mb-4">
-                Your trusted source for nutrition data, diet and health information as well as healthy recipes and expert advice.
+      // Clean centered layout
+      newsletterSection = `
+      <section id="newsletter" class="py-16">
+        <div class="max-w-3xl mx-auto px-4">
+          <div class="bg-white rounded-lg shadow-md overflow-hidden border" style="border-color: ${primaryColor};">
+            <div class="p-10 text-center">
+              <div class="w-16 h-16 mx-auto mb-4 bg-${primaryColor.replace('#', '').substring(0, 6)} rounded-full flex items-center justify-center text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold mb-2">${newsletterHeading}</h2>
+              <p class="text-gray-600 mb-6 max-w-lg mx-auto">
+                Join our community to receive the latest tips, articles, and resources directly to your inbox.
               </p>
-              <p class="text-xs">
-                ${brandName} is a division of Health Care Hub, LLC.
-              </p>
-            </div>
-            
-            <div>
-              <h3 class="text-white font-medium mb-4">Quick Links</h3>
-              <ul class="space-y-2 text-sm">
-                <li><a href="index.html" class="hover:text-purple-300 transition-colors">Home</a></li>
-                <li><a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors">Articles</a></li>
-                <li><a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors">Diet Plans</a></li>
-                <li><a href="meal-planner.html" class="hover:text-purple-300 transition-colors">Recipes</a></li>
-                <li><a href="about.html" class="hover:text-purple-300 transition-colors">About Us</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 class="text-white font-medium mb-4">Resources</h3>
-              <ul class="space-y-2 text-sm">
-                <li><a href="bmi-calculator.html" class="hover:text-purple-300 transition-colors">BMI Calculator</a></li>
-                <li><a href="meal-planner.html" class="hover:text-purple-300 transition-colors">Meal Planner</a></li>
-                <li><a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors">Blog</a></li>
-                <li><a href="top-ten-weight-loss-meds.html" class="hover:text-purple-300 transition-colors">Weight Loss Options</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 class="text-white font-medium mb-4">Legal</h3>
-              <ul class="space-y-2 text-sm">
-                <li><a href="terms.html" class="hover:text-purple-300 transition-colors">Terms of Use</a></li>
-                <li><a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy Policy</a></li>
-                <li><a href="disclaimer.html" class="hover:text-purple-300 transition-colors">Disclaimer</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div class="mt-12 pt-8 border-t border-indigo-800 text-center text-sm text-gray-400">
-            <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
-            <div class="mt-2 flex justify-center space-x-4">
-              <a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy</a>
-              <a href="terms.html" class="hover:text-purple-300 transition-colors">Terms</a>
-              <a href="contact.html" class="hover:text-purple-300 transition-colors">Contact</a>
+              <form class="max-w-md mx-auto">
+                <div class="relative mb-4">
+                  <input 
+                    type="email" 
+                    placeholder="Enter your email" 
+                    class="w-full p-4 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-${primaryColor.replace('#', '').substring(0, 6)} focus:border-${primaryColor.replace('#', '').substring(0, 6)}"
+                    required
+                  />
+                  <button 
+                    type="submit" 
+                    class="absolute right-1 top-1 bottom-1 px-4 bg-${primaryColor.replace('#', '').substring(0, 6)} text-white rounded-md hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 transition duration-300"
+                  >
+                    Subscribe
+                  </button>
+                </div>
+                <p class="text-xs text-gray-500">We respect your privacy. Unsubscribe at any time.</p>
+              </form>
             </div>
           </div>
         </div>
-      </footer>
-      `;
-      break;
-      
-    case 2:
-      // Minimal clean footer with horizontal layout
-      footer = `
-      <footer class="bg-gray-900 text-gray-400">
-        <div class="container mx-auto px-4 py-12">
-          <div class="flex flex-col md:flex-row justify-between mb-8">
-            <div class="mb-8 md:mb-0 md:w-1/3">
-              <h2 class="text-xl font-bold mb-4 text-white">
-                ${brandName}
-              </h2>
-              <p class="text-sm max-w-md">
-                Trusted nutrition data and health information to help you make informed decisions about your diet and lifestyle.
-              </p>
-            </div>
-            
-            <div class="md:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-8">
-              <div>
-                <h3 class="text-white font-medium mb-4 text-sm uppercase tracking-wider">Navigation</h3>
-                <ul class="space-y-2 text-sm">
-                  <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
-                  <li><a href="index.html#diet-plans" class="hover:text-white transition-colors">Articles</a></li>
-                  <li><a href="meal-planner.html" class="hover:text-white transition-colors">Recipes</a></li>
-                  <li><a href="about.html" class="hover:text-white transition-colors">About</a></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 class="text-white font-medium mb-4 text-sm uppercase tracking-wider">Tools</h3>
-                <ul class="space-y-2 text-sm">
-                  <li><a href="bmi-calculator.html" class="hover:text-white transition-colors">BMI Calculator</a></li>
-                  <li><a href="meal-planner.html" class="hover:text-white transition-colors">Meal Planner</a></li>
-                  <li><a href="top-ten-weight-loss-meds.html" class="hover:text-white transition-colors">Weight Loss Guide</a></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 class="text-white font-medium mb-4 text-sm uppercase tracking-wider">Legal</h3>
-                <ul class="space-y-2 text-sm">
-                  <li><a href="terms.html" class="hover:text-white transition-colors">Terms</a></li>
-                  <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy</a></li>
-                  <li><a href="disclaimer.html" class="hover:text-white transition-colors">Disclaimer</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          
-          <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-sm">© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
-            <div class="mt-4 md:mt-0 flex space-x-4">
-              <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
-                </svg>
-              </a>
-              <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
-                </svg>
-              </a>
-              <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      </section>
       `;
       break;
       
     case 3:
-      // Modern bold footer
-      footer = `
-      <footer class="bg-gray-800 text-white">
+      // Full width with background
+      newsletterSection = `
+      <section id="newsletter" class="py-16 bg-gray-900 text-white">
         <div class="container mx-auto px-4">
-          <!-- Top section with logo and social -->
-          <div class="py-10 border-b border-gray-700 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center space-x-2 mb-6 md:mb-0">
-              <h2 class="text-2xl font-bold">
-                ${brandName}
-              </h2>
+          <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div class="md:w-1/2">
+                <h2 class="text-3xl font-bold mb-3">${newsletterHeading}</h2>
+                <p class="mb-4 text-gray-300 max-w-md">
+                  Get expert nutrition advice, meal plans, and weight loss tips delivered directly to your inbox.
+                </p>
+                <div class="flex items-center text-sm text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-${primaryColor.replace('#', '').substring(0, 6)}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>One email per week. No spam. Unsubscribe anytime.</span>
+                </div>
+              </div>
+              
+              <div class="md:w-1/2 w-full">
+                <form class="bg-white p-6 rounded-lg shadow-md">
+                  <div class="mb-4">
+                    <label class="block text-gray-800 text-sm font-medium mb-2">Email Address</label>
+                    <input 
+                      type="email" 
+                      placeholder="you@example.com" 
+                      class="w-full p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-${primaryColor.replace('#', '').substring(0, 6)} focus:border-${primaryColor.replace('#', '').substring(0, 6)}"
+                      required
+                    />
+                  </div>
+                  <div class="mb-4">
+                    <label class="block text-gray-800 text-sm font-medium mb-2">First Name</label>
+                    <input 
+                      type="text" 
+                      placeholder="Your name" 
+                      class="w-full p-3 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-${primaryColor.replace('#', '').substring(0, 6)} focus:border-${primaryColor.replace('#', '').substring(0, 6)}"
+                    />
+                  </div>
+                  <button 
+                    type="submit" 
+                    class="w-full bg-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 text-white font-medium py-3 px-6 rounded-md transition duration-300"
+                  >
+                    Subscribe Now
+                  </button>
+                </form>
+              </div>
             </div>
-            
-            <div class="flex space-x-6">
-              <a href="#" class="hover:text-${primaryColor.replace('#', '')} transition-colors">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
-                </svg>
-              </a>
-              <a href="#" class="hover:text-${primaryColor.replace('#', '')} transition-colors">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
-                </svg>
-              </a>
-              <a href="#" class="hover:text-${primaryColor.replace('#', '')} transition-colors">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-          
-          <!-- Middle section with links -->
-          <div class="py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <h3 class="text-lg font-bold mb-4">About</h3>
-              <ul class="space-y-3">
-                <li><a href="index.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Home</a></li>
-                <li><a href="about.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">About Us</a></li>
-                <li><a href="index.html#diet-plans" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Blog</a></li>
-                <li><a href="contact.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 class="text-lg font-bold mb-4">Articles</h3>
-              <ul class="space-y-3">
-                <li><a href="dont-fall-for-fad-diets.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Fad Diets</a></li>
-                <li><a href="high-protein-low-carb-diets-for-weight-loss.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Low-Carb Diets</a></li>
-                <li><a href="mediterranean-diet-clinches-2025-gold.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Mediterranean Diet</a></li>
-                <li><a href="rapid-weight-loss-is-it-safe.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Rapid Weight Loss</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 class="text-lg font-bold mb-4">Tools</h3>
-              <ul class="space-y-3">
-                <li><a href="bmi-calculator.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">BMI Calculator</a></li>
-                <li><a href="meal-planner.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Meal Planner</a></li>
-                <li><a href="top-ten-weight-loss-meds.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Weight Loss Guide</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 class="text-lg font-bold mb-4">Legal</h3>
-              <ul class="space-y-3">
-                <li><a href="terms.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Terms of Use</a></li>
-                <li><a href="privacy.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Privacy Policy</a></li>
-                <li><a href="disclaimer.html" class="hover:text-${primaryColor.replace('#', '')} transition-colors">Disclaimer</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Bottom section with copyright -->
-          <div class="py-6 border-t border-gray-700 text-center text-sm">
-            <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
           </div>
         </div>
-      </footer>
+      </section>
       `;
       break;
   }
-
-  // Generate all blog post pages
-  const blogPostPages = {};
-  Object.entries(blogPosts).forEach(([slug, post]) => {
-    blogPostPages[`${slug}.html`] = generateBlogPost(post, brandName, primaryColor);
-  });
   
-  // Add a placeholder for the "Rapid Weight Loss" article if it doesn't exist yet
-  if (!blogPostPages['rapid-weight-loss-is-it-safe.html']) {
-    const placeholderPost = {
-      title: "Rapid Weight Loss: Is It Safe?",
-      image: "https://images.unsplash.com/photo-1511072215123-bce20d9afcb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",
-      excerpt: "Learn about rapid weight loss pros & cons, and the real truth about whether weight loss.",
-      content: `
-        <h2>Understanding Rapid Weight Loss</h2>
-        <p>Rapid weight loss, often defined as losing more than 2 pounds per week, can be tempting for those eager to see quick results. However, it's important to understand both the potential benefits and the risks associated with losing weight quickly.</p>
-        
-        <h2>Potential Risks of Rapid Weight Loss</h2>
-        
-        <h3>Muscle Loss</h3>
-        <p>When you lose weight quickly, you're likely losing a significant amount of muscle along with fat. This can slow your metabolism and make it harder to maintain your weight loss in the long term.</p>
-        
-        <h3>Nutritional Deficiencies</h3>
-        <p>Very low-calorie diets that lead to rapid weight loss often don't provide all the essential nutrients your body needs. This can lead to deficiencies in vitamins, minerals, and other important nutrients.</p>
-        
-        <h3>Gallstones</h3>
-        <p>Rapid weight loss is a known risk factor for the development of gallstones. This is particularly true when weight loss exceeds 3 pounds per week.</p>
-        
-        <h3>Metabolic Slowdown</h3>
-        <p>Your body may adapt to severe calorie restriction by slowing your metabolism, making it harder to continue losing weight and easier to regain weight later.</p>
-        
-        <h2>When Rapid Weight Loss Might Be Appropriate</h2>
-        <p>In some situations, medical professionals may recommend more rapid weight loss:</p>
-        
-        <h3>Medical Supervision</h3>
-        <p>Under direct supervision of healthcare providers, very low-calorie diets or other rapid weight loss methods may be used for specific health reasons.</p>
-        
-        <h3>Preparation for Surgery</h3>
-        <p>Doctors may recommend quick weight loss before certain procedures to reduce surgical risks.</p>
-        
-        <h3>Obesity-Related Health Crises</h3>
-        <p>When severe obesity is causing immediate health threats, faster weight loss may be justified despite the risks.</p>
-        
-        <h2>Healthier Approaches to Weight Loss</h2>
-        
-        <h3>Set Realistic Goals</h3>
-        <p>Aim for losing 1-2 pounds per week, which is generally considered safe and sustainable.</p>
-        
-        <h3>Focus on Nutrition</h3>
-        <p>Rather than severely restricting calories, focus on eating nutrient-dense foods that keep you satisfied while providing essential vitamins and minerals.</p>
-        
-        <h3>Incorporate Physical Activity</h3>
-        <p>Regular exercise helps preserve muscle mass during weight loss and improves overall health.</p>
-        
-        <h3>Prioritize Protein</h3>
-        <p>Adequate protein intake helps minimize muscle loss during weight loss.</p>
-        
-        <h3>Stay Hydrated</h3>
-        <p>Proper hydration supports overall health and may help manage hunger.</p>
-        
-        <h2>Warning Signs to Watch For</h2>
-        <p>If you experience any of the following while losing weight rapidly, consult a healthcare provider:</p>
-        <ul>
-          <li>Fatigue or weakness</li>
-          <li>Hair loss</li>
-          <li>Constant hunger or food obsession</li>
-          <li>Irregular menstrual cycles</li>
-          <li>Difficulty concentrating</li>
-          <li>Feeling cold frequently</li>
-          <li>Mood changes</li>
-        </ul>
-        
-        <h2>Conclusion</h2>
-        <p>While rapid weight loss may seem appealing, a slower, more sustainable approach is typically safer and more effective in the long run. Focus on developing healthy habits that you can maintain indefinitely rather than seeking quick fixes. Always consult with healthcare professionals before beginning any weight loss program, especially if you have existing health conditions.</p>
-      `
-    };
-    
-    blogPostPages['rapid-weight-loss-is-it-safe.html'] = generateBlogPost(placeholderPost, brandName, primaryColor);
+  // Main page HTML with randomized content section order
+  // Always keep the hero at the top, but randomize other content sections
+  
+  // Create an array of content sections
+  const contentSections = [
+    popularDietPlansSection,
+    nutritionTipsSection,
+    calorieCountingSection,
+    bestWorstDietsSection
+  ];
+  
+  // Shuffle the array
+  for (let i = contentSections.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [contentSections[i], contentSections[j]] = [contentSections[j], contentSections[i]];
   }
-
-  // Generate additional content sections
-  const nutritionTipsSection = `
-    <section id="nutrition" class="py-12">
-      <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-8">Healthy Eating & Nutrition</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Portion Control</h3>
-            <p class="text-gray-600">Learn how proper portion sizing can help you maintain a healthy weight without sacrificing the foods you love.</p>
-            <a href="faq.html" class="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium">Learn more →</a>
-          </div>
-          
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Macronutrients 101</h3>
-            <p class="text-gray-600">Understand the role of proteins, carbohydrates, and fats in your diet and how to balance them for optimal health.</p>
-            <a href="faq.html" class="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium">Learn more →</a>
-          </div>
-          
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Meal Timing</h3>
-            <p class="text-gray-600">Discover whether when you eat matters as much as what you eat, and strategies for timing meals for energy and weight management.</p>
-            <a href="faq.html" class="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium">Learn more →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  `;
-
-  const calorieCountingSection = `
-    <section id="calorie-counting" class="py-12 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-8">Calorie Counting</h2>
-        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
-          <div class="flex flex-col md:flex-row items-center mb-8">
-            <div class="md:w-1/3 mb-6 md:mb-0 md:mr-8">
-              <img src="https://images.unsplash.com/photo-1508098682722-e99c643e7f3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Healthy meals" class="rounded-lg shadow-md">
-            </div>
-            <div class="md:w-2/3">
-              <h3 class="text-2xl font-semibold mb-4">Do Calories Really Matter?</h3>
-              <p class="text-gray-700 mb-4">While calories are not the only factor in weight management, they play a significant role. Understanding your caloric needs based on your age, gender, activity level, and goals is essential for effective weight management.</p>
-              <p class="text-gray-700">Our calorie calculator tools and guides can help you determine your needs without obsessing over every number.</p>
-            </div>
-          </div>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            <div class="bg-indigo-50 p-6 rounded-lg">
-              <h4 class="text-lg font-semibold mb-2">BMI Calculator</h4>
-              <p class="text-gray-700 mb-4">Calculate your Body Mass Index (BMI) to get a general idea of your weight status based on your height and weight.</p>
-              <a href="bmi-calculator.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Try BMI Calculator</a>
-            </div>
-            
-            <div class="bg-purple-50 p-6 rounded-lg">
-              <h4 class="text-lg font-semibold mb-2">Meal Planner</h4>
-              <p class="text-gray-700 mb-4">Create personalized meal plans based on your caloric needs, dietary preferences, and weight goals.</p>
-              <a href="meal-planner.html" class="inline-block bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors text-sm">Try Meal Planner</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  `;
-
-  const bestWorstDietsSection = `
-    <section id="best-worst" class="py-12">
-      <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-8">Best & Worst Diets</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
-            <h3 class="text-xl font-semibold mb-4 text-green-700">Top-Rated Approaches</h3>
-            <ul class="space-y-3">
-              <li class="flex items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <div>
-                  <span class="font-medium">Mediterranean Diet:</span>
-                  <p class="text-gray-600 text-sm mt-1">Emphasizes plant-based foods, healthy fats, and moderate protein intake. Consistently ranked as one of the healthiest eating patterns.</p>
-                </div>
-              </li>
-              <li class="flex items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <div>
-                  <span class="font-medium">DASH Diet:</span>
-                  <p class="text-gray-600 text-sm mt-1">Designed to help lower blood pressure and promote heart health through balanced nutrition and reduced sodium intake.</p>
-                </div>
-              </li>
-              <li class="flex items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <div>
-                  <span class="font-medium">Flexitarian Diet:</span>
-                  <p class="text-gray-600 text-sm mt-1">A mostly vegetarian diet that allows occasional meat consumption, balancing the benefits of plant-based eating with flexibility.</p>
-                </div>
-              </li>
-            </ul>
-            <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-block mt-6 text-green-600 hover:text-green-800 font-medium">Learn more about top diets →</a>
-          </div>
-          
-          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500">
-            <h3 class="text-xl font-semibold mb-4 text-red-700">Approaches to Avoid</h3>
-            <ul class="space-y-3">
-              <li class="flex items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-                <div>
-                  <span class="font-medium">Extreme Detox Diets:</span>
-                  <p class="text-gray-600 text-sm mt-1">Often eliminate essential nutrients and can lead to metabolic slowdown, muscle loss, and nutritional deficiencies.</p>
-                </div>
-              </li>
-              <li class="flex items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-                <div>
-                  <span class="font-medium">Highly Restrictive Fad Diets:</span>
-                  <p class="text-gray-600 text-sm mt-1">Promising quick results but typically unsustainable and potentially harmful to long-term metabolic health.</p>
-                </div>
-              </li>
-              <li class="flex items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-                <div>
-                  <span class="font-medium">Single Food Diets:</span>
-                  <p class="text-gray-600 text-sm mt-1">Diets focused on a single food (like cabbage soup or grapefruit) lack nutritional diversity and are impossible to maintain.</p>
-                </div>
-              </li>
-            </ul>
-            <a href="dont-fall-for-fad-diets.html" class="inline-block mt-6 text-red-600 hover:text-red-800 font-medium">Learn more about diets to avoid →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  `;
+  
+  // Join the shuffled content sections
+  const randomizedContentSections = contentSections.join('\n');
 
   // Main page HTML
   const mainPageHtml = `
@@ -2315,6 +2003,11 @@ export const generateGLPPage = (data) => {
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;700&family=Lato:wght@400;700&family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Outfit:wght@400;500;700&family=Poppins:wght@400;500;700&family=Raleway:wght@400;500;700&display=swap" rel="stylesheet">
   
   <!-- Custom styles -->
   ${customStyles}
@@ -2340,10 +2033,7 @@ export const generateGLPPage = (data) => {
   
   <div class="bg-gray-50">
     <div class="container mx-auto px-4 py-12">
-      ${popularDietPlansSection}
-      ${nutritionTipsSection}
-      ${calorieCountingSection}
-      ${bestWorstDietsSection}
+      ${randomizedContentSections}
     </div>
   </div>
   
