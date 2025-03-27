@@ -1070,47 +1070,207 @@ const generateBlogPost = (post, brandName, primaryColor) => {
 };
 
 export const generateGLPPage = (data) => {
+  // Generate random styles for each generation
+  const generateRandomColor = () => {
+    const colors = [
+      '#4a90e2', '#5c6bc0', '#7e57c2', '#ab47bc', 
+      '#ec407a', '#ef5350', '#ff7043', '#ffca28',
+      '#26a69a', '#66bb6a', '#9ccc65', '#d4e157',
+      '#4f46e5', '#8b5cf6', '#4338ca', '#7e22ce',
+      '#06b6d4', '#0891b2', '#059669', '#10b981'
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+  
+  // Choose a random layout style (1-3)
+  const layoutStyle = Math.floor(Math.random() * 3) + 1;
+  
+  // Generate random hero image URLs
+  const heroImageOptions = [
+    'https://images.unsplash.com/photo-1512621776951-a500c9a57435?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1494390248081-4e521a5940db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    'https://images.unsplash.com/photo-1607532941433-304659e8198a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+  ];
+  
+  // Generate random background image URLs
+  const backgroundImageOptions = [
+    'https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1543362906-acfc16c67564?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
+  ];
+  
+  // Generate random CTA button text options
+  const ctaButtonTextOptions = [
+    'Get Started',
+    'Take Action Now',
+    'Learn More',
+    'Discover Your Plan',
+    'Start Your Journey',
+    'See Diet Plans',
+    'Begin Now'
+  ];
+  
+  // Random color selection
+  const primaryColor = data.primaryColor || generateRandomColor();
+  const secondaryColor = generateRandomColor();
+  
   const {
     brandName = 'GLP-1',
     heroTitle = 'Transform Your Health Journey',
     heroDescription = 'Discover science-backed nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.',
-    heroImageUrl = 'https://images.unsplash.com/photo-1512621776951-a500c9a57435?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-    backgroundImageUrl = 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-    ctaButtonText = 'Get Started',
+    heroImageUrl = heroImageOptions[Math.floor(Math.random() * heroImageOptions.length)],
+    backgroundImageUrl = backgroundImageOptions[Math.floor(Math.random() * backgroundImageOptions.length)],
+    ctaButtonText = ctaButtonTextOptions[Math.floor(Math.random() * ctaButtonTextOptions.length)],
     targetUrl = '#',
     gtagId = '',
-    primaryColor = '#4f46e5',
     newsletterHeading = 'Get Nutrition and Diet Tips in Your Inbox',
     trackingScript = ''
   } = data;
 
-  // Define custom styles for the page
-  const customStyles = `
-    <style>
-      body {
-        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      }
-      .hero-button {
-        background: linear-gradient(to right, ${primaryColor}, #6366f1);
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
-      }
-      .hero-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4);
-      }
-      @media (max-width: 768px) {
-        .hero-content-mobile {
-          text-align: center;
-        }
-        .hero-button-mobile {
-          width: 100%;
-          justify-content: center;
-        }
-      }
-    </style>
-  `;
-
+  // Define custom styles for the page based on layout style
+  let customStyles = '';
+  
+  // Different style variations based on the layout
+  switch(layoutStyle) {
+    case 1:
+      // Modern gradient style
+      customStyles = `
+        <style>
+          body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+          }
+          .hero-button {
+            background: linear-gradient(to right, ${primaryColor}, ${secondaryColor});
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+          }
+          .hero-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4);
+          }
+          .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+          .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+          }
+          @media (max-width: 768px) {
+            .hero-content-mobile {
+              text-align: center;
+            }
+            .hero-button-mobile {
+              width: 100%;
+              justify-content: center;
+            }
+          }
+        </style>
+      `;
+      break;
+    
+    case 2:
+      // Clean minimalist style
+      customStyles = `
+        <style>
+          body {
+            font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+          }
+          .hero-section {
+            background-color: ${primaryColor}10;
+          }
+          .hero-button {
+            background-color: ${primaryColor};
+            color: white;
+            transition: all 0.2s ease;
+            box-shadow: none;
+            border: 2px solid ${primaryColor};
+          }
+          .hero-button:hover {
+            background-color: transparent;
+            color: ${primaryColor};
+          }
+          .section-title {
+            border-bottom: 2px solid ${primaryColor};
+            display: inline-block;
+            padding-bottom: 8px;
+          }
+          .card-hover {
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+          }
+          .card-hover:hover {
+            border-color: ${primaryColor};
+          }
+          @media (max-width: 768px) {
+            .hero-content-mobile {
+              text-align: center;
+            }
+            .hero-button-mobile {
+              width: 100%;
+              justify-content: center;
+            }
+          }
+        </style>
+      `;
+      break;
+    
+    case 3:
+      // Bold modern style
+      customStyles = `
+        <style>
+          body {
+            font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+          }
+          .hero-button {
+            background: ${primaryColor};
+            transition: all 0.3s ease;
+            box-shadow: 5px 5px 0px ${secondaryColor};
+            border: none;
+            border-radius: 0;
+          }
+          .hero-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0px ${secondaryColor};
+          }
+          .section-title {
+            position: relative;
+          }
+          .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 4px;
+            background-color: ${primaryColor};
+          }
+          .card-hover {
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          }
+          .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+          }
+          @media (max-width: 768px) {
+            .hero-content-mobile {
+              text-align: center;
+            }
+            .hero-button-mobile {
+              width: 100%;
+              justify-content: center;
+            }
+          }
+        </style>
+      `;
+      break;
+  }
+  
   // Define Google Tag Manager script if gtagId is provided
   const googleTag = gtagId ? `
   <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagId.split('/')[0]}"></script>
@@ -1178,151 +1338,498 @@ export const generateGLPPage = (data) => {
   </header>
   `;
 
-  // Generate the hero section component
-  const heroSection = `
-  <section class="relative">
-    <!-- Background image with lower opacity -->
-    <div class="absolute inset-0 z-0 overflow-hidden">
-      <div 
-        class="w-full h-full bg-cover bg-center"
-        style="
-          background-image: url('${backgroundImageUrl}');
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          filter: brightness(0.4); /* Increased darkness for better text contrast */
-        "
-      ></div>
-    </div>
-    
-    <div class="container mx-auto px-4 pt-16 pb-24 md:pt-24 md:pb-32 relative z-10">
-      <div class="flex flex-col-reverse md:flex-row items-center">
-        <!-- Right side on mobile, left side on desktop - Healthy Food Bowl -->
-        <div class="w-full md:w-1/2 p-4 mt-8 md:mt-0">
-          <div class="max-w-sm mx-auto md:ml-0 md:mr-auto bg-white rounded-lg overflow-hidden shadow-xl">
-            <img 
-              src="${heroImageUrl}" 
-              alt="Healthy Bowl with Vegetables and Proteins" 
-              class="w-full h-auto"
-            />
+  // Generate the hero section component with different layouts
+  let heroSection = '';
+  
+  switch(layoutStyle) {
+    case 1:
+      // Standard hero layout with image on right
+      heroSection = `
+      <section class="relative">
+        <!-- Background image with lower opacity -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+          <div 
+            class="w-full h-full bg-cover bg-center"
+            style="
+              background-image: url('${backgroundImageUrl}');
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+              filter: brightness(0.4); /* Increased darkness for better text contrast */
+            "
+          ></div>
+        </div>
+        
+        <div class="container mx-auto px-4 pt-16 pb-24 md:pt-24 md:pb-32 relative z-10">
+          <div class="flex flex-col-reverse md:flex-row items-center">
+            <!-- Right side on mobile, left side on desktop - Healthy Food Bowl -->
+            <div class="w-full md:w-1/2 p-4 mt-8 md:mt-0">
+              <div class="max-w-sm mx-auto md:ml-0 md:mr-auto bg-white rounded-lg overflow-hidden shadow-xl">
+                <img 
+                  src="${heroImageUrl}" 
+                  alt="Healthy Bowl with Vegetables and Proteins" 
+                  class="w-full h-auto"
+                />
+              </div>
+            </div>
+            
+            <!-- Left side on mobile, right side on desktop - Text Content -->
+            <div class="w-full md:w-1/2 text-white text-center md:text-left hero-content-mobile">
+              <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+                ${heroTitle}
+              </h1>
+              <p class="text-gray-100 mb-8 max-w-lg mx-auto md:mx-0 text-lg">
+                ${heroDescription}
+              </p>
+              <a 
+                href="top-ten-weight-loss-meds.html"
+                onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
+                class="inline-flex items-center justify-center hero-button hero-button-mobile text-white font-medium py-4 px-8 rounded-full transition-all duration-300 text-lg w-full sm:w-auto">
+                ${ctaButtonText}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
         
-        <!-- Left side on mobile, right side on desktop - Text Content -->
-        <div class="w-full md:w-1/2 text-white text-center md:text-left hero-content-mobile">
-          <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
-            ${heroTitle}
-          </h1>
-          <p class="text-gray-100 mb-8 max-w-lg mx-auto md:mx-0 text-lg">
-            ${heroDescription}
-          </p>
-          <a 
-            href="top-ten-weight-loss-meds.html"
-            onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
-            class="inline-flex items-center justify-center hero-button hero-button-mobile text-white font-medium py-4 px-8 rounded-full transition-all duration-300 text-lg w-full sm:w-auto">
-            ${ctaButtonText}
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </a>
+        <!-- Category Nav -->
+        <div class="bg-white shadow-md border-t border-gray-100 relative z-10">
+          <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto py-3 gap-6 text-sm text-gray-700">
+              <a href="index.html#best-worst" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Weight Loss & Obesity
+              </a>
+              <a href="index.html#nutrition" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                Fitness & Exercise
+              </a>
+              <a href="meal-planner.html" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
+                </svg>
+                Food & Recipes
+              </a>
+              <a href="index.html#nutrition" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+                Nutrition Science
+              </a>
+              <a href="index.html#diet-plans" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Diet Plans & Programs
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    
-    <!-- Category Nav -->
-    <div class="bg-white shadow-md border-t border-gray-100 relative z-10">
-      <div class="container mx-auto px-4">
-        <div class="flex overflow-x-auto py-3 gap-6 text-sm text-gray-700">
-          <a href="index.html#best-worst" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
-            Weight Loss & Obesity
-          </a>
-          <a href="index.html#nutrition" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-            Fitness & Exercise
-          </a>
-          <a href="meal-planner.html" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
-            </svg>
-            Food & Recipes
-          </a>
-          <a href="index.html#nutrition" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-            </svg>
-            Nutrition Science
-          </a>
-          <a href="index.html#diet-plans" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
-            Diet Plans & Programs
-          </a>
+      </section>
+      `;
+      break;
+      
+    case 2:
+      // Centered hero layout with image on top
+      heroSection = `
+      <section class="relative hero-section">
+        <div class="container mx-auto px-4 pt-16 pb-24 md:pt-24 md:pb-32 relative z-10">
+          <div class="flex flex-col items-center">
+            <!-- Top image -->
+            <div class="w-full max-w-md mb-8">
+              <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                <img 
+                  src="${heroImageUrl}" 
+                  alt="Healthy Food" 
+                  class="w-full h-auto"
+                />
+              </div>
+            </div>
+            
+            <!-- Text Content centered -->
+            <div class="w-full max-w-2xl text-center">
+              <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 text-gray-900">
+                ${heroTitle}
+              </h1>
+              <p class="text-gray-700 mb-8 mx-auto text-lg max-w-xl">
+                ${heroDescription}
+              </p>
+              <a 
+                href="top-ten-weight-loss-meds.html"
+                onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
+                class="inline-flex items-center justify-center hero-button text-white font-medium py-4 px-8 rounded-md transition-all duration-300 text-lg">
+                ${ctaButtonText}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-  `;
+        
+        <!-- Category Nav -->
+        <div class="bg-white shadow-md border-t border-gray-100 relative z-10">
+          <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto py-3 gap-6 text-sm text-gray-700 justify-center">
+              <a href="index.html#best-worst" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
+                Weight Loss & Obesity
+              </a>
+              <a href="index.html#nutrition" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
+                Fitness & Exercise
+              </a>
+              <a href="meal-planner.html" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
+                Food & Recipes
+              </a>
+              <a href="index.html#nutrition" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
+                Nutrition Science
+              </a>
+              <a href="index.html#diet-plans" class="whitespace-nowrap flex items-center hover:text-indigo-600 transition-colors">
+                Diet Plans
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      `;
+      break;
+      
+    case 3:
+      // Full-width background image with overlaid content
+      heroSection = `
+      <section class="relative">
+        <!-- Background image with lower opacity -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+          <div 
+            class="w-full h-full bg-cover bg-center"
+            style="
+              background-image: url('${backgroundImageUrl}');
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+              filter: brightness(0.3);
+            "
+          ></div>
+        </div>
+        
+        <div class="container mx-auto px-4 py-24 md:py-32 relative z-10">
+          <div class="md:max-w-3xl mx-auto text-center">
+            <!-- Centered content with accent border -->
+            <div class="p-8 rounded-lg border-l-4 border-r-4" style="border-color: ${primaryColor}; background-color: rgba(0,0,0,0.5);">
+              <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6 text-white">
+                ${heroTitle}
+              </h1>
+              <p class="text-gray-200 mb-8 text-xl max-w-2xl mx-auto">
+                ${heroDescription}
+              </p>
+              
+              <!-- Image between text and button -->
+              <div class="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden ring-4 ring-white">
+                <img 
+                  src="${heroImageUrl}" 
+                  alt="Healthy Food" 
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              
+              <a 
+                href="top-ten-weight-loss-meds.html"
+                onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
+                class="inline-flex items-center justify-center hero-button text-white font-bold py-4 px-10 text-lg">
+                ${ctaButtonText}
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Category Nav -->
+        <div class="bg-white shadow-md relative z-10">
+          <div class="container mx-auto px-4">
+            <div class="grid grid-cols-3 md:grid-cols-5 divide-x divide-gray-200">
+              <a href="index.html#best-worst" class="py-4 text-center hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                Weight Loss
+              </a>
+              <a href="index.html#nutrition" class="py-4 text-center hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                Exercise
+              </a>
+              <a href="meal-planner.html" class="py-4 text-center hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                Recipes
+              </a>
+              <a href="index.html#nutrition" class="hidden md:block py-4 text-center hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                Nutrition
+              </a>
+              <a href="index.html#diet-plans" class="hidden md:block py-4 text-center hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                Diets
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      `;
+      break;
+  }
 
   // Generate featured section - Popular Diet Plans
-  const popularDietPlansSection = `
-    <section id="diet-plans" class="py-12 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-8">Popular Diet Plans</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          <!-- Diet Plan 1 -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
-              alt="Diet Plan" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">Don't Fall for Fad Diets</h3>
-              <p class="text-gray-600 mb-4">Discover why most fad diets fail in the long run and what science tells us about sustainable weight loss approaches.</p>
-              <a href="dont-fall-for-fad-diets.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+  let popularDietPlansSection = '';
+  
+  switch(layoutStyle) {
+    case 1:
+      // Standard grid layout
+      popularDietPlansSection = `
+        <section id="diet-plans" class="py-12 bg-gray-50">
+          <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">Popular Diet Plans</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+              <!-- Diet Plan 1 -->
+              <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                  alt="Diet Plan" class="w-full h-48 object-cover">
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold mb-2">Don't Fall for Fad Diets</h3>
+                  <p class="text-gray-600 mb-4">Discover why most fad diets fail in the long run and what science tells us about sustainable weight loss approaches.</p>
+                  <a href="dont-fall-for-fad-diets.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+                </div>
+              </div>
+              
+              <!-- Diet Plan 2 -->
+              <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                <img src="https://images.unsplash.com/photo-1511909525232-61113c912358?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                  alt="Diet Plan" class="w-full h-48 object-cover">
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold mb-2">High-Protein, Low-Carb Diets for Weight Loss</h3>
+                  <p class="text-gray-600 mb-4">A detailed look at how high-protein, low-carb diets work and whether they're right for your lifestyle.</p>
+                  <a href="high-protein-low-carb-diets-for-weight-loss.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+                </div>
+              </div>
+              
+              <!-- Diet Plan 3 -->
+              <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                <img src="https://images.unsplash.com/photo-1550138667-b5b2ae84af9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                  alt="Diet Plan" class="w-full h-48 object-cover">
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold mb-2">Mediterranean Diet Clinches 2025 Gold</h3>
+                  <p class="text-gray-600 mb-4">Experts urge caution despite the Mediterranean diet's recognition as the gold standard for heart health and weight management.</p>
+                  <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+                </div>
+              </div>
+              
+              <!-- Diet Plan 4 -->
+              <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                  alt="Diet Plan" class="w-full h-48 object-cover">
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold mb-2">Rapid Weight Loss: Is It Safe?</h3>
+                  <p class="text-gray-600 mb-4">Medical professionals weigh in on the dangers of fast weight loss programs and offer safer alternatives.</p>
+                  <a href="rapid-weight-loss-is-it-safe.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+                </div>
+              </div>
             </div>
           </div>
-          
-          <!-- Diet Plan 2 -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1511909525232-61113c912358?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
-              alt="Diet Plan" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">High-Protein, Low-Carb Diets for Weight Loss</h3>
-              <p class="text-gray-600 mb-4">A detailed look at how high-protein, low-carb diets work and whether they're right for your lifestyle.</p>
-              <a href="high-protein-low-carb-diets-for-weight-loss.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+        </section>
+      `;
+      break;
+      
+    case 2:
+      // Minimalist layout with border accents
+      popularDietPlansSection = `
+        <section id="diet-plans" class="py-16">
+          <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-2 section-title">Popular Diet Plans</h2>
+            <p class="text-center text-gray-600 mb-12">Evidence-based approaches to sustainable weight management</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              <!-- Diet Plan 1 -->
+              <div class="flex flex-col md:flex-row overflow-hidden card-hover bg-white rounded">
+                <div class="md:w-2/5">
+                  <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                    alt="Diet Plan" class="h-full w-full object-cover">
+                </div>
+                <div class="md:w-3/5 p-6">
+                  <h3 class="text-xl font-semibold mb-2">Don't Fall for Fad Diets</h3>
+                  <p class="text-gray-600 mb-4">Discover why most fad diets fail in the long run and what science tells us about sustainable weight loss.</p>
+                  <a href="dont-fall-for-fad-diets.html" class="inline-block px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors text-sm rounded">Read More</a>
+                </div>
+              </div>
+              
+              <!-- Diet Plan 2 -->
+              <div class="flex flex-col md:flex-row overflow-hidden card-hover bg-white rounded">
+                <div class="md:w-2/5">
+                  <img src="https://images.unsplash.com/photo-1511909525232-61113c912358?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                    alt="Diet Plan" class="h-full w-full object-cover">
+                </div>
+                <div class="md:w-3/5 p-6">
+                  <h3 class="text-xl font-semibold mb-2">High-Protein, Low-Carb Diets</h3>
+                  <p class="text-gray-600 mb-4">A detailed look at how high-protein, low-carb diets work and whether they're right for your lifestyle.</p>
+                  <a href="high-protein-low-carb-diets-for-weight-loss.html" class="inline-block px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors text-sm rounded">Read More</a>
+                </div>
+              </div>
+              
+              <!-- Diet Plan 3 -->
+              <div class="flex flex-col md:flex-row overflow-hidden card-hover bg-white rounded">
+                <div class="md:w-2/5">
+                  <img src="https://images.unsplash.com/photo-1550138667-b5b2ae84af9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                    alt="Diet Plan" class="h-full w-full object-cover">
+                </div>
+                <div class="md:w-3/5 p-6">
+                  <h3 class="text-xl font-semibold mb-2">Mediterranean Diet Clinches Gold</h3>
+                  <p class="text-gray-600 mb-4">Experts urge caution despite the Mediterranean diet's recognition as a gold standard for health.</p>
+                  <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-block px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors text-sm rounded">Read More</a>
+                </div>
+              </div>
+              
+              <!-- Diet Plan 4 -->
+              <div class="flex flex-col md:flex-row overflow-hidden card-hover bg-white rounded">
+                <div class="md:w-2/5">
+                  <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                    alt="Diet Plan" class="h-full w-full object-cover">
+                </div>
+                <div class="md:w-3/5 p-6">
+                  <h3 class="text-xl font-semibold mb-2">Rapid Weight Loss: Is It Safe?</h3>
+                  <p class="text-gray-600 mb-4">Medical professionals weigh in on the dangers of fast weight loss programs and safer alternatives.</p>
+                  <a href="rapid-weight-loss-is-it-safe.html" class="inline-block px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors text-sm rounded">Read More</a>
+                </div>
+              </div>
             </div>
           </div>
-          
-          <!-- Diet Plan 3 -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1550138667-b5b2ae84af9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
-              alt="Diet Plan" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">Mediterranean Diet Clinches 2025 Gold</h3>
-              <p class="text-gray-600 mb-4">Experts urge caution despite the Mediterranean diet's recognition as the gold standard for heart health and weight management.</p>
-              <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
+        </section>
+      `;
+      break;
+      
+    case 3:
+      // Bold modern layout with cards
+      popularDietPlansSection = `
+        <section id="diet-plans" class="py-16 bg-gray-100">
+          <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-16 section-title">Popular Diet Plans</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <!-- Diet Plan 1 -->
+              <div class="bg-white p-0 overflow-hidden card-hover rounded-lg">
+                <div class="relative">
+                  <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                    alt="Diet Plan" class="w-full h-56 object-cover">
+                  <div class="absolute top-0 left-0 bg-gradient-to-r from-black to-transparent w-full h-full opacity-50"></div>
+                  <div class="absolute bottom-0 left-0 p-6 text-white">
+                    <h3 class="text-2xl font-bold">Don't Fall for Fad Diets</h3>
+                  </div>
+                </div>
+                <div class="p-6">
+                  <p class="text-gray-700 mb-6">Discover why most fad diets fail in the long run and what science tells us about sustainable weight loss approaches.</p>
+                  <a href="dont-fall-for-fad-diets.html" class="inline-flex items-center font-semibold text-${primaryColor.replace('#', '')} hover:underline">
+                    Read More
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              
+              <!-- Diet Plan 2 -->
+              <div class="bg-white p-0 overflow-hidden card-hover rounded-lg">
+                <div class="relative">
+                  <img src="https://images.unsplash.com/photo-1511909525232-61113c912358?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                    alt="Diet Plan" class="w-full h-56 object-cover">
+                  <div class="absolute top-0 left-0 bg-gradient-to-r from-black to-transparent w-full h-full opacity-50"></div>
+                  <div class="absolute bottom-0 left-0 p-6 text-white">
+                    <h3 class="text-2xl font-bold">High-Protein, Low-Carb Diets</h3>
+                  </div>
+                </div>
+                <div class="p-6">
+                  <p class="text-gray-700 mb-6">A detailed look at how high-protein, low-carb diets work and whether they're right for your lifestyle and goals.</p>
+                  <a href="high-protein-low-carb-diets-for-weight-loss.html" class="inline-flex items-center font-semibold text-${primaryColor.replace('#', '')} hover:underline">
+                    Read More
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              
+              <!-- Diet Plan 3 -->
+              <div class="bg-white p-0 overflow-hidden card-hover rounded-lg">
+                <div class="relative">
+                  <img src="https://images.unsplash.com/photo-1550138667-b5b2ae84af9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                    alt="Diet Plan" class="w-full h-56 object-cover">
+                  <div class="absolute top-0 left-0 bg-gradient-to-r from-black to-transparent w-full h-full opacity-50"></div>
+                  <div class="absolute bottom-0 left-0 p-6 text-white">
+                    <h3 class="text-2xl font-bold">Mediterranean Diet Clinches Gold</h3>
+                  </div>
+                </div>
+                <div class="p-6">
+                  <p class="text-gray-700 mb-6">Experts urge caution despite the Mediterranean diet's recognition as the gold standard for heart health.</p>
+                  <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-flex items-center font-semibold text-${primaryColor.replace('#', '')} hover:underline">
+                    Read More
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              
+              <!-- Diet Plan 4 -->
+              <div class="bg-white p-0 overflow-hidden card-hover rounded-lg">
+                <div class="relative">
+                  <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                    alt="Diet Plan" class="w-full h-56 object-cover">
+                  <div class="absolute top-0 left-0 bg-gradient-to-r from-black to-transparent w-full h-full opacity-50"></div>
+                  <div class="absolute bottom-0 left-0 p-6 text-white">
+                    <h3 class="text-2xl font-bold">Rapid Weight Loss: Is It Safe?</h3>
+                  </div>
+                </div>
+                <div class="p-6">
+                  <p class="text-gray-700 mb-6">Medical professionals weigh in on the dangers of fast weight loss programs and offer safer alternatives.</p>
+                  <a href="rapid-weight-loss-is-it-safe.html" class="inline-flex items-center font-semibold text-${primaryColor.replace('#', '')} hover:underline">
+                    Read More
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-          
-          <!-- Diet Plan 4 -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
-              alt="Diet Plan" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">Rapid Weight Loss: Is It Safe?</h3>
-              <p class="text-gray-600 mb-4">Medical professionals weigh in on the dangers of fast weight loss programs and offer safer alternatives.</p>
-              <a href="rapid-weight-loss-is-it-safe.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors text-sm">Read More</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  `;
+        </section>
+      `;
+      break;
+  }
 
+  // Generate the newsletter section with different layouts
+  let newsletterSection = '';
+  
+  switch(layoutStyle) {
+    case 1:
+      // Gradient background with image side-by-side
+      newsletterSection = `
+      <section id="newsletter" class="bg-white py-12 md:py-16">
+        <div class="max-w-4xl mx-auto px-4">
+          <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg overflow-hidden shadow-xl">
+            <div class="p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                    alt="Healthy meal prep containers" 
+                    class="w-full h-auto rounded-lg shadow-lg" />
+              </div>
+              <div class="text-white">
+                <h2 class="text-2xl font-bold mb-4">${newsletterHeading}</h2>
+                <p class="mb-6 opacity-90">
+                  Stay informed about the latest diet trends, useful nutrition advice, and healthy recipes that can transform your health.
+                </p>
+                <form class="space-y-3">
+                  <div>
+                    <input 
+                      type="email" 
+                      placeholder="Your email address" 
+                      class="w-full p-3 rounded-lg text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+                      required
+                    />
+                  </div>
+                  <button 
+                    type="submit" 
   // Generate the newsletter section
   const newsletterSection = `
   <section id="newsletter" class="bg-white py-12 md:py-16">
