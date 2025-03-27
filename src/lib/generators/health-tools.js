@@ -2,15 +2,6 @@
 
 // Generate BMI Calculator page
 export const generateBMICalculator = (brandName, navbar, footer, customStyles = '', googleTag = '') => {
-  // Create a default styling if customStyles is not provided
-  const styles = `
-    <style>
-      body {
-        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      }
-    </style>
-  `;
-
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +11,111 @@ export const generateBMICalculator = (brandName, navbar, footer, customStyles = 
   <meta name="description" content="Use our free BMI Calculator to find out your Body Mass Index and determine if you're at a healthy weight.">
   <script src="https://cdn.tailwindcss.com"></script>
   
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;700&family=Lato:wght@400;700&family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Outfit:wght@400;500;700&family=Poppins:wght@400;500;700&family=Raleway:wght@400;500;700&display=swap" rel="stylesheet">
+  
   <!-- Custom styles -->
-  ${styles}
+  ${customStyles}
+  
+  <!-- Image error handling and responsive improvements -->
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+    
+    .fallback-image-container {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .fallback-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+    
+    .fallback-message {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    .fallback-image-container img.error + .fallback-message {
+      display: flex;
+    }
+    
+    /* Fix for consistent widths */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Better mobile view */
+    @media (max-width: 640px) {
+      .mobile-stack {
+        flex-direction: column !important;
+      }
+      
+      .mobile-full-width {
+        width: 100% !important;
+      }
+      
+      .mobile-text-center {
+        text-align: center !important;
+      }
+      
+      .mobile-padding {
+        padding: 1rem !important;
+      }
+    }
+    
+    /* Fancy BMI indicator */
+    .bmi-scale {
+      position: relative;
+      height: 8px;
+      background: linear-gradient(to right, 
+        #3b82f6 0%, #3b82f6 20%,  /* Underweight: blue */
+        #10b981 20%, #10b981 40%, /* Normal: green */
+        #f59e0b 40%, #f59e0b 60%, /* Overweight: yellow */
+        #ef4444 60%, #ef4444 100% /* Obese: red */
+      );
+      border-radius: 4px;
+      margin: 2rem 0;
+    }
+    
+    .bmi-marker {
+      position: absolute;
+      top: -8px;
+      width: 8px;
+      height: 24px;
+      background-color: #1e293b;
+      border-radius: 4px;
+      transform: translateX(-50%);
+      transition: left 0.5s ease;
+    }
+    
+    .bmi-categories {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+  </style>
   
   <!-- Google tag for conversion tracking -->
   ${googleTag}
@@ -30,13 +124,15 @@ export const generateBMICalculator = (brandName, navbar, footer, customStyles = 
   ${navbar}
 
   <main class="container mx-auto px-4 py-12">
-    <section class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6 md:p-8">
+    <div class="max-w-4xl mx-auto">
       <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-indigo-900">BMI Calculator</h1>
       
-      <p class="text-lg mb-6 text-center">Calculate your Body Mass Index (BMI) to determine if you're at a healthy weight.</p>
+      <p class="text-lg mb-6 text-center max-w-2xl mx-auto">Calculate your Body Mass Index (BMI) to determine if you're at a healthy weight.</p>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div class="bg-white rounded-lg shadow-md p-6 mobile-padding order-2 lg:order-1">
+          <h2 class="text-xl font-semibold mb-6 text-indigo-800">Enter Your Information</h2>
+          
           <form id="bmi-form" class="space-y-4">
             <div>
               <label for="height" class="block text-sm font-medium text-gray-700 mb-1">Height</label>
@@ -55,98 +151,222 @@ export const generateBMICalculator = (brandName, navbar, footer, customStyles = 
               <input type="number" id="weight" placeholder="Weight in pounds" min="50" max="500" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
             </div>
             
-            <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors font-medium">Calculate BMI</button>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Gender (optional)</label>
+              <div class="flex space-x-4">
+                <div class="flex items-center">
+                  <input type="radio" id="male" name="gender" value="male" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                  <label for="male" class="ml-2 text-sm text-gray-700">Male</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="radio" id="female" name="gender" value="female" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                  <label for="female" class="ml-2 text-sm text-gray-700">Female</label>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Age (optional)</label>
+              <input type="number" id="age" placeholder="Your age" min="18" max="100" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            
+            <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition-colors font-medium">Calculate BMI</button>
           </form>
         </div>
         
-        <div class="bg-gray-50 p-6 rounded-lg">
-          <h2 class="text-xl font-semibold mb-4 text-indigo-800">Your Results</h2>
+        <div class="bg-white rounded-lg shadow-md p-6 mobile-padding order-1 lg:order-2">
+          <h2 class="text-xl font-semibold mb-6 text-indigo-800">Your Results</h2>
           
           <div id="bmi-result" class="hidden">
-            <div class="text-center mb-4">
+            <div class="text-center mb-6">
               <p class="text-sm text-gray-500 mb-1">Your BMI</p>
-              <p id="bmi-value" class="text-4xl font-bold text-indigo-600">--</p>
+              <p id="bmi-value" class="text-5xl font-bold text-indigo-600">--</p>
+              <p id="bmi-category" class="mt-2 font-medium text-xl">--</p>
             </div>
             
-            <div id="bmi-category" class="text-center mb-6 font-medium text-lg">--</div>
+            <div class="mt-8">
+              <div class="bmi-scale">
+                <div id="bmi-marker" class="bmi-marker" style="left: 0%;"></div>
+              </div>
+              <div class="bmi-categories">
+                <span>Underweight</span>
+                <span>Normal</span>
+                <span>Overweight</span>
+                <span>Obese</span>
+              </div>
+            </div>
             
-            <div class="bg-white p-4 rounded-md shadow-sm mb-4">
-              <h3 class="font-medium mb-2">BMI Categories:</h3>
-              <ul class="text-sm space-y-1 text-gray-600">
-                <li><span class="font-medium text-blue-600">Below 18.5:</span> Underweight</li>
-                <li><span class="font-medium text-green-600">18.5 - 24.9:</span> Normal weight</li>
-                <li><span class="font-medium text-yellow-600">25 - 29.9:</span> Overweight</li>
-                <li><span class="font-medium text-red-600">30 and above:</span> Obesity</li>
-              </ul>
+            <div class="bg-indigo-50 p-4 rounded-md mt-6">
+              <h3 class="font-medium mb-2 text-indigo-800">What does this mean?</h3>
+              <p id="bmi-explanation" class="text-sm text-gray-700">Your BMI indicates your weight in relation to your height. It's a useful screening tool, but doesn't diagnose body fatness or health.</p>
             </div>
           </div>
           
-          <div id="bmi-initial" class="text-center py-8">
-            <p class="text-gray-500 italic">Enter your height and weight to see your BMI results</p>
+          <div id="bmi-initial" class="flex flex-col items-center justify-center py-10 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-indigo-200 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+            <p class="text-gray-500">Enter your height and weight to see your BMI results</p>
+          </div>
+          
+          <div class="fallback-image-container mt-8 rounded-lg overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+              alt="Healthy lifestyle" 
+              class="w-full h-auto"
+              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1505253758473-96b7015fcd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'; this.classList.add('error');"
+            />
+            <div class="fallback-message">
+              <p>Image currently unavailable</p>
+            </div>
           </div>
         </div>
       </div>
       
-      <div class="mt-8 bg-indigo-50 p-6 rounded-lg">
+      <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
         <h2 class="text-xl font-semibold mb-4 text-indigo-800">Understanding Your BMI</h2>
-        <p class="mb-4">BMI (Body Mass Index) is a calculation that uses your height and weight to estimate how much body fat you have. While BMI doesn't directly measure body fat, it can be a useful screening tool to identify potential weight problems.</p>
-        <p class="mb-4">Keep in mind that BMI is just one factor in determining your overall health. It doesn't account for factors like muscle mass, bone density, age, sex, and ethnicity. Athletes, for example, may have a high BMI due to increased muscle mass rather than body fat.</p>
-        <p>For a more comprehensive assessment of your health, consult with a healthcare professional.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h3 class="font-medium text-lg mb-3 text-indigo-700">BMI Categories:</h3>
+            <ul class="space-y-2">
+              <li class="flex items-center">
+                <span class="w-3 h-3 rounded-full bg-blue-500 mr-2"></span>
+                <span><strong>Below 18.5:</strong> Underweight</span>
+              </li>
+              <li class="flex items-center">
+                <span class="w-3 h-3 rounded-full bg-green-500 mr-2"></span>
+                <span><strong>18.5 - 24.9:</strong> Normal weight</span>
+              </li>
+              <li class="flex items-center">
+                <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                <span><strong>25 - 29.9:</strong> Overweight</span>
+              </li>
+              <li class="flex items-center">
+                <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                <span><strong>30 and above:</strong> Obesity</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="font-medium text-lg mb-3 text-indigo-700">Limitations of BMI:</h3>
+            <ul class="space-y-1 list-disc list-inside text-gray-700">
+              <li>Doesn't distinguish between muscle and fat</li>
+              <li>May overestimate body fat in athletes</li>
+              <li>May underestimate body fat in older adults</li>
+              <li>Doesn't account for differences between ethnicities</li>
+              <li>Doesn't provide information about body fat distribution</li>
+            </ul>
+          </div>
+        </div>
+        
+        <p class="text-gray-700">BMI is just one indicator of health. For a more comprehensive assessment, consult with a healthcare professional who can consider other factors like waist circumference, blood pressure, cholesterol levels, and family history.</p>
+        
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <h3 class="font-medium text-lg mb-3 text-indigo-700">What's Next?</h3>
+          <p class="text-gray-700 mb-4">Based on your BMI results, you might consider:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-blue-50 p-4 rounded-md">
+              <h4 class="font-medium mb-2 text-blue-800">If Underweight</h4>
+              <p class="text-sm text-gray-700">Speak with a healthcare provider to rule out underlying conditions and develop a healthy weight gain plan.</p>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-md">
+              <h4 class="font-medium mb-2 text-yellow-800">If Overweight</h4>
+              <p class="text-sm text-gray-700">Focus on sustainable lifestyle changes including a balanced diet and regular physical activity.</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded-md">
+              <h4 class="font-medium mb-2 text-red-800">If Obese</h4>
+              <p class="text-sm text-gray-700">Consider consulting with healthcare providers about comprehensive weight management strategies.</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   </main>
 
   ${footer}
 
   <script>
-    document.getElementById('bmi-form').addEventListener('submit', function(e) {
-      e.preventDefault();
+    document.addEventListener('DOMContentLoaded', function() {
+      const bmiForm = document.getElementById('bmi-form');
+      const bmiResult = document.getElementById('bmi-result');
+      const bmiInitial = document.getElementById('bmi-initial');
+      const bmiValue = document.getElementById('bmi-value');
+      const bmiCategory = document.getElementById('bmi-category');
+      const bmiMarker = document.getElementById('bmi-marker');
+      const bmiExplanation = document.getElementById('bmi-explanation');
       
-      // Get input values
-      const feet = parseInt(document.getElementById('feet').value) || 0;
-      const inches = parseInt(document.getElementById('inches').value) || 0;
-      const weight = parseInt(document.getElementById('weight').value);
+      // Handle form submission
+      bmiForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get input values
+        const feet = parseInt(document.getElementById('feet').value) || 0;
+        const inches = parseInt(document.getElementById('inches').value) || 0;
+        const weight = parseInt(document.getElementById('weight').value);
+        
+        // Validate inputs
+        if (!weight || (feet === 0 && inches === 0)) {
+          alert('Please enter valid height and weight values');
+          return;
+        }
+        
+        // Calculate height in inches
+        const heightInches = (feet * 12) + inches;
+        
+        // Calculate BMI: (weight in pounds / (height in inches)²) × 703
+        const bmi = (weight / (heightInches * heightInches)) * 703;
+        const roundedBMI = Math.round(bmi * 10) / 10;
+        
+        // Display result
+        bmiValue.textContent = roundedBMI;
+        
+        // Determine BMI category and marker position
+        let category, categoryColor, explanation, markerPosition;
+        
+        if (bmi < 18.5) {
+          category = 'Underweight';
+          categoryColor = 'text-blue-600';
+          markerPosition = Math.max((bmi / 18.5) * 20, 2); // 0-20% of scale
+          explanation = 'Being underweight can be associated with nutritional deficiencies and other health issues. Consider consulting with a healthcare provider.';
+        } else if (bmi < 25) {
+          category = 'Normal weight';
+          categoryColor = 'text-green-600';
+          markerPosition = 20 + ((bmi - 18.5) / 6.5) * 20; // 20-40% of scale
+          explanation = 'Your weight is within the normal range for your height. Maintain a balanced diet and regular physical activity.';
+        } else if (bmi < 30) {
+          category = 'Overweight';
+          categoryColor = 'text-yellow-600';
+          markerPosition = 40 + ((bmi - 25) / 5) * 20; // 40-60% of scale
+          explanation = 'Being overweight may increase your risk for certain health conditions. Consider healthy lifestyle changes.';
+        } else {
+          category = 'Obese';
+          categoryColor = 'text-red-600';
+          markerPosition = Math.min(60 + ((bmi - 30) / 10) * 40, 98); // 60-100% of scale
+          explanation = 'Obesity is associated with an increased risk of various health conditions. Consider consulting with a healthcare provider.';
+        }
+        
+        // Update the UI
+        bmiCategory.textContent = category;
+        bmiCategory.className = \`mt-2 font-medium text-xl \${categoryColor}\`;
+        bmiMarker.style.left = \`\${markerPosition}%\`;
+        bmiExplanation.textContent = explanation;
+        
+        // Show results
+        bmiInitial.classList.add('hidden');
+        bmiResult.classList.remove('hidden');
+      });
       
-      // Validate inputs
-      if (!weight || (feet === 0 && inches === 0)) {
-        alert('Please enter valid height and weight values');
-        return;
-      }
-      
-      // Calculate height in inches
-      const heightInches = (feet * 12) + inches;
-      
-      // Calculate BMI: (weight in pounds / (height in inches)²) × 703
-      const bmi = (weight / (heightInches * heightInches)) * 703;
-      const roundedBMI = Math.round(bmi * 10) / 10;
-      
-      // Display result
-      document.getElementById('bmi-value').textContent = roundedBMI;
-      
-      // Determine BMI category
-      let category;
-      let categoryColor;
-      
-      if (bmi < 18.5) {
-        category = 'Underweight';
-        categoryColor = 'text-blue-600';
-      } else if (bmi < 25) {
-        category = 'Normal weight';
-        categoryColor = 'text-green-600';
-      } else if (bmi < 30) {
-        category = 'Overweight';
-        categoryColor = 'text-yellow-600';
-      } else {
-        category = 'Obese';
-        categoryColor = 'text-red-600';
-      }
-      
-      document.getElementById('bmi-category').textContent = category;
-      document.getElementById('bmi-category').className = \`text-center mb-6 font-medium text-lg \${categoryColor}\`;
-      
-      // Show results
-      document.getElementById('bmi-initial').classList.add('hidden');
-      document.getElementById('bmi-result').classList.remove('hidden');
+      // Handle image errors
+      const images = document.querySelectorAll('img:not([onerror])');
+      images.forEach(img => {
+        img.onerror = function() {
+          const fallback = img.dataset.fallback || 'https://images.unsplash.com/photo-1505253758473-96b7015fcd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80';
+          this.src = fallback;
+          this.classList.add('error');
+        };
+      });
     });
   </script>
 </body>

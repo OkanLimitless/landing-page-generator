@@ -800,273 +800,280 @@ const blogPosts = {
   // Additional blog posts can be added here
 };
 
+// Add a utility function for image error handling
+const getImageWithFallback = (imageUrl, fallbackUrl, altText) => {
+  if (!imageUrl || imageUrl.trim() === '') {
+    return fallbackUrl;
+  }
+  return `${imageUrl}`;
+};
+
 // Helper function to generate a blog post page
 const generateBlogPost = (post, brandName, primaryColor) => {
-  // Get the slug from the blog post object keys
-  const slug = Object.keys(blogPosts).find(key => blogPosts[key].title === post.title);
+  // Define generateRandomColor function inside generateBlogPost to ensure it's available
+  const generateRandomColor = () => {
+    const colors = [
+      '#4f46e5', '#8b5cf6', '#4338ca', '#7e22ce',
+      '#06b6d4', '#0891b2', '#059669', '#10b981',
+      '#f97316', '#ea580c', '#c2410c', '#a3e635',
+      '#84cc16', '#65a30d', '#14b8a6', '#0d9488',
+      '#0369a1', '#0284c7', '#0891b2', '#7c3aed',
+      '#8b5cf6', '#a855f7', '#d946ef', '#ec4899',
+      '#f43f5e', '#ef4444', '#3b82f6', '#6366f1'
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+  const secondaryColor = generateRandomColor();
+  
+  // Generate a random layout style for the blog post
+  const blogLayoutStyle = Math.floor(Math.random() * 3) + 1;
   
   return `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${post.title} | ${brandName}</title>
-  <meta name="description" content="${post.excerpt}">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Custom styles -->
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${post.title} | ${brandName}</title>
+    <meta name="description" content="${post.excerpt}">
     
-    .blog-content h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-top: 1.5rem;
-      margin-bottom: 1rem;
-      color: #1f2937;
-    }
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    .blog-content h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-top: 1.25rem;
-      margin-bottom: 0.75rem;
-      color: #374151;
-    }
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     
-    .blog-content p {
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-    
-    .blog-content ul {
-      list-style-type: disc;
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .blog-content li {
-      margin-bottom: 0.5rem;
-    }
-
-    .read-more-link {
-      display: flex;
-      align-items: center;
-      margin-top: 2rem;
-      padding: 1rem;
-      border-left: 4px solid #818cf8;
-      background-color: #f9fafb;
-    }
-
-    .read-more-link img {
-      width: 24px;
-      height: 24px;
-      margin-right: 8px;
-    }
-
-    .read-more-link a {
-      color: #4f46e5;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .read-more-link a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body class="bg-gray-50">
-  <!-- Header/Navbar -->
-  <header class="bg-indigo-900/90 text-white shadow-md sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center space-x-2">
-        <div class="relative h-8 w-16">
-          <h2 class="text-xl font-bold tracking-tight text-white">
-            <span class="text-white">${brandName.split('-')[0]}</span>
-            <span class="text-purple-300">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
-          </h2>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .blog-content h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        color: ${primaryColor};
+      }
+      .blog-content h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.25rem;
+        margin-bottom: 0.75rem;
+      }
+      .blog-content p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      .blog-content ul, .blog-content ol {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+      }
+      .blog-content li {
+        margin-bottom: 0.5rem;
+      }
+      .blog-content a {
+        color: ${primaryColor};
+        text-decoration: underline;
+      }
+      
+      /* Image error handling */
+      img {
+        transition: opacity 0.3s ease;
+      }
+      
+      img.error {
+        opacity: 0.7;
+      }
+      
+      .fallback-container {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .fallback-message {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0,0,0,0.6);
+        color: white;
+        text-align: center;
+        padding: 1rem;
+      }
+      
+      img.error + .fallback-message {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <nav class="bg-white shadow-sm">
+      <div class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+          <a href="index.html" class="text-xl font-semibold text-gray-800">${brandName}</a>
+          <div class="flex space-x-4">
+            <a href="index.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2">Home</a>
+            <a href="index.html#diet-plans" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2">Diet Plans</a>
+            <a href="index.html#nutrition-tips" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2">Nutrition</a>
+            <a href="bmi-calculator.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2">BMI Calculator</a>
+            <a href="about.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2">About Us</a>
+          </div>
         </div>
-      </a>
-      
-      <nav class="hidden md:flex items-center space-x-4 text-sm">
-        <a href="index.html#diet-plans" class="hover:text-purple-300 transition-colors py-2 px-1">Popular Diet Plans</a>
-        <a href="index.html#weight-resources" class="hover:text-purple-300 transition-colors py-2 px-1">Healthy Weight Resources</a>
-        <a href="index.html#nutrition" class="hover:text-purple-300 transition-colors py-2 px-1">Healthy Eating & Nutrition</a>
-        <a href="index.html#calorie-counting" class="hover:text-purple-300 transition-colors py-2 px-1">Calorie Counting</a>
-        <a href="index.html#best-worst" class="hover:text-purple-300 transition-colors py-2 px-1">Best & Worst Diets</a>
-      </nav>
-      
-      <div class="flex items-center space-x-3">
-        <a href="index.html#newsletter" class="hidden md:block bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1.5 px-4 rounded-full transition-colors">
-          Subscribe
-        </a>
-        <button class="md:hidden text-white focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
       </div>
-    </div>
-  </header>
-
-  <!-- Blog Content -->
-  <main class="container mx-auto px-4 py-8 md:py-16">
-    <div class="max-w-4xl mx-auto">
-      <!-- Featured Image -->
-      <div class="rounded-lg overflow-hidden shadow-lg mb-8">
-        <img src="${post.image}" alt="${post.title}" class="w-full h-auto object-cover">
-      </div>
-      
-      <!-- Title and Meta -->
-      <div class="mb-8">
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">${post.title}</h1>
-        <p class="text-lg text-gray-600 mb-4">${post.excerpt}</p>
-        <div class="flex items-center text-sm text-gray-500">
-          <span>Certified Health Expert</span>
+    </nav>
+    
+    <main class="container mx-auto px-4 py-8">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl md:text-4xl font-bold mb-6">${post.title}</h1>
+        
+        <div class="mb-6 text-gray-600 flex items-center">
+          <span>${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
           <span class="mx-2">•</span>
           <span>5 min read</span>
         </div>
-      </div>
-      
-      <!-- Article Content -->
-      <article class="prose prose-lg max-w-none blog-content bg-white rounded-lg shadow-md p-6 md:p-8">
-        ${post.content}
-
-        <!-- External Article Link -->
-        <div class="read-more-link">
-          <img src="https://img.icons8.com/material-outlined/24/4f46e5/external-link.png" alt="External link icon">
-          <a href="${post.externalUrl}" target="_blank" rel="noopener noreferrer">
-            Read the full article
-          </a>
-        </div>
-      </article>
-      
-      <!-- Related Articles -->
-      <div class="mt-12">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Related Articles</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          ${Object.entries(blogPosts)
-            .filter(([blogSlug]) => blogSlug !== slug)
-            .slice(0, 3)
-            .map(([blogSlug, relatedPost]) => `
-              <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <a href="${blogSlug}.html">
-                  <img src="${relatedPost.image}" alt="${relatedPost.title}" class="w-full h-48 object-cover">
-                </a>
-                <div class="p-4">
-                  <a href="${blogSlug}.html" class="block text-lg font-bold text-gray-800 hover:text-indigo-600 mb-2">
-                    ${relatedPost.title}
-                  </a>
-                  <p class="text-gray-600 text-sm mb-3 line-clamp-3">
-                    ${relatedPost.excerpt}
-                  </p>
-                  <a href="${blogSlug}.html" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
-                    Read More →
-                  </a>
-                </div>
-              </div>
-            `).join('')
-          }
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-indigo-900 text-white py-12">
-    <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row justify-between">
-        <div class="mb-8 md:mb-0">
-          <div class="relative h-8 w-32 mb-4">
-            <h2 class="text-xl font-bold tracking-tight text-white">
-              <span class="text-white">${brandName.split('-')[0]}</span>
-              <span class="text-purple-300">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
-            </h2>
-          </div>
-          <p class="text-gray-300 text-sm max-w-xs">
-            Your trusted source for nutrition, diet, and health information to help you make better lifestyle choices.
-          </p>
-          <div class="mt-4 flex space-x-4">
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
-              </svg>
-            </a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-              </svg>
-            </a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-              </svg>
-            </a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
-              </svg>
-            </a>
+        
+        <div class="fallback-container mb-8">
+          <img 
+            src="${post.image}" 
+            alt="${post.title}" 
+            class="w-full h-[400px] object-cover rounded-lg shadow-md"
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1505253758473-96b7015fcd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80'; this.classList.add('error');"
+          />
+          <div class="fallback-message">
+            <p>Image currently unavailable</p>
           </div>
         </div>
         
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div>
-            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul class="space-y-2">
-              <li><a href="index.html" class="text-gray-300 hover:text-white text-sm transition-colors">Home</a></li>
-              <li><a href="index.html#articles" class="text-gray-300 hover:text-white text-sm transition-colors">Articles</a></li>
-              <li><a href="index.html#diet-plans" class="text-gray-300 hover:text-white text-sm transition-colors">Diet Plans</a></li>
-              <li><a href="index.html#recipes" class="text-gray-300 hover:text-white text-sm transition-colors">Recipes</a></li>
-              <li><a href="index.html#about-us" class="text-gray-300 hover:text-white text-sm transition-colors">About Us</a></li>
-            </ul>
+        <!-- Blog layout varies based on random style -->
+        ${blogLayoutStyle === 1 ? `
+        <div class="bg-white rounded-lg shadow-sm p-8 blog-content">
+          ${post.content}
+        </div>
+        ` : blogLayoutStyle === 2 ? `
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="md:col-span-3">
+            <div class="bg-white rounded-lg shadow-sm p-8 blog-content">
+              ${post.content}
+            </div>
           </div>
-          
-          <div>
-            <h3 class="text-lg font-semibold mb-4">Resources</h3>
-            <ul class="space-y-2">
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">Nutrition Calculator</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">Meal Planner</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">Blog</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">FAQ</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-semibold mb-4">Support</h3>
-            <ul class="space-y-2">
-              <li><a href="privacy.html" class="text-gray-300 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
-              <li><a href="terms.html" class="text-gray-300 hover:text-white text-sm transition-colors">Terms of Use</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
-            <ul class="space-y-2">
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>Contact</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Help Center</a></li>
-            </ul>
+          <div class="md:col-span-1">
+            <div class="bg-white rounded-lg shadow-sm p-6 sticky top-6">
+              <h3 class="text-lg font-semibold mb-4">Related Articles</h3>
+              <ul class="space-y-4">
+                <li>
+                  <a href="dont-fall-for-fad-diets.html" class="text-${primaryColor.replace('#', '').substring(0, 6)} hover:underline">Don't Fall for Fad Diets</a>
+                </li>
+                <li>
+                  <a href="high-protein-low-carb-diets.html" class="text-${primaryColor.replace('#', '').substring(0, 6)} hover:underline">High-Protein, Low-Carb Diets</a>
+                </li>
+                <li>
+                  <a href="mediterranean-diet-clinches-2023-gold.html" class="text-${primaryColor.replace('#', '').substring(0, 6)} hover:underline">Mediterranean Diet Clinches 2023 Gold</a>
+                </li>
+                <li>
+                  <a href="rapid-weight-loss-is-it-safe.html" class="text-${primaryColor.replace('#', '').substring(0, 6)} hover:underline">Is Rapid Weight Loss Safe?</a>
+                </li>
+              </ul>
+              
+              <div class="mt-8 pt-4 border-t border-gray-200">
+                <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+                <p class="text-gray-600 text-sm mb-4">Get the latest nutrition and diet tips in your inbox.</p>
+                <form class="space-y-3">
+                  <input type="email" placeholder="Your email" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm" required />
+                  <button type="submit" class="w-full py-2 bg-${primaryColor.replace('#', '').substring(0, 6)} text-white rounded-md text-sm">Subscribe</button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <div class="mt-12 pt-8 border-t border-indigo-800 text-center text-sm text-gray-400">
-        <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
-        <div class="mt-2 flex justify-center space-x-4">
-          <a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy</a>
-          <a href="terms.html" class="hover:text-purple-300 transition-colors">Terms</a>
-          <a href="contact.html" class="hover:text-purple-300 transition-colors">Contact</a>
+        ` : `
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-gradient-to-r from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)} py-6 px-8 text-white mb-0">
+            <p class="font-medium mb-0">${post.excerpt}</p>
+          </div>
+          <div class="p-8 blog-content">
+            ${post.content}
+          </div>
+        </div>
+        `}
+        
+        <div class="mt-12 flex justify-between items-center">
+          <a href="index.html" class="inline-flex items-center text-${primaryColor.replace('#', '').substring(0, 6)} hover:underline">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Home
+          </a>
+          <a href="top-ten-weight-loss-meds.html" class="bg-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 text-white font-medium py-2 px-6 rounded-md transition duration-300">
+            Explore Weight Loss Options
+          </a>
         </div>
       </div>
-    </div>
-  </footer>
-</body>
-</html>`;
+    </main>
+    
+    <footer class="bg-indigo-900 text-white py-8 mt-16">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between">
+          <div class="mb-6 md:mb-0">
+            <div class="text-xl font-bold mb-4">
+              <span class="text-white">${brandName.split('-')[0]}</span>
+              <span class="text-purple-300">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
+            </div>
+            <p class="text-gray-300 text-sm max-w-xs">
+              Your trusted source for nutrition, diet, and health information to help you make better lifestyle choices.
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+              <ul class="space-y-2">
+                <li><a href="index.html" class="text-gray-300 hover:text-white text-sm transition-colors">Home</a></li>
+                <li><a href="index.html#diet-plans" class="text-gray-300 hover:text-white text-sm transition-colors">Diet Plans</a></li>
+                <li><a href="bmi-calculator.html" class="text-gray-300 hover:text-white text-sm transition-colors">BMI Calculator</a></li>
+                <li><a href="meal-planner.html" class="text-gray-300 hover:text-white text-sm transition-colors">Meal Planner</a></li>
+                <li><a href="about.html" class="text-gray-300 hover:text-white text-sm transition-colors">About Us</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Support</h3>
+              <ul class="space-y-2">
+                <li><a href="privacy.html" class="text-gray-300 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
+                <li><a href="terms.html" class="text-gray-300 hover:text-white text-sm transition-colors">Terms of Use</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 pt-6 border-t border-indigo-800 text-center text-sm text-gray-400">
+          <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    
+    <script>
+      // Image error handling
+      document.addEventListener('DOMContentLoaded', function() {
+        // Form handling
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing! This is a demo form.');
+          });
+        });
+      });
+    </script>
+  </body>
+  </html>
+  `;
 };
 
 export const generateGLPPage = (data) => {
@@ -1161,11 +1168,24 @@ export const generateGLPPage = (data) => {
   // IMPORTANT: Always use random values for these visual elements, ignoring any user input
   // Random color selection (force random, not from data)
   const primaryColor = generateRandomColor();
-  const secondaryColor = generateRandomColor();
+  let secondaryColor = generateRandomColor();
   
-  // Randomly select hero image, background image, and button text
+  // Ensure sufficient contrast between primary and secondary colors
+  while (isSimilarColor(primaryColor, secondaryColor)) {
+    secondaryColor = generateRandomColor();
+  }
+  
+  // Helper function to check if colors are too similar
+  function isSimilarColor(color1, color2) {
+    // Simple check - more sophisticated contrast checks could be implemented
+    return color1.substring(1, 4) === color2.substring(1, 4);
+  }
+  
+  // Randomly select hero image, background image, and button text with error handling
   const randomHeroImage = heroImageOptions[Math.floor(Math.random() * heroImageOptions.length)];
+  const fallbackHeroImage = "https://images.unsplash.com/photo-1505253758473-96b7015fcd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80";
   const randomBackgroundImage = backgroundImageOptions[Math.floor(Math.random() * backgroundImageOptions.length)];
+  const fallbackBackgroundImage = "https://images.unsplash.com/photo-1447710441604-5bdc41bc6517?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80";
   const randomButtonText = ctaButtonTextOptions[Math.floor(Math.random() * ctaButtonTextOptions.length)];
   const randomFont = fontFamilyOptions[Math.floor(Math.random() * fontFamilyOptions.length)];
   
@@ -1387,7 +1407,7 @@ export const generateGLPPage = (data) => {
   </nav>
   `;
 
-  // Generate the hero section component with different layouts
+  // Generate the hero section component with different layouts and image error handling
   let heroSection = '';
   
   switch(layoutStyle) {
@@ -1400,7 +1420,7 @@ export const generateGLPPage = (data) => {
           <div 
             class="w-full h-full bg-cover bg-center"
             style="
-              background-image: url('${randomBackgroundImage}');
+              background-image: url('${randomBackgroundImage}'), url('${fallbackBackgroundImage}');
               background-size: cover;
               background-position: center;
               background-repeat: no-repeat;
@@ -1418,6 +1438,7 @@ export const generateGLPPage = (data) => {
                   src="${randomHeroImage}" 
                   alt="Healthy Bowl with Vegetables and Proteins" 
                   class="w-full h-auto"
+                  onerror="this.onerror=null; this.src='${fallbackHeroImage}';"
                 />
               </div>
             </div>
@@ -1541,7 +1562,7 @@ export const generateGLPPage = (data) => {
           <div 
             class="w-full h-full bg-cover bg-center"
             style="
-              background-image: url('${randomBackgroundImage}');
+              background-image: url('${randomBackgroundImage}'), url('${fallbackBackgroundImage}');
               background-size: cover;
               background-position: center;
               background-repeat: no-repeat;
@@ -1567,6 +1588,7 @@ export const generateGLPPage = (data) => {
                   src="${randomHeroImage}" 
                   alt="Healthy Food" 
                   class="w-full h-full object-cover"
+                  onerror="this.onerror=null; this.src='${fallbackHeroImage}';"
                 />
               </div>
               
@@ -2535,21 +2557,49 @@ export const generateGLPPage = (data) => {
   // Always keep the hero at the top, but randomize other content sections
   
   // Create an array of content sections
-  const contentSections = [
-    popularDietPlansSection,
-    nutritionTipsSection,
-    calorieCountingSection,
-    bestWorstDietsSection
-  ];
+  const contentSections = [];
   
-  // Shuffle the array
-  for (let i = contentSections.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [contentSections[i], contentSections[j]] = [contentSections[j], contentSections[i]];
+  // Only add each section if it exists and is unique
+  if (bestWorstDietsSection) {
+    contentSections.push({ id: 'best-worst', content: bestWorstDietsSection });
   }
   
+  if (nutritionTipsSection) {
+    // Check for duplicate content to prevent the same section appearing twice
+    if (!contentSections.some(section => section.content.includes('Evidence-Based Nutrition Tips'))) {
+      contentSections.push({ id: 'nutrition-tips', content: nutritionTipsSection });
+    }
+  }
+  
+  if (popularDietPlansSection) {
+    contentSections.push({ id: 'diet-plans', content: popularDietPlansSection });
+  }
+  
+  if (calorieCountingSection) {
+    contentSections.push({ id: 'calorie-counting', content: calorieCountingSection });
+  }
+  
+  // Add an ID to each section for proper linking
+  contentSections.forEach(section => {
+    if (!section.content.includes('id="')) {
+      section.content = section.content.replace('<section', `<section id="${section.id}"`);
+    }
+  });
+  
+  // Shuffle the array using Fisher-Yates algorithm for better randomization
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+  
+  // Shuffle the content sections
+  const shuffledSections = shuffleArray([...contentSections]);
+    
   // Join the shuffled content sections
-  const randomizedContentSections = contentSections.join('\n');
+  const randomizedContentSections = shuffledSections.map(section => section.content).join('\n');
   
   // Main page HTML
   const html = `
@@ -2571,6 +2621,93 @@ export const generateGLPPage = (data) => {
   
   <!-- Custom styles -->
   ${customStyles}
+  
+  <!-- Image error handling -->
+  <style>
+    .fallback-image-container {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .fallback-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+    
+    .fallback-image-container .fallback-message {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    .fallback-image-container img.error + .fallback-message {
+      display: flex;
+    }
+    
+    /* Standard responsive image container */
+    .responsive-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    
+    /* Fix for consistent section widths */
+    section > .container {
+      width: 100%;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Ensure consistent padding */
+    .content-section {
+      padding: 4rem 0;
+    }
+    
+    /* Improved contrast for text on colored backgrounds */
+    .text-on-color {
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Consistent CTA button styling */
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    
+    /* Fix for mobile responsiveness */
+    @media (max-width: 640px) {
+      .mobile-stack {
+        flex-direction: column !important;
+      }
+      
+      .mobile-full-width {
+        width: 100% !important;
+      }
+      
+      .mobile-text-center {
+        text-align: center !important;
+      }
+    }
+  </style>
   
   <!-- Google tag for conversion tracking -->
   ${gtagId ? `
@@ -2598,14 +2735,34 @@ export const generateGLPPage = (data) => {
   ${footer}
   
   <script>
-    // Simple form handling - prevent default form submission
+    // Image error handling
     document.addEventListener('DOMContentLoaded', function() {
+      // Handle image errors
+      const images = document.querySelectorAll('img:not([onerror])');
+      images.forEach(img => {
+        img.onerror = function() {
+          // Use data-fallback if available, otherwise use a default image
+          const fallback = img.dataset.fallback || 'https://images.unsplash.com/photo-1505253758473-96b7015fcd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80';
+          this.src = fallback;
+          this.classList.add('fallback-image');
+        };
+      });
+      
+      // Form handling - prevent default form submission
       const forms = document.querySelectorAll('form');
       forms.forEach(form => {
         form.addEventListener('submit', function(e) {
           e.preventDefault();
           alert('Thank you for subscribing! This is a demo form.');
         });
+      });
+      
+      // Add consistent spacing to sections if needed
+      const contentSections = document.querySelectorAll('section:not(.hero-section):not(#newsletter)');
+      contentSections.forEach(section => {
+        if (!section.classList.contains('py-12') && !section.classList.contains('py-16')) {
+          section.classList.add('content-section');
+        }
       });
     });
   </script>
