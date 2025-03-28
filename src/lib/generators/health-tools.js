@@ -809,7 +809,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     
     return `
       ${'<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>'.repeat(fullStars)}
-      ${halfStar ? '<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" clip-path="inset(0 50% 0 0)" stroke-width="1"></path><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" fill="none" stroke="currentColor" stroke-width="1" clip-path="inset(0 0 0 50%)"></path></svg>' : ''}
+      ${halfStar ? '<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>' : ''}
       ${'<svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>'.repeat(emptyStars)}
     `;
   };
@@ -882,6 +882,136 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         color: #4f46e5;
         flex-shrink: 0;
       }
+
+      /* Desktop-specific styles */
+      .desktop-header {
+        background-color: #4f46e5;
+        color: white;
+        padding: 1rem 0;
+      }
+      
+      .desktop-hero {
+        background-color: #dbeafe;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .desktop-hero-content {
+        padding: 3rem 0;
+      }
+      
+      .desktop-hero-hand {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        max-height: 100%;
+        z-index: 1;
+      }
+      
+      .desktop-hero-text {
+        position: relative;
+        z-index: 2;
+      }
+      
+      .editors-choice-badge {
+        background-color: #4338ca;
+        color: white;
+        font-weight: bold;
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        display: inline-block;
+        position: relative;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0.5rem 50%);
+        padding-left: 1.5rem;
+      }
+      
+      .rating-box {
+        background-color: #374151;
+        color: white;
+        width: 5rem;
+        height: 5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.5rem;
+      }
+      
+      .rating-number {
+        font-size: 2rem;
+        font-weight: bold;
+        line-height: 1;
+      }
+      
+      .rating-text {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+      }
+      
+      .check-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 0.5rem;
+      }
+      
+      .check-icon {
+        color: #10b981;
+        margin-right: 0.5rem;
+        flex-shrink: 0;
+        margin-top: 0.25rem;
+      }
+      
+      .ranking-number {
+        font-size: 3rem;
+        font-weight: bold;
+        line-height: 1;
+        color: #1f2937;
+      }
+      
+      .most-popular-tag {
+        background-color: #047857;
+        color: white;
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        border-radius: 0.25rem;
+      }
+      
+      .visit-site-btn {
+        background-color: #10b981;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.375rem;
+        font-weight: 600;
+        transition: all 0.2s;
+      }
+      
+      .visit-site-btn:hover {
+        background-color: #059669;
+        transform: translateY(-2px);
+      }
+      
+      /* Responsive switches */
+      .desktop-view {
+        display: none;
+      }
+      
+      .mobile-view {
+        display: block;
+      }
+      
+      /* Media query for desktop view */
+      @media (min-width: 1024px) {
+        .desktop-view {
+          display: block;
+        }
+        
+        .mobile-view {
+          display: none;
+        }
+      }
     </style>
     
     <!-- Google tag for conversion tracking -->
@@ -890,258 +1020,402 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
   <body class="font-sans">
     ${navbar}
     
-    <!-- New Hero Section based on the image -->
-    <section class="hero-gradient py-10 pb-24 relative">
-      <div class="container mx-auto px-6 max-w-4xl">
-        <!-- Logo Section -->
-        <div class="flex justify-center mb-5">
-          <div class="bg-indigo-600 rounded-full w-16 h-16 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-10 h-10 rotate-45">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m-11.142 0L12 13.5l4.179-2.25m0 0L16.5 12l4.5-2.25-9.75-5.25L2.25 9.75l4.5 2.25" />
-            </svg>
-          </div>
+    <!-- Desktop View -->
+    <div class="desktop-view">
+      <!-- Desktop Header with notification banner -->
+      <div class="desktop-header">
+        <div class="container mx-auto px-4">
+          <p class="text-center text-sm">The listings featured on this site are from companies from which this site receives compensation. This influences where, how and in what order such listings appear. <a href="#" class="underline">Advertising Disclosure</a></p>
         </div>
-        
-        <div class="text-center mb-4">
-          <h1 class="text-4xl md:text-5xl font-bold text-blue-500 mb-6 leading-tight">
-            The easiest weight loss<br class="hidden md:block"> program ever,<br class="hidden md:block"> delivered to your door
-          </h1>
-          
-          <h2 class="text-xl text-gray-700 mb-10">
-            Join <span class="text-blue-500 font-bold">40,000+</span> weight loss patients
-          </h2>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 max-w-3xl mx-auto">
-          <!-- Benefit 1 -->
-          <div class="flex items-center">
-            <div class="circle-icon mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-              </svg>
+      </div>
+      
+      <!-- Desktop Hero Section -->
+      <div class="desktop-hero">
+        <div class="container mx-auto px-4">
+          <div class="desktop-hero-content flex items-center">
+            <div class="desktop-hero-text w-full lg:w-3/5 pr-8">
+              <!-- Logo -->
+              <div class="flex items-center mb-6">
+                <div class="bg-indigo-600 rounded-full w-12 h-12 flex items-center justify-center mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m-11.142 0L12 13.5l4.179-2.25m0 0L16.5 12l4.5-2.25-9.75-5.25L2.25 9.75l4.5 2.25" />
+                  </svg>
+                </div>
+                <span class="text-2xl font-bold">GLP-1</span>
+              </div>
+              
+              <h1 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+                Compare Weight Loss Injections 2025
+              </h1>
+              
+              <p class="text-lg text-gray-700 mb-6">
+                Compare top weight-loss injections including Ozempic®, Wegovy®, GLP-1 injectables, and other popular weight-loss medications.
+              </p>
+              
+              <div class="mb-6">
+                <div class="editors-choice-badge">
+                  Editor's Choice - March 2025
+                </div>
+              </div>
             </div>
-            <div>
-              <p class="text-gray-800 font-medium">Doctor approval after an easy <span class="font-bold">90-sec-ond quiz</span></p>
+            
+            <!-- Hand image (absolute positioned in CSS) -->
+            <div class="desktop-hero-hand hidden lg:block w-2/5">
+              <img src="https://i.imgur.com/kNKwYwh.png" alt="Hand holding weight loss injection pen" class="w-full h-auto" />
             </div>
-          </div>
-          
-          <!-- Benefit 2 -->
-          <div class="flex items-center">
-            <div class="circle-icon mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-gray-800 font-medium">Both <span class="font-bold">oral and injectable</span> GLP-1 plans available</p>
-            </div>
-          </div>
-          
-          <!-- Benefit 3 -->
-          <div class="flex items-center">
-            <div class="circle-icon mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-gray-800 font-medium">No Insurance required. No Waitlist. No Hidden Fees</p>
-            </div>
-          </div>
-          
-          <!-- Benefit 4 -->
-          <div class="flex items-center">
-            <div class="circle-icon mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0l-3.75-3.75M17.25 21L21 17.25" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-gray-800 font-medium">Lose up to <span class="font-bold">33 pounds</span> in 4 months</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- CTA Button -->
-        <div class="flex justify-center">
-          <a href="${affiliateLink}" class="next-step-btn text-white py-4 px-10 rounded-md text-xl font-semibold flex items-center justify-between w-full md:w-96 shadow-lg" onclick="return gtag_report_conversion('${affiliateLink}', event)">
-            <span>NEXT STEP</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </a>
-        </div>
-        
-        <!-- Editor's Choice Badge - Absolute positioned -->
-        <div class="absolute bottom-0 left-0 transform translate-y-1/2">
-          <div class="badge">
-            Editor's Choice - March 2025
           </div>
         </div>
       </div>
-    </section>
-    
-    <!-- Most Popular Section -->
-    <section id="top-medications" class="py-8 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="flex items-center mb-6">
-          <div class="bg-teal-700 text-white text-sm font-bold py-2 px-4 rounded mr-4">
-            MOST POPULAR
-          </div>
-          <div class="flex items-end">
-            <span class="text-6xl font-bold mr-4">1</span>
-            <h2 class="text-3xl font-bold">Remedy Meds</h2>
-          </div>
-        </div>
-        
-        <!-- Top 10 medications list -->
-        <div class="max-w-5xl mx-auto px-4 py-6">
-          ${medications.map(med => `
-            <div class="mb-8 border rounded-lg overflow-hidden shadow-md med-card">
-              <div class="bg-blue-100 p-4">
-                <div class="flex items-start">
-                  <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-2xl mr-4 flex-shrink-0">${med.id}</div>
-                  <div>
-                    <h2 class="text-xl font-bold">${med.name}</h2>
-                    <p class="text-gray-600">${med.subtitle}</p>
-                  </div>
-                  <div class="ml-auto flex items-center">
-                    <div class="hidden md:flex rating-stars mr-2">
-                      ${generateStars(med.rating)}
-                    </div>
-                    <div class="text-right">
-                      <div class="font-bold text-lg">${med.rating}/5</div>
-                      <span class="text-sm text-gray-500">(${med.reviews} reviews)</span>
-                    </div>
+      
+      <!-- Desktop Rankings Section -->
+      <div class="bg-white py-12">
+        <div class="container mx-auto px-4">
+          <!-- First Item with Most Popular -->
+          <div class="mb-10 bg-white rounded-lg border border-gray-200 p-6 shadow-md">
+            <div class="flex flex-wrap items-center mb-6">
+              <div class="most-popular-tag mr-4">
+                MOST POPULAR
+              </div>
+              
+              <div class="flex items-center">
+                <div class="ranking-number mr-4">1</div>
+                <h2 class="text-2xl font-bold">Remedy Meds</h2>
+              </div>
+              
+              <div class="ml-auto flex items-center">
+                <div class="rating-box mr-4">
+                  <div class="rating-number">9.8</div>
+                  <div class="rating-text">Excellent</div>
+                </div>
+                
+                <div class="flex flex-col items-start">
+                  <div class="flex mb-1">
+                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
                   </div>
                 </div>
               </div>
-              <div class="p-5 bg-white">
-                <ul class="mb-5 space-y-3">
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <div class="check-item">
+                  <svg class="check-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Free 2-minute quiz to get pre-approved, no insurance needed</span>
+                </div>
+                <div class="check-item">
+                  <svg class="check-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Same active ingredient as Ozempic®, Wegovy®, Zepbound®</span>
+                </div>
+                <div class="check-item">
+                  <svg class="check-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Forbes Special: $100 OFF with code Forbes2025</span>
+                </div>
+              </div>
+              <div class="flex justify-end items-center">
+                <a href="${affiliateLink}" class="visit-site-btn" onclick="return gtag_report_conversion('${affiliateLink}', event)">
+                  Visit Site →
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Additional Medication Rankings -->
+          ${medications.slice(1, 5).map((med, index) => `
+            <div class="mb-10 bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+              <div class="flex flex-wrap items-center mb-6">                
+                <div class="flex items-center">
+                  <div class="ranking-number mr-4">${index + 2}</div>
+                  <h2 class="text-2xl font-bold">${med.name}</h2>
+                  <span class="ml-2 text-gray-500">${med.subtitle}</span>
+                </div>
+                
+                <div class="ml-auto flex items-center">
+                  <div class="rating-box mr-4">
+                    <div class="rating-number">${med.rating}</div>
+                    <div class="rating-text">Good</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
                   ${med.benefits.map(benefit => `
-                    <li class="flex items-start">
-                      <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <div class="check-item">
+                      <svg class="check-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
                       <span>${benefit}</span>
-                    </li>
+                    </div>
                   `).join('')}
-                </ul>
-                <button class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm" onclick="gtag_report_conversion('${affiliateLink}', event)">Get Offer</button>
+                </div>
+                <div class="flex justify-end items-center">
+                  <a href="${affiliateLink}" class="visit-site-btn bg-blue-600 hover:bg-blue-700" onclick="return gtag_report_conversion('${affiliateLink}', event)">
+                    Visit Site →
+                  </a>
+                </div>
               </div>
             </div>
           `).join('')}
         </div>
       </div>
-    </section>
-    
-    <!-- FAQ Section -->
-    <div class="max-w-5xl mx-auto px-4 py-8 mb-12">
-      <h2 class="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
-      
-      <!-- FAQ items -->
-      <div class="space-y-8">
-        <div class="border-b pb-6">
-          <h3 class="text-xl font-semibold mb-3">How do weight loss medications work?</h3>
-          <p class="text-gray-700">Weight loss medications work through various mechanisms depending on the specific drug. GLP-1 receptor agonists like Saxenda and Wegovy reduce appetite by mimicking hormones that target areas of the brain involved in appetite regulation. Other medications may work by preventing fat absorption, increasing metabolism, or reducing cravings. The most effective modern weight loss medications like Mounjaro and Zepbound work by targeting multiple hormone pathways simultaneously.</p>
-        </div>
-        
-        <div class="border-b pb-6">
-          <h3 class="text-xl font-semibold mb-3">Are weight loss medications safe?</h3>
-          <p class="text-gray-700">When prescribed by a doctor and taken as directed, weight loss medications can be safe for most people. However, all medications carry potential side effects and risks. Common side effects may include nausea, constipation, headaches, and insomnia. Some weight loss medications may not be suitable for those with certain medical conditions such as heart disease, thyroid disorders, or pregnancy. Always consult with a healthcare provider for personalized medical advice.</p>
-        </div>
-        
-        <div class="border-b pb-6">
-          <h3 class="text-xl font-semibold mb-3">How much weight can I expect to lose?</h3>
-          <p class="text-gray-700">Weight loss results vary significantly based on the medication, individual factors, and lifestyle changes. GLP-1 medications like Wegovy (semaglutide) can lead to an average weight loss of 15% of body weight over 68 weeks, while newer dual-agonist medications like Mounjaro (tirzepatide) may help some people lose up to 22.5% of their initial weight. Traditional medications like Qsymia typically produce more modest results of 5-10% weight loss. Individual results will vary, and medications work best when combined with diet and exercise.</p>
-        </div>
-        
-        <div class="border-b pb-6">
-          <h3 class="text-xl font-semibold mb-3">Will insurance cover weight loss medications?</h3>
-          <p class="text-gray-700">Insurance coverage for weight loss medications varies widely based on your specific plan, the medication prescribed, and whether you meet certain medical criteria. Some plans may cover FDA-approved weight loss medications if you have obesity (BMI ≥30) or overweight (BMI ≥27) with at least one weight-related condition like high blood pressure or type 2 diabetes. Many newer medications like Mounjaro and Wegovy face coverage challenges, but manufacturers often offer savings cards for eligible patients. Check with your insurance provider for specific coverage details.</p>
-        </div>
-        
-        <div class="border-b pb-6">
-          <h3 class="text-xl font-semibold mb-3">Do I need to diet and exercise while taking these medications?</h3>
-          <p class="text-gray-700">Yes. While weight loss medications can be effective tools, they work best when combined with healthy lifestyle changes including improved diet and regular physical activity. Most clinical studies showing significant weight loss results included participants following a reduced-calorie diet and exercise plan alongside medication. These lifestyle modifications not only enhance weight loss results but also improve overall health outcomes and may help maintain weight loss over time.</p>
-        </div>
-      </div>
     </div>
     
-    <!-- Methodology Section -->
-    <div class="max-w-5xl mx-auto px-4 py-8 bg-gray-50 rounded-lg mb-12">
-      <h2 class="text-3xl font-bold mb-6 text-center">Our Methodology</h2>
-      <p class="text-gray-700 mb-8 text-center">Our rankings are based on our proprietary evaluation process, analyzing the following criteria:</p>
+    <!-- Mobile View -->
+    <div class="mobile-view">
+      <!-- New Hero Section based on the image -->
+      <section class="hero-gradient py-10 pb-24 relative">
+        <div class="container mx-auto px-6 max-w-4xl">
+          <!-- Logo Section -->
+          <div class="flex justify-center mb-5">
+            <div class="bg-indigo-600 rounded-full w-16 h-16 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-10 h-10 rotate-45">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m-11.142 0L12 13.5l4.179-2.25m0 0L16.5 12l4.5-2.25-9.75-5.25L2.25 9.75l4.5 2.25" />
+              </svg>
+            </div>
+          </div>
+          
+          <div class="text-center mb-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-500 mb-6 leading-tight">
+              The easiest weight loss<br class="hidden md:block"> program ever,<br class="hidden md:block"> delivered to your door
+            </h1>
+            
+            <h2 class="text-xl text-gray-700 mb-10">
+              Join <span class="text-blue-500 font-bold">40,000+</span> weight loss patients
+            </h2>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 max-w-3xl mx-auto">
+            <!-- Benefit 1 -->
+            <div class="flex items-center">
+              <div class="circle-icon mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-gray-800 font-medium">Doctor approval after an easy <span class="font-bold">90-sec-ond quiz</span></p>
+              </div>
+            </div>
+            
+            <!-- Benefit 2 -->
+            <div class="flex items-center">
+              <div class="circle-icon mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-gray-800 font-medium">Both <span class="font-bold">oral and injectable</span> GLP-1 plans available</p>
+              </div>
+            </div>
+            
+            <!-- Benefit 3 -->
+            <div class="flex items-center">
+              <div class="circle-icon mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-gray-800 font-medium">No Insurance required. No Waitlist. No Hidden Fees</p>
+              </div>
+            </div>
+            
+            <!-- Benefit 4 -->
+            <div class="flex items-center">
+              <div class="circle-icon mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0l-3.75-3.75M17.25 21L21 17.25" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-gray-800 font-medium">Lose up to <span class="font-bold">33 pounds</span> in 4 months</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- CTA Button -->
+          <div class="flex justify-center">
+            <a href="${affiliateLink}" class="next-step-btn text-white py-4 px-10 rounded-md text-xl font-semibold flex items-center justify-between w-full md:w-96 shadow-lg" onclick="return gtag_report_conversion('${affiliateLink}', event)">
+              <span>NEXT STEP</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
+          </div>
+          
+          <!-- Editor's Choice Badge - Absolute positioned -->
+          <div class="absolute bottom-0 left-0 transform translate-y-1/2">
+            <div class="badge">
+              Editor's Choice - March 2025
+            </div>
+          </div>
+        </div>
+      </section>
       
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="font-bold text-lg mb-2">Efficacy</h3>
-          <p class="text-gray-700">We consider the real-world results and clinical studies of each medication for safe and effective weight loss.</p>
+      <!-- Most Popular Section -->
+      <section id="top-medications" class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="flex items-center mb-6">
+            <div class="bg-teal-700 text-white text-sm font-bold py-2 px-4 rounded mr-4">
+              MOST POPULAR
+            </div>
+            <div class="flex items-end">
+              <span class="text-6xl font-bold mr-4">1</span>
+              <h2 class="text-3xl font-bold">Remedy Meds</h2>
+            </div>
+          </div>
+          
+          <!-- Top 10 medications list -->
+          <div class="max-w-5xl mx-auto px-4 py-6">
+            ${medications.map(med => `
+              <div class="mb-8 border rounded-lg overflow-hidden shadow-md med-card">
+                <div class="bg-blue-100 p-4">
+                  <div class="flex items-start">
+                    <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-2xl mr-4 flex-shrink-0">${med.id}</div>
+                    <div>
+                      <h2 class="text-xl font-bold">${med.name}</h2>
+                      <p class="text-gray-600">${med.subtitle}</p>
+                    </div>
+                    <div class="ml-auto flex items-center">
+                      <div class="hidden md:flex rating-stars mr-2">
+                        ${generateStars(med.rating)}
+                      </div>
+                      <div class="text-right">
+                        <div class="font-bold text-lg">${med.rating}/5</div>
+                        <span class="text-sm text-gray-500">(${med.reviews} reviews)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-5 bg-white">
+                  <ul class="mb-5 space-y-3">
+                    ${med.benefits.map(benefit => `
+                      <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>${benefit}</span>
+                      </li>
+                    `).join('')}
+                  </ul>
+                  <button class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm" onclick="gtag_report_conversion('${affiliateLink}', event)">Get Offer</button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
         </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="font-bold text-lg mb-2">Safety Profile</h3>
-          <p class="text-gray-700">We evaluate the risk of side effects, contraindications, and long-term safety concerns for each medication.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="font-bold text-lg mb-2">Ease of Use</h3>
-          <p class="text-gray-700">We consider administration methods (pill vs. injection), frequency of dosing, and storage requirements.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="font-bold text-lg mb-2">Cost & Accessibility</h3>
-          <p class="text-gray-700">We analyze pricing, insurance coverage, availability, and patient assistance programs.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="font-bold text-lg mb-2">User Experience</h3>
-          <p class="text-gray-700">We incorporate user reviews and feedback regarding side effects, adherence, and overall satisfaction.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="font-bold text-lg mb-2">Medical Consensus</h3>
-          <p class="text-gray-700">We consider recommendations from medical organizations and prescribing patterns among healthcare providers.</p>
+      </section>
+      
+      <!-- FAQ Section -->
+      <div class="max-w-5xl mx-auto px-4 py-8 mb-12">
+        <h2 class="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-6">
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold mb-2">What are GLP-1 weight loss medications?</h3>
+            <p>GLP-1 medications like Ozempic®, Wegovy®, Mounjaro®, and Zepbound® are prescription drugs originally developed to treat type 2 diabetes. They work by mimicking a hormone called glucagon-like peptide-1 (GLP-1) that regulates blood sugar and appetite. These medications help reduce hunger, increase feelings of fullness, and slow gastric emptying, which can lead to significant weight loss.</p>
+          </div>
+          
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold mb-2">How much weight can I lose with weight loss injections?</h3>
+            <p>Clinical trials have shown that people taking GLP-1 medications can lose approximately 15-20% of their body weight over 12-16 months. Individual results vary based on factors such as starting weight, diet, exercise habits, and medication dosage. Many users report losing 1-2 pounds per week after the first month of treatment.</p>
+          </div>
+          
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold mb-2">Are GLP-1 medications covered by insurance?</h3>
+            <p>Insurance coverage for GLP-1 medications varies. When prescribed specifically for weight loss (rather than diabetes), many insurance plans do not cover these medications. However, some plans may cover them with prior authorization if you meet specific criteria. Telehealth providers like those featured in our rankings offer these medications without requiring insurance, though often at a higher out-of-pocket cost.</p>
+          </div>
         </div>
       </div>
+      
+      <!-- Call to Action Section -->
+      <section class="bg-blue-100 py-12">
+        <div class="container mx-auto px-4 text-center">
+          <h2 class="text-3xl font-bold mb-6">Ready to start your weight loss journey?</h2>
+          <p class="text-lg mb-8 max-w-2xl mx-auto">Join thousands of patients who have successfully lost weight with GLP-1 medications. Take the first step today!</p>
+          <a href="${affiliateLink}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg inline-block shadow-lg transition duration-300 text-lg" onclick="return gtag_report_conversion('${affiliateLink}', event)">
+            Take the Quiz →
+          </a>
+        </div>
+      </section>
     </div>
     
-    ${footer}
-    
-    <!-- Conversion tracking script -->
+    <!-- Responsive Design Toggle Script -->
     <script>
-      function gtag_report_conversion(url, event) {
-        // If an event is passed, prevent default behavior
-        if (event) {
-          event.preventDefault();
-        }
-        
-        var callback = function() {
-          if (typeof(url) !== 'undefined' && url && url !== '#') {
-            window.location = url;
-          }
-        };
-        
-        if (typeof gtag !== 'undefined' && '${gtagAccount}' && '${gtagLabel}') {
-          gtag('event', 'conversion', {
-            'send_to': '${gtagAccount}/${gtagLabel}',
-            'value': 1.0,
-            'currency': 'USD',
-            'event_callback': callback
-          });
-          return false;
+    document.addEventListener('DOMContentLoaded', function() {
+      const desktopView = document.querySelector('.desktop-view');
+      const mobileView = document.querySelector('.mobile-view');
+      
+      function handleViewportChange() {
+        if (window.innerWidth >= 1024) {
+          desktopView.style.display = 'block';
+          mobileView.style.display = 'none';
         } else {
-          // If gtag is not available or IDs aren't set, just navigate
-          if (typeof(url) !== 'undefined' && url && url !== '#') {
-            window.location = url;
-          }
-          return false;
+          desktopView.style.display = 'none';
+          mobileView.style.display = 'block';
         }
       }
       
-      // Add event listeners to all buttons when the DOM is loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        // Add handlers to all "Get Offer" buttons that don't already have onclick handlers
-        const getOfferButtons = document.querySelectorAll('.get-offer-btn:not([onclick])');
-        getOfferButtons.forEach(button => {
-          button.addEventListener('click', function(e) {
-            gtag_report_conversion('${affiliateLink}', e);
-          });
-        });
-      });
+      // Initial check
+      handleViewportChange();
+      
+      // Listen for window resize
+      window.addEventListener('resize', handleViewportChange);
+    });
+    </script>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-xl font-bold mb-4">About Us</h3>
+            <p class="text-gray-300">We provide unbiased comparisons of weight loss solutions to help you make informed decisions about your health journey.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-4">Important Links</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-300 hover:text-white">Privacy Policy</a></li>
+              <li><a href="#" class="text-gray-300 hover:text-white">Terms of Service</a></li>
+              <li><a href="#" class="text-gray-300 hover:text-white">Advertising Disclosure</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-4">Disclaimer</h3>
+            <p class="text-gray-300">The information on this site is for informational purposes only and should not be taken as medical advice. Always consult with a healthcare professional before starting any weight loss program.</p>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center text-gray-400">
+          <p>© ${new Date().getFullYear()} ${brandName || 'Health Insights'}. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    
+    <script>
+      function gtag_report_conversion(url, event) {
+        event.preventDefault();
+        window.location.href = url;
+        return false;
+      }
     </script>
   </body>
 </html>`;
