@@ -1018,24 +1018,38 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       /* Mobile-specific styles */
       .hero-gradient {
         background: linear-gradient(135deg, #e1f5fe 0%, #ffffff 100%);
-        border-radius: 0 0 12px 12px;
+        border-radius: 0 0 24px 24px;
         position: relative;
         overflow: hidden;
+        padding: 2rem 0 6rem;
       }
       
       .mobile-hero-image {
         position: absolute;
-        right: -5%;
-        bottom: -10%;
-        width: 60%;
-        max-width: 300px;
+        right: -2%;
+        bottom: -5%;
+        width: 55%;
+        max-width: 280px;
         z-index: 1;
-        opacity: 0.85;
+        opacity: 0.9;
       }
       
       .mobile-hero-content {
         position: relative;
         z-index: 2;
+        padding: 0 1rem;
+      }
+
+      .editors-choice-mobile {
+        background-color: #4338ca;
+        color: white;
+        font-weight: 600;
+        font-size: 0.875rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.5rem;
+        display: inline-block;
+        margin: 1rem 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
     </style>
     
@@ -1201,28 +1215,36 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     <!-- Mobile View -->
     <div class="mobile-view">
       <!-- New Hero Section based on the image -->
-      <section class="hero-gradient py-10 pb-24 relative">
-        <div class="container mx-auto px-6 max-w-4xl">
+      <section class="hero-gradient">
+        <div class="container mx-auto px-4 max-w-4xl">
           <div class="mobile-hero-content">
             <!-- Logo Section -->
             <div class="flex justify-center mb-5">
               <div class="bg-indigo-600 rounded-full w-16 h-16 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-10 h-10 rotate-45">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-10 h-10">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m-11.142 0L12 13.5l4.179-2.25m0 0L16.5 12l4.5-2.25-9.75-5.25L2.25 9.75l4.5 2.25" />
                 </svg>
               </div>
             </div>
             
-            <div class="text-center mb-4">
-              <h1 class="text-4xl md:text-5xl font-bold text-blue-500 mb-6 leading-tight">
+            <!-- Editor's Choice Badge - Now properly positioned -->
+            <div class="text-center">
+              <div class="editors-choice-mobile">
+                Editor's Choice - March 2025
+              </div>
+            </div>
+            
+            <div class="text-center mb-8">
+              <h1 class="text-4xl md:text-5xl font-bold text-blue-600 mb-6 leading-tight">
                 The easiest weight loss<br class="hidden md:block"> program ever,<br class="hidden md:block"> delivered to your door
               </h1>
               
               <h2 class="text-xl text-gray-700 mb-10">
-                Join <span class="text-blue-500 font-bold">40,000+</span> weight loss patients
+                Join <span class="text-blue-600 font-bold">40,000+</span> weight loss patients
               </h2>
             </div>
             
+            <!-- Benefits Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 max-w-3xl mx-auto">
               <!-- Benefit 1 -->
               <div class="flex items-center">
@@ -1274,7 +1296,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
             </div>
             
             <!-- CTA Button -->
-            <div class="flex justify-center">
+            <div class="flex justify-center mb-8">
               <a href="${affiliateLink}" class="next-step-btn text-white py-4 px-10 rounded-md text-xl font-semibold flex items-center justify-between w-full md:w-96 shadow-lg" onclick="return gtag_report_conversion('${affiliateLink}', event)">
                 <span>NEXT STEP</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -1284,16 +1306,9 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
             </div>
           </div>
           
-          <!-- Add injection pen image -->
+          <!-- Hero Image -->
           <div class="mobile-hero-image">
             <img src="https://i.imgur.com/kNKwYwh.png" alt="Weight loss injection pen" class="w-full h-auto" />
-          </div>
-          
-          <!-- Editor's Choice Badge - Absolute positioned -->
-          <div class="absolute bottom-0 left-0 transform translate-y-1/2">
-            <div class="badge">
-              Editor's Choice - March 2025
-            </div>
           </div>
         </div>
       </section>
