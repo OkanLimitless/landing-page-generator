@@ -891,41 +891,28 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       }
       
       .desktop-hero {
-        background: linear-gradient(135deg, #e1f5fe 0%, #ffffff 100%);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(225, 245, 254, 0.95) 100%),
+                    url('https://i.imgur.com/kNKwYwh.png') no-repeat;
+        background-size: contain;
+        background-position: right bottom;
         position: relative;
-        overflow: visible;
-        padding: 3rem 0;
+        overflow: hidden;
+        padding: 4rem 0;
         border-radius: 0 0 12px 12px;
       }
       
       .desktop-hero-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         position: relative;
-      }
-      
-      .desktop-hero-hand {
-        position: relative;
-        z-index: 1;
-        width: 45%;
-        text-align: right;
-        margin-bottom: -5rem;
-        margin-right: -2rem;
-      }
-      
-      .desktop-hero-hand img {
-        max-width: 100%;
-        height: auto;
-        transform: scale(1.2);
-        transform-origin: bottom right;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
       }
       
       .desktop-hero-text {
+        max-width: 600px;
         position: relative;
         z-index: 2;
-        width: 55%;
-        padding-right: 2rem;
       }
       
       .editors-choice-badge {
@@ -1069,37 +1056,30 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       
       <!-- Desktop Hero Section -->
       <div class="desktop-hero">
-        <div class="container mx-auto px-4">
-          <div class="desktop-hero-content">
-            <div class="desktop-hero-text">
-              <!-- Logo -->
-              <div class="flex items-center mb-6">
-                <div class="bg-indigo-600 rounded-full w-12 h-12 flex items-center justify-center mr-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m-11.142 0L12 13.5l4.179-2.25m0 0L16.5 12l4.5-2.25-9.75-5.25L2.25 9.75l4.5 2.25" />
-                  </svg>
-                </div>
-                <span class="text-2xl font-bold">GLP-1</span>
-              </div>
-              
-              <h1 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
-                Compare Weight Loss Injections 2025
-              </h1>
-              
-              <p class="text-lg text-gray-700 mb-6">
-                Compare top weight-loss injections including Ozempic®, Wegovy®, GLP-1 injectables, and other popular weight-loss medications.
-              </p>
-              
-              <div class="mb-6">
-                <div class="editors-choice-badge">
-                  Editor's Choice - March 2025
-                </div>
-              </div>
+        <div class="desktop-hero-content">
+          <!-- Logo -->
+          <div class="flex items-center mb-6">
+            <div class="bg-indigo-600 rounded-full w-12 h-12 flex items-center justify-center mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m-11.142 0L12 13.5l4.179-2.25m0 0L16.5 12l4.5-2.25-9.75-5.25L2.25 9.75l4.5 2.25" />
+              </svg>
             </div>
+            <span class="text-2xl font-bold">GLP-1</span>
+          </div>
+          
+          <div class="desktop-hero-text">
+            <h1 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+              Compare Weight Loss Injections 2025
+            </h1>
             
-            <!-- Hand image (positioned in CSS) -->
-            <div class="desktop-hero-hand">
-              <img src="https://i.imgur.com/kNKwYwh.png" alt="Hand holding weight loss injection pen" />
+            <p class="text-lg text-gray-700 mb-6">
+              Compare top weight-loss injections including Ozempic®, Wegovy®, GLP-1 injectables, and other popular weight-loss medications.
+            </p>
+            
+            <div class="mb-6">
+              <div class="editors-choice-badge">
+                Editor's Choice - March 2025
+              </div>
             </div>
           </div>
         </div>
