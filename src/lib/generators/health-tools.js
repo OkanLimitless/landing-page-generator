@@ -1021,7 +1021,13 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         border-radius: 0 0 24px 24px;
         position: relative;
         overflow: hidden;
-        padding: 2rem 0 6rem;
+        padding: 2rem 0;
+      }
+      
+      .mobile-hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 0 1rem;
       }
       
       .mobile-hero-image {
@@ -1034,12 +1040,6 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         opacity: 0.9;
       }
       
-      .mobile-hero-content {
-        position: relative;
-        z-index: 2;
-        padding: 0 1rem;
-      }
-
       .editors-choice-mobile {
         background-color: #4338ca;
         color: white;
@@ -1214,7 +1214,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     
     <!-- Mobile View -->
     <div class="mobile-view">
-      <!-- New Hero Section based on the image -->
+      <!-- New Hero Section -->
       <section class="hero-gradient">
         <div class="container mx-auto px-4 max-w-4xl">
           <div class="mobile-hero-content">
@@ -1227,7 +1227,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
               </div>
             </div>
             
-            <!-- Editor's Choice Badge - Now properly positioned -->
+            <!-- Editor's Choice Badge -->
             <div class="text-center">
               <div class="editors-choice-mobile">
                 Editor's Choice - March 2025
@@ -1245,8 +1245,8 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
             </div>
             
             <!-- Benefits Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 max-w-3xl mx-auto">
-              <!-- Benefit 1 -->
+            <div class="grid grid-cols-1 gap-4 mb-8">
+              <!-- Benefits items -->
               <div class="flex items-center">
                 <div class="circle-icon mr-4">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -1258,7 +1258,6 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                 </div>
               </div>
               
-              <!-- Benefit 2 -->
               <div class="flex items-center">
                 <div class="circle-icon mr-4">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -1270,7 +1269,6 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                 </div>
               </div>
               
-              <!-- Benefit 3 -->
               <div class="flex items-center">
                 <div class="circle-icon mr-4">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -1282,7 +1280,6 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                 </div>
               </div>
               
-              <!-- Benefit 4 -->
               <div class="flex items-center">
                 <div class="circle-icon mr-4">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -1304,11 +1301,6 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                 </svg>
               </a>
             </div>
-          </div>
-          
-          <!-- Hero Image -->
-          <div class="mobile-hero-image">
-            <img src="https://i.imgur.com/kNKwYwh.png" alt="Weight loss injection pen" class="w-full h-auto" />
           </div>
         </div>
       </section>
