@@ -3,7 +3,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import { generateBMICalculator, generateMealPlanner, generateTopTenWeightLossMeds, generateAboutPage, generateContactPage, generateFAQPage } from './health-tools.js';
+import { generateBMICalculator, generateMealPlanner, generateTopTenWeightLossMeds, generateAboutUsPage, generateContactPage, generateFAQPage } from './health-tools.js';
 
 // Blog post data - we'll use this to generate individual blog post pages
 const blogPosts = {
