@@ -1451,4 +1451,837 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     </script>
   </body>
 </html>`;
+};
+
+// Generate About Us page 
+export const generateAboutUsPage = (brandName, navbar, footer, customStyles = '', googleTag = '') => {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | ${brandName}</title>
+  <meta name="description" content="Learn about our team of health professionals dedicated to providing science-based nutrition and weight loss guidance.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom styles -->
+  ${customStyles}
+  
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+    
+    /* Image fallback handling */
+    .fallback-image {
+      opacity: 0.7;
+    }
+    
+    .team-member-image {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 9999px;
+    }
+    
+    @media (max-width: 640px) {
+      .mobile-stack {
+        flex-direction: column !important;
+      }
+      
+      .mobile-full-width {
+        width: 100% !important;
+      }
+      
+      .mobile-text-center {
+        text-align: center !important;
+      }
+      
+      .mobile-center {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+    }
+  </style>
+  
+  <!-- Google tag for conversion tracking -->
+  ${googleTag}
+</head>
+<body class="bg-gray-50">
+  ${navbar}
+  
+  <main class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold text-center mb-6 text-indigo-900">About ${brandName}</h1>
+      
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-800">Our Mission</h2>
+        <p class="text-gray-700 mb-6">At ${brandName}, our mission is to provide reliable, science-based information and tools to help people make informed decisions about their nutrition, weight management, and overall health. We believe that everyone deserves access to accurate health information that can help them achieve their wellness goals.</p>
+        
+        <div class="relative h-64 w-full rounded-lg overflow-hidden mb-6">
+          <img 
+            src="https://images.unsplash.com/photo-1571019613914-85f342c6a11e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+            alt="Our mission - helping people achieve health goals" 
+            class="w-full h-full object-cover"
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'; this.classList.add('fallback-image');"
+          />
+        </div>
+        
+        <h3 class="text-xl font-semibold mb-3 text-indigo-700">Our Values</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="bg-indigo-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-indigo-900 mb-2">Evidence-Based</h4>
+            <p class="text-gray-700 text-sm">We prioritize information backed by scientific research and clinical studies.</p>
+          </div>
+          <div class="bg-green-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-green-800 mb-2">Empowering</h4>
+            <p class="text-gray-700 text-sm">We provide tools and knowledge that empower people to take control of their health.</p>
+          </div>
+          <div class="bg-purple-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-purple-800 mb-2">Inclusive</h4>
+            <p class="text-gray-700 text-sm">We believe health information should be accessible and applicable to people of all backgrounds.</p>
+          </div>
+        </div>
+        
+        <h3 class="text-xl font-semibold mb-3 text-indigo-700">Our Approach</h3>
+        <p class="text-gray-700 mb-4">We take a holistic approach to health and nutrition, recognizing that successful weight management involves more than just counting calories. Our content explores the complex interplay between diet, exercise, sleep, stress, and other lifestyle factors that impact your health.</p>
+        <p class="text-gray-700 mb-4">Unlike many health websites that promote quick fixes or fad diets, we focus on sustainable strategies backed by scientific evidence. Our goal is to help you develop healthy habits that you can maintain for life.</p>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <h2 class="text-2xl font-semibold mb-6 text-indigo-800">Our Expert Team</h2>
+        <p class="text-gray-700 mb-8">Our content is reviewed and developed by a dedicated team of health professionals, including registered dietitians, nutritionists, and healthcare providers with expertise in weight management and preventive health.</p>
+        
+        <div class="space-y-8">
+          <!-- Team Member 1 -->
+          <div class="flex flex-col md:flex-row items-center md:items-start mobile-stack">
+            <div class="md:mr-6 mb-4 md:mb-0">
+              <img 
+                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" 
+                alt="Dr. Sarah Johnson" 
+                class="team-member-image mobile-center"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1557053910-d9eadeed1c58?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80'; this.classList.add('fallback-image');"
+              />
+            </div>
+            <div class="text-center md:text-left mobile-text-center">
+              <h3 class="text-xl font-semibold text-indigo-800">Dr. Sarah Johnson, MD</h3>
+              <p class="text-indigo-600 mb-2">Medical Director</p>
+              <p class="text-gray-700 mb-3">Dr. Johnson is board-certified in Internal Medicine with a focus on preventive health and nutrition. She has over 15 years of experience helping patients manage their weight and improve their overall health through lifestyle modifications.</p>
+              <p class="text-gray-600 text-sm italic">"My goal is to translate complex medical research into practical advice that people can use to make meaningful changes in their lives."</p>
+            </div>
+          </div>
+          
+          <!-- Team Member 2 -->
+          <div class="flex flex-col md:flex-row items-center md:items-start mobile-stack">
+            <div class="md:mr-6 mb-4 md:mb-0">
+              <img 
+                src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" 
+                alt="Michael Rodriguez" 
+                class="team-member-image mobile-center"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1542178243-bc20204b769f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80'; this.classList.add('fallback-image');"
+              />
+            </div>
+            <div class="text-center md:text-left mobile-text-center">
+              <h3 class="text-xl font-semibold text-indigo-800">Michael Rodriguez, RD</h3>
+              <p class="text-indigo-600 mb-2">Lead Registered Dietitian</p>
+              <p class="text-gray-700 mb-3">Michael specializes in medical nutrition therapy for weight management and metabolic health. He holds a Master's degree in Nutrition Science and has worked with diverse populations to develop personalized nutrition plans.</p>
+              <p class="text-gray-600 text-sm italic">"There's no one-size-fits-all approach to nutrition. I'm passionate about helping people find sustainable eating patterns that work for their unique needs and preferences."</p>
+            </div>
+          </div>
+          
+          <!-- Team Member 3 -->
+          <div class="flex flex-col md:flex-row items-center md:items-start mobile-stack">
+            <div class="md:mr-6 mb-4 md:mb-0">
+              <img 
+                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" 
+                alt="Dr. Emily Chen" 
+                class="team-member-image mobile-center"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80'; this.classList.add('fallback-image');"
+              />
+            </div>
+            <div class="text-center md:text-left mobile-text-center">
+              <h3 class="text-xl font-semibold text-indigo-800">Dr. Emily Chen, PhD</h3>
+              <p class="text-indigo-600 mb-2">Nutrition Researcher</p>
+              <p class="text-gray-700 mb-3">Dr. Chen has a PhD in Nutritional Sciences and specializes in the relationship between diet, metabolism, and weight management. Her research has been published in top scientific journals and focuses on evidence-based approaches to sustainable weight loss.</p>
+              <p class="text-gray-600 text-sm italic">"My mission is to bridge the gap between scientific research and practical application. I'm committed to separating nutrition facts from fads."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-800">Our Editorial Process</h2>
+        <p class="text-gray-700 mb-4">We're committed to providing accurate, up-to-date information that you can trust. Here's how we ensure the quality of our content:</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h3 class="font-semibold text-indigo-800 mb-2">Research-Based Content</h3>
+            <p class="text-gray-700 text-sm">Our articles are based on peer-reviewed research from reputable scientific journals and authoritative health organizations like the NIH, WHO, and Mayo Clinic.</p>
+          </div>
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h3 class="font-semibold text-indigo-800 mb-2">Expert Review</h3>
+            <p class="text-gray-700 text-sm">All content is reviewed by our team of healthcare professionals to ensure accuracy and adherence to current medical guidelines.</p>
+          </div>
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h3 class="font-semibold text-indigo-800 mb-2">Regular Updates</h3>
+            <p class="text-gray-700 text-sm">We regularly review and update our content to reflect the latest research and recommendations in nutrition and weight management.</p>
+          </div>
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h3 class="font-semibold text-indigo-800 mb-2">Clear Citations</h3>
+            <p class="text-gray-700 text-sm">We provide references to the sources we use so you can verify information and explore topics in greater depth if desired.</p>
+          </div>
+        </div>
+        
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+          <h3 class="font-semibold text-yellow-800 mb-2">Medical Disclaimer</h3>
+          <p class="text-gray-700 text-sm">The information on our website is educational in nature and not intended as medical advice. Always consult with a qualified healthcare provider before making significant changes to your diet or exercise routine, especially if you have underlying health conditions.</p>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-800">Professional Affiliations</h2>
+        <p class="text-gray-700 mb-6">We're proud to be affiliated with leading organizations in health and nutrition:</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div class="p-4">
+            <div class="text-3xl font-bold text-indigo-800 mb-2">ANA</div>
+            <p class="text-gray-600 text-sm">American Nutrition Association</p>
+          </div>
+          <div class="p-4">
+            <div class="text-3xl font-bold text-indigo-800 mb-2">AND</div>
+            <p class="text-gray-600 text-sm">Academy of Nutrition and Dietetics</p>
+          </div>
+          <div class="p-4">
+            <div class="text-3xl font-bold text-indigo-800 mb-2">OMA</div>
+            <p class="text-gray-600 text-sm">Obesity Medicine Association</p>
+          </div>
+          <div class="p-4">
+            <div class="text-3xl font-bold text-indigo-800 mb-2">ACLM</div>
+            <p class="text-gray-600 text-sm">American College of Lifestyle Medicine</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  ${footer}
+  
+  <script>
+    // Handle image errors
+    document.addEventListener('DOMContentLoaded', function() {
+      const images = document.querySelectorAll('img:not([onerror])');
+      images.forEach(img => {
+        img.onerror = function() {
+          const fallback = img.dataset.fallback || 'https://images.unsplash.com/photo-1557053910-d9eadeed1c58?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80';
+          this.src = fallback;
+          this.classList.add('fallback-image');
+        };
+      });
+    });
+  </script>
+</body>
+</html>`;
+};
+
+// Generate Contact Us page
+export const generateContactPage = (brandName, navbar, footer, customStyles = '', googleTag = '') => {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | ${brandName}</title>
+  <meta name="description" content="Get in touch with our team of health professionals. We're here to answer your questions about nutrition and weight management.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom styles -->
+  ${customStyles}
+  
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+    
+    @media (max-width: 640px) {
+      .mobile-order-reverse {
+        flex-direction: column-reverse !important;
+      }
+      
+      .mobile-full-width {
+        width: 100% !important;
+      }
+    }
+    
+    /* Form styles */
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      ring: 2px;
+      ring-color: rgba(79, 70, 229, 0.5);
+      border-color: #6366f1;
+    }
+  </style>
+  
+  <!-- Google tag for conversion tracking -->
+  ${googleTag}
+</head>
+<body class="bg-gray-50">
+  ${navbar}
+  
+  <main class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-indigo-900">Contact Us</h1>
+      
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="flex flex-col md:flex-row mobile-order-reverse">
+          <!-- Contact Form -->
+          <div class="md:w-2/3 p-8">
+            <h2 class="text-2xl font-semibold mb-6 text-indigo-800">Send Us a Message</h2>
+            <p class="text-gray-700 mb-6">We'd love to hear from you! Fill out the form below and our team will get back to you as soon as possible.</p>
+            
+            <form id="contact-form" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <input type="text" id="first-name" name="first-name" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md" required>
+                </div>
+                <div>
+                  <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <input type="text" id="last-name" name="last-name" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md" required>
+                </div>
+              </div>
+              
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                <input type="email" id="email" name="email" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md" required>
+              </div>
+              
+              <div>
+                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                <select id="subject" name="subject" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md">
+                  <option value="general">General Inquiry</option>
+                  <option value="support">Customer Support</option>
+                  <option value="feedback">Feedback</option>
+                  <option value="partnership">Partnership Opportunity</option>
+                  <option value="media">Media Inquiry</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <textarea id="message" name="message" rows="5" class="form-textarea w-full px-4 py-2 border border-gray-300 rounded-md" required></textarea>
+              </div>
+              
+              <div class="flex items-start">
+                <input type="checkbox" id="privacy-policy" name="privacy-policy" class="mt-1 h-4 w-4 text-indigo-600" required>
+                <label for="privacy-policy" class="ml-2 block text-sm text-gray-700">
+                  I have read and agree to the <a href="privacy.html" class="text-indigo-600 hover:underline">Privacy Policy</a> and consent to having my data processed.
+                </label>
+              </div>
+              
+              <div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition-colors font-medium">Send Message</button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Contact Information -->
+          <div class="md:w-1/3 bg-indigo-700 text-white p-8">
+            <h2 class="text-2xl font-semibold mb-6">Contact Information</h2>
+            
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-md font-medium">Email</h3>
+                  <p class="mt-1 text-sm text-indigo-200">info@${brandName.toLowerCase().replace(/\s+|[^a-zA-Z0-9]/g, '')}.com</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-md font-medium">Phone</h3>
+                  <p class="mt-1 text-sm text-indigo-200">(888) 555-0123</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-md font-medium">Office</h3>
+                  <p class="mt-1 text-sm text-indigo-200">
+                    123 Health Avenue<br>
+                    Suite 456<br>
+                    New York, NY 10001
+                  </p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-md font-medium">Hours</h3>
+                  <p class="mt-1 text-sm text-indigo-200">
+                    Monday-Friday: 9am-5pm EST<br>
+                    Saturday: 10am-2pm EST<br>
+                    Sunday: Closed
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8">
+              <h3 class="text-md font-medium mb-3">Follow Us</h3>
+              <div class="flex space-x-4">
+                <a href="#" class="text-white hover:text-indigo-200 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
+                  </svg>
+                </a>
+                <a href="#" class="text-white hover:text-indigo-200 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                  </svg>
+                </a>
+                <a href="#" class="text-white hover:text-indigo-200 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  </svg>
+                </a>
+                <a href="#" class="text-white hover:text-indigo-200 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12">
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <h2 class="text-2xl font-semibold mb-6 text-indigo-800">Frequently Asked Questions</h2>
+          
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-medium text-indigo-700 mb-2">How quickly can I expect a response to my inquiry?</h3>
+              <p class="text-gray-700">We aim to respond to all inquiries within 1-2 business days. For urgent matters, please call our customer service line.</p>
+            </div>
+            
+            <div>
+              <h3 class="text-lg font-medium text-indigo-700 mb-2">Can I schedule a consultation with one of your health professionals?</h3>
+              <p class="text-gray-700">Yes, we offer virtual consultations with our registered dietitians. Please indicate your interest in the contact form, and we'll provide you with information about availability and rates.</p>
+            </div>
+            
+            <div>
+              <h3 class="text-lg font-medium text-indigo-700 mb-2">Do you offer personalized meal plans?</h3>
+              <p class="text-gray-700">While our site provides general meal planning tools, we also offer customized meal plans developed by our dietitians for an additional fee. Contact us for more information.</p>
+            </div>
+            
+            <div>
+              <h3 class="text-lg font-medium text-indigo-700 mb-2">I found an error on your website. Who should I contact?</h3>
+              <p class="text-gray-700">We appreciate your help in maintaining the accuracy of our content. Please use the contact form and select "Feedback" as the subject to report any errors.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  ${footer}
+  
+  <script>
+    // Handle form submission - for demo purposes only
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('contact-form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Validate form
+          const isValid = form.checkValidity();
+          if (!isValid) {
+            form.reportValidity();
+            return;
+          }
+          
+          // Show success message (in a real implementation, this would send the form data to a server)
+          alert('Thank you for your message! This is a demo form. In a production environment, this would be submitted to our team.');
+          
+          // Reset form
+          form.reset();
+        });
+      }
+    });
+  </script>
+</body>
+</html>`;
+};
+
+// Generate FAQ page
+export const generateFAQPage = (brandName, navbar, footer, customStyles = '', googleTag = '') => {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions | ${brandName}</title>
+  <meta name="description" content="Find answers to common questions about weight loss, nutrition, diet plans, and our services.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom styles -->
+  ${customStyles}
+  
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+    
+    .faq-item[data-open="true"] .faq-answer {
+      display: block;
+    }
+    
+    .faq-item[data-open="true"] .faq-icon-plus {
+      display: none;
+    }
+    
+    .faq-item[data-open="true"] .faq-icon-minus {
+      display: block;
+    }
+    
+    .faq-item[data-open="false"] .faq-answer {
+      display: none;
+    }
+    
+    .faq-item[data-open="false"] .faq-icon-plus {
+      display: block;
+    }
+    
+    .faq-item[data-open="false"] .faq-icon-minus {
+      display: none;
+    }
+  </style>
+  
+  <!-- Google tag for conversion tracking -->
+  ${googleTag}
+  
+  <!-- Schema.org FAQ markup for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much weight can I expect to lose?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Healthy weight loss varies by individual, but a safe and sustainable rate is 1-2 pounds per week. Factors like starting weight, diet, exercise habits, and genetics all play a role in determining your weight loss rate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the best diet for weight loss?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "There's no single 'best' diet for everyone. Research shows that the most effective diet is one you can maintain long-term. Mediterranean, DASH, and flexitarian diets consistently rank well for both health benefits and sustainability."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to exercise to lose weight?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "While diet typically plays a larger role in weight loss, exercise offers numerous benefits including improved metabolism, muscle preservation, and better overall health. Combining dietary changes with regular physical activity typically yields the best and most sustainable results."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-gray-50">
+  ${navbar}
+  
+  <main class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-indigo-900">Frequently Asked Questions</h1>
+      
+      <div class="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
+        <p class="text-center text-gray-700 mb-8">Find answers to common questions about weight loss, nutrition, and healthy eating. If you don't see your question here, please <a href="contact.html" class="text-indigo-600 hover:underline">contact us</a>.</p>
+        
+        <div class="space-y-2">
+          <!-- Category tabs -->
+          <div class="flex flex-wrap border-b border-gray-200 mb-6">
+            <button class="category-tab px-4 py-2 text-indigo-600 border-b-2 border-indigo-600 font-medium" data-category="weight-loss">
+              Weight Loss
+            </button>
+            <button class="category-tab px-4 py-2 text-gray-500 hover:text-indigo-600 font-medium" data-category="diet">
+              Diet Plans
+            </button>
+            <button class="category-tab px-4 py-2 text-gray-500 hover:text-indigo-600 font-medium" data-category="nutrition">
+              Nutrition
+            </button>
+            <button class="category-tab px-4 py-2 text-gray-500 hover:text-indigo-600 font-medium" data-category="exercise">
+              Exercise
+            </button>
+            <button class="category-tab px-4 py-2 text-gray-500 hover:text-indigo-600 font-medium" data-category="website">
+              Website & Tools
+            </button>
+          </div>
+          
+          <!-- Weight Loss FAQs -->
+          <div class="faq-category active" id="weight-loss-faqs">
+            <div class="space-y-4">
+              <!-- FAQ Item 1 -->
+              <div class="faq-item border border-gray-200 rounded-lg" data-open="false">
+                <button class="faq-question w-full flex justify-between items-center p-4 focus:outline-none">
+                  <h3 class="text-lg font-medium text-left text-gray-900">How much weight can I expect to lose?</h3>
+                  <div class="ml-2 flex-shrink-0">
+                    <svg class="faq-icon-plus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <svg class="faq-icon-minus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                    </svg>
+                  </div>
+                </button>
+                <div class="faq-answer px-4 pb-4 text-gray-700">
+                  <p>Healthy weight loss varies by individual, but a safe and sustainable rate is 1-2 pounds per week. Factors like starting weight, diet, exercise habits, and genetics all play a role in determining your weight loss rate.</p>
+                  <p class="mt-2">It's important to focus on consistent, gradual progress rather than rapid weight loss, which is often difficult to maintain and may involve the loss of muscle mass rather than fat.</p>
+                </div>
+              </div>
+              
+              <!-- FAQ Item 2 -->
+              <div class="faq-item border border-gray-200 rounded-lg" data-open="false">
+                <button class="faq-question w-full flex justify-between items-center p-4 focus:outline-none">
+                  <h3 class="text-lg font-medium text-left text-gray-900">Why have I hit a weight loss plateau?</h3>
+                  <div class="ml-2 flex-shrink-0">
+                    <svg class="faq-icon-plus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <svg class="faq-icon-minus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                    </svg>
+                  </div>
+                </button>
+                <div class="faq-answer px-4 pb-4 text-gray-700">
+                  <p>Weight loss plateaus are normal and happen for several reasons:</p>
+                  <ul class="list-disc pl-5 mt-2 space-y-1">
+                    <li>Your metabolism adjusts to your lower weight and reduced calorie intake</li>
+                    <li>You may have lost muscle mass, which lowers your basal metabolic rate</li>
+                    <li>Your body becomes more efficient at the exercises you're doing</li>
+                    <li>You might be experiencing "calorie creep" - gradually consuming more calories without realizing it</li>
+                  </ul>
+                  <p class="mt-2">To overcome a plateau, try mixing up your exercise routine, recalculating your calorie needs at your new weight, incorporating strength training, and ensuring you're accurately tracking food intake.</p>
+                </div>
+              </div>
+              
+              <!-- FAQ Item 3 -->
+              <div class="faq-item border border-gray-200 rounded-lg" data-open="false">
+                <button class="faq-question w-full flex justify-between items-center p-4 focus:outline-none">
+                  <h3 class="text-lg font-medium text-left text-gray-900">Is rapid weight loss safe?</h3>
+                  <div class="ml-2 flex-shrink-0">
+                    <svg class="faq-icon-plus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <svg class="faq-icon-minus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                    </svg>
+                  </div>
+                </button>
+                <div class="faq-answer px-4 pb-4 text-gray-700">
+                  <p>Rapid weight loss (more than 2 pounds per week) is generally not recommended for most people. Potential risks include:</p>
+                  <ul class="list-disc pl-5 mt-2 space-y-1">
+                    <li>Loss of muscle mass rather than fat</li>
+                    <li>Nutritional deficiencies</li>
+                    <li>Gallstones</li>
+                    <li>Metabolic slowdown making it harder to maintain weight loss</li>
+                    <li>Hair loss, fatigue, and mood changes</li>
+                  </ul>
+                  <p class="mt-2">In certain medical situations, rapid weight loss may be prescribed under close medical supervision, but for most people, a gradual approach is safer and more sustainable.</p>
+                </div>
+              </div>
+              
+              <!-- FAQ Item 4 -->
+              <div class="faq-item border border-gray-200 rounded-lg" data-open="false">
+                <button class="faq-question w-full flex justify-between items-center p-4 focus:outline-none">
+                  <h3 class="text-lg font-medium text-left text-gray-900">Should I try weight loss medications or supplements?</h3>
+                  <div class="ml-2 flex-shrink-0">
+                    <svg class="faq-icon-plus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <svg class="faq-icon-minus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                    </svg>
+                  </div>
+                </button>
+                <div class="faq-answer px-4 pb-4 text-gray-700">
+                  <p>Weight loss medications are typically considered for people with:</p>
+                  <ul class="list-disc pl-5 mt-2 space-y-1">
+                    <li>BMI ≥30 (obesity), or</li>
+                    <li>BMI ≥27 with weight-related health conditions like high blood pressure or type 2 diabetes</li>
+                  </ul>
+                  <p class="mt-2">FDA-approved prescription medications should only be used under medical supervision. Over-the-counter supplements often lack solid research backing their claims and may contain ingredients that are ineffective or potentially harmful.</p>
+                  <p class="mt-2">Always consult with a healthcare provider before starting any weight loss medication or supplement. They should be used as part of a comprehensive program that includes diet and exercise changes, not as a standalone solution.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Diet Plans FAQs (initially hidden) -->
+          <div class="faq-category hidden" id="diet-faqs">
+            <div class="space-y-4">
+              <!-- FAQ Item 1 -->
+              <div class="faq-item border border-gray-200 rounded-lg" data-open="false">
+                <button class="faq-question w-full flex justify-between items-center p-4 focus:outline-none">
+                  <h3 class="text-lg font-medium text-left text-gray-900">What's the best diet for weight loss?</h3>
+                  <div class="ml-2 flex-shrink-0">
+                    <svg class="faq-icon-plus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <svg class="faq-icon-minus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                    </svg>
+                  </div>
+                </button>
+                <div class="faq-answer px-4 pb-4 text-gray-700">
+                  <p>There's no single "best" diet for everyone. Research shows that the most effective diet is one you can maintain long-term. Mediterranean, DASH, and flexitarian diets consistently rank well for both health benefits and sustainability.</p>
+                  <p class="mt-2">The key factors that make a diet successful include:</p>
+                  <ul class="list-disc pl-5 mt-2 space-y-1">
+                    <li>Sustainability (can you maintain it for years, not just weeks?)</li>
+                    <li>Nutritional adequacy (provides all essential nutrients)</li>
+                    <li>Inclusion of foods you enjoy</li>
+                    <li>Compatibility with your lifestyle and cultural preferences</li>
+                    <li>Creates a modest calorie deficit without extreme restriction</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <!-- More diet plan FAQs would go here -->
+            </div>
+          </div>
+          
+          <!-- Nutrition FAQs (initially hidden) -->
+          <div class="faq-category hidden" id="nutrition-faqs">
+            <!-- Nutrition FAQs would go here -->
+          </div>
+          
+          <!-- Exercise FAQs (initially hidden) -->
+          <div class="faq-category hidden" id="exercise-faqs">
+            <!-- Exercise FAQs would go here -->
+          </div>
+          
+          <!-- Website & Tools FAQs (initially hidden) -->
+          <div class="faq-category hidden" id="website-faqs">
+            <!-- Website & Tools FAQs would go here -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Still Have Questions section -->
+      <div class="bg-indigo-700 text-white rounded-lg shadow-md p-8 text-center">
+        <h2 class="text-2xl font-bold mb-4">Still Have Questions?</h2>
+        <p class="mb-6 max-w-2xl mx-auto">If you couldn't find the answer you were looking for, our team is happy to help. Contact us directly and we'll get back to you as soon as possible.</p>
+        <a href="contact.html" class="inline-block bg-white text-indigo-700 font-medium py-3 px-8 rounded-md hover:bg-gray-100 transition-colors">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </main>
+  
+  ${footer}
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // FAQ accordion functionality
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+          const isOpen = item.getAttribute('data-open') === 'true';
+          // Close all other items
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.setAttribute('data-open', 'false');
+            }
+          });
+          // Toggle current item
+          item.setAttribute('data-open', isOpen ? 'false' : 'true');
+        });
+      });
+      
+      // Category tabs functionality
+      const categoryTabs = document.querySelectorAll('.category-tab');
+      const faqCategories = document.querySelectorAll('.faq-category');
+      
+      categoryTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Remove active class from all tabs
+          categoryTabs.forEach(t => {
+            t.classList.remove('text-indigo-600', 'border-b-2', 'border-indigo-600');
+            t.classList.add('text-gray-500');
+          });
+          
+          // Add active class to clicked tab
+          tab.classList.add('text-indigo-600', 'border-b-2', 'border-indigo-600');
+          tab.classList.remove('text-gray-500');
+          
+          // Hide all content
+          faqCategories.forEach(category => {
+            category.classList.add('hidden');
+            category.classList.remove('active');
+          });
+          
+          // Show corresponding content
+          const categoryId = tab.getAttribute('data-category');
+          const content = document.getElementById(categoryId + '-faqs');
+          if (content) {
+            content.classList.remove('hidden');
+            content.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>`;
 }; 

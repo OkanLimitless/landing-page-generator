@@ -3,7 +3,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import { generateBMICalculator, generateMealPlanner, generateTopTenWeightLossMeds } from './health-tools.js';
+import { generateBMICalculator, generateMealPlanner, generateTopTenWeightLossMeds, generateAboutPage, generateContactPage, generateFAQPage } from './health-tools.js';
 
 // Blog post data - we'll use this to generate individual blog post pages
 const blogPosts = {
@@ -64,7 +64,7 @@ const blogPosts = {
       <p>These diets work through several mechanisms:</p>
       
       <h3>1. Reduced hunger and increased satiety</h3>
-      <p>Protein is highly satiating, meaning it helps you feel full longer than carbohydrates or fats. This can naturally lead to reduced calorie intake.</p>
+      <p>Protein is highly satiating, meaning it helps you feel fuller for longer than carbohydrates or fats. This can naturally lead to reduced calorie intake.</p>
       
       <h3>2. Higher thermic effect of food</h3>
       <p>Your body burns more calories digesting protein compared to carbohydrates or fats. This increased energy expenditure can contribute to weight loss.</p>
@@ -808,6 +808,84 @@ const getImageWithFallback = (imageUrl, fallbackUrl, altText) => {
   return `${imageUrl}`;
 };
 
+// Generate trust signals section with medical disclaimers and badges
+const generateTrustSignalsSection = (primaryColor) => {
+  return `
+  <section id="trust-signals" class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Trusted Health Information</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <!-- Trust Badge 1 -->
+          <div class="bg-gray-50 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-16 h-16 mx-auto mb-3 bg-blue-100 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">Science-Backed</h3>
+            <p class="text-sm text-gray-600">All information reviewed by medical professionals</p>
+          </div>
+          
+          <!-- Trust Badge 2 -->
+          <div class="bg-gray-50 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-16 h-16 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">Regularly Updated</h3>
+            <p class="text-sm text-gray-600">Content regularly updated with latest research</p>
+          </div>
+          
+          <!-- Trust Badge 3 -->
+          <div class="bg-gray-50 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-16 h-16 mx-auto mb-3 bg-purple-100 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">Trusted by 10,000+</h3>
+            <p class="text-sm text-gray-600">Users rely on our guidance every month</p>
+          </div>
+          
+          <!-- Trust Badge 4 -->
+          <div class="bg-gray-50 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-16 h-16 mx-auto mb-3 bg-red-100 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold mb-2">Evidence-Based</h3>
+            <p class="text-sm text-gray-600">Recommendations based on clinical research</p>
+          </div>
+        </div>
+        
+        <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+          <div class="flex items-start">
+            <div class="hidden md:block flex-shrink-0 mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-${primaryColor.replace('#', '').substring(0, 6)}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-2">Medical Disclaimer</h3>
+              <p class="text-gray-700 text-sm leading-relaxed">
+                The information provided on this website is intended for general informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay seeking it because of something you have read on this website.
+              </p>
+              <p class="text-gray-700 text-sm mt-2 leading-relaxed">
+                Weight management approaches should be personalized based on individual health status and goals. What works for one person may not be appropriate for another. Before starting any diet, exercise program, or weight loss regimen, please consult with a healthcare professional, particularly if you have any pre-existing health conditions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  `;
+};
+
 // Helper function to generate a blog post page
 const generateBlogPost = (post, brandName, primaryColor) => {
   // Define generateRandomColor function inside generateBlogPost to ensure it's available
@@ -1374,37 +1452,63 @@ export const generateGLPPage = (data) => {
 
   // Generate the navbar component
   const navbar = `
-  <nav class="bg-white shadow sticky top-0 z-50">
+  <nav class="bg-white shadow-md">
     <div class="container mx-auto px-4">
-      <div class="flex justify-between items-center h-16">
-        <div class="flex-shrink-0">
-          <a href="#" class="flex items-center">
-            <span class="font-bold text-xl text-${primaryColor.replace('#', '').substring(0, 6)}">${brandName}</span>
-          </a>
-        </div>
-        <div class="hidden md:block">
-          <div class="ml-10 flex items-center space-x-4">
-            <a href="index.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2 rounded-md text-sm font-medium">Home</a>
-            <a href="index.html#diet-plans" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2 rounded-md text-sm font-medium">Diet Plans</a>
-            <a href="meal-planner.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2 rounded-md text-sm font-medium">Meal Planner</a>
-            <a href="bmi-calculator.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2 rounded-md text-sm font-medium">BMI Calculator</a>
-            <a href="about.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2 rounded-md text-sm font-medium">About Us</a>
-            <a href="top-ten-weight-loss-meds.html" class="bg-${primaryColor.replace('#', '').substring(0, 6)} text-white hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 px-4 py-2 rounded-md text-sm font-medium ml-2">
-              Get Started
-            </a>
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 flex items-center">
+            <h1 class="text-xl font-bold tracking-tight text-gray-900 inline-block">
+              <a href="index.html" class="flex items-center hover:text-${primaryColor.replace('#', '').substring(0, 6)}">
+                <span class="text-indigo-600">${brandName.split('-')[0]}</span>
+                <span class="text-purple-600">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
+              </a>
+            </h1>
           </div>
         </div>
-        <!-- Mobile menu button -->
-        <div class="md:hidden flex items-center">
-          <button type="button" class="text-gray-600 hover:text-gray-800 focus:outline-none">
-            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
+          <a href="index.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">Home</a>
+          <a href="about.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">About</a>
+          <a href="bmi-calculator.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">BMI Calculator</a>
+          <a href="meal-planner.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">Meal Planner</a>
+          <a href="faq.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">FAQ</a>
+          <a href="contact.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">Contact</a>
+        </div>
+        <div class="-mr-2 flex items-center sm:hidden">
+          <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-${primaryColor.replace('#', '').substring(0, 6)}" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
       </div>
     </div>
+    
+    <div class="sm:hidden mobile-menu hidden">
+      <div class="pt-2 pb-3 space-y-1">
+        <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">Home</a>
+        <a href="about.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">About</a>
+        <a href="bmi-calculator.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">BMI Calculator</a>
+        <a href="meal-planner.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">Meal Planner</a>
+        <a href="faq.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">FAQ</a>
+        <a href="contact.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">Contact</a>
+      </div>
+    </div>
   </nav>
+  
+  <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuButton = document.querySelector('.mobile-menu-button');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', function() {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+    });
+  </script>
   `;
 
   // Generate the hero section component with different layouts and image error handling
@@ -1732,7 +1836,7 @@ export const generateGLPPage = (data) => {
                 </div>
                 <div class="md:w-3/5 p-6">
                   <h3 class="text-xl font-semibold mb-2">Mediterranean Diet Clinches Gold</h3>
-                  <p class="text-gray-600 mb-4">Experts urge caution despite the Mediterranean diet's recognition as a gold standard for health.</p>
+                  <p class="text-gray-600 mb-4">Experts urge caution despite the Mediterranean diet's recognition as a gold standard for heart health.</p>
                   <a href="mediterranean-diet-clinches-2025-gold.html" class="inline-block px-4 py-2 border border-${primaryColor.replace('#', '').substring(0, 6)} text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)} hover:text-white transition-colors text-sm rounded">Read More</a>
                 </div>
               </div>
@@ -2041,6 +2145,7 @@ export const generateGLPPage = (data) => {
       </section>
       `;
       break;
+
       
     case 3:
       // Modern layout with cards
@@ -2462,90 +2567,63 @@ export const generateGLPPage = (data) => {
 
   // Generate the footer
   const footer = `
-  <footer class="bg-indigo-900 text-white py-12">
+  <footer class="bg-gray-800 text-white pt-12 pb-8">
     <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row justify-between">
-        <div class="mb-8 md:mb-0">
-          <div class="relative h-8 w-32 mb-4">
-            <h2 class="text-xl font-bold tracking-tight text-white">
-              <span class="text-white">${brandName.split('-')[0]}</span>
-              <span class="text-purple-300">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
-            </h2>
-          </div>
-          <p class="text-gray-300 text-sm max-w-xs">
-            Your trusted source for nutrition, diet, and health information to help you make better lifestyle choices.
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">About</h3>
+          <p class="text-gray-300 text-sm">
+            ${brandName} provides science-based information on nutrition, weight management, and healthy living. Our mission is to help you make informed decisions about your health.
           </p>
-          <div class="mt-4 flex space-x-4">
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
-              </svg>
-            </a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-              </svg>
-            </a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-              </svg>
-            </a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
-              </svg>
-            </a>
-          </div>
         </div>
         
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div>
-            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul class="space-y-2">
-              <li><a href="index.html" class="text-gray-300 hover:text-white text-sm transition-colors">Home</a></li>
-              <li><a href="index.html#articles" class="text-gray-300 hover:text-white text-sm transition-colors">Articles</a></li>
-              <li><a href="index.html#diet-plans" class="text-gray-300 hover:text-white text-sm transition-colors">Diet Plans</a></li>
-              <li><a href="index.html#recipes" class="text-gray-300 hover:text-white text-sm transition-colors">Recipes</a></li>
-              <li><a href="index.html#about-us" class="text-gray-300 hover:text-white text-sm transition-colors">About Us</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-semibold mb-4">Resources</h3>
-            <ul class="space-y-2">
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">Nutrition Calculator</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">Meal Planner</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">Blog</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors">FAQ</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-semibold mb-4">Support</h3>
-            <ul class="space-y-2">
-              <li><a href="privacy.html" class="text-gray-300 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
-              <li><a href="terms.html" class="text-gray-300 hover:text-white text-sm transition-colors">Terms of Use</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
-            <ul class="space-y-2">
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>Contact</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white text-sm transition-colors flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Help Center</a></li>
-            </ul>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Tools</h3>
+          <ul class="space-y-2">
+            <li><a href="bmi-calculator.html" class="text-gray-300 hover:text-white text-sm transition-colors">BMI Calculator</a></li>
+            <li><a href="meal-planner.html" class="text-gray-300 hover:text-white text-sm transition-colors">Meal Planner</a></li>
+            <li><a href="top-ten-weight-loss-meds.html" class="text-gray-300 hover:text-white text-sm transition-colors">Top 10 Weight Loss Medications</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Support</h3>
+          <ul class="space-y-2">
+            <li><a href="about.html" class="text-gray-300 hover:text-white text-sm transition-colors">About Us</a></li>
+            <li><a href="faq.html" class="text-gray-300 hover:text-white text-sm transition-colors">FAQ</a></li>
+            <li><a href="contact.html" class="text-gray-300 hover:text-white text-sm transition-colors">Contact Us</a></li>
+            <li><a href="privacy.html" class="text-gray-300 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
+            <li><a href="terms.html" class="text-gray-300 hover:text-white text-sm transition-colors">Terms of Use</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Connect</h3>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+              </svg>
+            </a>
           </div>
         </div>
       </div>
       
-      <div class="mt-12 pt-8 border-t border-indigo-800 text-center text-sm text-gray-400">
-        <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
-        <div class="mt-2 flex justify-center space-x-4">
-          <a href="privacy.html" class="hover:text-purple-300 transition-colors">Privacy</a>
-          <a href="terms.html" class="hover:text-purple-300 transition-colors">Terms</a>
-          <a href="contact.html" class="hover:text-purple-300 transition-colors">Contact</a>
-        </div>
+      <div class="mt-8 pt-8 border-t border-gray-700 text-center">
+        <p class="text-gray-400 text-sm">© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+        <p class="text-gray-500 text-xs mt-2">
+          Disclaimer: The information provided on this website is for general informational purposes only and should not be considered as medical advice. Always consult with a qualified healthcare professional before making any dietary or lifestyle changes.
+        </p>
       </div>
     </div>
   </footer>
@@ -2731,7 +2809,24 @@ export const generateGLPPage = (data) => {
     </div>
   </div>
   
-  ${newsletterSection}
+  ${generateTrustSignalsSection(primaryColor)}
+  
+  <section id="newsletter" class="py-12 bg-gradient-to-r from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)}">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center text-white">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">Get Science-Based Nutrition Tips</h2>
+        <p class="text-lg mb-8 opacity-90">Join our newsletter and receive expert advice on weight management, nutrition, and healthy living.</p>
+        
+        <form class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+          <input type="email" id="email" name="email" placeholder="Enter your email" class="w-full md:w-auto px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+          <button type="submit" class="w-full md:w-auto bg-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 text-white font-medium py-3 px-8 rounded-md shadow-sm hover:shadow-lg transition duration-300 sm:text-sm">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+  
   ${footer}
   
   <script>
@@ -2845,6 +2940,9 @@ export const generateGLPPage = (data) => {
     'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, googleTag),
     'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, googleTag),
     'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbar, footer, customStyles, googleTag, targetUrl),
+    'about.html': generateAboutUsPage(brandName, navbar, footer, customStyles, googleTag),
+    'contact.html': generateContactPage(brandName, navbar, footer, customStyles, googleTag),
+    'faq.html': generateFAQPage(brandName, navbar, footer, customStyles, googleTag),
     ...blogPostPages
   };
 }; 
