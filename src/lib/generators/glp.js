@@ -1439,24 +1439,38 @@ const generateTestimonialsSection = (stylePrefix, testimonials) => `
 
 // Generate newsletter section
 const generateNewsletterSection = (stylePrefix) => `
-  <section class="py-16 bg-white animate-section" style="animation-delay: 0.6s;">
+  <section class="py-16 bg-gray-50 animate-section" style="animation-delay: 0.6s;">
     <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto bg-gradient-to-r from-${stylePrefix}-primary to-${stylePrefix}-secondary rounded-lg p-8 md:p-12 text-white shadow-lg">
-        <div class="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 class="text-2xl md:text-3xl font-bold mb-4">Stay Updated</h2>
-            <p class="mb-6 opacity-90">Get the latest weight loss tips, success stories, and program updates delivered to your inbox.</p>
-            <form class="space-y-3 newsletter-form">
-              <input type="email" placeholder="Your email address" class="w-full p-3 rounded-lg text-gray-800 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-${stylePrefix}-primary" required />
-              <button type="submit" class="w-full bg-white ${stylePrefix}-primary-text font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0 shadow-md">
-                Subscribe Now
-              </button>
-            </form>
-          </div>
-          <div class="hidden md:flex justify-center items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 text-white opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
+      <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+        <div class="p-8 md:p-12">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 class="text-2xl md:text-3xl font-bold mb-4 ${stylePrefix}-primary-text">Stay Updated</h2>
+              <p class="mb-6 text-gray-600">Get the latest weight loss tips, success stories, and program updates delivered to your inbox.</p>
+              <form class="space-y-4 newsletter-form">
+                <div class="relative">
+                  <input 
+                    type="email" 
+                    placeholder="Your email address" 
+                    class="w-full p-3 rounded-lg border border-gray-300 text-gray-800 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-${stylePrefix}-primary focus:border-transparent" 
+                    required 
+                  />
+                </div>
+                <button 
+                  type="submit" 
+                  class="w-full ${stylePrefix}-btn text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0"
+                >
+                  Subscribe Now
+                </button>
+              </form>
+            </div>
+            <div class="hidden md:flex justify-center items-center">
+              <div class="relative w-48 h-48 ${stylePrefix}-primary-bg bg-opacity-10 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 ${stylePrefix}-primary-text opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
