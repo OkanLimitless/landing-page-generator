@@ -1480,7 +1480,6 @@ const generateNewsletterSection = (stylePrefix) => `
 
 // *** NEW: Shared Navbar Function ***
 const generateNavbar = (brandName, stylePrefix, primaryColor) => {
-  // Determine text/hover colors based on primary color brightness
   const isPrimaryDark = primaryColor.startsWith('#') && parseInt(primaryColor.substring(1, 3), 16) < 100;
   const navBgColor = isPrimaryDark ? 'bg-gray-800' : 'bg-white';
   const linkTextColor = isPrimaryDark ? 'text-gray-300' : 'text-gray-600';
@@ -1488,12 +1487,15 @@ const generateNavbar = (brandName, stylePrefix, primaryColor) => {
   const logoColor = isPrimaryDark ? 'text-white' : `${stylePrefix}-primary-text`;
   const buttonTextColor = isPrimaryDark ? 'text-gray-800' : 'text-white';
   const buttonHoverBg = isPrimaryDark ? 'hover:bg-gray-200' : `hover:${stylePrefix}-secondary-bg`;
+  const mobileMenuBg = isPrimaryDark ? 'bg-gray-800' : 'bg-white';
 
   return `
   <nav class="${navBgColor} shadow-md sticky top-0 z-50">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center py-3">
         <a href="index.html" class="text-2xl font-bold ${logoColor}">${brandName}</a>
+        
+        <!-- Desktop Menu -->
         <div class="hidden md:flex items-center space-x-1">
           <a href="index.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
           <a href="about.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
@@ -1504,15 +1506,98 @@ const generateNavbar = (brandName, stylePrefix, primaryColor) => {
             Compare Top Meds
           </a>
         </div>
+
+        <!-- Mobile Menu Button -->
         <div class="md:hidden">
-           <button class="${linkTextColor} hover:text-gray-900 focus:outline-none">
-             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-             </svg>
-           </button>
+          <button 
+            id="mobile-menu-button"
+            class="${linkTextColor} hover:text-gray-900 focus:outline-none p-2"
+            aria-label="Toggle menu"
+          >
+            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <path class="mobile-menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+              <path class="mobile-menu-close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Container -->
+      <div id="mobile-menu" class="hidden md:hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 ${mobileMenuBg} rounded-b-lg shadow-lg">
+          <a href="index.html" class="${linkTextColor} ${linkHoverColor} block px-3 py-2 rounded-md text-base font-medium transition-colors">Home</a>
+          <a href="about.html" class="${linkTextColor} ${linkHoverColor} block px-3 py-2 rounded-md text-base font-medium transition-colors">About</a>
+          <a href="faq.html" class="${linkTextColor} ${linkHoverColor} block px-3 py-2 rounded-md text-base font-medium transition-colors">FAQ</a>
+          <a href="contact.html" class="${linkTextColor} ${linkHoverColor} block px-3 py-2 rounded-md text-base font-medium transition-colors">Contact</a>
+          <div class="mt-4 px-3">
+            <a href="top-ten-weight-loss-meds.html"
+               class="w-full ${stylePrefix}-btn ${buttonTextColor} px-4 py-2 rounded-md text-base font-medium shadow-sm ${buttonHoverBg} transition-all text-center block">
+              Compare Top Meds
+            </a>
+          </div>
         </div>
       </div>
     </div>
+
+    <style>
+      .mobile-menu-entering {
+        animation: slideDown 0.3s ease-out;
+      }
+      .mobile-menu-leaving {
+        animation: slideUp 0.3s ease-out;
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideUp {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-10px); }
+      }
+    </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = mobileMenuButton.querySelector('.mobile-menu-icon');
+        const closeIcon = mobileMenuButton.querySelector('.mobile-menu-close');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+          isMenuOpen = !isMenuOpen;
+          
+          // Toggle icons
+          menuIcon.classList.toggle('hidden');
+          closeIcon.classList.toggle('hidden');
+          
+          // Toggle menu with animation
+          if (isMenuOpen) {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('mobile-menu-entering');
+            setTimeout(() => {
+              mobileMenu.classList.remove('mobile-menu-entering');
+            }, 300);
+          } else {
+            mobileMenu.classList.add('mobile-menu-leaving');
+            setTimeout(() => {
+              mobileMenu.classList.add('hidden');
+              mobileMenu.classList.remove('mobile-menu-leaving');
+            }, 280);
+          }
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+          const isClickInside = mobileMenuButton.contains(event.target) || mobileMenu.contains(event.target);
+          if (!isClickInside && isMenuOpen) {
+            toggleMenu();
+          }
+        });
+      });
+    </script>
   </nav>
 `;
 }
