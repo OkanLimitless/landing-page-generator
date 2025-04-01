@@ -1078,9 +1078,48 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     
     <!-- Mobile View -->
     <div class="mobile-view">
+      <!-- Top Section -->
+      <div class="bg-indigo-600 text-white px-4 py-2 text-center text-sm font-medium">
+        Family's Choice - March 2025
+      </div>
+      
+      <div class="px-4 pt-6 pb-4">
+        <h1 class="text-2xl font-bold text-center mb-4">
+          The easiest weight loss program ever, delivered to your door
+        </h1>
+        
+        <p class="text-center text-gray-600 mb-6">
+          Save up to 50% on top weight loss medications with insurance
+        </p>
+        
+        <div class="text-center mb-6">
+          <p class="font-semibold text-lg mb-2">Join 40,000+ patients who lost weight with us</p>
+          <ul class="text-left max-w-xs mx-auto space-y-2">
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Doctor-approved for safety
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              FDA-approved medications
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Insurance accepted
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <!-- CTA Button -->
       <div class="flex justify-center mb-8">
-        <a href="${affiliateLink}"
+        <a href="/redirect/next-step"
            onclick="return gtag_report_conversion('${affiliateLink}');"
            class="next-step-btn bg-green-600 text-white px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-2">
           <span>NEXT STEP</span>
@@ -1093,7 +1132,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       <!-- Most Popular Section -->
       <section id="top-medications" class="py-8 bg-white">
         <div class="max-w-5xl mx-auto px-4 py-6">
-          ${medications.map(med => `
+          ${medications.map((med, index) => `
             <div class="mb-8 border rounded-lg overflow-hidden shadow-md med-card">
               <div class="p-5 bg-white">
                 <div class="flex items-center justify-between mb-4">
@@ -1117,7 +1156,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                     </li>
                   `).join('')}
                 </ul>
-                <button onclick="return gtag_report_conversion('${affiliateLink}');" class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm">Get Offer</button>
+                <button onclick="return gtag_report_conversion('/redirect/${med.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}')" class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm">Get Offer</button>
               </div>
             </div>
           `).join('')}
@@ -1129,7 +1168,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         <div class="container mx-auto px-4 text-center">
           <h2 class="text-3xl font-bold mb-6">Ready to start your weight loss journey?</h2>
           <p class="text-lg mb-8 max-w-2xl mx-auto">Join thousands of patients who have successfully lost weight with GLP-1 medications. Take the first step today!</p>
-          <a href="${affiliateLink}"
+          <a href="/redirect/take-quiz"
              onclick="return gtag_report_conversion('${affiliateLink}');"
              class="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center gap-2">
             Take the Quiz →
