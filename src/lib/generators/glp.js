@@ -1447,16 +1447,16 @@ const generateNewsletterSection = (stylePrefix) => `
             <h2 class="text-2xl md:text-3xl font-bold mb-4">Stay Updated</h2>
             <p class="mb-6 opacity-90">Get the latest weight loss tips, success stories, and program updates delivered to your inbox.</p>
             <form class="space-y-3 newsletter-form">
-              <input type="email" placeholder="Your email address" class="w-full p-3 rounded-lg text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white" required />
-              <button type="submit" class="w-full bg-white text-${stylePrefix}-primary font-medium py-3 px-6 rounded-lg transition duration-300 hover:bg-opacity-90 ${stylePrefix}-btn-secondary shadow hover:shadow-md">
+              <input type="email" placeholder="Your email address" class="w-full p-3 rounded-lg text-gray-800 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-${stylePrefix}-primary" required />
+              <button type="submit" class="w-full bg-white ${stylePrefix}-primary-text font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0 shadow-md">
                 Subscribe Now
               </button>
             </form>
           </div>
           <div class="hidden md:flex justify-center items-center">
-             <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 text-white opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-               <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-             </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 text-white opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
           </div>
         </div>
       </div>
