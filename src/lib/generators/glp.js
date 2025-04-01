@@ -1367,6 +1367,110 @@ const generateBlogPost = (post, brandName, primaryColor) => {
   `;
 };
 
+// Generate how it works section
+const generateHowItWorksSection = (stylePrefix) => `
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">How It Works</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 ${stylePrefix}-primary-bg rounded-full flex items-center justify-center">
+            <span class="text-white text-2xl font-bold">1</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Complete Assessment</h3>
+          <p class="text-gray-600">Take our quick online assessment to determine your eligibility</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 ${stylePrefix}-primary-bg rounded-full flex items-center justify-center">
+            <span class="text-white text-2xl font-bold">2</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Doctor Review</h3>
+          <p class="text-gray-600">Licensed healthcare providers review your information</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 ${stylePrefix}-primary-bg rounded-full flex items-center justify-center">
+            <span class="text-white text-2xl font-bold">3</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Get Started</h3>
+          <p class="text-gray-600">Receive your personalized treatment plan and begin your journey</p>
+        </div>
+      </div>
+    </div>
+  </section>
+`;
+
+// Generate testimonials section
+const generateTestimonialsSection = (stylePrefix) => `
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Success Stories</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-400 flex">
+              ${'★'.repeat(5)}
+            </div>
+          </div>
+          <p class="text-gray-700 mb-4">"I've lost 25 pounds in just 3 months. The program is easy to follow and the support is amazing!"</p>
+          <div class="font-medium">
+            <span class="text-gray-900">Sarah M.</span>
+            <span class="text-gray-500"> • Lost 25 lbs</span>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-400 flex">
+              ${'★'.repeat(5)}
+            </div>
+          </div>
+          <p class="text-gray-700 mb-4">"The medical team is so supportive. They really care about your success and are there every step of the way."</p>
+          <div class="font-medium">
+            <span class="text-gray-900">Michael R.</span>
+            <span class="text-gray-500"> • Lost 30 lbs</span>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-400 flex">
+              ${'★'.repeat(5)}
+            </div>
+          </div>
+          <p class="text-gray-700 mb-4">"This program has changed my life. I feel better than I have in years and have more energy than ever!"</p>
+          <div class="font-medium">
+            <span class="text-gray-900">Emily T.</span>
+            <span class="text-gray-500"> • Lost 20 lbs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+`;
+
+// Generate newsletter section
+const generateNewsletterSection = (stylePrefix) => `
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto bg-gradient-to-r from-${stylePrefix}-primary to-${stylePrefix}-secondary rounded-lg p-8 text-white">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 class="text-2xl font-bold mb-4">Stay Updated</h2>
+            <p class="mb-6">Get the latest weight loss tips, success stories, and program updates delivered to your inbox.</p>
+            <form class="space-y-3">
+              <input type="email" placeholder="Your email address" class="w-full p-3 rounded-lg text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white" required />
+              <button type="submit" class="w-full bg-white text-${stylePrefix}-primary font-medium py-3 px-6 rounded-lg transition duration-300 hover:bg-opacity-90">
+                Subscribe Now
+              </button>
+            </form>
+          </div>
+          <div class="hidden md:block">
+            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Healthy meal prep" class="rounded-lg shadow-lg" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+`;
+
 export const generateGLPPage = (data) => {
   // Get random color scheme and dynamic styles
   const colorScheme = getRandomVariation(contentVariations.colorSchemes);
