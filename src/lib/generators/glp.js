@@ -1471,6 +1471,129 @@ const generateNewsletterSection = (stylePrefix) => `
   </section>
 `;
 
+// Function to generate all additional pages (blog posts, tools, about, etc.)
+const generateAdditionalPages = (brandName, colorScheme, stylePrefix, customStyles, gtagId) => {
+  // --- Placeholder Navbar & Footer ---
+  // In a real application, these might be more dynamic or passed in
+  const navbar = `
+    <nav class="bg-white shadow-sm">
+      <div class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+          <a href="index.html" class="text-xl font-semibold ${stylePrefix}-primary-text">${brandName}</a>
+          <div class="flex space-x-4">
+            <a href="index.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">Home</a>
+            <a href="bmi-calculator.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">BMI Calculator</a>
+            <a href="meal-planner.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">Meal Planner</a>
+            <a href="about.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">About Us</a>
+            <a href="contact.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">Contact</a>
+            <a href="faq.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">FAQ</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  `;
+
+  const footer = `
+    <footer class="bg-gray-900 text-white py-12 mt-16">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-6 md:mb-0">
+            <div class="text-xl font-bold mb-2">${brandName}</div>
+            <p class="text-gray-400 text-sm">Your partner in achieving health goals.</p>
+          </div>
+          <div class="flex space-x-4">
+            <a href="privacy.html" class="text-gray-400 hover:text-white text-sm">Privacy</a>
+            <a href="terms.html" class="text-gray-400 hover:text-white text-sm">Terms</a>
+            <a href="contact.html" class="text-gray-400 hover:text-white text-sm">Contact</a>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center text-sm text-gray-500">
+          <p>&copy; ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+          <p class="mt-1">Disclaimer: Information is for educational purposes only. Consult a healthcare professional before making health decisions.</p>
+        </div>
+      </div>
+    </footer>
+  `;
+  // --- End Placeholder Navbar & Footer ---
+
+  // Generate blog post pages
+  const blogPostPages = {};
+  Object.entries(blogPosts).forEach(([slug, post]) => {
+    // Note: generateBlogPost uses primaryColor directly, not the whole scheme
+    blogPostPages[`${slug}.html`] = generateBlogPost(post, brandName, colorScheme.primary);
+  });
+
+  // Add a placeholder for the "Rapid Weight Loss" article if it doesn't exist yet
+  // (Logic copied from the backup file - seems slightly odd, but retaining for consistency)
+  if (!blogPostPages['rapid-weight-loss-is-it-safe.html']) {
+    const placeholderPost = {
+      title: "Rapid Weight Loss: Is It Safe?",
+      image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
+      excerpt: "Medical professionals weigh in on the dangers of fast weight loss programs and offer safer alternatives.",
+      externalUrl: "#", // Placeholder URL
+      content: `
+        <h2>Is Rapid Weight Loss Ever Safe?</h2>
+        <p>Losing weight quickly can be tempting, but it often comes with risks. Rapid weight loss, typically defined as losing more than 1-2 pounds per week consistently, can lead to several health complications.</p>
+        
+        <h3>Potential Risks of Rapid Weight Loss</h3>
+        <ul>
+          <li>Gallstones</li>
+          <li>Nutrient deficiencies</li>
+          <li>Muscle loss</li>
+          <li>Electrolyte imbalances</li>
+          <li>Dehydration</li>
+          <li>Fatigue and irritability</li>
+        </ul>
+        
+        <h2>When Might Rapid Weight Loss Be Medically Supervised?</h2>
+        <p>In certain situations, such as severe obesity or before specific surgeries, a healthcare provider might recommend a very low-calorie diet (VLCD) for rapid weight loss under strict medical supervision. This is not suitable for most people and should never be attempted without professional guidance.</p>
+        
+        <h2>Safer Alternatives</h2>
+        <p>For most individuals, a gradual approach focusing on sustainable lifestyle changes is safer and more effective for long-term weight management. This typically involves:</p>
+        <ul>
+          <li>A balanced, calorie-controlled diet</li>
+          <li>Regular physical activity</li>
+          <li>Behavioral changes</li>
+          <li>Adequate sleep</li>
+          <li>Stress management</li>
+        </ul>
+        
+        <h2>Signs Your Weight Loss Might Be Too Fast</h2>
+        <p>Listen to your body. Signs that you might be losing weight too quickly include:</p>
+        <ul>
+          <li>Fatigue or weakness</li>
+          <li>Hair loss</li>
+          <li>Constant hunger or food obsession</li>
+          <li>Irregular menstrual cycles</li>
+          <li>Difficulty concentrating</li>
+          <li>Feeling cold frequently</li>
+          <li>Mood changes</li>
+        </ul>
+        
+        <h2>Conclusion</h2>
+        <p>While rapid weight loss may seem appealing, a slower, more sustainable approach is typically safer and more effective in the long run. Focus on developing healthy habits that you can maintain indefinitely rather than seeking quick fixes. Always consult with healthcare professionals before beginning any weight loss program, especially if you have existing health conditions.</p>
+      `
+    };
+    blogPostPages['rapid-weight-loss-is-it-safe.html'] = generateBlogPost(placeholderPost, brandName, colorScheme.primary);
+  }
+
+  // Generate other supplementary pages using imported functions
+  const otherPages = {
+    'about.html': generateAboutUsPage(brandName, navbar, footer, customStyles, gtagId),
+    'contact.html': generateContactPage(brandName, navbar, footer, customStyles, gtagId),
+    'faq.html': generateFAQPage(brandName, navbar, footer, customStyles, gtagId),
+    'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbar, footer, customStyles, gtagId),
+    'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, gtagId),
+    'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, gtagId),
+  };
+
+  // Combine and return all additional pages
+  return {
+    ...blogPostPages,
+    ...otherPages,
+  };
+};
+
 export const generateGLPPage = (data) => {
   // Get random color scheme and dynamic styles
   const colorScheme = getRandomVariation(contentVariations.colorSchemes);
@@ -1712,6 +1835,7 @@ export const generateGLPPage = (data) => {
 
   return {
     'index.html': html,
-    ...generateAdditionalPages(brandName, colorScheme, stylePrefix)
+    // Call the new function here, passing necessary variables
+    ...generateAdditionalPages(brandName, colorScheme, stylePrefix, customStyles, gtagId)
   };
 }; 
