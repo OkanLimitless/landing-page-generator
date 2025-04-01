@@ -1950,7 +1950,7 @@ export const generateContactPage = (brandName, navbar, footer, customStyles = ''
 </html>`;
 };
 
-// Generate FAQ page
+// Generate FAQ page with focused content
 export const generateFAQPage = (brandName, navbar, footer, customStyles = '', googleTag = '') => {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -1958,7 +1958,7 @@ export const generateFAQPage = (brandName, navbar, footer, customStyles = '', go
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Frequently Asked Questions | ${brandName}</title>
-  <meta name="description" content="Find answers to common questions about weight loss, nutrition, diet plans, and our services.">
+  <meta name="description" content="Get answers to common questions about our weight loss medication matching service.">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -1976,312 +1976,69 @@ export const generateFAQPage = (brandName, navbar, footer, customStyles = '', go
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
     }
     
-    .faq-item[data-open="true"] .faq-answer {
-      display: block;
+    .faq-item {
+      transition: all 0.3s ease;
     }
     
-    .faq-item[data-open="true"] .faq-icon-plus {
-      display: none;
-    }
-    
-    .faq-item[data-open="true"] .faq-icon-minus {
-      display: block;
-    }
-    
-    .faq-item[data-open="false"] .faq-answer {
-      display: none;
-    }
-    
-    .faq-item[data-open="false"] .faq-icon-plus {
-      display: block;
-    }
-    
-    .faq-item[data-open="false"] .faq-icon-minus {
-      display: none;
+    .faq-item:hover {
+      transform: translateX(5px);
     }
   </style>
   
   <!-- Google tag for conversion tracking -->
   ${googleTag}
-  
-  <!-- Schema.org FAQ markup for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How much weight can I expect to lose?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Healthy weight loss varies by individual, but a safe and sustainable rate is 1-2 pounds per week. Factors like starting weight, diet, exercise habits, and genetics all play a role in determining your weight loss rate."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What's the best diet for weight loss?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "There's no single 'best' diet for everyone. Research shows that the most effective diet is one you can maintain long-term. Mediterranean, DASH, and flexitarian diets consistently rank well for both health benefits and sustainability."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need to exercise to lose weight?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "While diet typically plays a larger role in weight loss, exercise offers numerous benefits including improved metabolism, muscle preservation, and better overall health. Combining dietary changes with regular physical activity typically yields the best and most sustainable results."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 <body class="bg-gray-50">
   ${navbar}
   
   <main class="container mx-auto px-4 py-12">
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-3xl mx-auto">
       <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-indigo-900">Frequently Asked Questions</h1>
       
-      <div class="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
-        <p class="text-center text-gray-700 mb-8">Find answers to common questions about weight loss, nutrition, and healthy eating. If you don't see your question here, please <a href="contact.html" class="text-indigo-600 hover:underline">contact us</a>.</p>
+      <div class="space-y-6">
+        <!-- FAQ Item 1 -->
+        <div class="bg-white rounded-lg shadow-md p-6 faq-item">
+          <h3 class="text-xl font-semibold mb-2 text-indigo-800">How does the medication matching process work?</h3>
+          <p class="text-gray-700">Our process is simple: First, you'll complete a quick assessment about your health history and goals. Then, we'll match you with FDA-approved medications that align with your profile. Finally, you'll receive personalized recommendations based on your specific needs.</p>
+        </div>
         
-        <div class="space-y-2">
-          <!-- Category tabs -->
-          <div class="flex flex-wrap border-b border-gray-200 mb-6">
-            <button class="category-tab px-4 py-2 text-indigo-600 border-b-2 border-indigo-600 font-medium" data-category="weight-loss">
-              Weight Loss
-            </button>
-            <button class="category-tab px-4 py-2 text-gray-500 hover:text-indigo-600 font-medium" data-category="diet">
-              Diet Plans
-            </button>
-            <button class="category-tab px-4 py-2 text-gray-500 hover:text-indigo-600 font-medium" data-category="nutrition">
-              Nutrition
-            </button>
-            <button class="category-tab px-4 py-2 text-gray-500 hover:text-indigo-600 font-medium" data-category="exercise">
-              Exercise
-            </button>
-            <button class="category-tab px-4 py-2 text-gray-500 hover:text-indigo-600 font-medium" data-category="website">
-              Website & Tools
-            </button>
-          </div>
-          
-          <!-- Weight Loss FAQs -->
-          <div class="faq-category active" id="weight-loss-faqs">
-            <div class="space-y-4">
-              <!-- FAQ Item 1 -->
-              <div class="faq-item border border-gray-200 rounded-lg" data-open="false">
-                <button class="faq-question w-full flex justify-between items-center p-4 focus:outline-none">
-                  <h3 class="text-lg font-medium text-left text-gray-900">How much weight can I expect to lose?</h3>
-                  <div class="ml-2 flex-shrink-0">
-                    <svg class="faq-icon-plus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    <svg class="faq-icon-minus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
-                    </svg>
-                  </div>
-                </button>
-                <div class="faq-answer px-4 pb-4 text-gray-700">
-                  <p>Healthy weight loss varies by individual, but a safe and sustainable rate is 1-2 pounds per week. Factors like starting weight, diet, exercise habits, and genetics all play a role in determining your weight loss rate.</p>
-                  <p class="mt-2">It's important to focus on consistent, gradual progress rather than rapid weight loss, which is often difficult to maintain and may involve the loss of muscle mass rather than fat.</p>
-                </div>
-              </div>
-              
-              <!-- FAQ Item 2 -->
-              <div class="faq-item border border-gray-200 rounded-lg" data-open="false">
-                <button class="faq-question w-full flex justify-between items-center p-4 focus:outline-none">
-                  <h3 class="text-lg font-medium text-left text-gray-900">Why have I hit a weight loss plateau?</h3>
-                  <div class="ml-2 flex-shrink-0">
-                    <svg class="faq-icon-plus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    <svg class="faq-icon-minus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
-                    </svg>
-                  </div>
-                </button>
-                <div class="faq-answer px-4 pb-4 text-gray-700">
-                  <p>Weight loss plateaus are normal and happen for several reasons:</p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>Your metabolism adjusts to your lower weight and reduced calorie intake</li>
-                    <li>You may have lost muscle mass, which lowers your basal metabolic rate</li>
-                    <li>Your body becomes more efficient at the exercises you're doing</li>
-                    <li>You might be experiencing "calorie creep" - gradually consuming more calories without realizing it</li>
-                  </ul>
-                  <p class="mt-2">To overcome a plateau, try mixing up your exercise routine, recalculating your calorie needs at your new weight, incorporating strength training, and ensuring you're accurately tracking food intake.</p>
-                </div>
-              </div>
-              
-              <!-- FAQ Item 3 -->
-              <div class="faq-item border border-gray-200 rounded-lg" data-open="false">
-                <button class="faq-question w-full flex justify-between items-center p-4 focus:outline-none">
-                  <h3 class="text-lg font-medium text-left text-gray-900">Is rapid weight loss safe?</h3>
-                  <div class="ml-2 flex-shrink-0">
-                    <svg class="faq-icon-plus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    <svg class="faq-icon-minus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
-                    </svg>
-                  </div>
-                </button>
-                <div class="faq-answer px-4 pb-4 text-gray-700">
-                  <p>Rapid weight loss (more than 2 pounds per week) is generally not recommended for most people. Potential risks include:</p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>Loss of muscle mass rather than fat</li>
-                    <li>Nutritional deficiencies</li>
-                    <li>Gallstones</li>
-                    <li>Metabolic slowdown making it harder to maintain weight loss</li>
-                    <li>Hair loss, fatigue, and mood changes</li>
-                  </ul>
-                  <p class="mt-2">In certain medical situations, rapid weight loss may be prescribed under close medical supervision, but for most people, a gradual approach is safer and more sustainable.</p>
-                </div>
-              </div>
-              
-              <!-- FAQ Item 4 -->
-              <div class="faq-item border border-gray-200 rounded-lg" data-open="false">
-                <button class="faq-question w-full flex justify-between items-center p-4 focus:outline-none">
-                  <h3 class="text-lg font-medium text-left text-gray-900">Should I try weight loss medications or supplements?</h3>
-                  <div class="ml-2 flex-shrink-0">
-                    <svg class="faq-icon-plus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    <svg class="faq-icon-minus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
-                    </svg>
-                  </div>
-                </button>
-                <div class="faq-answer px-4 pb-4 text-gray-700">
-                  <p>Weight loss medications are typically considered for people with:</p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>BMI ≥30 (obesity), or</li>
-                    <li>BMI ≥27 with weight-related health conditions like high blood pressure or type 2 diabetes</li>
-                  </ul>
-                  <p class="mt-2">FDA-approved prescription medications should only be used under medical supervision. Over-the-counter supplements often lack solid research backing their claims and may contain ingredients that are ineffective or potentially harmful.</p>
-                  <p class="mt-2">Always consult with a healthcare provider before starting any weight loss medication or supplement. They should be used as part of a comprehensive program that includes diet and exercise changes, not as a standalone solution.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Diet Plans FAQs (initially hidden) -->
-          <div class="faq-category hidden" id="diet-faqs">
-            <div class="space-y-4">
-              <!-- FAQ Item 1 -->
-              <div class="faq-item border border-gray-200 rounded-lg" data-open="false">
-                <button class="faq-question w-full flex justify-between items-center p-4 focus:outline-none">
-                  <h3 class="text-lg font-medium text-left text-gray-900">What's the best diet for weight loss?</h3>
-                  <div class="ml-2 flex-shrink-0">
-                    <svg class="faq-icon-plus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    <svg class="faq-icon-minus w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
-                    </svg>
-                  </div>
-                </button>
-                <div class="faq-answer px-4 pb-4 text-gray-700">
-                  <p>There's no single "best" diet for everyone. Research shows that the most effective diet is one you can maintain long-term. Mediterranean, DASH, and flexitarian diets consistently rank well for both health benefits and sustainability.</p>
-                  <p class="mt-2">The key factors that make a diet successful include:</p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>Sustainability (can you maintain it for years, not just weeks?)</li>
-                    <li>Nutritional adequacy (provides all essential nutrients)</li>
-                    <li>Inclusion of foods you enjoy</li>
-                    <li>Compatibility with your lifestyle and cultural preferences</li>
-                    <li>Creates a modest calorie deficit without extreme restriction</li>
-                  </ul>
-                </div>
-              </div>
-              
-              <!-- More diet plan FAQs would go here -->
-            </div>
-          </div>
-          
-          <!-- Nutrition FAQs (initially hidden) -->
-          <div class="faq-category hidden" id="nutrition-faqs">
-            <!-- Nutrition FAQs would go here -->
-          </div>
-          
-          <!-- Exercise FAQs (initially hidden) -->
-          <div class="faq-category hidden" id="exercise-faqs">
-            <!-- Exercise FAQs would go here -->
-          </div>
-          
-          <!-- Website & Tools FAQs (initially hidden) -->
-          <div class="faq-category hidden" id="website-faqs">
-            <!-- Website & Tools FAQs would go here -->
-          </div>
+        <!-- FAQ Item 2 -->
+        <div class="bg-white rounded-lg shadow-md p-6 faq-item">
+          <h3 class="text-xl font-semibold mb-2 text-indigo-800">What information do I need to provide?</h3>
+          <p class="text-gray-700">You'll need to provide basic information about your health history, current medications, and weight loss goals. This helps us ensure we match you with the most appropriate options.</p>
+        </div>
+        
+        <!-- FAQ Item 3 -->
+        <div class="bg-white rounded-lg shadow-md p-6 faq-item">
+          <h3 class="text-xl font-semibold mb-2 text-indigo-800">Is the assessment free?</h3>
+          <p class="text-gray-700">Yes, our assessment is completely free. You only need to provide payment information if you decide to proceed with a recommended medication after reviewing your matches.</p>
+        </div>
+        
+        <!-- FAQ Item 4 -->
+        <div class="bg-white rounded-lg shadow-md p-6 faq-item">
+          <h3 class="text-xl font-semibold mb-2 text-indigo-800">How long does the process take?</h3>
+          <p class="text-gray-700">The initial assessment takes about 2 minutes to complete. After that, you'll receive your personalized medication matches immediately.</p>
+        </div>
+        
+        <!-- FAQ Item 5 -->
+        <div class="bg-white rounded-lg shadow-md p-6 faq-item">
+          <h3 class="text-xl font-semibold mb-2 text-indigo-800">What happens after I get my matches?</h3>
+          <p class="text-gray-700">After receiving your matches, you can review detailed information about each medication, including how it works, potential benefits, and what to expect. You can then choose to proceed with the option that best fits your needs.</p>
         </div>
       </div>
       
-      <!-- Still Have Questions section -->
-      <div class="bg-indigo-700 text-white rounded-lg shadow-md p-8 text-center">
-        <h2 class="text-2xl font-bold mb-4">Still Have Questions?</h2>
-        <p class="mb-6 max-w-2xl mx-auto">If you couldn't find the answer you were looking for, our team is happy to help. Contact us directly and we'll get back to you as soon as possible.</p>
-        <a href="contact.html" class="inline-block bg-white text-indigo-700 font-medium py-3 px-8 rounded-md hover:bg-gray-100 transition-colors">
-          Contact Us
+      <!-- CTA Section -->
+      <div class="mt-12 text-center">
+        <h2 class="text-2xl font-bold mb-4 text-indigo-900">Ready to Find Your Match?</h2>
+        <p class="text-gray-700 mb-6">Take our free assessment now and get personalized medication recommendations in minutes.</p>
+        <a href="top-ten-weight-loss-meds.html" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-md hover:bg-indigo-700 transition-colors font-medium">
+          Start Free Assessment
         </a>
       </div>
     </div>
   </main>
   
   ${footer}
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // FAQ accordion functionality
-      const faqItems = document.querySelectorAll('.faq-item');
-      faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        question.addEventListener('click', () => {
-          const isOpen = item.getAttribute('data-open') === 'true';
-          // Close all other items
-          faqItems.forEach(otherItem => {
-            if (otherItem !== item) {
-              otherItem.setAttribute('data-open', 'false');
-            }
-          });
-          // Toggle current item
-          item.setAttribute('data-open', isOpen ? 'false' : 'true');
-        });
-      });
-      
-      // Category tabs functionality
-      const categoryTabs = document.querySelectorAll('.category-tab');
-      const faqCategories = document.querySelectorAll('.faq-category');
-      
-      categoryTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          // Remove active class from all tabs
-          categoryTabs.forEach(t => {
-            t.classList.remove('text-indigo-600', 'border-b-2', 'border-indigo-600');
-            t.classList.add('text-gray-500');
-          });
-          
-          // Add active class to clicked tab
-          tab.classList.add('text-indigo-600', 'border-b-2', 'border-indigo-600');
-          tab.classList.remove('text-gray-500');
-          
-          // Hide all content
-          faqCategories.forEach(category => {
-            category.classList.add('hidden');
-            category.classList.remove('active');
-          });
-          
-          // Show corresponding content
-          const categoryId = tab.getAttribute('data-category');
-          const content = document.getElementById(categoryId + '-faqs');
-          if (content) {
-            content.classList.remove('hidden');
-            content.classList.add('active');
-          }
-        });
-      });
-    });
-  </script>
 </body>
 </html>`;
 }; 

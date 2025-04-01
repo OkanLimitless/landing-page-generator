@@ -1465,51 +1465,15 @@ export const generateGLPPage = (data) => {
             </h1>
           </div>
         </div>
-        <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
-          <a href="index.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">Home</a>
-          <a href="about.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">About</a>
-          <a href="bmi-calculator.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">BMI Calculator</a>
-          <a href="meal-planner.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">Meal Planner</a>
-          <a href="faq.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">FAQ</a>
-          <a href="contact.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)}">Contact</a>
-        </div>
-        <div class="-mr-2 flex items-center sm:hidden">
-          <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-${primaryColor.replace('#', '').substring(0, 6)}" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+        <div class="hidden sm:flex sm:items-center sm:space-x-8">
+          <a href="faq.html" class="text-gray-600 hover:text-indigo-600 transition-colors">FAQ</a>
+          <a href="top-ten-weight-loss-meds.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
+            Get Started
+          </a>
         </div>
       </div>
     </div>
-    
-    <div class="sm:hidden mobile-menu hidden">
-      <div class="pt-2 pb-3 space-y-1">
-        <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">Home</a>
-        <a href="about.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">About</a>
-        <a href="bmi-calculator.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">BMI Calculator</a>
-        <a href="meal-planner.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">Meal Planner</a>
-        <a href="faq.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">FAQ</a>
-        <a href="contact.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-gray-50">Contact</a>
-      </div>
-    </div>
-  </nav>
-  
-  <script>
-    // Mobile menu toggle
-    document.addEventListener('DOMContentLoaded', function() {
-      const mobileMenuButton = document.querySelector('.mobile-menu-button');
-      const mobileMenu = document.querySelector('.mobile-menu');
-      
-      if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', function() {
-          mobileMenu.classList.toggle('hidden');
-        });
-      }
-    });
-  </script>
-  `;
+  </nav>`;
 
   // Generate the hero section component with different layouts and image error handling
   let heroSection = '';
@@ -2567,67 +2531,36 @@ export const generateGLPPage = (data) => {
 
   // Generate the footer
   const footer = `
-  <footer class="bg-gray-800 text-white pt-12 pb-8">
+  <footer class="bg-gray-900 text-white py-12">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
           <h3 class="text-lg font-semibold mb-4">About</h3>
-          <p class="text-gray-300 text-sm">
-            ${brandName} provides science-based information on nutrition, weight management, and healthy living. Our mission is to help you make informed decisions about your health.
-          </p>
+          <p class="text-gray-300 text-sm">We help you find the right weight loss medication based on your unique profile and health goals.</p>
         </div>
         
         <div>
-          <h3 class="text-lg font-semibold mb-4">Tools</h3>
+          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
           <ul class="space-y-2">
-            <li><a href="bmi-calculator.html" class="text-gray-300 hover:text-white text-sm transition-colors">BMI Calculator</a></li>
-            <li><a href="meal-planner.html" class="text-gray-300 hover:text-white text-sm transition-colors">Meal Planner</a></li>
-            <li><a href="top-ten-weight-loss-meds.html" class="text-gray-300 hover:text-white text-sm transition-colors">Top 10 Weight Loss Medications</a></li>
+            <li><a href="faq.html" class="text-gray-300 hover:text-white text-sm transition-colors">FAQ</a></li>
+            <li><a href="top-ten-weight-loss-meds.html" class="text-gray-300 hover:text-white text-sm transition-colors">Get Started</a></li>
           </ul>
         </div>
         
         <div>
-          <h3 class="text-lg font-semibold mb-4">Support</h3>
+          <h3 class="text-lg font-semibold mb-4">Legal</h3>
           <ul class="space-y-2">
-            <li><a href="about.html" class="text-gray-300 hover:text-white text-sm transition-colors">About Us</a></li>
-            <li><a href="faq.html" class="text-gray-300 hover:text-white text-sm transition-colors">FAQ</a></li>
-            <li><a href="contact.html" class="text-gray-300 hover:text-white text-sm transition-colors">Contact Us</a></li>
             <li><a href="privacy.html" class="text-gray-300 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
             <li><a href="terms.html" class="text-gray-300 hover:text-white text-sm transition-colors">Terms of Use</a></li>
           </ul>
         </div>
-        
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Connect</h3>
-          <div class="flex space-x-4">
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
-              </svg>
-            </a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
-              </svg>
-            </a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-              </svg>
-            </a>
-          </div>
-        </div>
       </div>
       
-      <div class="mt-8 pt-8 border-t border-gray-700 text-center">
-        <p class="text-gray-400 text-sm">© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
-        <p class="text-gray-500 text-xs mt-2">
-          Disclaimer: The information provided on this website is for general informational purposes only and should not be considered as medical advice. Always consult with a qualified healthcare professional before making any dietary or lifestyle changes.
-        </p>
+      <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+        <p>&copy; ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
       </div>
     </div>
-  </footer>
-  `;
+  </footer>`;
 
   // Generate the final HTML
   
@@ -2686,8 +2619,8 @@ export const generateGLPPage = (data) => {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${brandName} | Science-Based Weight Loss & Nutrition Advice</title>
-  <meta name="description" content="Discover science-backed nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.">
+  <title>${brandName} | Find Your Perfect Weight Loss Medication Match</title>
+  <meta name="description" content="Take our free assessment to find the right FDA-approved weight loss medication for your unique profile. Get personalized recommendations in minutes.">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -2695,172 +2628,90 @@ export const generateGLPPage = (data) => {
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;700&family=Lato:wght@400;700&family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Outfit:wght@400;500;700&family=Poppins:wght@400;500;700&family=Raleway:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   
   <!-- Custom styles -->
   ${customStyles}
   
-  <!-- Image error handling -->
   <style>
-    .fallback-image-container {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .fallback-image-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 0.3s ease;
-    }
-    
-    .fallback-image-container .fallback-message {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 1rem;
-    }
-    
-    .fallback-image-container img.error + .fallback-message {
-      display: flex;
-    }
-    
-    /* Standard responsive image container */
-    .responsive-image {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-    }
-    
-    /* Fix for consistent section widths */
-    section > .container {
-      width: 100%;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    /* Ensure consistent padding */
-    .content-section {
-      padding: 4rem 0;
-    }
-    
-    /* Improved contrast for text on colored backgrounds */
-    .text-on-color {
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Consistent CTA button styling */
-    .cta-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.375rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      text-align: center;
-    }
-    
-    /* Fix for mobile responsiveness */
-    @media (max-width: 640px) {
-      .mobile-stack {
-        flex-direction: column !important;
-      }
-      
-      .mobile-full-width {
-        width: 100% !important;
-      }
-      
-      .mobile-text-center {
-        text-align: center !important;
-      }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
     }
   </style>
   
   <!-- Google tag for conversion tracking -->
-  ${gtagId ? `
-  <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagId.split('/')[0]}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '${gtagId.split('/')[0]}');
-  </script>` : ''}
-  
-  ${trackingScript || ''}
+  ${googleTag}
 </head>
-<body class="min-h-screen bg-gradient-to-b from-indigo-900/10 to-white">
+<body class="bg-gray-50">
   ${navbar}
-  ${heroSection}
   
-  <div class="bg-gray-50">
-    <div class="container mx-auto px-4 py-12">
-      ${randomizedContentSections}
-    </div>
-  </div>
-  
-  ${generateTrustSignalsSection(primaryColor)}
-  
-  <section id="newsletter" class="py-12 bg-gradient-to-r from-${primaryColor.replace('#', '').substring(0, 6)} to-${secondaryColor.replace('#', '').substring(0, 6)}">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center text-white">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">Get Science-Based Nutrition Tips</h2>
-        <p class="text-lg mb-8 opacity-90">Join our newsletter and receive expert advice on weight management, nutrition, and healthy living.</p>
-        
-        <form class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-          <input type="email" id="email" name="email" placeholder="Enter your email" class="w-full md:w-auto px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-          <button type="submit" class="w-full md:w-auto bg-${primaryColor.replace('#', '').substring(0, 6)} hover:bg-${primaryColor.replace('#', '').substring(0, 6)}/90 text-white font-medium py-3 px-8 rounded-md shadow-sm hover:shadow-lg transition duration-300 sm:text-sm">
-            Subscribe
-          </button>
-        </form>
+  <!-- Hero Section -->
+  <section class="bg-white">
+    <div class="container mx-auto px-4 py-16 md:py-24">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Find Your Perfect Weight Loss Medication Match
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">
+          Take our free assessment to discover FDA-approved medications that align with your unique profile and health goals.
+        </p>
+        <a href="top-ten-weight-loss-meds.html" class="inline-block bg-indigo-600 text-white px-8 py-4 rounded-md text-lg font-medium hover:bg-indigo-700 transition-colors">
+          Start Free Assessment
+        </a>
       </div>
     </div>
   </section>
   
-  ${footer}
+  <!-- How It Works Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">How It Works</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <!-- Step 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
+            <span class="text-indigo-600 font-bold text-xl">1</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Complete Assessment</h3>
+          <p class="text-gray-600">Answer a few quick questions about your health history and goals.</p>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
+            <span class="text-indigo-600 font-bold text-xl">2</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Get Matched</h3>
+          <p class="text-gray-600">We analyze your profile and match you with suitable FDA-approved medications.</p>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
+            <span class="text-indigo-600 font-bold text-xl">3</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Review & Choose</h3>
+          <p class="text-gray-600">Compare your matches and choose the option that best fits your needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
   
-  <script>
-    // Image error handling
-    document.addEventListener('DOMContentLoaded', function() {
-      // Handle image errors
-      const images = document.querySelectorAll('img:not([onerror])');
-      images.forEach(img => {
-        img.onerror = function() {
-          // Use data-fallback if available, otherwise use a default image
-          const fallback = img.dataset.fallback || 'https://images.unsplash.com/photo-1505253758473-96b7015fcd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80';
-          this.src = fallback;
-          this.classList.add('fallback-image');
-        };
-      });
-      
-      // Form handling - prevent default form submission
-      const forms = document.querySelectorAll('form');
-      forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          alert('Thank you for subscribing! This is a demo form.');
-        });
-      });
-      
-      // Add consistent spacing to sections if needed
-      const contentSections = document.querySelectorAll('section:not(.hero-section):not(#newsletter)');
-      contentSections.forEach(section => {
-        if (!section.classList.contains('py-12') && !section.classList.contains('py-16')) {
-          section.classList.add('content-section');
-        }
-      });
-    });
-  </script>
+  <!-- CTA Section -->
+  <section class="bg-indigo-700 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Ready to Find Your Match?</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Take our free assessment now and get personalized medication recommendations in minutes.
+      </p>
+      <a href="top-ten-weight-loss-meds.html" class="inline-block bg-white text-indigo-700 px-8 py-4 rounded-md text-lg font-medium hover:bg-gray-100 transition-colors">
+        Start Free Assessment
+      </a>
+    </div>
+  </section>
+  
+  ${footer}
 </body>
 </html>
   `;
@@ -2937,12 +2788,7 @@ export const generateGLPPage = (data) => {
   // Return all the pages
   return {
     'index.html': html,
-    'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, googleTag),
-    'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, googleTag),
     'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbar, footer, customStyles, googleTag, targetUrl),
-    'about.html': generateAboutUsPage(brandName, navbar, footer, customStyles, googleTag),
-    'contact.html': generateContactPage(brandName, navbar, footer, customStyles, googleTag),
-    'faq.html': generateFAQPage(brandName, navbar, footer, customStyles, googleTag),
-    ...blogPostPages
+    'faq.html': generateFAQPage(brandName, navbar, footer, customStyles, googleTag)
   };
 }; 
