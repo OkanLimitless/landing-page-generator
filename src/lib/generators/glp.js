@@ -47,14 +47,18 @@ const contentVariations = {
       "Begin Your Weight Loss Journey",
       "Get Your Personal Plan",
       "Discover Your Weight Loss Solution",
-      "Find Your Perfect Program"
+      "Find Your Perfect Program",
+      "View Top 10 Weight Loss Options", // Added CTA variation
+      "Compare Effective Treatments" // Added CTA variation
     ],
     subheadings: [
       "How It Works",
       "Our Weight Loss Approach",
       "Your Journey to Success",
       "The Science Behind Weight Loss",
-      "Why Choose Our Program"
+      "Why Choose Our Program",
+      "Key Features of Our Method", // Added variation
+      "Understanding the Process" // Added variation
     ]
   },
   
@@ -164,6 +168,36 @@ const contentVariations = {
       secondary: "#F87171",
       accent: "#FECACA",
       text: "#1F2937"
+    },
+    {
+      primary: "#D97706",
+      secondary: "#F59E0B",
+      accent: "#FDE68A",
+      text: "#1F2937"
+    },
+    {
+      primary: "#0D9488",
+      secondary: "#2DD4BF",
+      accent: "#99F6E4",
+      text: "#1F2937"
+    },
+    {
+      primary: "#BE185D",
+      secondary: "#EC4899",
+      accent: "#FBCFE8",
+      text: "#1F2937"
+    },
+    {
+      primary: "#52525B",
+      secondary: "#71717A",
+      accent: "#D1D5DB",
+      text: "#FAFAFA"
+    },
+    {
+      primary: "#1E3A8A",
+      secondary: "#3B82F6",
+      accent: "#BFDBFE",
+      text: "#1F2937"
     }
   ]
 };
@@ -197,23 +231,56 @@ const getKeywordOptimizedContent = (variations, keywords) => {
 // Helper function to generate dynamic styles
 const generateDynamicStyles = (colorScheme) => {
   const uniquePrefix = Math.random().toString(36).substring(2, 8);
+  const patterns = [
+    `background: radial-gradient(circle, ${colorScheme.accent}11 1px, transparent 1px); background-size: 10px 10px;`, // Dots
+    `background: linear-gradient(45deg, ${colorScheme.accent}11 25%, transparent 25%, transparent 75%, ${colorScheme.accent}11 75%, ${colorScheme.accent}11), linear-gradient(45deg, ${colorScheme.accent}11 25%, transparent 25%, transparent 75%, ${colorScheme.accent}11 75%, ${colorScheme.accent}11); background-size: 20px 20px; background-position: 0 0, 10px 10px;`, // Diagonal Lines
+    `background: linear-gradient(to right, ${colorScheme.accent}11 1px, transparent 1px), linear-gradient(to bottom, ${colorScheme.accent}11 1px, transparent 1px); background-size: 15px 15px;`, // Grid
+    `background-color: ${colorScheme.accent}08; background-image: radial-gradient(${colorScheme.primary}22 1px, transparent 0); background-size: 15px 15px;`, // Subtle radial
+    '' // No pattern
+  ];
+  const randomPattern = getRandomVariation(patterns);
+
   return {
     prefix: uniquePrefix,
     styles: `
+      body { ${randomPattern} } /* Apply pattern to body */
       .${uniquePrefix}-primary-bg { background-color: ${colorScheme.primary}; }
       .${uniquePrefix}-secondary-bg { background-color: ${colorScheme.secondary}; }
       .${uniquePrefix}-accent-bg { background-color: ${colorScheme.accent}; }
       .${uniquePrefix}-primary-text { color: ${colorScheme.primary}; }
-      .${uniquePrefix}-text { color: ${colorScheme.text}; }
+      .${uniquePrefix}-secondary-text { color: ${colorScheme.secondary}; } /* Added */
+      .${uniquePrefix}-accent-text { color: ${colorScheme.accent}; } /* Added */
+      .${uniquePrefix}-main-text { color: ${colorScheme.text}; } /* Renamed for clarity */
       .${uniquePrefix}-btn {
         background-color: ${colorScheme.primary};
         color: white;
         transition: all 0.3s ease;
+        border: 1px solid transparent; /* Added */
       }
       .${uniquePrefix}-btn:hover {
         background-color: ${colorScheme.secondary};
         transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Added shadow */
       }
+      .${uniquePrefix}-btn-secondary { /* Added secondary button */
+         background-color: white;
+         color: ${colorScheme.primary};
+         border: 1px solid ${colorScheme.primary};
+      }
+      .${uniquePrefix}-btn-secondary:hover {
+         background-color: ${colorScheme.accent};
+         color: ${colorScheme.primary};
+         transform: translateY(-2px);
+         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      }
+
+      /* Ensure text color contrast on gray background */
+      ${colorScheme.primary === '#52525B' ? `
+        .${uniquePrefix}-primary-text { color: #FAFAFA; }
+        .${uniquePrefix}-btn { color: ${colorScheme.text}; } /* Ensure button text is visible */
+        .${uniquePrefix}-btn-secondary { color: ${colorScheme.text}; border-color: ${colorScheme.text}; }
+        .${uniquePrefix}-btn-secondary:hover { background-color: ${colorScheme.secondary}; color: ${colorScheme.text};}
+      ` : ''}
     `
   };
 };
@@ -1023,12 +1090,15 @@ const getImageWithFallback = (imageUrl, fallbackUrl, altText) => {
 
 // Generate trust signals section with medical disclaimers and badges
 const generateTrustSignalsSection = (primaryColor) => {
+  // Ensure primaryColor is a string before slicing
+  const safePrimaryColor = typeof primaryColor === 'string' ? primaryColor : '#4F46E5'; // Default color
+
   return `
-  <section id="trust-signals" class="py-12 bg-white">
+  <section id="trust-signals" class="py-12 bg-white animate-section">
     <div class="container mx-auto px-4">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Trusted Health Information</h2>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           <!-- Trust Badge 1 -->
           <div class="bg-gray-50 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
@@ -1040,7 +1110,7 @@ const generateTrustSignalsSection = (primaryColor) => {
             <h3 class="font-semibold mb-2">Science-Backed</h3>
             <p class="text-sm text-gray-600">All information reviewed by medical professionals</p>
           </div>
-          
+
           <!-- Trust Badge 2 -->
           <div class="bg-gray-50 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
             <div class="w-16 h-16 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center">
@@ -1051,7 +1121,7 @@ const generateTrustSignalsSection = (primaryColor) => {
             <h3 class="font-semibold mb-2">Regularly Updated</h3>
             <p class="text-sm text-gray-600">Content regularly updated with latest research</p>
           </div>
-          
+
           <!-- Trust Badge 3 -->
           <div class="bg-gray-50 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
             <div class="w-16 h-16 mx-auto mb-3 bg-purple-100 rounded-full flex items-center justify-center">
@@ -1062,7 +1132,7 @@ const generateTrustSignalsSection = (primaryColor) => {
             <h3 class="font-semibold mb-2">Trusted by 10,000+</h3>
             <p class="text-sm text-gray-600">Users rely on our guidance every month</p>
           </div>
-          
+
           <!-- Trust Badge 4 -->
           <div class="bg-gray-50 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
             <div class="w-16 h-16 mx-auto mb-3 bg-red-100 rounded-full flex items-center justify-center">
@@ -1074,11 +1144,11 @@ const generateTrustSignalsSection = (primaryColor) => {
             <p class="text-sm text-gray-600">Recommendations based on clinical research</p>
           </div>
         </div>
-        
+
         <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
           <div class="flex items-start">
             <div class="hidden md:block flex-shrink-0 mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-${primaryColor.replace('#', '').substring(0, 6)}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-${safePrimaryColor.replace('#', '').substring(0, 6)}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
@@ -1100,7 +1170,7 @@ const generateTrustSignalsSection = (primaryColor) => {
 };
 
 // Helper function to generate a blog post page
-const generateBlogPost = (post, brandName, primaryColor) => {
+const generateBlogPost = (post, brandName, primaryColor, navbarHTML, footerHTML) => {
   // Define generateRandomColor function inside generateBlogPost to ensure it's available
   const generateRandomColor = () => {
     const colors = [
@@ -1205,20 +1275,7 @@ const generateBlogPost = (post, brandName, primaryColor) => {
     </style>
   </head>
   <body class="bg-gray-50">
-    <nav class="bg-white shadow-sm">
-      <div class="container mx-auto px-4 py-4">
-        <div class="flex justify-between items-center">
-          <a href="index.html" class="text-xl font-semibold text-gray-800">${brandName}</a>
-          <div class="flex space-x-4">
-            <a href="index.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2">Home</a>
-            <a href="index.html#diet-plans" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2">Diet Plans</a>
-            <a href="index.html#nutrition-tips" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2">Nutrition</a>
-            <a href="bmi-calculator.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2">BMI Calculator</a>
-            <a href="about.html" class="text-gray-700 hover:text-${primaryColor.replace('#', '').substring(0, 6)} px-3 py-2">About Us</a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    ${navbarHTML} <!-- Inject shared navbar -->
     
     <main class="container mx-auto px-4 py-8">
       <div class="max-w-4xl mx-auto">
@@ -1308,46 +1365,7 @@ const generateBlogPost = (post, brandName, primaryColor) => {
       </div>
     </main>
     
-    <footer class="bg-indigo-900 text-white py-8 mt-16">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between">
-          <div class="mb-6 md:mb-0">
-            <div class="text-xl font-bold mb-4">
-              <span class="text-white">${brandName.split('-')[0]}</span>
-              <span class="text-purple-300">${brandName.includes('-') ? '-' + brandName.split('-')[1] : ''}</span>
-            </div>
-            <p class="text-gray-300 text-sm max-w-xs">
-              Your trusted source for nutrition, diet, and health information to help you make better lifestyle choices.
-            </p>
-          </div>
-          
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
-            <div>
-              <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-              <ul class="space-y-2">
-                <li><a href="index.html" class="text-gray-300 hover:text-white text-sm transition-colors">Home</a></li>
-                <li><a href="index.html#diet-plans" class="text-gray-300 hover:text-white text-sm transition-colors">Diet Plans</a></li>
-                <li><a href="bmi-calculator.html" class="text-gray-300 hover:text-white text-sm transition-colors">BMI Calculator</a></li>
-                <li><a href="meal-planner.html" class="text-gray-300 hover:text-white text-sm transition-colors">Meal Planner</a></li>
-                <li><a href="about.html" class="text-gray-300 hover:text-white text-sm transition-colors">About Us</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 class="text-lg font-semibold mb-4">Support</h3>
-              <ul class="space-y-2">
-                <li><a href="privacy.html" class="text-gray-300 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
-                <li><a href="terms.html" class="text-gray-300 hover:text-white text-sm transition-colors">Terms of Use</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        
-        <div class="mt-8 pt-6 border-t border-indigo-800 text-center text-sm text-gray-400">
-          <p>© ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
+    ${footerHTML} <!-- Inject shared footer -->
     
     <script>
       // Image error handling
@@ -1369,29 +1387,23 @@ const generateBlogPost = (post, brandName, primaryColor) => {
 
 // Generate how it works section
 const generateHowItWorksSection = (stylePrefix) => `
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-white animate-section" style="animation-delay: 0.3s;">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">How It Works</h2>
+      <h2 class="text-3xl font-bold text-center mb-12 ${stylePrefix}-main-text">How It Works</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <div class="text-center">
-          <div class="w-16 h-16 mx-auto mb-4 ${stylePrefix}-primary-bg rounded-full flex items-center justify-center">
-            <span class="text-white text-2xl font-bold">1</span>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Complete Assessment</h3>
+        <div class="text-center p-4">
+          <div class="w-16 h-16 mx-auto mb-4 ${stylePrefix}-primary-bg rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-md">1</div>
+          <h3 class="text-xl font-semibold mb-2 ${stylePrefix}-main-text">Complete Assessment</h3>
           <p class="text-gray-600">Take our quick online assessment to determine your eligibility</p>
         </div>
-        <div class="text-center">
-          <div class="w-16 h-16 mx-auto mb-4 ${stylePrefix}-primary-bg rounded-full flex items-center justify-center">
-            <span class="text-white text-2xl font-bold">2</span>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Doctor Review</h3>
+        <div class="text-center p-4">
+          <div class="w-16 h-16 mx-auto mb-4 ${stylePrefix}-primary-bg rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-md">2</div>
+          <h3 class="text-xl font-semibold mb-2 ${stylePrefix}-main-text">Doctor Review</h3>
           <p class="text-gray-600">Licensed healthcare providers review your information</p>
         </div>
-        <div class="text-center">
-          <div class="w-16 h-16 mx-auto mb-4 ${stylePrefix}-primary-bg rounded-full flex items-center justify-center">
-            <span class="text-white text-2xl font-bold">3</span>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Get Started</h3>
+        <div class="text-center p-4">
+          <div class="w-16 h-16 mx-auto mb-4 ${stylePrefix}-primary-bg rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-md">3</div>
+          <h3 class="text-xl font-semibold mb-2 ${stylePrefix}-main-text">Get Started</h3>
           <p class="text-gray-600">Receive your personalized treatment plan and begin your journey</p>
         </div>
       </div>
@@ -1400,47 +1412,26 @@ const generateHowItWorksSection = (stylePrefix) => `
 `;
 
 // Generate testimonials section
-const generateTestimonialsSection = (stylePrefix) => `
-  <section class="py-16 bg-gray-50">
+// REFACTORED: Pass testimonials array
+const generateTestimonialsSection = (stylePrefix, testimonials) => `
+  <section class="py-16 bg-gray-50 animate-section" style="animation-delay: 0.4s;">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Success Stories</h2>
+      <h2 class="text-3xl font-bold text-center mb-12 ${stylePrefix}-main-text">Success Stories</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <div class="flex items-center mb-4">
-            <div class="text-yellow-400 flex">
-              ${'★'.repeat(5)}
+         ${testimonials.map(testimonial => `
+            <div class="bg-white p-6 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300">
+              <div class="flex items-center mb-4">
+                <div class="text-yellow-400 flex">
+                  ${'★'.repeat(5)}
+                </div>
+              </div>
+              <p class="text-gray-700 mb-4 italic">"${testimonial.quote}"</p>
+              <div class="font-medium text-right">
+                <span class="text-gray-900 block">${testimonial.name}</span>
+                <span class="text-gray-500 text-sm">Lost ${testimonial.weight_lost}</span>
+              </div>
             </div>
-          </div>
-          <p class="text-gray-700 mb-4">"I've lost 25 pounds in just 3 months. The program is easy to follow and the support is amazing!"</p>
-          <div class="font-medium">
-            <span class="text-gray-900">Sarah M.</span>
-            <span class="text-gray-500"> • Lost 25 lbs</span>
-          </div>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <div class="flex items-center mb-4">
-            <div class="text-yellow-400 flex">
-              ${'★'.repeat(5)}
-            </div>
-          </div>
-          <p class="text-gray-700 mb-4">"The medical team is so supportive. They really care about your success and are there every step of the way."</p>
-          <div class="font-medium">
-            <span class="text-gray-900">Michael R.</span>
-            <span class="text-gray-500"> • Lost 30 lbs</span>
-          </div>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <div class="flex items-center mb-4">
-            <div class="text-yellow-400 flex">
-              ${'★'.repeat(5)}
-            </div>
-          </div>
-          <p class="text-gray-700 mb-4">"This program has changed my life. I feel better than I have in years and have more energy than ever!"</p>
-          <div class="font-medium">
-            <span class="text-gray-900">Emily T.</span>
-            <span class="text-gray-500"> • Lost 20 lbs</span>
-          </div>
-        </div>
+          `).join('')}
       </div>
     </div>
   </section>
@@ -1448,22 +1439,24 @@ const generateTestimonialsSection = (stylePrefix) => `
 
 // Generate newsletter section
 const generateNewsletterSection = (stylePrefix) => `
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-white animate-section" style="animation-delay: 0.6s;">
     <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto bg-gradient-to-r from-${stylePrefix}-primary to-${stylePrefix}-secondary rounded-lg p-8 text-white">
+      <div class="max-w-4xl mx-auto bg-gradient-to-r from-${stylePrefix}-primary to-${stylePrefix}-secondary rounded-lg p-8 md:p-12 text-white shadow-lg">
         <div class="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <h2 class="text-2xl font-bold mb-4">Stay Updated</h2>
-            <p class="mb-6">Get the latest weight loss tips, success stories, and program updates delivered to your inbox.</p>
-            <form class="space-y-3">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Stay Updated</h2>
+            <p class="mb-6 opacity-90">Get the latest weight loss tips, success stories, and program updates delivered to your inbox.</p>
+            <form class="space-y-3 newsletter-form">
               <input type="email" placeholder="Your email address" class="w-full p-3 rounded-lg text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white" required />
-              <button type="submit" class="w-full bg-white text-${stylePrefix}-primary font-medium py-3 px-6 rounded-lg transition duration-300 hover:bg-opacity-90">
+              <button type="submit" class="w-full bg-white text-${stylePrefix}-primary font-medium py-3 px-6 rounded-lg transition duration-300 hover:bg-opacity-90 ${stylePrefix}-btn-secondary shadow hover:shadow-md">
                 Subscribe Now
               </button>
             </form>
           </div>
-          <div class="hidden md:block">
-            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Healthy meal prep" class="rounded-lg shadow-lg" />
+          <div class="hidden md:flex justify-center items-center">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 text-white opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+               <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+             </svg>
           </div>
         </div>
       </div>
@@ -1471,120 +1464,159 @@ const generateNewsletterSection = (stylePrefix) => `
   </section>
 `;
 
-// Function to generate all additional pages (blog posts, tools, about, etc.)
-const generateAdditionalPages = (brandName, colorScheme, stylePrefix, customStyles, gtagId) => {
-  // --- Placeholder Navbar & Footer ---
-  // In a real application, these might be more dynamic or passed in
-  const navbar = `
-    <nav class="bg-white shadow-sm">
-      <div class="container mx-auto px-4 py-4">
-        <div class="flex justify-between items-center">
-          <a href="index.html" class="text-xl font-semibold ${stylePrefix}-primary-text">${brandName}</a>
-          <div class="flex space-x-4">
-            <a href="index.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">Home</a>
-            <a href="bmi-calculator.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">BMI Calculator</a>
-            <a href="meal-planner.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">Meal Planner</a>
-            <a href="about.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">About Us</a>
-            <a href="contact.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">Contact</a>
-            <a href="faq.html" class="text-gray-700 hover:${stylePrefix}-primary-text px-3 py-2">FAQ</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  `;
+// *** NEW: Shared Navbar Function ***
+const generateNavbar = (brandName, stylePrefix, primaryColor) => {
+  // Determine text/hover colors based on primary color brightness
+  // Simple heuristic: if primaryColor is dark (e.g., hex starts with low number/char), use lighter text.
+  const isPrimaryDark = primaryColor.startsWith('#') && parseInt(primaryColor.substring(1, 3), 16) < 100; // Example check
+  const navBgColor = isPrimaryDark ? 'bg-gray-800' : 'bg-white';
+  const linkTextColor = isPrimaryDark ? 'text-gray-300' : 'text-gray-600';
+  const linkHoverColor = isPrimaryDark ? 'hover:text-white' : `hover:${stylePrefix}-primary-text`;
+  const logoColor = isPrimaryDark ? 'text-white' : `${stylePrefix}-primary-text`;
+  const buttonTextColor = isPrimaryDark ? 'text-gray-800' : 'text-white'; // Adjust button text if nav is dark
+  const buttonHoverBg = isPrimaryDark ? 'hover:bg-gray-200' : `hover:${stylePrefix}-secondary-bg`;
 
-  const footer = `
-    <footer class="bg-gray-900 text-white py-12 mt-16">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="mb-6 md:mb-0">
-            <div class="text-xl font-bold mb-2">${brandName}</div>
-            <p class="text-gray-400 text-sm">Your partner in achieving health goals.</p>
-          </div>
-          <div class="flex space-x-4">
-            <a href="privacy.html" class="text-gray-400 hover:text-white text-sm">Privacy</a>
-            <a href="terms.html" class="text-gray-400 hover:text-white text-sm">Terms</a>
-            <a href="contact.html" class="text-gray-400 hover:text-white text-sm">Contact</a>
-          </div>
+  return `
+  <nav class="${navBgColor} shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-3">
+        <a href="index.html" class="text-2xl font-bold ${logoColor}">${brandName}</a>
+        <div class="hidden md:flex items-center space-x-1">
+          <a href="index.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+          <a href="about.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+          {/* <a href="blog.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">Blog</a> */}
+          {/* Blog Index page not generated yet, link commented out */}
+          <a href="faq.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">FAQ</a>
+          <a href="contact.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+          <a href="top-ten-weight-loss-meds.html"
+             class="ml-3 ${stylePrefix}-btn ${buttonTextColor} px-4 py-2 rounded-md text-sm font-medium shadow-sm ${buttonHoverBg} transition-all">
+            Compare Top Meds
+          </a>
         </div>
-        <div class="mt-8 pt-6 border-t border-gray-700 text-center text-sm text-gray-500">
-          <p>&copy; ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
-          <p class="mt-1">Disclaimer: Information is for educational purposes only. Consult a healthcare professional before making health decisions.</p>
+        {/* Mobile menu button (basic structure) */}
+        <div class="md:hidden">
+           <button class="${linkTextColor} hover:text-gray-900 focus:outline-none">
+             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+             </svg>
+           </button>
         </div>
       </div>
-    </footer>
-  `;
-  // --- End Placeholder Navbar & Footer ---
+    </div>
+  </nav>
+`;
+}
+
+// *** NEW: Shared Footer Function ***
+const generateFooter = (brandName) => {
+ return `
+  <footer class="bg-gray-800 text-gray-300 py-12 mt-16">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <h3 class="text-xl font-semibold text-white mb-3">${brandName}</h3>
+          <p class="text-sm">Providing information and resources for your health journey.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold text-white mb-3">Quick Links</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+            <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+            <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+            <li><a href="top-ten-weight-loss-meds.html" class="hover:text-white transition-colors">Top 10 Meds</a></li>
+          </ul>
+        </div>
+        <div>
+           <h4 class="text-lg font-semibold text-white mb-3">Legal</h4>
+           <ul class="space-y-2 text-sm">
+             <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+             <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+           </ul>
+        </div>
+      </div>
+      <div class="mt-8 pt-6 border-t border-gray-700 text-center text-sm text-gray-500">
+        <p>&copy; ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+        <p class="mt-1">Disclaimer: The information on this site is for educational purposes only and is not medical advice. Consult a healthcare professional before making health decisions.</p>
+      </div>
+    </div>
+  </footer>
+`;
+}
+
+
+// REFACTORED: Function to generate all additional pages (accepts navbar/footer)
+const generateAdditionalPages = (brandName, colorScheme, stylePrefix, customStyles, gtagId, navbarHTML, footerHTML) => {
 
   // Generate blog post pages
   const blogPostPages = {};
   Object.entries(blogPosts).forEach(([slug, post]) => {
-    // Note: generateBlogPost uses primaryColor directly, not the whole scheme
-    blogPostPages[`${slug}.html`] = generateBlogPost(post, brandName, colorScheme.primary);
+    // Pass navbarHTML and footerHTML to generateBlogPost
+    blogPostPages[`${slug}.html`] = generateBlogPost(post, brandName, colorScheme.primary, navbarHTML, footerHTML);
   });
 
   // Add a placeholder for the "Rapid Weight Loss" article if it doesn't exist yet
-  // (Logic copied from the backup file - seems slightly odd, but retaining for consistency)
   if (!blogPostPages['rapid-weight-loss-is-it-safe.html']) {
-    const placeholderPost = {
-      title: "Rapid Weight Loss: Is It Safe?",
-      image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
-      excerpt: "Medical professionals weigh in on the dangers of fast weight loss programs and offer safer alternatives.",
-      externalUrl: "#", // Placeholder URL
-      content: `
-        <h2>Is Rapid Weight Loss Ever Safe?</h2>
-        <p>Losing weight quickly can be tempting, but it often comes with risks. Rapid weight loss, typically defined as losing more than 1-2 pounds per week consistently, can lead to several health complications.</p>
-        
-        <h3>Potential Risks of Rapid Weight Loss</h3>
-        <ul>
-          <li>Gallstones</li>
-          <li>Nutrient deficiencies</li>
-          <li>Muscle loss</li>
-          <li>Electrolyte imbalances</li>
-          <li>Dehydration</li>
-          <li>Fatigue and irritability</li>
-        </ul>
-        
-        <h2>When Might Rapid Weight Loss Be Medically Supervised?</h2>
-        <p>In certain situations, such as severe obesity or before specific surgeries, a healthcare provider might recommend a very low-calorie diet (VLCD) for rapid weight loss under strict medical supervision. This is not suitable for most people and should never be attempted without professional guidance.</p>
-        
-        <h2>Safer Alternatives</h2>
-        <p>For most individuals, a gradual approach focusing on sustainable lifestyle changes is safer and more effective for long-term weight management. This typically involves:</p>
-        <ul>
-          <li>A balanced, calorie-controlled diet</li>
-          <li>Regular physical activity</li>
-          <li>Behavioral changes</li>
-          <li>Adequate sleep</li>
-          <li>Stress management</li>
-        </ul>
-        
-        <h2>Signs Your Weight Loss Might Be Too Fast</h2>
-        <p>Listen to your body. Signs that you might be losing weight too quickly include:</p>
-        <ul>
-          <li>Fatigue or weakness</li>
-          <li>Hair loss</li>
-          <li>Constant hunger or food obsession</li>
-          <li>Irregular menstrual cycles</li>
-          <li>Difficulty concentrating</li>
-          <li>Feeling cold frequently</li>
-          <li>Mood changes</li>
-        </ul>
-        
-        <h2>Conclusion</h2>
-        <p>While rapid weight loss may seem appealing, a slower, more sustainable approach is typically safer and more effective in the long run. Focus on developing healthy habits that you can maintain indefinitely rather than seeking quick fixes. Always consult with healthcare professionals before beginning any weight loss program, especially if you have existing health conditions.</p>
-      `
-    };
-    blogPostPages['rapid-weight-loss-is-it-safe.html'] = generateBlogPost(placeholderPost, brandName, colorScheme.primary);
+    const placeholderPost = { /* ... placeholder content ... */
+       title: "Rapid Weight Loss: Is It Safe?",
+       image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
+       excerpt: "Medical professionals weigh in on the dangers of fast weight loss programs and offer safer alternatives.",
+       externalUrl: "#", // Placeholder URL
+       content: `
+         <h2>Is Rapid Weight Loss Ever Safe?</h2>
+         <p>Losing weight quickly can be tempting, but it often comes with risks. Rapid weight loss, typically defined as losing more than 1-2 pounds per week consistently, can lead to several health complications.</p>
+
+         <h3>Potential Risks of Rapid Weight Loss</h3>
+         <ul>
+           <li>Gallstones</li>
+           <li>Nutrient deficiencies</li>
+           <li>Muscle loss</li>
+           <li>Electrolyte imbalances</li>
+           <li>Dehydration</li>
+           <li>Fatigue and irritability</li>
+         </ul>
+
+         <h2>When Might Rapid Weight Loss Be Medically Supervised?</h2>
+         <p>In certain situations, such as severe obesity or before specific surgeries, a healthcare provider might recommend a very low-calorie diet (VLCD) for rapid weight loss under strict medical supervision. This is not suitable for most people and should never be attempted without professional guidance.</p>
+
+         <h2>Safer Alternatives</h2>
+         <p>For most individuals, a gradual approach focusing on sustainable lifestyle changes is safer and more effective for long-term weight management. This typically involves:</p>
+         <ul>
+           <li>A balanced, calorie-controlled diet</li>
+           <li>Regular physical activity</li>
+           <li>Behavioral changes</li>
+           <li>Adequate sleep</li>
+           <li>Stress management</li>
+         </ul>
+
+         <h2>Signs Your Weight Loss Might Be Too Fast</h2>
+         <p>Listen to your body. Signs that you might be losing weight too quickly include:</p>
+         <ul>
+           <li>Fatigue or weakness</li>
+           <li>Hair loss</li>
+           <li>Constant hunger or food obsession</li>
+           <li>Irregular menstrual cycles</li>
+           <li>Difficulty concentrating</li>
+           <li>Feeling cold frequently</li>
+           <li>Mood changes</li>
+         </ul>
+
+         <h2>Conclusion</h2>
+         <p>While rapid weight loss may seem appealing, a slower, more sustainable approach is typically safer and more effective in the long run. Focus on developing healthy habits that you can maintain indefinitely rather than seeking quick fixes. Always consult with healthcare professionals before beginning any weight loss program, especially if you have existing health conditions.</p>
+       `
+     };
+    // Pass navbarHTML and footerHTML here too
+    blogPostPages['rapid-weight-loss-is-it-safe.html'] = generateBlogPost(placeholderPost, brandName, colorScheme.primary, navbarHTML, footerHTML);
   }
 
-  // Generate other supplementary pages using imported functions
+  // Generate other supplementary pages using imported functions, passing navbar/footer
   const otherPages = {
-    'about.html': generateAboutUsPage(brandName, navbar, footer, customStyles, gtagId),
-    'contact.html': generateContactPage(brandName, navbar, footer, customStyles, gtagId),
-    'faq.html': generateFAQPage(brandName, navbar, footer, customStyles, gtagId),
-    'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbar, footer, customStyles, gtagId),
-    'bmi-calculator.html': generateBMICalculator(brandName, navbar, footer, customStyles, gtagId),
-    'meal-planner.html': generateMealPlanner(brandName, navbar, footer, customStyles, gtagId),
+    'about.html': generateAboutUsPage(brandName, navbarHTML, footerHTML, customStyles, gtagId),
+    'contact.html': generateContactPage(brandName, navbarHTML, footerHTML, customStyles, gtagId),
+    'faq.html': generateFAQPage(brandName, navbarHTML, footerHTML, customStyles, gtagId),
+    'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbarHTML, footerHTML, customStyles, gtagId),
+    'bmi-calculator.html': generateBMICalculator(brandName, navbarHTML, footerHTML, customStyles, gtagId),
+    'meal-planner.html': generateMealPlanner(brandName, navbarHTML, footerHTML, customStyles, gtagId),
   };
 
   // Combine and return all additional pages
@@ -1594,106 +1626,119 @@ const generateAdditionalPages = (brandName, colorScheme, stylePrefix, customStyl
   };
 };
 
+
 export const generateGLPPage = (data) => {
   // Get random color scheme and dynamic styles
   const colorScheme = getRandomVariation(contentVariations.colorSchemes);
   const { styles: dynamicStyles, prefix: stylePrefix } = generateDynamicStyles(colorScheme);
-  
+
   // Get random headline variations optimized for keywords
   const mainHeadline = getRandomVariation(contentVariations.headlines.main);
   const ctaText = getRandomVariation(contentVariations.headlines.cta);
   const subHeading = getRandomVariation(contentVariations.headlines.subheadings);
-  
+
   // Get random testimonials and badges
   const testimonials = [...contentVariations.trustSignals.testimonials]
     .sort(() => Math.random() - 0.5)
-    .slice(0, 3);
+    .slice(0, 3); // Keep 3 testimonials
   const badges = [...contentVariations.trustSignals.badges]
     .sort(() => Math.random() - 0.5)
-    .slice(0, 4);
-  
+    .slice(0, 4); // Keep 4 badges
+
   // Generate unique class names for major components
   const heroClass = generateUniqueClassName('hero');
   const ctaClass = generateUniqueClassName('cta');
   const featuresClass = generateUniqueClassName('features');
-  
+
   // Choose a random layout style (1-3)
   const layoutStyle = Math.floor(Math.random() * 3) + 1;
 
   // Extract other data from the input
   const {
-    brandName = 'GLP-1',
-    targetUrl = '#',
+    brandName = 'GLP Health', // Updated default brand name
+    targetUrl = '#', // Should likely point to top-ten page by default?
     gtagId = '',
     trackingScript = ''
   } = data;
 
-  // Add dynamic styles to the head
+  // *** Generate Navbar & Footer ONCE ***
+  const navbarHTML = generateNavbar(brandName, stylePrefix, colorScheme.primary);
+  const footerHTML = generateFooter(brandName);
+
+  // Add dynamic styles and animations to the head
   const customStyles = `
     <style>
       ${dynamicStyles}
-      
+
       /* Additional dynamic styles based on layout */
       .${heroClass} {
-        background-image: linear-gradient(to right, ${colorScheme.primary}, ${colorScheme.secondary});
+        background: linear-gradient(135deg, ${colorScheme.primary} 0%, ${colorScheme.secondary} 100%);
+        color: white; /* Ensure text is visible */
       }
-      
-      .${ctaClass}:hover {
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      }
-      
-      .${featuresClass} .feature-card {
-        transition: transform 0.3s ease;
-      }
-      
-      .${featuresClass} .feature-card:hover {
-        transform: translateY(-5px);
+      .${heroClass} h1, .${heroClass} p {
+         text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Add subtle shadow */
       }
 
-      /* Layout-specific styles */
+      .${ctaClass}:hover {
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15); /* Enhance hover shadow */
+      }
+
+      .${featuresClass} .feature-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      }
+
+      .${featuresClass} .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      }
+
+      /* Layout-specific styles (Simplified example) */
       ${layoutStyle === 1 ? `
-        .card-hover {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card-hover:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
+        /* Style 1 specific adjustments */
+        section { border-radius: 8px; margin-bottom: 2rem; }
       ` : layoutStyle === 2 ? `
+        /* Style 2 specific adjustments */
         .section-title {
-          border-bottom: 2px solid ${colorScheme.primary};
+          border-bottom: 3px solid ${colorScheme.primary};
           display: inline-block;
           padding-bottom: 8px;
         }
       ` : `
+        /* Style 3 specific adjustments */
         .section-title::after {
-          content: '';
-          position: absolute;
-          bottom: -10px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 50px;
-          height: 4px;
-          background-color: ${colorScheme.primary};
+          /* Removed ::after for simplicity, handled by class */
         }
       `}
+
+      /* Animations */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .animate-section {
+        opacity: 0;
+        animation: fadeIn 0.6s ease-out forwards;
+      }
     </style>
   `;
 
   // Generate the main sections with dynamic content
+  // Added animation class and delay to hero
   const generateHeroSection = () => `
-    <section class="${heroClass} relative py-20">
+    <section class="${heroClass} relative py-20 md:py-28 animate-section" style="animation-delay: 0.1s;">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             ${mainHeadline.text}
           </h1>
-          <p class="text-xl text-white/90 mb-8">
+          <p class="text-xl md:text-2xl opacity-90 mb-10">
             ${mainHeadline.subtext}
           </p>
-          <a href="top-ten-weight-loss-meds.html" 
-             onclick="gtag_report_conversion('top-ten-weight-loss-meds.html')"
-             class="${ctaClass} ${stylePrefix}-btn px-8 py-4 rounded-lg text-lg font-medium inline-block">
+          <a href="top-ten-weight-loss-meds.html"
+             onclick="if(typeof gtag_report_conversion !== 'undefined') { gtag_report_conversion('top-ten-weight-loss-meds.html'); return false; } else { return true; }"
+             class="${ctaClass} ${stylePrefix}-btn px-8 py-4 rounded-lg text-lg font-medium inline-block shadow-lg hover:shadow-xl transition-shadow duration-300">
             ${ctaText}
           </a>
         </div>
@@ -1701,15 +1746,16 @@ export const generateGLPPage = (data) => {
     </section>
   `;
 
+  // Added animation class and delay
   const featuresSection = `
-    <section class="${featuresClass} py-16 bg-gray-50">
+    <section class="${featuresClass} py-16 bg-gray-50 animate-section" style="animation-delay: 0.2s;">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12 ${stylePrefix}-text">
+        <h2 class="text-3xl font-bold text-center mb-12 ${stylePrefix}-main-text">
           ${subHeading}
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           ${contentVariations.features.map(feature => `
-            <div class="bg-white p-6 rounded-lg shadow-md feature-card">
+            <div class="bg-white p-6 rounded-lg feature-card">
               <h3 class="text-xl font-semibold mb-4 ${stylePrefix}-primary-text">
                 ${feature.title}
               </h3>
@@ -1723,46 +1769,48 @@ export const generateGLPPage = (data) => {
     </section>
   `;
 
-  const testimonialsSection = `
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12">Real Results from Real People</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          ${testimonials.map(testimonial => `
-            <div class="bg-gray-50 p-6 rounded-lg">
-              <div class="flex items-center mb-4">
-                <div class="text-yellow-400 flex">
-                  ${'★'.repeat(5)}
-                </div>
-              </div>
-              <p class="text-gray-700 mb-4">"${testimonial.quote}"</p>
-              <div class="font-medium">
-                <span class="text-gray-900">${testimonial.name}</span>
-                <span class="text-gray-500"> • Lost ${testimonial.weight_lost} in ${testimonial.time_frame}</span>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    </section>
+
+  // Removed duplicate generation, will use generateTestimonialsSection function below
+  // const testimonialsSection = `...`;
+
+  // Added animation class and delay
+  const trustBadgesSection = `
+    <section class="py-12 bg-gray-50 animate-section" style="animation-delay: 0.5s;">
+       <div class="container mx-auto px-4">
+         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+           ${badges.map(badge => `
+             <div class="text-center p-4 bg-white rounded-lg shadow-sm border border-gray-100">
+               <div class="w-12 h-12 mx-auto mb-3 ${stylePrefix}-accent-bg rounded-full flex items-center justify-center">
+                  {/* Placeholder for icon based on badge.icon - requires mapping */}
+                 <svg class="w-6 h-6 ${stylePrefix}-primary-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    ${badge.icon === 'shield-check' ? '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6-6l-6 6-6-6"/>' :
+                      badge.icon === 'users' ? '<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>' :
+                      badge.icon === 'star' ? '<path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.539 1.118l-3.975-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.539-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>' :
+                      badge.icon === 'chart' ? '<path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>' :
+                      '<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />' // Default checkmark
+                    }
+                 </svg>
+               </div>
+               <h3 class="font-semibold text-sm mb-1 ${stylePrefix}-main-text">${badge.title}</h3>
+               <p class="text-xs text-gray-500">${badge.description}</p>
+             </div>
+           `).join('')}
+         </div>
+       </div>
+     </section>
   `;
 
-  const trustBadgesSection = `
-    <section class="py-12 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          ${badges.map(badge => `
-            <div class="text-center">
-              <div class="w-16 h-16 mx-auto mb-4 ${stylePrefix}-primary-bg rounded-full flex items-center justify-center">
-                <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <!-- Add appropriate icon paths based on badge.icon -->
-                </svg>
-              </div>
-              <h3 class="font-semibold mb-2">${badge.title}</h3>
-              <p class="text-sm text-gray-600">${badge.description}</p>
-            </div>
-          `).join('')}
-        </div>
+  // *** NEW: Second CTA Section ***
+  const secondCTASection = `
+    <section class="py-16 bg-gray-100 animate-section" style="animation-delay: 0.7s;">
+      <div class="container mx-auto px-4 text-center">
+         <h2 class="text-3xl font-bold mb-4 ${stylePrefix}-main-text">Ready to Find Your Solution?</h2>
+         <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">Compare the top-rated weight loss medications and find the best fit for your goals and health needs.</p>
+         <a href="top-ten-weight-loss-meds.html"
+            onclick="if(typeof gtag_report_conversion !== 'undefined') { gtag_report_conversion('top-ten-weight-loss-meds.html'); return false; } else { return true; }"
+            class="${ctaClass} ${stylePrefix}-btn px-10 py-4 rounded-lg text-lg font-semibold inline-block shadow-lg hover:shadow-xl transition-shadow duration-300">
+           View Top 10 Weight Loss Meds
+         </a>
       </div>
     </section>
   `;
@@ -1776,13 +1824,13 @@ export const generateGLPPage = (data) => {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${mainHeadline.text} | ${brandName}</title>
   <meta name="description" content="${mainHeadline.subtext}">
-  
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- Custom styles -->
   ${customStyles}
-  
+
   <!-- Google tag for conversion tracking -->
   ${gtagId ? `
   <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagId}"></script>
@@ -1791,51 +1839,74 @@ export const generateGLPPage = (data) => {
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', '${gtagId}');
-  </script>` : ''}
-</head>
-<body class="bg-gray-50">
-  ${generateHeroSection()}
-  ${featuresSection}
-  ${testimonialsSection}
-  ${trustBadgesSection}
-  
-  <!-- Additional sections from the original template -->
-  ${generateHowItWorksSection(stylePrefix)}
-  ${generateTestimonialsSection(stylePrefix)}
-  ${generateTrustSignalsSection(colorScheme.primary)}
-  ${generateNewsletterSection(stylePrefix)}
-  
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-white py-12">
-    <!-- ... footer content ... -->
-  </footer>
 
-  <script>
-    // Conversion tracking
+    // Enhanced conversion tracking function
     function gtag_report_conversion(url) {
       var callback = function () {
         if (typeof(url) != 'undefined') {
           window.location = url;
         }
       };
-      if (typeof gtag !== 'undefined' && '${gtagId}') {
-        gtag('event', 'conversion', {
-          'send_to': '${gtagId}',
-          'event_callback': callback
-        });
-        return false;
+      if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+              'send_to': '${gtagId}',
+              'event_callback': callback
+          });
       } else {
-        return true;
+          console.log("gtag not defined, redirecting directly.");
+          callback(); // Proceed with redirection if gtag fails
       }
+      return false; // Prevent default link behavior
     }
+  </script>` : `
+  <script>
+    // Fallback function if gtagId is not provided
+    function gtag_report_conversion(url) {
+        console.log("GtagID not provided. Redirecting directly to:", url);
+        if (typeof(url) != 'undefined') {
+            window.location = url;
+        }
+        return false; // Prevent default link behavior
+    }
+  </script>
+  `}
+  ${trackingScript ? `<!-- Tracking Script -->\n${trackingScript}` : ''}
+</head>
+<body class="bg-gray-50 ${stylePrefix}-main-text">
+  ${navbarHTML}
+
+  ${generateHeroSection()}
+  ${featuresSection}
+  ${generateHowItWorksSection(stylePrefix)} {/* Added How It Works */}
+  ${generateTestimonialsSection(stylePrefix, testimonials)} {/* Use function */}
+  ${trustBadgesSection} {/* Use updated badges section */}
+  ${generateTrustSignalsSection(colorScheme.primary)} {/* Keep medical disclaimer */}
+  ${generateNewsletterSection(stylePrefix)}
+
+  ${secondCTASection} {/* Add the second CTA */}
+
+  ${footerHTML} {/* Use shared footer */}
+
+  {/* JS for potential mobile menu or other interactions can go here */}
+  <script>
+    // Simple newsletter form handler (demo)
+    document.querySelectorAll('.newsletter-form').forEach(form => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thanks for subscribing! (Demo)');
+        form.reset();
+      });
+    });
   </script>
 </body>
 </html>
   `;
 
+  // Pass navbarHTML and footerHTML to generateAdditionalPages
+  const additionalPages = generateAdditionalPages(brandName, colorScheme, stylePrefix, customStyles, gtagId, navbarHTML, footerHTML);
+
   return {
     'index.html': html,
-    // Call the new function here, passing necessary variables
-    ...generateAdditionalPages(brandName, colorScheme, stylePrefix, customStyles, gtagId)
+    ...additionalPages
   };
 }; 
