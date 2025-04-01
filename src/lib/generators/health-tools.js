@@ -868,6 +868,64 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         font-size: 18px;
         color: #333;
       }
+
+      /* Medication card styles */
+      .med-card {
+        transition: transform 0.2s ease;
+      }
+
+      .med-card:hover {
+        transform: translateY(-2px);
+      }
+
+      .editors-choice-badge {
+        display: inline-block;
+        background: linear-gradient(45deg, #4f46e5, #818cf8);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        font-weight: 500;
+      }
+
+      .visit-site-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        color: white;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .check-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 0.75rem;
+      }
+
+      .check-icon {
+        flex-shrink: 0;
+        margin-right: 0.75rem;
+        margin-top: 0.25rem;
+        color: #10b981;
+      }
+
+      .star-rating {
+        display: flex;
+        align-items: center;
+      }
+
+      @media (max-width: 768px) {
+        .desktop-view {
+          display: none;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .mobile-view {
+          display: none;
+        }
+      }
     </style>
     
     <!-- Google tag for conversion tracking -->
@@ -944,10 +1002,29 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         <div class="container mx-auto px-4">
           <!-- First Item with Most Popular -->
           <div class="mb-10 bg-white rounded-lg border border-gray-200 p-6 shadow-md">
-            <!-- ... existing content ... -->
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900">${medications[0].name}</h2>
+                <p class="text-gray-600">${medications[0].subtitle}</p>
+              </div>
+              <div class="text-right">
+                <div class="star-rating mb-1">
+                  ${generateStars(medications[0].rating)}
+                  <span class="ml-2 text-gray-600">${medications[0].rating} (${medications[0].reviews} reviews)</span>
+                </div>
+                <span class="inline-block bg-indigo-100 text-indigo-800 text-sm px-3 py-1 rounded-full">Most Popular</span>
+              </div>
+            </div>
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <!-- ... existing benefits ... -->
+                ${medications[0].benefits.map(benefit => `
+                  <div class="check-item">
+                    <svg class="check-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>${benefit}</span>
+                  </div>
+                `).join('')}
               </div>
               <div class="flex justify-end items-center">
                 <a href="${affiliateLink}" 
@@ -962,7 +1039,18 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
           <!-- Additional Medication Rankings -->
           ${medications.slice(1, 5).map((med, index) => `
             <div class="mb-10 bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-              <!-- ... existing content ... -->
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h2 class="text-xl font-bold text-gray-900">${med.name}</h2>
+                  <p class="text-gray-600">${med.subtitle}</p>
+                </div>
+                <div class="text-right">
+                  <div class="star-rating mb-1">
+                    ${generateStars(med.rating)}
+                    <span class="ml-2 text-gray-600">${med.rating} (${med.reviews} reviews)</span>
+                  </div>
+                </div>
+              </div>
               <div class="grid md:grid-cols-2 gap-6">
                 <div>
                   ${med.benefits.map(benefit => `
@@ -990,12 +1078,11 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     
     <!-- Mobile View -->
     <div class="mobile-view">
-      <!-- ... existing mobile content ... -->
       <!-- CTA Button -->
       <div class="flex justify-center mb-8">
         <a href="${affiliateLink}"
            onclick="return gtag_report_conversion('${affiliateLink}');"
-           class="next-step-btn text-white px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-2">
+           class="next-step-btn bg-green-600 text-white px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-2">
           <span>NEXT STEP</span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -1005,12 +1092,23 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       
       <!-- Most Popular Section -->
       <section id="top-medications" class="py-8 bg-white">
-        <!-- ... existing content ... -->
         <div class="max-w-5xl mx-auto px-4 py-6">
           ${medications.map(med => `
             <div class="mb-8 border rounded-lg overflow-hidden shadow-md med-card">
-              <!-- ... existing content ... -->
               <div class="p-5 bg-white">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h2 class="text-xl font-bold text-gray-900">${med.name}</h2>
+                    <p class="text-gray-600">${med.subtitle}</p>
+                  </div>
+                  <div class="text-right">
+                    <div class="star-rating mb-1">
+                      ${generateStars(med.rating)}
+                      <span class="ml-2 text-gray-600">${med.rating}</span>
+                    </div>
+                    <span class="text-sm text-gray-500">${med.reviews} reviews</span>
+                  </div>
+                </div>
                 <ul class="mb-5 space-y-3">
                   ${med.benefits.map(benefit => `
                     <li class="flex items-start">
