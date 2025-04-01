@@ -423,137 +423,39 @@ const GLPForm = ({ formData, setFormData }) => {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className="block text-sm font-medium mb-2">Brand Name</label>
-          <input 
-            type="text" 
-            name="brandName" 
-            value={formData.brandName || 'GLP-1'} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Brand Name (e.g. GLP-1)" 
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Hero Title</label>
-          <input 
-            type="text" 
-            name="heroTitle" 
-            value={formData.heroTitle || 'Transform Your Health Journey'} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Main headline for hero section" 
-          />
-        </div>
-      </div>
-
       <div>
-        <label className="block text-sm font-medium mb-2">Hero Description</label>
-        <textarea 
-          name="heroDescription" 
-          value={formData.heroDescription || 'Discover science-backed nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.'} 
-          onChange={handleChange} 
-          className={commonTextareaClass}
-          placeholder="Description text for hero section" 
-        />
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className="block text-sm font-medium mb-2">Hero Image URL</label>
-          <input 
-            type="url" 
-            name="heroImageUrl" 
-            value={formData.heroImageUrl || 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="URL for hero section image" 
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Background Image URL</label>
-          <input 
-            type="url" 
-            name="backgroundImageUrl" 
-            value={formData.backgroundImageUrl || 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="URL for background image" 
-          />
-        </div>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className="block text-sm font-medium mb-2">CTA Button Text</label>
-          <input 
-            type="text" 
-            name="ctaButtonText" 
-            value={formData.ctaButtonText || 'Get Started'} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Text for call-to-action button" 
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Target URL</label>
-          <input 
-            type="url" 
-            name="targetUrl" 
-            value={formData.targetUrl} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Target URL for the CTA button (your affiliate link)" 
-          />
-        </div>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className="block text-sm font-medium mb-2">Google Ads ID</label>
-          <input 
-            type="text" 
-            name="gtagId" 
-            value={formData.gtagId} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX" 
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Primary Color</label>
-          <input 
-            type="text" 
-            name="primaryColor" 
-            value={formData.primaryColor || '#4f46e5'} 
-            onChange={handleChange} 
-            className={commonInputClass}
-            placeholder="Primary color hex (e.g. #4f46e5)" 
-          />
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-2">Newsletter Form Heading</label>
+        <label className="block text-sm font-medium mb-2">Brand Name</label>
         <input 
           type="text" 
-          name="newsletterHeading" 
-          value={formData.newsletterHeading || 'Get Nutrition and Diet Tips in Your Inbox'} 
+          name="brandName" 
+          value={formData.brandName || 'GLP-1'} 
           onChange={handleChange} 
           className={commonInputClass}
-          placeholder="Title for newsletter signup section" 
+          placeholder="Brand Name (e.g. GLP-1)" 
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Tracking Script (Optional)</label>
-        <textarea 
-          name="trackingScript" 
-          value={formData.trackingScript} 
+        <label className="block text-sm font-medium mb-2">Target URL</label>
+        <input 
+          type="url" 
+          name="targetUrl" 
+          value={formData.targetUrl} 
           onChange={handleChange} 
-          className={`${commonTextareaClass} font-mono text-sm`}
-          placeholder="Enter tracking script to be placed in <head>" 
+          className={commonInputClass}
+          placeholder="https://hit.prowellnessroute.com/C5SxvyuMoC" 
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Google Ads ID</label>
+        <input 
+          type="text" 
+          name="gtagId" 
+          value={formData.gtagId} 
+          onChange={handleChange} 
+          className={commonInputClass}
+          placeholder="Format: AW-XXXXXXXXXX/XXXXXXXXXXXXX" 
         />
       </div>
     </div>
