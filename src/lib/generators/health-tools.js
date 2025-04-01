@@ -1958,7 +1958,7 @@ export const generateFAQPage = (brandName, navbar, footer, customStyles = '', go
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Frequently Asked Questions | ${brandName}</title>
-  <meta name="description" content="Get answers to common questions about our weight loss medication matching service.">
+  <meta name="description" content="Get answers to common questions about weight loss programs and how we can help you find the best one for your needs.">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>

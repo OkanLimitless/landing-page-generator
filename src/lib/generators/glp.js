@@ -1468,7 +1468,7 @@ export const generateGLPPage = (data) => {
         <div class="hidden sm:flex sm:items-center sm:space-x-8">
           <a href="faq.html" class="text-gray-600 hover:text-indigo-600 transition-colors">FAQ</a>
           <a href="top-ten-weight-loss-meds.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
-            Get Started
+            Top 10 Programs
           </a>
         </div>
       </div>
@@ -2536,20 +2536,22 @@ export const generateGLPPage = (data) => {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
           <h3 class="text-lg font-semibold mb-4">About</h3>
-          <p class="text-gray-300 text-sm">We help you find the right weight loss medication based on your unique profile and health goals.</p>
+          <p class="text-gray-300 text-sm">We help you find the best weight loss programs based on your unique profile and health goals.</p>
         </div>
         
         <div>
           <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
           <ul class="space-y-2">
+            <li><a href="about.html" class="text-gray-300 hover:text-white text-sm transition-colors">About Us</a></li>
             <li><a href="faq.html" class="text-gray-300 hover:text-white text-sm transition-colors">FAQ</a></li>
-            <li><a href="top-ten-weight-loss-meds.html" class="text-gray-300 hover:text-white text-sm transition-colors">Get Started</a></li>
+            <li><a href="top-ten-weight-loss-meds.html" class="text-gray-300 hover:text-white text-sm transition-colors">Top 10 Programs</a></li>
           </ul>
         </div>
         
         <div>
-          <h3 class="text-lg font-semibold mb-4">Legal</h3>
+          <h3 class="text-lg font-semibold mb-4">Support</h3>
           <ul class="space-y-2">
+            <li><a href="contact.html" class="text-gray-300 hover:text-white text-sm transition-colors">Contact Us</a></li>
             <li><a href="privacy.html" class="text-gray-300 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
             <li><a href="terms.html" class="text-gray-300 hover:text-white text-sm transition-colors">Terms of Use</a></li>
           </ul>
@@ -2558,6 +2560,7 @@ export const generateGLPPage = (data) => {
       
       <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
         <p>&copy; ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
+        <p class="mt-2 text-xs">Affiliate Disclosure: We may earn a commission from purchases made through links on this site at no extra cost to you.</p>
       </div>
     </div>
   </footer>`;
@@ -2619,8 +2622,8 @@ export const generateGLPPage = (data) => {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${brandName} | Find Your Perfect Weight Loss Medication Match</title>
-  <meta name="description" content="Take our free assessment to find the right FDA-approved weight loss medication for your unique profile. Get personalized recommendations in minutes.">
+  <title>${brandName} | Discover the Top 10 Weight Loss Programs of 2025</title>
+  <meta name="description" content="Find the perfect weight loss program tailored to your needs. Compare the best programs to lose weight faster and keep it off!">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -2650,13 +2653,13 @@ export const generateGLPPage = (data) => {
     <div class="container mx-auto px-4 py-16 md:py-24">
       <div class="max-w-4xl mx-auto text-center">
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          Find Your Perfect Weight Loss Medication Match
+          Discover the Top 10 Weight Loss Programs of 2025
         </h1>
         <p class="text-xl text-gray-600 mb-8">
-          Take our free assessment to discover FDA-approved medications that align with your unique profile and health goals.
+          Find the perfect program to lose weight faster and keep it off – tailored to your needs and goals!
         </p>
         <a href="top-ten-weight-loss-meds.html" class="inline-block bg-indigo-600 text-white px-8 py-4 rounded-md text-lg font-medium hover:bg-indigo-700 transition-colors">
-          Start Free Assessment
+          See the Top 10 Programs Now
         </a>
       </div>
     </div>
@@ -2673,8 +2676,8 @@ export const generateGLPPage = (data) => {
           <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
             <span class="text-indigo-600 font-bold text-xl">1</span>
           </div>
-          <h3 class="text-xl font-semibold mb-2 text-gray-900">Complete Assessment</h3>
-          <p class="text-gray-600">Answer a few quick questions about your health history and goals.</p>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Answer a Few Questions</h3>
+          <p class="text-gray-600">Tell us about your weight loss goals and personal preferences.</p>
         </div>
         
         <!-- Step 2 -->
@@ -2682,8 +2685,8 @@ export const generateGLPPage = (data) => {
           <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
             <span class="text-indigo-600 font-bold text-xl">2</span>
           </div>
-          <h3 class="text-xl font-semibold mb-2 text-gray-900">Get Matched</h3>
-          <p class="text-gray-600">We analyze your profile and match you with suitable FDA-approved medications.</p>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Get Your Top 10 List</h3>
+          <p class="text-gray-600">We'll show you the best weight loss programs ranked for your specific needs.</p>
         </div>
         
         <!-- Step 3 -->
@@ -2691,8 +2694,8 @@ export const generateGLPPage = (data) => {
           <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
             <span class="text-indigo-600 font-bold text-xl">3</span>
           </div>
-          <h3 class="text-xl font-semibold mb-2 text-gray-900">Review & Choose</h3>
-          <p class="text-gray-600">Compare your matches and choose the option that best fits your needs.</p>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Start Your Journey</h3>
+          <p class="text-gray-600">Choose the right program and begin losing weight effectively today!</p>
         </div>
       </div>
     </div>
@@ -2701,13 +2704,16 @@ export const generateGLPPage = (data) => {
   <!-- CTA Section -->
   <section class="bg-indigo-700 text-white py-16">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold mb-6">Ready to Find Your Match?</h2>
+      <h2 class="text-3xl font-bold mb-6">Ready to Lose Weight?</h2>
       <p class="text-xl mb-8 max-w-2xl mx-auto">
-        Take our free assessment now and get personalized medication recommendations in minutes.
+        Get your personalized Top 10 list now and start your journey today! Find programs that actually work for your lifestyle.
       </p>
-      <a href="top-ten-weight-loss-meds.html" class="inline-block bg-white text-indigo-700 px-8 py-4 rounded-md text-lg font-medium hover:bg-gray-100 transition-colors">
-        Start Free Assessment
-      </a>
+      <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <a href="top-ten-weight-loss-meds.html" class="inline-block bg-white text-indigo-700 px-8 py-4 rounded-md text-lg font-medium hover:bg-gray-100 transition-colors">
+          See the Top 10 Programs Now
+        </a>
+        <span class="text-white text-sm italic">Limited Time: Free Comparison Guide</span>
+      </div>
     </div>
   </section>
   
