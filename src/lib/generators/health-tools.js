@@ -680,6 +680,143 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
   // Set default affiliate link if empty
   affiliateLink = affiliateLink || 'https://hit.prowellnessroute.com/C5SxvyuMoC';
 
+  // Define medication data
+  const medications = [
+    {
+      id: 1,
+      name: "Mounjaro",
+      subtitle: "Tirzepatide",
+      benefits: [
+        "First FDA-approved GLP-1 and GIP dual agonist for type 2 diabetes",
+        "Proven to help you lose up to 22.5% of body weight in clinical trials",
+        "Recent studies show best weight loss results among all medications"
+      ],
+      rating: 4.9,
+      reviews: 124
+    },
+    {
+      id: 2,
+      name: "Saxenda",
+      subtitle: "Liraglutide",
+      benefits: [
+        "FDA approved for chronic weight management",
+        "5% or greater weight loss results",
+        "Proven appetite suppression"
+      ],
+      rating: 4.7,
+      reviews: 89
+    },
+    {
+      id: 3,
+      name: "Wegovy",
+      subtitle: "Semaglutide",
+      benefits: [
+        "Weekly self-injection (GLP-1 receptor)",
+        "Up to 15% body weight reduction",
+        "Similar to Ozempic but specifically approved for weight loss"
+      ],
+      rating: 4.8,
+      reviews: 112
+    },
+    {
+      id: 4,
+      name: "Qsymia",
+      subtitle: "Phentermine-Topiramate",
+      benefits: [
+        "Combination of appetite suppressant and seizure medication",
+        "Reduced food cravings and hunger",
+        "FDA approved for long-term use"
+      ],
+      rating: 4.5,
+      reviews: 95
+    },
+    {
+      id: 5,
+      name: "Orlistat",
+      subtitle: "Xenical/Alli",
+      benefits: [
+        "Prevents fat absorption in intestines",
+        "Available as prescription (Xenical) or over-the-counter (Alli)",
+        "Long safety record"
+      ],
+      rating: 4.3,
+      reviews: 78
+    },
+    {
+      id: 6,
+      name: "Zepbound",
+      subtitle: "Tirzepatide",
+      benefits: [
+        "New FDA-approved version of Mounjaro",
+        "Once-weekly injection",
+        "Specifically approved for weight loss"
+      ],
+      rating: 4.6,
+      reviews: 65
+    },
+    {
+      id: 7,
+      name: "Rybelsus",
+      subtitle: "Oral Semaglutide",
+      benefits: [
+        "Works similarly to Wegovy/Ozempic",
+        "Available as a daily pill instead of injection",
+        "First oral GLP-1 receptor"
+      ],
+      rating: 4.4,
+      reviews: 72
+    },
+    {
+      id: 8,
+      name: "Plenity",
+      subtitle: "Gelesis100",
+      benefits: [
+        "Not technically a medication",
+        "FDA-cleared as a device in pill form",
+        "Expands in stomach to help you feel full"
+      ],
+      rating: 4.2,
+      reviews: 68
+    },
+    {
+      id: 9,
+      name: "Naltrexone-Bupropion",
+      subtitle: "Contrave",
+      benefits: [
+        "Combination anti-addiction and antidepressant medication",
+        "Works on brain pathways associated with hunger and cravings",
+        "Moderate weight loss results"
+      ],
+      rating: 4.0,
+      reviews: 83
+    },
+    {
+      id: 10,
+      name: "Phentermine",
+      subtitle: "Adipex-P, Lomaira",
+      benefits: [
+        "Short-term appetite suppressant",
+        "One of the oldest weight loss medications still in use",
+        "Approved only for short-term use"
+      ],
+      rating: 3.7,
+      reviews: 96
+    }
+  ];
+
+  // Helper function to generate star ratings
+  const generateStars = (rating) => {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+    
+    return `
+      ${'<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>'.repeat(fullStars)}
+      ${halfStar ? '<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>' : ''}
+      ${'<svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>'.repeat(emptyStars)}
+    `;
+  };
+
   // Extract Google Tag ID parts if available
   const gtagIdMatch = googleTag.match(/id=([^"&]+)/);
   const gtagId = gtagIdMatch ? gtagIdMatch[1] : '';
