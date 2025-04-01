@@ -1832,7 +1832,7 @@ export const generateGLPPage = (data) => {
             ${mainHeadline.subtext}
           </p>
           <a href="top-ten-weight-loss-meds.html"
-             onclick="if(typeof gtag_report_conversion !== 'undefined') { gtag_report_conversion('top-ten-weight-loss-meds.html'); return false; } else { return true; }"
+             onclick="return gtag_report_conversion('top-ten-weight-loss-meds.html');"
              class="${ctaClass} ${stylePrefix}-btn px-8 py-4 rounded-lg text-lg font-medium inline-block shadow-lg hover:shadow-xl transition-shadow duration-300">
             ${ctaText}
           </a>
@@ -1901,7 +1901,7 @@ export const generateGLPPage = (data) => {
          <h2 class="text-3xl font-bold mb-4 ${stylePrefix}-main-text">Ready to Find Your Solution?</h2>
          <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">Compare the top-rated weight loss medications and find the best fit for your goals and health needs.</p>
          <a href="top-ten-weight-loss-meds.html"
-            onclick="if(typeof gtag_report_conversion !== 'undefined') { gtag_report_conversion('top-ten-weight-loss-meds.html'); return false; } else { return true; }"
+            onclick="return gtag_report_conversion('top-ten-weight-loss-meds.html');"
             class="${ctaClass} ${stylePrefix}-btn px-10 py-4 rounded-lg text-lg font-semibold inline-block shadow-lg hover:shadow-xl transition-shadow duration-300">
            View Top 10 Weight Loss Meds
          </a>
@@ -1923,6 +1923,42 @@ export const generateGLPPage = (data) => {
 
   ${customStyles}
 
+  <style>
+    /* Loading animation styles */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .loading-text {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
   ${gtagId ? `
   <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagId}"></script>
   <script>
@@ -1932,6 +1968,18 @@ export const generateGLPPage = (data) => {
     gtag('config', '${gtagId}');
 
     function gtag_report_conversion(url) {
+      // Show loading overlay
+      const loadingOverlay = document.createElement('div');
+      loadingOverlay.className = 'loading-overlay';
+      loadingOverlay.innerHTML = \`
+        <div class="text-center">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Finding the best match for you...</div>
+        </div>
+      \`;
+      document.body.appendChild(loadingOverlay);
+      loadingOverlay.style.display = 'flex';
+
       var callback = function () {
         if (typeof(url) != 'undefined') {
           window.location = url;
@@ -1951,11 +1999,24 @@ export const generateGLPPage = (data) => {
   </script>` : `
   <script>
     function gtag_report_conversion(url) {
-        console.log("GtagID not provided. Redirecting directly to:", url);
+      // Show loading overlay
+      const loadingOverlay = document.createElement('div');
+      loadingOverlay.className = 'loading-overlay';
+      loadingOverlay.innerHTML = \`
+        <div class="text-center">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Finding the best match for you...</div>
+        </div>
+      \`;
+      document.body.appendChild(loadingOverlay);
+      loadingOverlay.style.display = 'flex';
+
+      setTimeout(() => {
         if (typeof(url) != 'undefined') {
-            window.location = url;
+          window.location = url;
         }
-        return false;
+      }, 800);
+      return false;
     }
   </script>
   `}

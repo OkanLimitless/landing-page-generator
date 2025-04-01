@@ -973,36 +973,23 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     
     <!-- Desktop View -->
     <div class="desktop-view">
-      <!-- ... existing desktop header ... -->
-      
-      <!-- Desktop Hero Section -->
-      <div class="desktop-hero">
-        <div class="desktop-hero-content">
-          <!-- ... existing hero content ... -->
-          <div class="desktop-hero-text">
-            <h1 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
-              Compare Weight Loss Injections 2025
-            </h1>
-            
-            <p class="text-lg text-gray-700 mb-6">
-              Compare top weight-loss injections including Ozempic®, Wegovy®, GLP-1 injectables, and other popular weight-loss medications.
-            </p>
-            
-            <div class="mb-6">
-              <div class="editors-choice-badge">
-                Editor's Choice - March 2025
-              </div>
-            </div>
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Top 10 Weight Loss Medications of 2025</h1>
+            <p class="text-xl opacity-90 mb-8">Compare the most effective FDA-approved medications for sustainable weight loss</p>
           </div>
         </div>
       </div>
-      
-      <!-- Desktop Rankings Section -->
-      <div class="bg-white py-12">
-        <div class="container mx-auto px-4">
-          <!-- First Item with Most Popular -->
-          <div class="mb-10 bg-white rounded-lg border border-gray-200 p-6 shadow-md">
-            <div class="flex items-center justify-between mb-4">
+
+      <div class="container mx-auto px-4 py-12">
+        <div class="max-w-5xl mx-auto">
+          <!-- Top Medication -->
+          <div class="mb-12 bg-white rounded-xl border border-gray-200 p-8 shadow-lg relative overflow-hidden">
+            <div class="absolute top-4 right-4 bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-medium">
+              #1 Most Popular
+            </div>
+            <div class="flex items-center justify-between mb-6">
               <div>
                 <h2 class="text-2xl font-bold text-gray-900">${medications[0].name}</h2>
                 <p class="text-gray-600">${medications[0].subtitle}</p>
@@ -1012,10 +999,9 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                   ${generateStars(medications[0].rating)}
                   <span class="ml-2 text-gray-600">${medications[0].rating} (${medications[0].reviews} reviews)</span>
                 </div>
-                <span class="inline-block bg-indigo-100 text-indigo-800 text-sm px-3 py-1 rounded-full">Most Popular</span>
               </div>
             </div>
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="grid md:grid-cols-2 gap-8">
               <div>
                 ${medications[0].benefits.map(benefit => `
                   <div class="check-item">
@@ -1027,51 +1013,53 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                 `).join('')}
               </div>
               <div class="flex justify-end items-center">
-                <a href="${affiliateLink}" 
+                <a href="/redirect/${medications[0].name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}" 
                    onclick="return gtag_report_conversion('${affiliateLink}');"
-                   class="visit-site-btn bg-green-600 hover:bg-green-700">
+                   class="visit-site-btn bg-blue-600 hover:bg-blue-700">
                   Visit Site →
                 </a>
               </div>
             </div>
           </div>
-          
-          <!-- Additional Medication Rankings -->
-          ${medications.slice(1, 5).map((med, index) => `
-            <div class="mb-10 bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <h2 class="text-xl font-bold text-gray-900">${med.name}</h2>
-                  <p class="text-gray-600">${med.subtitle}</p>
+
+          <!-- Other Medications -->
+          <div class="grid grid-cols-1 gap-8">
+            ${medications.slice(1, 5).map((med, index) => `
+              <div class="mb-10 bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h2 class="text-xl font-bold text-gray-900">${med.name}</h2>
+                    <p class="text-gray-600">${med.subtitle}</p>
+                  </div>
+                  <div class="text-right">
+                    <div class="star-rating mb-1">
+                      ${generateStars(med.rating)}
+                      <span class="ml-2 text-gray-600">${med.rating} (${med.reviews} reviews)</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="text-right">
-                  <div class="star-rating mb-1">
-                    ${generateStars(med.rating)}
-                    <span class="ml-2 text-gray-600">${med.rating} (${med.reviews} reviews)</span>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    ${med.benefits.map(benefit => `
+                      <div class="check-item">
+                        <svg class="check-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>${benefit}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                  <div class="flex justify-end items-center">
+                    <a href="/redirect/${med.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}" 
+                       onclick="return gtag_report_conversion('${affiliateLink}');"
+                       class="visit-site-btn bg-blue-600 hover:bg-blue-700">
+                      Visit Site →
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                  ${med.benefits.map(benefit => `
-                    <div class="check-item">
-                      <svg class="check-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                      <span>${benefit}</span>
-                    </div>
-                  `).join('')}
-                </div>
-                <div class="flex justify-end items-center">
-                  <a href="${affiliateLink}" 
-                     onclick="return gtag_report_conversion('${affiliateLink}');"
-                     class="visit-site-btn bg-blue-600 hover:bg-blue-700">
-                    Visit Site →
-                  </a>
-                </div>
-              </div>
-            </div>
-          `).join('')}
+            `).join('')}
+          </div>
         </div>
       </div>
     </div>
@@ -1156,7 +1144,11 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                     </li>
                   `).join('')}
                 </ul>
-                <button onclick="return gtag_report_conversion('/redirect/${med.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}')" class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm">Get Offer</button>
+                <a href="/redirect/${med.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}" 
+                   onclick="return gtag_report_conversion('${affiliateLink}');" 
+                   class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm">
+                  Get Offer
+                </a>
               </div>
             </div>
           `).join('')}
