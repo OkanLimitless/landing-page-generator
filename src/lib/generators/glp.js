@@ -1467,13 +1467,12 @@ const generateNewsletterSection = (stylePrefix) => `
 // *** NEW: Shared Navbar Function ***
 const generateNavbar = (brandName, stylePrefix, primaryColor) => {
   // Determine text/hover colors based on primary color brightness
-  // Simple heuristic: if primaryColor is dark (e.g., hex starts with low number/char), use lighter text.
-  const isPrimaryDark = primaryColor.startsWith('#') && parseInt(primaryColor.substring(1, 3), 16) < 100; // Example check
+  const isPrimaryDark = primaryColor.startsWith('#') && parseInt(primaryColor.substring(1, 3), 16) < 100;
   const navBgColor = isPrimaryDark ? 'bg-gray-800' : 'bg-white';
   const linkTextColor = isPrimaryDark ? 'text-gray-300' : 'text-gray-600';
   const linkHoverColor = isPrimaryDark ? 'hover:text-white' : `hover:${stylePrefix}-primary-text`;
   const logoColor = isPrimaryDark ? 'text-white' : `${stylePrefix}-primary-text`;
-  const buttonTextColor = isPrimaryDark ? 'text-gray-800' : 'text-white'; // Adjust button text if nav is dark
+  const buttonTextColor = isPrimaryDark ? 'text-gray-800' : 'text-white';
   const buttonHoverBg = isPrimaryDark ? 'hover:bg-gray-200' : `hover:${stylePrefix}-secondary-bg`;
 
   return `
@@ -1484,8 +1483,6 @@ const generateNavbar = (brandName, stylePrefix, primaryColor) => {
         <div class="hidden md:flex items-center space-x-1">
           <a href="index.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
           <a href="about.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-          {/* <a href="blog.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">Blog</a> */}
-          {/* Blog Index page not generated yet, link commented out */}
           <a href="faq.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">FAQ</a>
           <a href="contact.html" class="${linkTextColor} ${linkHoverColor} px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
           <a href="top-ten-weight-loss-meds.html"
@@ -1493,7 +1490,6 @@ const generateNavbar = (brandName, stylePrefix, primaryColor) => {
             Compare Top Meds
           </a>
         </div>
-        {/* Mobile menu button (basic structure) */}
         <div class="md:hidden">
            <button class="${linkTextColor} hover:text-gray-900 focus:outline-none">
              <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -1781,15 +1777,14 @@ export const generateGLPPage = (data) => {
            ${badges.map(badge => `
              <div class="text-center p-4 bg-white rounded-lg shadow-sm border border-gray-100">
                <div class="w-12 h-12 mx-auto mb-3 ${stylePrefix}-accent-bg rounded-full flex items-center justify-center">
-                  {/* Placeholder for icon based on badge.icon - requires mapping */}
-                 <svg class="w-6 h-6 ${stylePrefix}-primary-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <svg class="w-6 h-6 ${stylePrefix}-primary-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     ${badge.icon === 'shield-check' ? '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6-6l-6 6-6-6"/>' :
                       badge.icon === 'users' ? '<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>' :
                       badge.icon === 'star' ? '<path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.539 1.118l-3.975-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.539-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>' :
                       badge.icon === 'chart' ? '<path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>' :
                       '<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />' // Default checkmark
                     }
-                 </svg>
+                  </svg>
                </div>
                <h3 class="font-semibold text-sm mb-1 ${stylePrefix}-main-text">${badge.title}</h3>
                <p class="text-xs text-gray-500">${badge.description}</p>
@@ -1825,13 +1820,10 @@ export const generateGLPPage = (data) => {
   <title>${mainHeadline.text} | ${brandName}</title>
   <meta name="description" content="${mainHeadline.subtext}">
 
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Custom styles -->
   ${customStyles}
 
-  <!-- Google tag for conversion tracking -->
   ${gtagId ? `
   <script async src="https://www.googletagmanager.com/gtag/js?id=${gtagId}"></script>
   <script>
@@ -1840,7 +1832,6 @@ export const generateGLPPage = (data) => {
     gtag('js', new Date());
     gtag('config', '${gtagId}');
 
-    // Enhanced conversion tracking function
     function gtag_report_conversion(url) {
       var callback = function () {
         if (typeof(url) != 'undefined') {
@@ -1854,19 +1845,18 @@ export const generateGLPPage = (data) => {
           });
       } else {
           console.log("gtag not defined, redirecting directly.");
-          callback(); // Proceed with redirection if gtag fails
+          callback();
       }
-      return false; // Prevent default link behavior
+      return false;
     }
   </script>` : `
   <script>
-    // Fallback function if gtagId is not provided
     function gtag_report_conversion(url) {
         console.log("GtagID not provided. Redirecting directly to:", url);
         if (typeof(url) != 'undefined') {
             window.location = url;
         }
-        return false; // Prevent default link behavior
+        return false;
     }
   </script>
   `}
@@ -1877,19 +1867,15 @@ export const generateGLPPage = (data) => {
 
   ${generateHeroSection()}
   ${featuresSection}
-  ${generateHowItWorksSection(stylePrefix)} {/* Added How It Works */}
-  ${generateTestimonialsSection(stylePrefix, testimonials)} {/* Use function */}
-  ${trustBadgesSection} {/* Use updated badges section */}
-  ${generateTrustSignalsSection(colorScheme.primary)} {/* Keep medical disclaimer */}
+  ${generateHowItWorksSection(stylePrefix)}
+  ${generateTestimonialsSection(stylePrefix, testimonials)}
+  ${trustBadgesSection}
+  ${generateTrustSignalsSection(colorScheme.primary)}
   ${generateNewsletterSection(stylePrefix)}
+  ${secondCTASection}
+  ${footerHTML}
 
-  ${secondCTASection} {/* Add the second CTA */}
-
-  ${footerHTML} {/* Use shared footer */}
-
-  {/* JS for potential mobile menu or other interactions can go here */}
   <script>
-    // Simple newsletter form handler (demo)
     document.querySelectorAll('.newsletter-form').forEach(form => {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
