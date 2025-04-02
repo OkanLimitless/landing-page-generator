@@ -938,20 +938,62 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       gtag('js', new Date());
       gtag('config', '${gtagId}');
 
-      // Direct conversion tracking without loading animation
+      // Direct conversion tracking with loading animation
       function gtag_report_conversion(url) {
-        gtag('event', 'conversion', {
-          'send_to': '${gtagAccount}/${gtagLabel}',
-          'event_callback': function() {
-            if (url) {
-              window.location = url;
-            }
+        // Show loading overlay
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.className = 'loading-overlay';
+        loadingOverlay.innerHTML = \`
+          <div class="text-center">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Finding the best match for you...</div>
+          </div>
+        \`;
+        document.body.appendChild(loadingOverlay);
+        loadingOverlay.style.display = 'flex';
+
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
           }
-        });
+        };
+
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            'send_to': '${gtagAccount}/${gtagLabel}',
+            'event_callback': callback
+          });
+        } else {
+          console.log("gtag not defined, redirecting directly.");
+          callback();
+        }
         return false;
       }
     </script>
-    ` : ''}
+    ` : `
+    <script>
+      function gtag_report_conversion(url) {
+        // Show loading overlay
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.className = 'loading-overlay';
+        loadingOverlay.innerHTML = \`
+          <div class="text-center">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Finding the best match for you...</div>
+          </div>
+        \`;
+        document.body.appendChild(loadingOverlay);
+        loadingOverlay.style.display = 'flex';
+
+        setTimeout(() => {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        }, 800);
+        return false;
+      }
+    </script>
+    `}
   </head>
   <body class="font-sans">
     ${navbar}
