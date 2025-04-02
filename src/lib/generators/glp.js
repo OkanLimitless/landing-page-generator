@@ -1709,7 +1709,7 @@ const generateAdditionalPages = (brandName, colorScheme, stylePrefix, customStyl
     'about.html': generateAboutUsPage(brandName, navbarHTML, footerHTML, customStyles, gtagId),
     'contact.html': generateContactPage(brandName, navbarHTML, footerHTML, customStyles, gtagId),
     'faq.html': generateFAQPage(brandName, navbarHTML, footerHTML, customStyles, gtagId),
-    'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbarHTML, footerHTML, customStyles, gtagId),
+    'top-ten-weight-loss-meds.html': generateTopTenWeightLossMeds(brandName, navbarHTML, footerHTML, customStyles, gtagId, data.targetUrl),
     'bmi-calculator.html': generateBMICalculator(brandName, navbarHTML, footerHTML, customStyles, gtagId),
     'meal-planner.html': generateMealPlanner(brandName, navbarHTML, footerHTML, customStyles, gtagId),
   };
