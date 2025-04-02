@@ -946,90 +946,24 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       gtag('js', new Date());
       gtag('config', '${gtagId}');
 
-      // Direct conversion tracking with loading animation
       function gtag_report_conversion(url) {
-        // Create and show loading overlay
-        const loadingOverlay = document.createElement('div');
-        loadingOverlay.className = 'loading-overlay';
-        loadingOverlay.innerHTML = \`
-          <div class="text-center">
-            <div class="loading-spinner"></div>
-            <div class="loading-text">Finding the best match for you...</div>
-          </div>
-        \`;
-        document.body.appendChild(loadingOverlay);
-        
-        // Force a reflow to ensure the overlay is rendered
-        loadingOverlay.offsetHeight;
-        loadingOverlay.style.display = 'flex';
-        
-        // Add visible class after a small delay to trigger the fade-in animation
-        requestAnimationFrame(() => {
-          loadingOverlay.classList.add('visible');
-        });
-
-        // Create a promise to handle the conversion tracking
-        const trackConversion = new Promise((resolve) => {
-          if (typeof gtag === 'function') {
-            gtag('event', 'conversion', {
-              'send_to': '${gtagAccount}/${gtagLabel}',
-              'event_callback': resolve
-            });
-          } else {
-            console.log("gtag not defined, resolving immediately");
-            resolve();
-          }
-        });
-
-        // Handle the redirect with proper timing
-        trackConversion
-          .then(() => {
-            // Ensure minimum display time of 800ms
-            const minDisplayTime = new Promise(resolve => setTimeout(resolve, 800));
-            return Promise.all([minDisplayTime]);
-          })
-          .then(() => {
-            // Remove visible class to trigger fade-out
-            loadingOverlay.classList.remove('visible');
-            
-            // Wait for fade-out animation to complete before redirecting
-            setTimeout(() => {
-              if (typeof(url) != 'undefined') {
-                window.location = url;
-              }
-            }, 300); // Match the transition duration
-          })
-          .catch(error => {
-            console.error('Error during conversion tracking:', error);
-            // Fallback redirect after error
-            if (typeof(url) != 'undefined') {
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            'send_to': '${gtagAccount}/${gtagLabel}',
+            'event_callback': function() {
               window.location = url;
             }
           });
-
+        } else {
+          window.location = url;
+        }
         return false;
       }
     </script>
     ` : `
     <script>
       function gtag_report_conversion(url) {
-        // Show loading overlay
-        const loadingOverlay = document.createElement('div');
-        loadingOverlay.className = 'loading-overlay';
-        loadingOverlay.innerHTML = \`
-          <div class="text-center">
-            <div class="loading-spinner"></div>
-            <div class="loading-text">Finding the best match for you...</div>
-          </div>
-        \`;
-        document.body.appendChild(loadingOverlay);
-        loadingOverlay.style.display = 'flex';
-
-        setTimeout(() => {
-          if (typeof(url) != 'undefined') {
-            window.location = url;
-          }
-        }, 800);
+        window.location = url;
         return false;
       }
     </script>
