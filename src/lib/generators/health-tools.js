@@ -842,11 +842,17 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.95);
         display: none;
         justify-content: center;
         align-items: center;
-        z-index: 9999;
+        z-index: 99999;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      .loading-overlay.visible {
+        opacity: 1;
       }
 
       .loading-spinner {
@@ -856,6 +862,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         border-top: 5px solid #3498db;
         border-radius: 50%;
         animation: spin 1s linear infinite;
+        margin-bottom: 20px;
       }
 
       @keyframes spin {
@@ -864,9 +871,10 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       }
 
       .loading-text {
-        margin-top: 20px;
         font-size: 18px;
         color: #333;
+        text-align: center;
+        font-weight: 500;
       }
 
       /* Medication card styles */
@@ -940,7 +948,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
 
       // Direct conversion tracking with loading animation
       function gtag_report_conversion(url) {
-        // Show loading overlay
+        // Create and show loading overlay
         const loadingOverlay = document.createElement('div');
         loadingOverlay.className = 'loading-overlay';
         loadingOverlay.innerHTML = \`
@@ -950,23 +958,55 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
           </div>
         \`;
         document.body.appendChild(loadingOverlay);
+        
+        // Force a reflow to ensure the overlay is rendered
+        loadingOverlay.offsetHeight;
         loadingOverlay.style.display = 'flex';
+        
+        // Add visible class after a small delay to trigger the fade-in animation
+        requestAnimationFrame(() => {
+          loadingOverlay.classList.add('visible');
+        });
 
-        var callback = function () {
-          if (typeof(url) != 'undefined') {
-            window.location = url;
+        // Create a promise to handle the conversion tracking
+        const trackConversion = new Promise((resolve) => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'conversion', {
+              'send_to': '${gtagAccount}/${gtagLabel}',
+              'event_callback': resolve
+            });
+          } else {
+            console.log("gtag not defined, resolving immediately");
+            resolve();
           }
-        };
+        });
 
-        if (typeof gtag === 'function') {
-          gtag('event', 'conversion', {
-            'send_to': '${gtagAccount}/${gtagLabel}',
-            'event_callback': callback
+        // Handle the redirect with proper timing
+        trackConversion
+          .then(() => {
+            // Ensure minimum display time of 800ms
+            const minDisplayTime = new Promise(resolve => setTimeout(resolve, 800));
+            return Promise.all([minDisplayTime]);
+          })
+          .then(() => {
+            // Remove visible class to trigger fade-out
+            loadingOverlay.classList.remove('visible');
+            
+            // Wait for fade-out animation to complete before redirecting
+            setTimeout(() => {
+              if (typeof(url) != 'undefined') {
+                window.location = url;
+              }
+            }, 300); // Match the transition duration
+          })
+          .catch(error => {
+            console.error('Error during conversion tracking:', error);
+            // Fallback redirect after error
+            if (typeof(url) != 'undefined') {
+              window.location = url;
+            }
           });
-        } else {
-          console.log("gtag not defined, redirecting directly.");
-          callback();
-        }
+
         return false;
       }
     </script>
