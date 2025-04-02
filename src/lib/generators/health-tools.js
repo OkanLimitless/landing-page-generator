@@ -938,20 +938,13 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
       gtag('js', new Date());
       gtag('config', '${gtagId}');
 
-      // Conversion tracking function with loading animation
+      // Direct conversion tracking without loading animation
       function gtag_report_conversion(url) {
-        // Show loading overlay
-        const loadingOverlay = document.getElementById('loading-overlay');
-        loadingOverlay.style.display = 'flex';
-
         gtag('event', 'conversion', {
           'send_to': '${gtagAccount}/${gtagLabel}',
           'event_callback': function() {
             if (url) {
-              // Add a small delay for better UX
-              setTimeout(function() {
-                window.location = url;
-              }, 800);
+              window.location = url;
             }
           }
         });
@@ -961,14 +954,6 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
     ` : ''}
   </head>
   <body class="font-sans">
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="loading-overlay">
-      <div class="text-center">
-        <div class="loading-spinner mx-auto"></div>
-        <div class="loading-text">Finding the best match for you...</div>
-      </div>
-    </div>
-
     ${navbar}
     
     <!-- Desktop View -->
@@ -1013,7 +998,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                 `).join('')}
               </div>
               <div class="flex justify-end items-center">
-                <a href="/redirect/${medications[0].name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}" 
+                <a href="${affiliateLink}" 
                    onclick="return gtag_report_conversion('${affiliateLink}');"
                    class="visit-site-btn bg-blue-600 hover:bg-blue-700">
                   Visit Site →
@@ -1050,7 +1035,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                     `).join('')}
                   </div>
                   <div class="flex justify-end items-center">
-                    <a href="/redirect/${med.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}" 
+                    <a href="${affiliateLink}" 
                        onclick="return gtag_report_conversion('${affiliateLink}');"
                        class="visit-site-btn bg-blue-600 hover:bg-blue-700">
                       Visit Site →
@@ -1107,7 +1092,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
 
       <!-- CTA Button -->
       <div class="flex justify-center mb-8">
-        <a href="/redirect/next-step"
+        <a href="${affiliateLink}"
            onclick="return gtag_report_conversion('${affiliateLink}');"
            class="next-step-btn bg-green-600 text-white px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-2">
           <span>NEXT STEP</span>
@@ -1144,7 +1129,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
                     </li>
                   `).join('')}
                 </ul>
-                <a href="/redirect/${med.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}" 
+                <a href="${affiliateLink}" 
                    onclick="return gtag_report_conversion('${affiliateLink}');" 
                    class="get-offer-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium w-full text-center shadow-sm">
                   Get Offer
@@ -1160,7 +1145,7 @@ export const generateTopTenWeightLossMeds = (brandName, navbar, footer, customSt
         <div class="container mx-auto px-4 text-center">
           <h2 class="text-3xl font-bold mb-6">Ready to start your weight loss journey?</h2>
           <p class="text-lg mb-8 max-w-2xl mx-auto">Join thousands of patients who have successfully lost weight with GLP-1 medications. Take the first step today!</p>
-          <a href="/redirect/take-quiz"
+          <a href="${affiliateLink}"
              onclick="return gtag_report_conversion('${affiliateLink}');"
              class="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center gap-2">
             Take the Quiz →
