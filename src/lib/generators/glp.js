@@ -1641,7 +1641,7 @@ const generateFooter = (brandName) => {
 
 
 // REFACTORED: Function to generate all additional pages (accepts navbar/footer)
-const generateAdditionalPages = (brandName, colorScheme, stylePrefix, customStyles, gtagId, navbarHTML, footerHTML) => {
+const generateAdditionalPages = (brandName, colorScheme, stylePrefix, customStyles, gtagId, navbarHTML, footerHTML, data) => {
 
   // Generate blog post pages
   const blogPostPages = {};
@@ -1656,47 +1656,9 @@ const generateAdditionalPages = (brandName, colorScheme, stylePrefix, customStyl
        title: "Rapid Weight Loss: Is It Safe?",
        image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
        excerpt: "Medical professionals weigh in on the dangers of fast weight loss programs and offer safer alternatives.",
-       externalUrl: "#", // Placeholder URL
+       externalUrl: "#",
        content: `
-         <h2>Is Rapid Weight Loss Ever Safe?</h2>
-         <p>Losing weight quickly can be tempting, but it often comes with risks. Rapid weight loss, typically defined as losing more than 1-2 pounds per week consistently, can lead to several health complications.</p>
-
-         <h3>Potential Risks of Rapid Weight Loss</h3>
-         <ul>
-           <li>Gallstones</li>
-           <li>Nutrient deficiencies</li>
-           <li>Muscle loss</li>
-           <li>Electrolyte imbalances</li>
-           <li>Dehydration</li>
-           <li>Fatigue and irritability</li>
-         </ul>
-
-         <h2>When Might Rapid Weight Loss Be Medically Supervised?</h2>
-         <p>In certain situations, such as severe obesity or before specific surgeries, a healthcare provider might recommend a very low-calorie diet (VLCD) for rapid weight loss under strict medical supervision. This is not suitable for most people and should never be attempted without professional guidance.</p>
-
-         <h2>Safer Alternatives</h2>
-         <p>For most individuals, a gradual approach focusing on sustainable lifestyle changes is safer and more effective for long-term weight management. This typically involves:</p>
-         <ul>
-           <li>A balanced, calorie-controlled diet</li>
-           <li>Regular physical activity</li>
-           <li>Behavioral changes</li>
-           <li>Adequate sleep</li>
-           <li>Stress management</li>
-         </ul>
-
-         <h2>Signs Your Weight Loss Might Be Too Fast</h2>
-         <p>Listen to your body. Signs that you might be losing weight too quickly include:</p>
-         <ul>
-           <li>Fatigue or weakness</li>
-           <li>Hair loss</li>
-           <li>Constant hunger or food obsession</li>
-           <li>Irregular menstrual cycles</li>
-           <li>Difficulty concentrating</li>
-           <li>Feeling cold frequently</li>
-           <li>Mood changes</li>
-         </ul>
-
-         <h2>Conclusion</h2>
+         <h2>The Truth About Rapid Weight Loss</h2>
          <p>While rapid weight loss may seem appealing, a slower, more sustainable approach is typically safer and more effective in the long run. Focus on developing healthy habits that you can maintain indefinitely rather than seeking quick fixes. Always consult with healthcare professionals before beginning any weight loss program, especially if you have existing health conditions.</p>
        `
      };
@@ -2049,7 +2011,7 @@ export const generateGLPPage = (data) => {
   `;
 
   // Pass navbarHTML and footerHTML to generateAdditionalPages
-  const additionalPages = generateAdditionalPages(brandName, colorScheme, stylePrefix, customStyles, gtagId, navbarHTML, footerHTML);
+  const additionalPages = generateAdditionalPages(brandName, colorScheme, stylePrefix, customStyles, gtagId, navbarHTML, footerHTML, data);
 
   return {
     'index.html': html,
