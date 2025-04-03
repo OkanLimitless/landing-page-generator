@@ -474,21 +474,21 @@ const Generator = () => {
     headline: '',
     description: '',
     thumbnailUrl: '',
+    ctaText: 'Watch FREE Video Guide Now',
     offerUrl: '',
     gtagId: '',
-    trackingScript: '',
-    ctaText: 'Watch FREE Video Guide Now'
+    trackingScript: ''
   });
 
   const [ecomFormData, setEcomFormData] = useState({
     productName: '',
+    buttonText: 'Buy Now',
+    language: 'en',
     features: '',
     productImages: '',
     offerUrl: '',
     gtagId: '',
-    trackingScript: '',
-    buttonText: 'Buy Now',
-    language: 'en'
+    trackingScript: ''
   });
 
   const [adultLanderFormData, setAdultLanderFormData] = useState({
@@ -522,17 +522,9 @@ const Generator = () => {
 
   // Add GLP form data state
   const [glpFormData, setGlpFormData] = useState({
-    brandName: 'GLP-1',
-    heroTitle: 'Transform Your Health Journey',
-    heroDescription: 'Discover science-backed nutrition advice, personalized diet plans, and expert guidance to help you achieve your weight and wellness goals.',
-    heroImageUrl: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-    backgroundImageUrl: 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-    ctaButtonText: 'Get Started',
+    brandName: '',
     targetUrl: 'https://hit.prowellnessroute.com/C5SxvyuMoC',
-    gtagId: '',
-    primaryColor: '#4f46e5',
-    newsletterHeading: 'Get Nutrition and Diet Tips in Your Inbox',
-    trackingScript: ''
+    gtagId: ''
   });
 
   // Load presets from localStorage on mount
