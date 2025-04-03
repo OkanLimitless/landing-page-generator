@@ -533,8 +533,7 @@ const Generator = () => {
     setLocalPresets(savedPresets);
   }, []);
 
-  // Remove the combination of presets and only use localPresets
-  const allPresets = localPresets;  // Changed from { ...contentPresets, ...localPresets }
+  const allPresets = localPresets;
 
   const generateRandomId = () => {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -732,20 +731,15 @@ const Generator = () => {
     setLocalPresets(updatedPresets);
   };
 
-  // Update presetOptions to only show custom presets
   const presetOptions = Object.keys(allPresets).map(key => ({
     value: key,
     label: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
-    isCustom: true  // All presets are now custom
+    isCustom: true
   }));
 
   const typeOptions = [
     { value: 'vsl', label: 'Video Sales Letter' },
     { value: 'ecom', label: 'E-commerce Product' },
-    { value: 'adult', label: 'Adult Lander' },
-    { value: 'quiz', label: 'ED Quiz' },
-    { value: 'tmates', label: 'TMates Weight Loss' },
-    { value: 'gutterLeads', label: 'Gutter Leads' },
     { value: 'glp', label: 'GLP Health Hub' }
   ];
 
@@ -850,34 +844,6 @@ const Generator = () => {
                 disabled={loading}
               >
                 E-commerce Page
-              </button>
-              <button 
-                className={`px-4 py-2 ${activeTab === 'quiz' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
-                onClick={() => setActiveTab('quiz')}
-                disabled={loading}
-              >
-                Quiz Form
-              </button>
-              <button 
-                className={`px-4 py-2 ${activeTab === 'adult' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
-                onClick={() => setActiveTab('adult')}
-                disabled={loading}
-              >
-                Adult Lander
-              </button>
-              <button 
-                className={`px-4 py-2 ${activeTab === 'tmates' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
-                onClick={() => setActiveTab('tmates')}
-                disabled={loading}
-              >
-                Weight Loss
-              </button>
-              <button 
-                className={`px-4 py-2 ${activeTab === 'gutterLeads' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
-                onClick={() => setActiveTab('gutterLeads')}
-                disabled={loading}
-              >
-                Gutter Leads
               </button>
               <button 
                 className={`px-4 py-2 ${activeTab === 'glp' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'}`}
